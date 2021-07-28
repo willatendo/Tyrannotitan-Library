@@ -5,9 +5,9 @@ issueTrackerURL="https://github.com/willatendo/Tyrannotitan-Library/issues"
 
 [[mods]]
 modId="tyrannotitanlib"
-version="1.0.0"
+version="v1-beta"
 displayName="Tyrannotitan Library"
-# updateJSONURL=""
+updateJSONURL="updateJSONURL="https://github.com/willatendo/Lost-Worlds/raw/Forge-1.16.5/updates.json"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/tyrannotitan-library-forge"
 logoFile="tyrannotitanlib.png"
 credit="Gecko, Eliot, AzureDoom (GeckoLib)"
