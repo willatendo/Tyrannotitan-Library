@@ -1,0 +1,32 @@
+modLoader="javafml"
+loaderVersion="[36,)"
+license="MIT"
+# issueTrackerURL=""
+
+[[mods]]
+modId="tyrannotitanlib"
+version="1.0.0"
+displayName="Tyrannotitan Library"
+# updateJSONURL=""
+displayURL="https://www.curseforge.com/minecraft/mc-mods/tyrannotitan-library-forge"
+logoFile="tyrannotitanlib.png"
+credit="Gecko, Eliot, AzureDoom (GeckoLib)"
+authors="Willatendo, Santispik3"
+
+description='''
+A library full of utilities for mods!
+'''
+
+[[dependencies.tyrannotitanlib]]
+    modId="forge" 
+    mandatory=true 
+    versionRange="[36,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.tyrannotitanlib]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.16.5,1.17)"
+    ordering="NONE"
+    side="BOTH"

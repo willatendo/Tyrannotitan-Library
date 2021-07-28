@@ -1,0 +1,226 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
+buildscript {
+    repositories {
+        maven { url = 'https://maven.minecraftforge.net/' }
+		maven { url = 'https://plugins.gradle.org/m2/' }
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '4.1.+', changing: true
+        classpath 'com.github.jengelman.gradle.plugins:shadow:4.0.4'
+        classpath 'gradle.plugin.com.matthewprenger:CurseGradle:1.4.0'
+    }
+}
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'eclipse'
+apply plugin: 'maven-publish'
+apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: 'java'
+apply plugin: 'com.matthewprenger.cursegradle'
+
+import groovy.json.JsonSlurper
+import groovy.json.JsonOutput
+
+version = '1.0.0'
+group = 'tyrannotitanlib'
+archivesBaseName = 'tyrannotitanlib'
+
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
+
+configurations {
+    shade
+}
+
+minecraft {
+    mappings channel:"official", version:"1.16.5"
+    
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+    
+    runs {
+        client {
+            workingDirectory project.file('run')
+            
+            property 'forge.logging.console.level', 'debug'
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${project.projectDir}/build/createSrgToMcp/output.srg"
+
+            mods {
+                tyrannotitanlib {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        server {
+            workingDirectory project.file('run')
+            
+            property 'forge.logging.console.level', 'debug'
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${project.projectDir}/build/createSrgToMcp/output.srg"
+            
+            mods {
+                tyrannotitanlib {
+                    source sourceSets.main
+                }
+            }
+        }
+        data {
+            workingDirectory project.file('run')
+            property 'forge.logging.console.level', 'debug'
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${project.projectDir}/build/createSrgToMcp/output.srg"
+
+            args '--mod', 'byg', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+
+            mods {
+                tyrannotitanlib {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
+}
+
+repositories {
+    maven { url 'https://repo.repsy.io/mvn/fadookie/particleman' }
+    maven { url 'https://maven.enginehub.org/repo/' }
+    maven { url 'https://maven.blamejared.com' }
+    maven {
+        name = "CurseForge"
+        url = "https://minecraft.curseforge.com/api/maven/"
+    }
+    jcenter()
+	maven {
+        name = "jitpack"
+        url "https://jitpack.io"
+    }
+
+    mavenCentral()
+}
+
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.16.5-36.2.2'
+    
+    compile 'com.eliotlash.molang:molang:SNAPSHOT.12'
+    compile 'com.eliotlash.mclib:mclib:SNAPSHOT.12'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.0'
+    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.9.0'
+    compile 'com.github.jengelman.gradle.plugins:shadow:4.0.4'
+	
+    shade 'com.eliotlash.molang:molang:SNAPSHOT.12'
+    shade 'com.eliotlash.mclib:mclib:SNAPSHOT.12'
+    shade group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.0'
+    shade group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.9.0'
+
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.6.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.2'
+
+    test {
+        useJUnitPlatform()
+    }
+}
+
+shadowJar {
+    configurations = [project.configurations.shade]
+    from sourceSets.main.allSource
+    relocate 'com.eliotlash', 'tyrannotitanlib.shadowed.eliotlash'
+    relocate 'com.fasterxml', 'tyrannotitanlib.shadowed.fasterxml'
+    classifier ''
+}
+
+
+reobf {
+    shadowJar {} // Reobfuscate the shadowed JAR
+}
+tasks.build.dependsOn reobfShadowJar
+publish.dependsOn('reobfJar')
+shadowJar.dependsOn('classes')
+jar.finalizedBy('reobfJar')
+
+jar {
+    manifest {
+        attributes([
+                "Specification-Title" : "TyrannotitanLib",
+                "Specification-Vendor" : "Willatendo",
+                "Specification-Version" : "1",
+                "Implementation-Title"    : project.name,
+                "Implementation-Version"  : "1.0.0",
+                "Implementation-Vendor"   : "Willatendo",
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
+}
+
+task packageSources(type: ShadowJar, dependsOn: 'classes') {
+    configurations = [project.configurations.shade]
+    from sourceSets.main.allSource
+    exclude('META-INF/**')
+    relocate 'com.eliotlash', 'tyrannotitanlib.shadowed.eliotlash'
+    relocate 'com.fasterxml', 'tyrannotitanlib.shadowed.fasterxml'
+    classifier = 'sources'
+}
+
+artifacts {
+    archives shadowJar
+    archives packageSources
+}
+
+afterEvaluate {
+    publish.dependsOn('reobfShadowJar')
+    publish.dependsOn('reobfJar')
+    publish.dependsOn('packageSources')
+    shadowJar.dependsOn(packageSources)
+    shadowJar.dependsOn('classes')
+}
+
+shadowJar.finalizedBy(reobfShadowJar)
+jar.finalizedBy(packageSources)
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact shadowJar
+            artifact packageSources
+            artifactId = 'tyrannotitanlib'
+        }
+    }
+}
+
+processResources {
+	doLast {
+        def jsonMinifyStart = System.currentTimeMillis()
+        def jsonMinified = 0
+        def jsonBytesSaved = 0
+        fileTree(dir: outputs.files.asPath, include: '**/*.json').each { 
+            File file = it
+            jsonMinified++
+            def oldLength = file.length()
+            file.text = JsonOutput.toJson(new JsonSlurper().parse(file))
+            jsonBytesSaved += oldLength - file.length()
+        }
+        println('Minified ' + jsonMinified + ' json files. Saved ' + jsonBytesSaved + ' bytes. Took ' + (System.currentTimeMillis() - jsonMinifyStart) + 'ms.')
+    }
+}
+
+if (file('key.properties').exists()) {
+    curseforge {
+        def curseProp = new Properties()
+        File secretPropsFile = file("key.properties")
+        curseProp.load(secretPropsFile.newInputStream())
+
+        project {
+            apiKey = curseProp.getProperty('curseKey')
+            id = "388172"
+            releaseType = "release"
+            changelogType = 'text'
+            changelog = file('changelog.txt')
+            addGameVersion("1.16.5")
+            addGameVersion("Forge")
+            addGameVersion("Java 8")
+        }
+    }
+}

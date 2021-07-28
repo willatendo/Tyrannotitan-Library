@@ -1,0 +1,17 @@
+{
+	"required": true,
+	"package": "tyrannotitanlib.library.mixins",
+	"compatibilityLevel": "JAVA_8",
+	"minVersion": "0.8",
+	"refmap": "tyrannotitanlib.refmap.json",
+	"mixins": [
+		"IItemInvokerMixin",
+		"SpawnEggAlphabeticalFixMixin",
+		"TrapdoorLadderFixMixin"
+	],
+	"client": [
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}
