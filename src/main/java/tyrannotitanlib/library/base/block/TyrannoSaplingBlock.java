@@ -8,17 +8,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import tyrannotitanlib.content.server.tags.TyrannoBlockTags;
 
-/*
- * This simply makes it so we can add to the placeable blocks for a mod SaplingBlock.
- * 
- * ---
- * 
- * Author: Willatendo
- * 
- * Creation Date: July 24, 2021
- * Final Edit Date: July 24, 2021
- */
-
 public class TyrannoSaplingBlock extends SaplingBlock
 {
 	public TyrannoSaplingBlock(final Tree tree, final Properties properties) 

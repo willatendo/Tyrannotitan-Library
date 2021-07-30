@@ -8,17 +8,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 
-/*
- * This simply makes it so the block requires ground inorder to be placed.
- * 
- * ---
- * 
- * Author: Willatendo
- * 
- * Creation Date: July 24, 2021
- * Final Edit Date: July 24, 2021
- */
-
 public class TyrannoRequiresGroundBlock extends Block
 {
 	public TyrannoRequiresGroundBlock(Properties properties) 

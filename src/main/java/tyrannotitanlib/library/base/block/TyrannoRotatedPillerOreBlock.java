@@ -8,17 +8,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IWorldReader;
 
-/*
- * This makes it so you can add an xp drop to an ore, as well as make it able to be placed on an axis.
- * 
- * ---
- * 
- * Author: Willatendo
- * 
- * Creation Date: July 24, 2021
- * Final Edit Date: July 24, 2021
- */
-
 public class TyrannoRotatedPillerOreBlock extends RotatedPillarBlock
 {
 	public final int minXPDrop;

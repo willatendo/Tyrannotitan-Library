@@ -22,19 +22,6 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import tyrannotitanlib.library.base.util.TyrannoBlockStateProperties;
 
-/*
- * This simply makes it easy to make a machine block.
- * 
- * Override use, setPlaceBy, and onRemove and fill it in.
- * 
- * ---
- * 
- * Author: Willatendo
- * 
- * Creation Date: July 24, 2021
- * Final Edit Date: July 24, 2021
- */
-
 public abstract class TyrannoMachineBlock extends Block implements ITileEntityProvider
 {
 	public static final DirectionProperty HORIZONTAL_FACING = BlockStateProperties.HORIZONTAL_FACING;

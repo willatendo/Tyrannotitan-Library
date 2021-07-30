@@ -14,19 +14,6 @@ import net.minecraft.world.lighting.LightEngine;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.IPlantable;
 
-/*
- * This simply makes it so we can make a grass block a lot easier.
- * 
- * To add things on it on a bonemeal, make a block that implements IGrowable
- * 
- * ---
- * 
- * Author: Willatendo
- * 
- * Creation Date: July 24, 2021
- * Final Edit Date: July 24, 2021
- */
-
 public class TyrannoGrassBlock extends Block
 {
 	private static Block dirt;

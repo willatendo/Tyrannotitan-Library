@@ -14,12 +14,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
-import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.common.util.NonNullSupplier;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
-import tyrannotitanlib.library.base.util.TyrannoUtils;
 
 /*
  * This is a SpawnEggItem class that makes a SpawnEggItem and gives it a ItemGroup, and name without too much trouble.
@@ -39,29 +37,20 @@ public class TyrannoSpawnEggItem extends SpawnEggItem
 {
 	protected static final List<TyrannoSpawnEggItem> UNADDED_EGGS = new ArrayList<TyrannoSpawnEggItem>();
 	private final Lazy<? extends EntityType<?>> entityTypeSupplier;
-	private String itemName;
 
 	//Use this constructor when creating spawn eggs
-	public TyrannoSpawnEggItem(final String name, final Properties properties, final NonNullSupplier<? extends EntityType<?>> entityTypeSupplier, final int primaryColour, final int secondaryColour) 
+	public TyrannoSpawnEggItem(final Properties properties, final NonNullSupplier<? extends EntityType<?>> entityTypeSupplier, final int primaryColour, final int secondaryColour) 
 	{
 		super(null, primaryColour, secondaryColour, properties.tab(ItemGroup.TAB_MISC));
 		this.entityTypeSupplier = Lazy.of(entityTypeSupplier::get);
-		this.itemName = name;
 		UNADDED_EGGS.add(this);
 	}
 
-	public TyrannoSpawnEggItem(final String name, final Properties properties, final RegistryObject<? extends EntityType<?>> entityTypeSupplier, final int primaryColour, final int secondaryColour) 
+	public TyrannoSpawnEggItem(final Properties properties, final RegistryObject<? extends EntityType<?>> entityTypeSupplier, final int primaryColour, final int secondaryColour) 
 	{
 		super(null, primaryColour, secondaryColour, properties.tab(ItemGroup.TAB_MISC));
 		this.entityTypeSupplier = Lazy.of(entityTypeSupplier::get);
-		this.itemName = name;
 		UNADDED_EGGS.add(this);
-	}
-	
-	@Override
-	public ITextComponent getName(ItemStack stack) 
-	{
-		return TyrannoUtils.sTC(itemName);
 	}
 
 	//Registers Dispenser Behaviour

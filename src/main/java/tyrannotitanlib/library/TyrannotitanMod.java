@@ -1,7 +1,9 @@
 package tyrannotitanlib.library;
 
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.DistExecutor;
+import tyrannotitanlib.library.base.block.TyrannoLogBlock;
 import tyrannotitanlib.library.base.item.TyrannoSpawnEggItem;
 import tyrannotitanlib.library.tyrannomation.network.TyrannomationNetwork;
 import tyrannotitanlib.library.tyrannomation.resource.ResourceListener;
@@ -16,6 +18,14 @@ public class TyrannotitanMod
 	public static void initBasicFeatures(String modId)
 	{
 		id = modId;
+		DeferredWorkQueue.runLater(() -> 
+		{
+			TyrannoLogBlock.addStripping();
+		});
+	}
+	
+	public static void initSpawnEggs(String modId)
+	{
 		TyrannoSpawnEggItem.initSpawnEggs();
 	}
 	

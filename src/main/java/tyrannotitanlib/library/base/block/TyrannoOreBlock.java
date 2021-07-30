@@ -5,17 +5,6 @@ import java.util.Random;
 import net.minecraft.block.OreBlock;
 import net.minecraft.util.math.MathHelper;
 
-/*
- * This makes it so you can add an xp drop to an ore.
- * 
- * ---
- * 
- * Author: Willatendo
- * 
- * Creation Date: July 24, 2021
- * Final Edit Date: July 24, 2021
- */
-
 public class TyrannoOreBlock extends OreBlock
 {
 	public final int minXPDrop;

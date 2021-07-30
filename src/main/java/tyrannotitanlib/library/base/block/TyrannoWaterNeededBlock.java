@@ -14,17 +14,6 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.FarmlandWaterManager;
 import net.minecraftforge.common.IPlantable;
 
-/*
- * This makes it so you can make some sork of block that will transform into another with water.
- * 
- * ---
- * 
- * Author: Willatendo
- * 
- * Creation Date: July 24, 2021
- * Final Edit Date: July 24, 2021
- */
-
 public class TyrannoWaterNeededBlock extends Block
 {
 	private static Block turnToBlock;

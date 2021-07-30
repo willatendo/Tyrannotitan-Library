@@ -16,11 +16,11 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 
-public class TyrannoQuintuplePlantBlock extends TyrannoBushBlock
+public class TyrannoQuintupleBushBlock extends TyrannoBushBlock
 {
 	public static final IntegerProperty LAYER = IntegerProperty.create("layer", 0, 4);
 
-	public TyrannoQuintuplePlantBlock(Properties properties) 
+	public TyrannoQuintupleBushBlock(Properties properties) 
 	{
 		super(properties);
 	}

@@ -16,6 +16,6 @@ public class TyrannotitanLibrary
 	{
 		final IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 		REGISTRY.register(bus);
-		TyrannotitanMod.initBasicFeatures(TyrannoUtils.TYRANNO_ID);
+		TyrannotitanMod.initBasicFeatures("test");
 	}
 }
