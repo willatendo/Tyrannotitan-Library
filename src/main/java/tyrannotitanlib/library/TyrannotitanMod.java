@@ -11,11 +11,11 @@ import tyrannotitanlib.library.tyrannomation.resource.ResourceListener;
 public class TyrannotitanMod 
 {
 	public static volatile boolean hasInitialized;
-	
-	public static String id;	
-	
-	//Basic Features
-	public static void initBasicFeatures(String modId)
+
+	public static String id;
+
+	// Basic Features
+	public static void initBasicFeatures(String modId) 
 	{
 		id = modId;
 		DeferredWorkQueue.runLater(() -> 
@@ -23,15 +23,15 @@ public class TyrannotitanMod
 			TyrannoLogBlock.addStripping();
 		});
 	}
-	
-	public static void initSpawnEggs(String modId)
+
+	// Spawn Eggs
+	public static void initSpawnEggs(String modId) 
 	{
 		TyrannoSpawnEggItem.initSpawnEggs();
 	}
-	
-	//Tyrannomation
-	public static void initTyrannomation(String modId)
-	{
+
+	// Tyrannomation
+	public static void initTyrannomation(String modId) {
 		if(!hasInitialized) 
 		{
 			DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> ResourceListener::registerReloadListener);
@@ -39,4 +39,23 @@ public class TyrannotitanMod
 		}
 		hasInitialized = true;
 	}
+
+	// Tyrannotextures
+//	public void initTyrannotextures(String modId) 
+//	{
+//		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> 
+//		{
+//			IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
+//			modBus.addListener(this::modelRegistry);
+//			modBus.register(TextureMetadataHandler.INSTANCE);
+//			modBus.register(new CTMPackReloadListener());
+//
+//			TextureTypeRegistry.scan();
+//		});
+//	}
+
+//	private void modelRegistry(ModelRegistryEvent event) 
+//	{
+//		ModelLoaderRegistry.registerLoader(TyrannoUtils.rL("tyrannotextures"), ModelLoaderCTM.INSTANCE);
+//	}
 }
