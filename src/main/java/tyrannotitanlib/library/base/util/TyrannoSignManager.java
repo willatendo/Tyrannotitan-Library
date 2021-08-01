@@ -9,14 +9,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 /*
- * Used to make WoodTypes and make them use your modid.
- * 
- * ---
- * 
- * Author: Willatendo
- * 
- * Creation Date: July 24, 2021
- * Final Edit Date: July 24, 2021
+ * Makes a custom WoodType for a sign with the ModId. (@TeamAbnormals)
  */
 
 public final class TyrannoSignManager 

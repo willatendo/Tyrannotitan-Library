@@ -15,6 +15,10 @@ import net.minecraft.world.gen.feature.jigsaw.JigsawPiece;
 import net.minecraft.world.gen.feature.template.ProcessorLists;
 import net.minecraft.world.gen.feature.template.StructureProcessorList;
 
+/*
+ * Used to add structures to villages (@Willatendo)
+ */
+
 public class TyrannoJigsawHelper 
 {
 	public static void registerJigsaw(MinecraftServer server, ResourceLocation poolLocation, ResourceLocation nbtLocation, int weight) 

@@ -9,17 +9,6 @@ import net.minecraft.util.LazyValue;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 
-/*
- * This makes it easy to make an armour material.
- * 
- * ---
- * 
- * Author: Willatendo
- * 
- * Creation Date: July 24, 2021
- * Final Edit Date: July 24, 2021
- */
-
 public class TyrannoArmourTeir implements IArmorMaterial
 {
 	private static final int[] MAX_SLOT_DAMAGE = new int[]{13, 15, 16, 11};

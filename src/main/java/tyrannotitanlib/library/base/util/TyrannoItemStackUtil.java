@@ -8,6 +8,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import tyrannotitanlib.library.mixins.IItemInvokerMixin;
 
+/*
+ * (@TeamAbnormals)
+ */
+
 public class TyrannoItemStackUtil 
 {
 	private static final String[] M_NUMERALS = { "", "M", "MM", "MMM" };

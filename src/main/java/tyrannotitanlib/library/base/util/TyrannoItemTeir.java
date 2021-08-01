@@ -7,14 +7,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.LazyValue;
 
 /*
- * This makes it easy to make a item material.
- * 
- * ---
- * 
- * Author: Willatendo
- * 
- * Creation Date: July 24, 2021
- * Final Edit Date: July 24, 2021
+ * A small class to make a item teir without an enum. (@TeamAbnormals)
  */
 
 public class TyrannoItemTeir implements IItemTier

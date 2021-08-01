@@ -4,6 +4,10 @@ import java.util.Locale;
 
 import net.minecraft.tileentity.BannerPattern;
 
+/*
+ * Creates a new banner pattern. (@TeamAbnormals)
+ */
+
 public class TyrannoBannerUtil 
 {
 	public static BannerPattern createPattern(String name, String id) 

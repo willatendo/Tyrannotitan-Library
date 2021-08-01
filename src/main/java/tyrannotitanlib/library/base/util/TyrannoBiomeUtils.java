@@ -27,6 +27,10 @@ import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.gen.INoiseRandom;
 import tyrannotitanlib.library.base.util.interfaces.ITyrannoEdgeBiomeProvider;
 
+/*
+ * Filled with utils when creating a biome. (@TeamAbnormals)
+ */
+
 public final class TyrannoBiomeUtils 
 {
 	private static final Map<RegistryKey<Biome>, WeightedNoiseList<RegistryKey<Biome>>> HILL_BIOME_MAP = new HashMap<>();

@@ -14,6 +14,6 @@ import tyrannotitanlib.library.base.util.registry.registries.TyrannoEntityRegist
 public class TyrannoEntities 
 {
 	private static final TyrannoEntityRegister HELPER = TyrannotitanLibrary.REGISTRY.entityHelper();
-	
+
 	public static final RegistryObject<EntityType<TyrannoBoatEntity>> BOAT = HELPER.build("boat", TyrannoBoatEntity::new, EntityClassification.MISC, TyrannoBoatEntity.class, 1.375F, 0.5625F);
 }

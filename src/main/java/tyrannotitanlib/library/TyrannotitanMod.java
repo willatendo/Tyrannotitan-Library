@@ -8,32 +8,27 @@ import tyrannotitanlib.library.base.item.TyrannoSpawnEggItem;
 import tyrannotitanlib.library.tyrannomation.network.TyrannomationNetwork;
 import tyrannotitanlib.library.tyrannomation.resource.ResourceListener;
 
-public class TyrannotitanMod 
-{
+public class TyrannotitanMod {
 	public static volatile boolean hasInitialized;
 
 	public static String id;
 
 	// Basic Features
-	public static void initBasicFeatures(String modId) 
-	{
+	public static void initBasicFeatures(String modId) {
 		id = modId;
-		DeferredWorkQueue.runLater(() -> 
-		{
+		DeferredWorkQueue.runLater(() -> {
 			TyrannoLogBlock.addStripping();
 		});
 	}
 
 	// Spawn Eggs
-	public static void initSpawnEggs(String modId) 
-	{
+	public static void initSpawnEggs(String modId) {
 		TyrannoSpawnEggItem.initSpawnEggs();
 	}
 
 	// Tyrannomation
 	public static void initTyrannomation(String modId) {
-		if(!hasInitialized) 
-		{
+		if (!hasInitialized) {
 			DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> ResourceListener::registerReloadListener);
 			TyrannomationNetwork.initialize();
 		}

@@ -3,14 +3,7 @@ package tyrannotitanlib.library.base.util;
 import net.minecraft.state.BooleanProperty;
 
 /*
- * A couple of block state properties.
- * 
- * ---
- * 
- * Author: Willatendo
- * 
- * Creation Date: July 24, 2021
- * Final Edit Date: July 24, 2021
+ * A couple of simple blockstates (@Willatendo)
  */
 
 public class TyrannoBlockStateProperties 

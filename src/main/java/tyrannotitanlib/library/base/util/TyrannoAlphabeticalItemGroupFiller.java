@@ -9,6 +9,10 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import tyrannotitanlib.library.base.util.interfaces.IItemGroupFiller;
 
+/*
+ * Makes it so the spawn eggs appear correctly in the misc tab. (@TeamAbnormals)
+ */
+
 public class TyrannoAlphabeticalItemGroupFiller implements IItemGroupFiller 
 {
 	private final Predicate<Item> shouldInclude;

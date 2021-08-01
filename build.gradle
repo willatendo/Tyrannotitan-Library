@@ -29,7 +29,7 @@ version = '1.0.0'
 group = 'tyrannotitanlib'
 archivesBaseName = 'tyrannotitanlib'
 
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
+java.toolchain.languageVersion = JavaLanguageVersion.of(8)
 
 configurations {
     shade
@@ -85,6 +85,8 @@ minecraft {
     }
 }
 
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
 repositories {
     maven { url 'https://repo.repsy.io/mvn/fadookie/particleman' }
     maven { url 'https://maven.enginehub.org/repo/' }
@@ -136,12 +138,15 @@ shadowJar {
 
 
 reobf {
-    shadowJar {} // Reobfuscate the shadowed JAR
+    shadowJar {}
 }
+
 tasks.build.dependsOn reobfShadowJar
 publish.dependsOn('reobfJar')
 shadowJar.dependsOn('classes')
 jar.finalizedBy('reobfJar')
+
+shadowJar.finalizedBy(reobfShadowJar)
 
 jar {
     manifest {
@@ -157,72 +162,22 @@ jar {
     }
 }
 
-task packageSources(type: ShadowJar, dependsOn: 'classes') {
-    configurations = [project.configurations.shade]
-    from sourceSets.main.allSource
-    exclude('META-INF/**')
-    relocate 'com.eliotlash', 'tyrannotitanlib.shadowed.eliotlash'
-    relocate 'com.fasterxml', 'tyrannotitanlib.shadowed.fasterxml'
-    classifier = 'sources'
-}
-
 artifacts {
     archives shadowJar
-    archives packageSources
 }
 
 afterEvaluate {
     publish.dependsOn('reobfShadowJar')
     publish.dependsOn('reobfJar')
-    publish.dependsOn('packageSources')
-    shadowJar.dependsOn(packageSources)
     shadowJar.dependsOn('classes')
 }
 
-shadowJar.finalizedBy(reobfShadowJar)
-jar.finalizedBy(packageSources)
 
 publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifact shadowJar
-            artifact packageSources
+	publications {
+		mavenJava(MavenPublication) {
+			artifact shadowJar
             artifactId = 'tyrannotitanlib'
-        }
-    }
-}
-
-processResources {
-	doLast {
-        def jsonMinifyStart = System.currentTimeMillis()
-        def jsonMinified = 0
-        def jsonBytesSaved = 0
-        fileTree(dir: outputs.files.asPath, include: '**/*.json').each { 
-            File file = it
-            jsonMinified++
-            def oldLength = file.length()
-            file.text = JsonOutput.toJson(new JsonSlurper().parse(file))
-            jsonBytesSaved += oldLength - file.length()
-        }
-        println('Minified ' + jsonMinified + ' json files. Saved ' + jsonBytesSaved + ' bytes. Took ' + (System.currentTimeMillis() - jsonMinifyStart) + 'ms.')
-    }
-}
-
-if (file('key.properties').exists()) {
-    curseforge {
-        def curseProp = new Properties()
-        File secretPropsFile = file("key.properties")
-        curseProp.load(secretPropsFile.newInputStream())
-
-        project {
-            apiKey = curseProp.getProperty('curseKey')
-            id = "388172"
-            releaseType = "release"
-            changelogType = 'text'
-            changelog = file('changelog.txt')
-            addGameVersion("1.16.5")
-            addGameVersion("Forge")
-            addGameVersion("Java 8")
-        }
-    }
+		}
+	}
 }
