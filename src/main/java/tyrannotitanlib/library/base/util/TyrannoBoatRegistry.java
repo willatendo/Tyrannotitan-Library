@@ -11,7 +11,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
-import net.minecraftforge.fml.RegistryObject;
 import tyrannotitanlib.library.base.util.TyrannoBoatRegistry.BoatData.DefaultBoatData;
 
 /*
@@ -25,7 +24,7 @@ public class TyrannoBoatRegistry
 		entries.put("minecraft:oak", new DefaultBoatData());
 	});
 
-	public static synchronized void registerBoat(String boatName, RegistryObject<Item> boat, RegistryObject<Block> plank) 
+	public static synchronized void registerBoat(String boatName, Item boat, Block plank) 
 	{
 		BOATS.put(boatName, new BoatData(boat, plank, boatName));
 	}
@@ -55,11 +54,11 @@ public class TyrannoBoatRegistry
 
 	public static class BoatData 
 	{
-		private final RegistryObject<Item> boat;
-		private final RegistryObject<Block> plank;
+		private final Item boat;
+		private final Block plank;
 		private final ResourceLocation texture;
 
-		public BoatData(RegistryObject<Item> boat, RegistryObject<Block> plank, String texture) 
+		public BoatData(Item boat, Block plank, String texture) 
 		{
 			this.boat = boat;
 			this.plank = plank;
@@ -68,12 +67,12 @@ public class TyrannoBoatRegistry
 
 		public Item getBoatItem() 
 		{
-			return this.boat.get();
+			return this.boat;
 		}
 
 		public Item getPlankItem() 
 		{
-			return this.plank.get().asItem();
+			return this.plank.asItem();
 		}
 		
 		public ResourceLocation getTexture() 

@@ -5,7 +5,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.Properties;
 import net.minecraftforge.common.util.NonNullSupplier;
-import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import tyrannotitanlib.library.base.item.TyrannoBoatItem;
@@ -26,20 +25,21 @@ public class TyrannoItemRegister extends AbstractTyrannoRegistry<Item>
 		super(registry, DeferredRegister.create(ForgeRegistries.ITEMS, registry.getModId()));
 	}
 	
-	public <I extends Item> RegistryObject<I> build(String id, I item)
+	private Item build(String id, Item item)
 	{
-		return this.deferredRegister.register(id, () -> item);
+		this.deferredRegister.register(id, () -> item);
+		return item;
 	}
 	
-	public RegistryObject<TyrannoSpawnEggItem> createSpawnEggItem(String id, Properties properties, NonNullSupplier<EntityType<?>> supplier, int primaryColor, int secondaryColor) 
+	public Item createSpawnEggItem(String id, Properties properties, NonNullSupplier<EntityType<?>> supplier, int primaryColor, int secondaryColor) 
 	{
 		return build(id, new TyrannoSpawnEggItem(properties, supplier, primaryColor, secondaryColor));
 	}
 	
-	public RegistryObject<Item> createBoat(String wood, RegistryObject<Block> plank, Properties properties) 
+	public Item createBoat(String woodName, Block plank, Properties properties) 
 	{
-		String type = this.registry.getModId() + ":" + wood;
-		RegistryObject<Item> boat = build(wood + "_boat", new TyrannoBoatItem(type, properties.stacksTo(1)));
+		String type = this.registry.getModId() + ":" + woodName;
+		Item boat = build(woodName + "_boat", new TyrannoBoatItem(type, properties.stacksTo(1)));
 		TyrannoBoatRegistry.registerBoat(type, boat, plank);
 		return boat;
 	}
