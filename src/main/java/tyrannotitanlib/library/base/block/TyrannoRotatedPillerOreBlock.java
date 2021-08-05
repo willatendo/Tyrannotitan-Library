@@ -13,7 +13,7 @@ public class TyrannoRotatedPillerOreBlock extends RotatedPillarBlock
 	public final int minXPDrop;
 	public final int maxXPDrop;
 	
-	public TyrannoRotatedPillerOreBlock(final Properties properties, final int minXPDrop, final int maxXPDrop) 
+	public TyrannoRotatedPillerOreBlock(Properties properties, int minXPDrop, int maxXPDrop) 
 	{
 		super(properties);
 		this.minXPDrop = minXPDrop;

@@ -19,34 +19,20 @@ import net.minecraftforge.common.util.NonNullSupplier;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
-/*
- * This is a SpawnEggItem class that makes a SpawnEggItem and gives it a ItemGroup, and name without too much trouble.
- * To change the name in another language, use the name that you set.
- * 
- * In your item class, make a register that fills in the ItemGroup.
- * 
- * ---
- * 
- * Author: Willatendo
- * 
- * Creation Date: July 24, 2021
- * Final Edit Date: July 24, 2021
- */
-
 public class TyrannoSpawnEggItem extends SpawnEggItem
 {
 	protected static final List<TyrannoSpawnEggItem> UNADDED_EGGS = new ArrayList<TyrannoSpawnEggItem>();
 	private final Lazy<? extends EntityType<?>> entityTypeSupplier;
 
 	//Use this constructor when creating spawn eggs
-	public TyrannoSpawnEggItem(final Properties properties, final NonNullSupplier<? extends EntityType<?>> entityTypeSupplier, final int primaryColour, final int secondaryColour) 
+	public TyrannoSpawnEggItem(NonNullSupplier<? extends EntityType<?>> entityTypeSupplier, int primaryColour, int secondaryColour, Properties properties) 
 	{
 		super(null, primaryColour, secondaryColour, properties.tab(ItemGroup.TAB_MISC));
 		this.entityTypeSupplier = Lazy.of(entityTypeSupplier::get);
 		UNADDED_EGGS.add(this);
 	}
 
-	public TyrannoSpawnEggItem(final Properties properties, final RegistryObject<? extends EntityType<?>> entityTypeSupplier, final int primaryColour, final int secondaryColour) 
+	public TyrannoSpawnEggItem(RegistryObject<? extends EntityType<?>> entityTypeSupplier, int primaryColour, int secondaryColour, Properties properties) 
 	{
 		super(null, primaryColour, secondaryColour, properties.tab(ItemGroup.TAB_MISC));
 		this.entityTypeSupplier = Lazy.of(entityTypeSupplier::get);

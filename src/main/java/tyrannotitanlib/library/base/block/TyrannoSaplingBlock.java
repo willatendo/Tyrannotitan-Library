@@ -10,7 +10,7 @@ import tyrannotitanlib.content.server.tags.TyrannoBlockTags;
 
 public class TyrannoSaplingBlock extends SaplingBlock
 {
-	public TyrannoSaplingBlock(final Tree tree, final Properties properties) 
+	public TyrannoSaplingBlock(Tree tree, Properties properties) 
 	{
 		super(tree, properties);
 	}

@@ -18,7 +18,7 @@ public class TyrannoWaterNeededBlock extends Block
 {
 	private static Block turnToBlock;
 	
-	public TyrannoWaterNeededBlock(final Properties properties, final Block turnIntoBlock) 
+	public TyrannoWaterNeededBlock(Properties properties, Block turnIntoBlock) 
 	{
 		super(properties.randomTicks());
 		turnToBlock = turnIntoBlock;

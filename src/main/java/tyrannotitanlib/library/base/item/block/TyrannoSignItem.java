@@ -7,20 +7,6 @@ import net.minecraft.item.SignItem;
 import net.minecraft.util.text.ITextComponent;
 import tyrannotitanlib.library.base.util.TyrannoUtils;
 
-/*
- * This is a SignItem class that gives a SignItem a burn time, ItemGroup, and name without too much trouble.
- * To change the name in another language, use the name that you set.
- * 
- * In your item class, make a register that fills in the ItemGroup.
- * 
- * ---
- * 
- * Author: Willatendo
- * 
- * Creation Date: July 24, 2021
- * Final Edit Date: July 24, 2021
- */
-
 public class TyrannoSignItem extends SignItem
 {
 	private String itemName;

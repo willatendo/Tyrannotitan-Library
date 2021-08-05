@@ -18,7 +18,7 @@ public class TyrannoGrassBlock extends Block
 {
 	private static Block dirt;
 	
-	public TyrannoGrassBlock(final Properties properties, final Block dirtBlock) 
+	public TyrannoGrassBlock(Properties properties, Block dirtBlock) 
 	{
 		super(properties.randomTicks());
 		dirt = dirtBlock;

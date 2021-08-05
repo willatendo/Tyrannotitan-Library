@@ -12,25 +12,11 @@ import net.minecraft.world.server.ServerWorld;
 import tyrannotitanlib.library.base.util.TyrannoTeleporter;
 import tyrannotitanlib.library.base.util.TyrannoUtils;
 
-/*
- * This is a Item class that makes a Item and gives it a ItemGroup, and name without too much trouble as well as makes it so, upon a left click, it telports to a World.
- * To change the name in another language, use the name that you set.
- * 
- * In your item class, make a register that fills in the ItemGroup.
- * 
- * ---
- * 
- * Author: Willatendo
- * 
- * Creation Date: July 24, 2021
- * Final Edit Date: July 24, 2021
- */
-
 public class TyrannoTeleportItem extends Item
 {
 	public RegistryKey<World> teleportToWorld;
 	
-	public TyrannoTeleportItem(final Properties properties, final RegistryKey<World> teleportToWorld) 
+	public TyrannoTeleportItem(Properties properties, RegistryKey<World> teleportToWorld) 
 	{
 		super(properties);
 		this.teleportToWorld = teleportToWorld;

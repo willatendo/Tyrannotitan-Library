@@ -25,7 +25,7 @@ public class TyrannoItemRegister extends AbstractTyrannoRegistry<Item>
 		super(registry, DeferredRegister.create(ForgeRegistries.ITEMS, registry.getModId()));
 	}
 	
-	private Item build(String id, Item item)
+	public Item build(String id, Item item)
 	{
 		this.deferredRegister.register(id, () -> item);
 		return item;
@@ -33,7 +33,7 @@ public class TyrannoItemRegister extends AbstractTyrannoRegistry<Item>
 	
 	public Item createSpawnEggItem(String id, Properties properties, NonNullSupplier<EntityType<?>> supplier, int primaryColor, int secondaryColor) 
 	{
-		return build(id, new TyrannoSpawnEggItem(properties, supplier, primaryColor, secondaryColor));
+		return build(id, new TyrannoSpawnEggItem(supplier, primaryColor, secondaryColor, properties));
 	}
 	
 	public Item createBoat(String woodName, Block plank, Properties properties) 

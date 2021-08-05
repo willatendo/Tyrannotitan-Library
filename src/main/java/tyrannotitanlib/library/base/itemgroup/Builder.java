@@ -1,23 +1,29 @@
 package tyrannotitanlib.library.base.itemgroup;
 
+import net.minecraft.block.Block;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import tyrannotitanlib.library.TyrannotitanMod;
 
 public class Builder extends ItemGroup
 {
-	public ItemStack icon;
+	public ItemStack itemIcon;
 	
-	public Builder(String id, ItemStack icon) 
+	public Builder(String tabId, ItemStack itemIcon) 
 	{	
-		super(TyrannotitanMod.id + "." + id);
+		super(TyrannotitanMod.id + "." + tabId);
 
-		this.icon = icon;
+		this.itemIcon = itemIcon;
 	}
-
+	
+	public Builder(String tabId, Block blockIcon)
+	{
+		this(tabId, blockIcon.asItem().getDefaultInstance());
+	}
+	
 	@Override
 	public ItemStack makeIcon() 
 	{
-		return icon;
+		return itemIcon;
 	}
 }
