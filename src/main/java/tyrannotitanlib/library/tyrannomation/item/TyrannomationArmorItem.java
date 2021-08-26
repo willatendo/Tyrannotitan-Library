@@ -11,7 +11,7 @@ import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import tyrannotitanlib.library.tyrannomation.renderers.tyranno.TyrannomationArmorRenderer;
+import tyrannotitanlib.library.tyrannomation.renderers.TyrannomationArmorRenderer;
 
 public abstract class TyrannomationArmorItem extends ArmorItem 
 {

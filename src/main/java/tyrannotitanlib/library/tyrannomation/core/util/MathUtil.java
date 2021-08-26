@@ -4,11 +4,11 @@ import java.util.function.Function;
 
 import tyrannotitanlib.library.tyrannomation.core.easing.EasingManager;
 import tyrannotitanlib.library.tyrannomation.core.easing.EasingType;
-import tyrannotitanlib.library.tyrannomation.core.keyframe.AnimationPoint;
+import tyrannotitanlib.library.tyrannomation.core.keyframe.TyrannomationPoint;
 
 public class MathUtil
 {
-	public static float lerpValues(AnimationPoint animationPoint, EasingType easingType, Function<Double, Double> customEasingMethod)
+	public static float lerpValues(TyrannomationPoint animationPoint, EasingType easingType, Function<Double, Double> customEasingMethod)
 	{
 		if(animationPoint.currentTick >= animationPoint.animationEndTick)
 		{

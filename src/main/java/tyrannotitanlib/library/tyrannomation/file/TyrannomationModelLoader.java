@@ -17,7 +17,7 @@ public class TyrannomationModelLoader
 	{
 		try 
 		{
-			RawTyrannomationModel rawModel = Converter.fromJsonString(AnimationFileLoader.getResourceAsString(location, resourceManager));
+			RawTyrannomationModel rawModel = Converter.fromJsonString(TyrannomationFileLoader.getResourceAsString(location, resourceManager));
 			if(rawModel.getFormatVersion() != FormatVersion.VERSION_1_12_0) 
 			{
 				throw new TyrannotitanLibException(location, "Wrong geometry json version, expected 1.12.0");

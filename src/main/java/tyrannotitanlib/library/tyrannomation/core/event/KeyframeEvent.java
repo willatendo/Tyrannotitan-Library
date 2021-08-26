@@ -1,14 +1,14 @@
 package tyrannotitanlib.library.tyrannomation.core.event;
 
-import tyrannotitanlib.library.tyrannomation.core.controller.AnimationController;
+import tyrannotitanlib.library.tyrannomation.core.controller.TyrannomationController;
 
 public abstract class KeyframeEvent<T>
 {
 	private final T entity;
 	private final double animationTick;
-	private final AnimationController controller;
+	private final TyrannomationController controller;
 
-	public KeyframeEvent(T entity, double animationTick, AnimationController controller)
+	public KeyframeEvent(T entity, double animationTick, TyrannomationController controller)
 	{
 		this.entity = entity;
 		this.animationTick = animationTick;
@@ -25,7 +25,7 @@ public abstract class KeyframeEvent<T>
 		return entity;
 	}
 	
-	public AnimationController getController()
+	public TyrannomationController getController()
 	{
 		return controller;
 	}

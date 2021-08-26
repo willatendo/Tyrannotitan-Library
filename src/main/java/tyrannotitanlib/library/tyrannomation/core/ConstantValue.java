@@ -27,7 +27,6 @@ public class ConstantValue implements IValue
 		return new ConstantValue(d);
 	}
 
-
 	public static ConstantValue parseDouble(String s)
 	{
 		return new ConstantValue(Double.parseDouble(s));
@@ -42,5 +41,4 @@ public class ConstantValue implements IValue
 	{
 		return ConstantValue.fromDouble(first.get() - second.get());
 	}
-
 }

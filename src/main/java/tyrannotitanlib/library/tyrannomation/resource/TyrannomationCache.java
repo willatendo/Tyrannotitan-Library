@@ -16,8 +16,8 @@ import net.minecraft.resources.IFutureReloadListener.IStage;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
 import tyrannotitanlib.library.TyrannotitanMod;
-import tyrannotitanlib.library.tyrannomation.file.AnimationFile;
-import tyrannotitanlib.library.tyrannomation.file.AnimationFileLoader;
+import tyrannotitanlib.library.tyrannomation.file.TyrannomationFile;
+import tyrannotitanlib.library.tyrannomation.file.TyrannomationFileLoader;
 import tyrannotitanlib.library.tyrannomation.file.TyrannomationModelLoader;
 import tyrannotitanlib.library.tyrannomation.molang.MolangRegistrar;
 import tyrannotitanlib.library.tyrannomation.tyranno.render.built.TyrannomationModel;
@@ -26,12 +26,12 @@ public class TyrannomationCache
 {
 	private static TyrannomationCache INSTANCE;
 
-	private final AnimationFileLoader animationLoader;
+	private final TyrannomationFileLoader animationLoader;
 	private final TyrannomationModelLoader modelLoader;
 
 	public final MolangParser parser = new MolangParser();
 
-	public Map<ResourceLocation, AnimationFile> getAnimations() 
+	public Map<ResourceLocation, TyrannomationFile> getAnimations() 
 	{
 		if(!TyrannotitanMod.hasInitialized) 
 		{
@@ -49,12 +49,12 @@ public class TyrannomationCache
 		return geoModels;
 	}
 
-	private Map<ResourceLocation, AnimationFile> animations = Collections.emptyMap();
+	private Map<ResourceLocation, TyrannomationFile> animations = Collections.emptyMap();
 	private Map<ResourceLocation, TyrannomationModel> geoModels = Collections.emptyMap();
 
 	protected TyrannomationCache() 
 	{
-		this.animationLoader = new AnimationFileLoader();
+		this.animationLoader = new TyrannomationFileLoader();
 		this.modelLoader = new TyrannomationModelLoader();
 		MolangRegistrar.registerVars(parser);
 	}
@@ -71,7 +71,7 @@ public class TyrannomationCache
 
 	public CompletableFuture<Void> reload(IStage stage, IResourceManager resourceManager, IProfiler preparationsProfiler, IProfiler reloadProfiler, Executor backgroundExecutor, Executor gameExecutor) 
 	{
-		Map<ResourceLocation, AnimationFile> animations = new HashMap<>();
+		Map<ResourceLocation, TyrannomationFile> animations = new HashMap<>();
 		Map<ResourceLocation, TyrannomationModel> geoModels = new HashMap<>();
 		return CompletableFuture.allOf(loadResources(backgroundExecutor, resourceManager, "animations", animation -> animationLoader.loadAllAnimations(parser, animation, resourceManager), animations::put), loadResources(backgroundExecutor, resourceManager, "geo", resource -> modelLoader.loadModel(resourceManager, resource), geoModels::put)).thenCompose(stage::wait).thenAcceptAsync(empty -> 
 		{

@@ -18,7 +18,7 @@ import tyrannotitanlib.library.tyrannomation.core.ConstantValue;
 import tyrannotitanlib.library.tyrannomation.core.easing.EasingType;
 import tyrannotitanlib.library.tyrannomation.core.keyframe.KeyFrame;
 import tyrannotitanlib.library.tyrannomation.core.keyframe.VectorKeyFrameList;
-import tyrannotitanlib.library.tyrannomation.util.AnimationUtils;
+import tyrannotitanlib.library.tyrannomation.util.TyrannomationUtils;
 
 public class JsonKeyFrameUtils 
 {
@@ -61,22 +61,22 @@ public class JsonKeyFrameUtils
 				if(hasEasingArgs(keyframe.getValue())) 
 				{
 					List<IValue> easingArgs = getEasingArgs(keyframe.getValue());
-					xKeyFrame = new KeyFrame(AnimationUtils.convertSecondsToTicks(animationTimeDifference), i == 0 ? currentXValue : previousXValue, currentXValue, easingType, easingArgs);
-					yKeyFrame = new KeyFrame(AnimationUtils.convertSecondsToTicks(animationTimeDifference), i == 0 ? currentYValue : previousYValue, currentYValue, easingType, easingArgs);
-					zKeyFrame = new KeyFrame(AnimationUtils.convertSecondsToTicks(animationTimeDifference), i == 0 ? currentZValue : previousZValue, currentZValue, easingType, easingArgs);
+					xKeyFrame = new KeyFrame(TyrannomationUtils.convertSecondsToTicks(animationTimeDifference), i == 0 ? currentXValue : previousXValue, currentXValue, easingType, easingArgs);
+					yKeyFrame = new KeyFrame(TyrannomationUtils.convertSecondsToTicks(animationTimeDifference), i == 0 ? currentYValue : previousYValue, currentYValue, easingType, easingArgs);
+					zKeyFrame = new KeyFrame(TyrannomationUtils.convertSecondsToTicks(animationTimeDifference), i == 0 ? currentZValue : previousZValue, currentZValue, easingType, easingArgs);
 				}
 				else 
 				{
-					xKeyFrame = new KeyFrame(AnimationUtils.convertSecondsToTicks(animationTimeDifference), i == 0 ? currentXValue : previousXValue, currentXValue, easingType);
-					yKeyFrame = new KeyFrame(AnimationUtils.convertSecondsToTicks(animationTimeDifference), i == 0 ? currentYValue : previousYValue, currentYValue, easingType);
-					zKeyFrame = new KeyFrame(AnimationUtils.convertSecondsToTicks(animationTimeDifference), i == 0 ? currentZValue : previousZValue, currentZValue, easingType);
+					xKeyFrame = new KeyFrame(TyrannomationUtils.convertSecondsToTicks(animationTimeDifference), i == 0 ? currentXValue : previousXValue, currentXValue, easingType);
+					yKeyFrame = new KeyFrame(TyrannomationUtils.convertSecondsToTicks(animationTimeDifference), i == 0 ? currentYValue : previousYValue, currentYValue, easingType);
+					zKeyFrame = new KeyFrame(TyrannomationUtils.convertSecondsToTicks(animationTimeDifference), i == 0 ? currentZValue : previousZValue, currentZValue, easingType);
 				}
 			} 
 			else 
 			{
-				xKeyFrame = new KeyFrame(AnimationUtils.convertSecondsToTicks(animationTimeDifference), i == 0 ? currentXValue : previousXValue, currentXValue);
-				yKeyFrame = new KeyFrame(AnimationUtils.convertSecondsToTicks(animationTimeDifference), i == 0 ? currentYValue : previousYValue, currentYValue);
-				zKeyFrame = new KeyFrame(AnimationUtils.convertSecondsToTicks(animationTimeDifference), i == 0 ? currentZValue : previousZValue, currentZValue);
+				xKeyFrame = new KeyFrame(TyrannomationUtils.convertSecondsToTicks(animationTimeDifference), i == 0 ? currentXValue : previousXValue, currentXValue);
+				yKeyFrame = new KeyFrame(TyrannomationUtils.convertSecondsToTicks(animationTimeDifference), i == 0 ? currentYValue : previousYValue, currentYValue);
+				zKeyFrame = new KeyFrame(TyrannomationUtils.convertSecondsToTicks(animationTimeDifference), i == 0 ? currentZValue : previousZValue, currentZValue);
 			}
 
 			previousXValue = currentXValue;
@@ -134,7 +134,7 @@ public class JsonKeyFrameUtils
 		JsonObject asJsonObject = element.getAsJsonObject();
 		JsonElement easingArgs = asJsonObject.get("easingArgs");
 		JsonArray asJsonArray = easingArgs.getAsJsonArray();
-		return JsonAnimationUtils.convertJsonArrayToList(asJsonArray);
+		return JsonTyrannomationUtils.convertJsonArrayToList(asJsonArray);
 	}
 
 	public static VectorKeyFrameList<KeyFrame<IValue>> convertJsonToKeyFrames(List<Map.Entry<String, JsonElement>> element, MolangParser parser) throws NumberFormatException, MolangException 

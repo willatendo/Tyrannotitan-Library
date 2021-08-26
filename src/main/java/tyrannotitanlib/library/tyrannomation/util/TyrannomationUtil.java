@@ -6,8 +6,8 @@ import java.util.Objects;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.server.ServerWorld;
-import tyrannotitanlib.library.tyrannomation.core.controller.AnimationController;
-import tyrannotitanlib.library.tyrannomation.core.manager.AnimationFactory;
+import tyrannotitanlib.library.tyrannomation.core.controller.TyrannomationController;
+import tyrannotitanlib.library.tyrannomation.core.manager.TyrannomationFactory;
 import tyrannotitanlib.library.tyrannomation.world.storage.TyrannoLibIdTracker;
 import tyrannotitanlib.library.tyrannomation.world.storage.TyrannoLibIdTracker.Type;
 
@@ -60,12 +60,12 @@ public class TyrannomationUtil
 		return stack.hasTag() && stack.getTag().contains(TYRANNOMATION_NBT, TAG_INT);
 	}
 
-	public static AnimationController getControllerForStack(AnimationFactory factory, ItemStack stack, String controllerName) 
+	public static TyrannomationController getControllerForStack(TyrannomationFactory factory, ItemStack stack, String controllerName) 
 	{
 		return getControllerForID(factory, getIDFromStack(stack), controllerName);
 	}
 
-	public static AnimationController getControllerForID(AnimationFactory factory, Integer id, String controllerName) 
+	public static TyrannomationController getControllerForID(TyrannomationFactory factory, Integer id, String controllerName) 
 	{
 		return factory.getOrCreateAnimationData(id).getAnimationControllers().get(controllerName);
 	}

@@ -12,7 +12,7 @@ public class ResourceListener
 		{
 			if(Minecraft.getInstance().getResourceManager() == null) 
 			{
-				throw new RuntimeException("TyrannotitanLib was initialized too early! If you are on fabric, please read the wiki on when to initialize!");
+				throw new RuntimeException("TyrannotitanLib was initialized too early!");
 			}
 			IReloadableResourceManager reloadable = (IReloadableResourceManager) Minecraft.getInstance().getResourceManager();
 			reloadable.registerReloadListener(TyrannomationCache.getInstance()::reload);

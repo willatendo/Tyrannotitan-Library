@@ -14,7 +14,7 @@ import net.minecraftforge.fml.network.simple.SimpleChannel;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 import net.minecraftforge.registries.IRegistryDelegate;
 import tyrannotitanlib.library.base.util.TyrannoUtils;
-import tyrannotitanlib.library.tyrannomation.network.messages.SyncAnimationMsg;
+import tyrannotitanlib.library.tyrannomation.network.messages.SyncTyrannomationMsg;
 
 public class TyrannomationNetwork 
 {
@@ -42,7 +42,7 @@ public class TyrannomationNetwork
 	{
 		int id = -1;
 
-		SyncAnimationMsg.register(CHANNEL, ++id);
+		SyncTyrannomationMsg.register(CHANNEL, ++id);
 	}
 
 	public static void syncAnimation(PacketDistributor.PacketTarget target, ISyncable syncable, int id, int state) 
@@ -58,7 +58,7 @@ public class TyrannomationNetwork
 		{
 			throw new IllegalArgumentException("Syncable not registered for " + key);
 		}
-		CHANNEL.send(target, new SyncAnimationMsg(key, id, state));
+		CHANNEL.send(target, new SyncTyrannomationMsg(key, id, state));
 	}
 
 	public static ISyncable getSyncable(String key) 
