@@ -14,7 +14,10 @@ import tyrannotitanlib.library.base.util.registry.SimpleRegisters;
 @Mod(TyrannoUtils.TYRANNO_ID)
 public class TyrannotitanLibrary 
 {
-	public TyrannotitanLibrary() { }
+	public TyrannotitanLibrary() 
+	{
+		Registry.register();
+	}
 	
 	public static class Registry
 	{
