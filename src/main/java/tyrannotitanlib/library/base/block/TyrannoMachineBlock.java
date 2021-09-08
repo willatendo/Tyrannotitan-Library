@@ -20,7 +20,6 @@ import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-import tyrannotitanlib.library.base.util.TyrannoBlockStateProperties;
 
 public abstract class TyrannoMachineBlock extends Block implements ITileEntityProvider
 {

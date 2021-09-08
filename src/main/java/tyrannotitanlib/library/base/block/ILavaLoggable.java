@@ -1,4 +1,4 @@
-package tyrannotitanlib.library.base.util.interfaces;
+package tyrannotitanlib.library.base.block;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.IBucketPickupHandler;
@@ -10,12 +10,6 @@ import net.minecraft.state.BooleanProperty;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
-import tyrannotitanlib.library.base.util.TyrannoBlockStateProperties;
-
-/*
- * Author: Willatendo
- * Date: July 9, 2021
- */
 
 public interface ILavaLoggable extends IBucketPickupHandler, ILiquidContainer
 {

@@ -13,10 +13,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
 import tyrannotitanlib.library.base.util.TyrannoBoatRegistry.BoatData.DefaultBoatData;
 
-/*
- * Registers a custom boat. (@TeamAbnormals)
- */
-
 public class TyrannoBoatRegistry 
 {
 	private static final Map<String, BoatData> BOATS = Util.make(Maps.newHashMap(), (entries) -> 

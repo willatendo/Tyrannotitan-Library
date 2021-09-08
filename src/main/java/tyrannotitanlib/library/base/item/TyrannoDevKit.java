@@ -10,8 +10,7 @@ import net.minecraft.item.ShovelItem;
 import net.minecraft.item.SwordItem;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraftforge.fml.loading.FMLEnvironment;
-import tyrannotitanlib.content.server.init.TyrannoItems;
-import tyrannotitanlib.library.base.util.TyrannoItemTeir;
+import tyrannotitanlib.content.TyrannotitanLibrary.Registry;
 
 public class TyrannoDevKit extends Item
 {
@@ -34,11 +33,11 @@ public class TyrannoDevKit extends Item
 	{
 		if(!FMLEnvironment.production)
 		{
-			TyrannoItems.HELPER.build("dev.tool.sword", dev_tool_sword);
-			TyrannoItems.HELPER.build("dev.tool.shovel", dev_tool_shovel);
-			TyrannoItems.HELPER.build("dev.tool.pickaxe", dev_tool_pickaxe);
-			TyrannoItems.HELPER.build("dev.tool.axe", dev_tool_axe);
-			TyrannoItems.HELPER.build("dev.tool.hoe", dev_tool_hoe);
+			Registry.create("dev.tool.sword", dev_tool_sword);
+			Registry.create("dev.tool.shovel", dev_tool_shovel);
+			Registry.create("dev.tool.pickaxe", dev_tool_pickaxe);
+			Registry.create("dev.tool.axe", dev_tool_axe);
+			Registry.create("dev.tool.hoe", dev_tool_hoe);
 		}
 		return dev_tool_sword;
 	}

@@ -1,4 +1,4 @@
-package tyrannotitanlib.library.base.util.interfaces;
+package tyrannotitanlib.library.base.entity;
 
 public interface ISemiAquatic 
 {

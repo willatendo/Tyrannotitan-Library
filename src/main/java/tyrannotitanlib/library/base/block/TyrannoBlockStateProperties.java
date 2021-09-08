@@ -1,10 +1,6 @@
-package tyrannotitanlib.library.base.util;
+package tyrannotitanlib.library.base.block;
 
 import net.minecraft.state.BooleanProperty;
-
-/*
- * A couple of simple blockstates (@Willatendo)
- */
 
 public class TyrannoBlockStateProperties 
 {

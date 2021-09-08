@@ -33,7 +33,7 @@ public class TyrannoBoatEntity extends BoatEntity
 
 	public TyrannoBoatEntity(World worldIn, double x, double y, double z) 
 	{
-		this(TyrannoEntities.BOAT.get(), worldIn);
+		this(TyrannoEntities.BOAT, worldIn);
 		this.setPos(x, y, z);
 		this.setDeltaMovement(Vector3d.ZERO);
 		this.xo = x;
@@ -43,7 +43,7 @@ public class TyrannoBoatEntity extends BoatEntity
 
 	public TyrannoBoatEntity(FMLPlayMessages.SpawnEntity spawnEntity, World world) 
 	{
-		this(TyrannoEntities.BOAT.get(), world);
+		this(TyrannoEntities.BOAT, world);
 	}
 
 	@Override

@@ -5,7 +5,6 @@ import net.minecraft.block.WallSignBlock;
 import net.minecraft.block.WoodType;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockReader;
-import tyrannotitanlib.library.base.util.interfaces.ITyrannoSign;
 
 public class TyrannoWallSignBlock extends WallSignBlock implements ITyrannoSign
 {

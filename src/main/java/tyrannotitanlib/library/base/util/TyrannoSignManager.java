@@ -8,10 +8,6 @@ import net.minecraft.client.renderer.Atlases;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-/*
- * Makes a custom WoodType for a sign with the ModId. (@TeamAbnormals)
- */
-
 public final class TyrannoSignManager 
 {
 	private static final Set<WoodType> WOOD_TYPES = new HashSet<>();

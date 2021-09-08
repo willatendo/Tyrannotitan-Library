@@ -24,7 +24,6 @@ public class TyrannoSpawnEggItem extends SpawnEggItem
 	protected static final List<TyrannoSpawnEggItem> UNADDED_EGGS = new ArrayList<TyrannoSpawnEggItem>();
 	private final Lazy<? extends EntityType<?>> entityTypeSupplier;
 
-	//Use this constructor when creating spawn eggs
 	public TyrannoSpawnEggItem(NonNullSupplier<? extends EntityType<?>> entityTypeSupplier, int primaryColour, int secondaryColour, Properties properties) 
 	{
 		super(null, primaryColour, secondaryColour, properties.tab(ItemGroup.TAB_MISC));
@@ -39,7 +38,6 @@ public class TyrannoSpawnEggItem extends SpawnEggItem
 		UNADDED_EGGS.add(this);
 	}
 
-	//Registers Dispenser Behaviour
 	public static void initSpawnEggs() 
 	{
 		final Map<EntityType<?>, SpawnEggItem> EGGS = ObfuscationReflectionHelper.getPrivateValue(SpawnEggItem.class, null, "field_195987_b");

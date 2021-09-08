@@ -40,23 +40,4 @@ public class TyrannotitanMod
 		}
 		hasInitialized = true;
 	}
-
-	// Tyrannotextures
-//	public void initTyrannotextures(String modId) 
-//	{
-//		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> 
-//		{
-//			IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
-//			modBus.addListener(this::modelRegistry);
-//			modBus.register(TextureMetadataHandler.INSTANCE);
-//			modBus.register(new CTMPackReloadListener());
-//
-//			TextureTypeRegistry.scan();
-//		});
-//	}
-
-//	private void modelRegistry(ModelRegistryEvent event) 
-//	{
-//		ModelLoaderRegistry.registerLoader(TyrannoUtils.rL("tyrannotextures"), ModelLoaderCTM.INSTANCE);
-//	}
 }
