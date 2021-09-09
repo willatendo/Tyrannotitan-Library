@@ -15,11 +15,11 @@ import org.apache.commons.lang3.tuple.Pair;
 import com.eliotlash.mclib.math.IValue;
 import com.eliotlash.molang.MolangParser;
 
-import tyrannotitanlib.library.tyrannomation.core.TyrannomationState;
 import tyrannotitanlib.library.tyrannomation.core.ConstantValue;
 import tyrannotitanlib.library.tyrannomation.core.ITyrannomatable;
 import tyrannotitanlib.library.tyrannomation.core.ITyrannomatableModel;
 import tyrannotitanlib.library.tyrannomation.core.PlayState;
+import tyrannotitanlib.library.tyrannomation.core.TyrannomationState;
 import tyrannotitanlib.library.tyrannomation.core.builder.Tyrannomation;
 import tyrannotitanlib.library.tyrannomation.core.builder.TyrannomationBuilder;
 import tyrannotitanlib.library.tyrannomation.core.easing.EasingType;
@@ -27,13 +27,13 @@ import tyrannotitanlib.library.tyrannomation.core.event.CustomInstructionKeyfram
 import tyrannotitanlib.library.tyrannomation.core.event.ParticleKeyFrameEvent;
 import tyrannotitanlib.library.tyrannomation.core.event.SoundKeyframeEvent;
 import tyrannotitanlib.library.tyrannomation.core.event.predicate.TyrannomationEvent;
-import tyrannotitanlib.library.tyrannomation.core.keyframe.TyrannomationPoint;
 import tyrannotitanlib.library.tyrannomation.core.keyframe.BoneTyrannomation;
 import tyrannotitanlib.library.tyrannomation.core.keyframe.BoneTyrannomationQueue;
 import tyrannotitanlib.library.tyrannomation.core.keyframe.EventKeyFrame;
 import tyrannotitanlib.library.tyrannomation.core.keyframe.KeyFrame;
 import tyrannotitanlib.library.tyrannomation.core.keyframe.KeyFrameLocation;
 import tyrannotitanlib.library.tyrannomation.core.keyframe.ParticleEventKeyFrame;
+import tyrannotitanlib.library.tyrannomation.core.keyframe.TyrannomationPoint;
 import tyrannotitanlib.library.tyrannomation.core.keyframe.VectorKeyFrameList;
 import tyrannotitanlib.library.tyrannomation.core.processor.IBone;
 import tyrannotitanlib.library.tyrannomation.core.snapshot.BoneSnapshot;
