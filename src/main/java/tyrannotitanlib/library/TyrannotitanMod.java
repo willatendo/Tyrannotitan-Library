@@ -15,7 +15,7 @@ public class TyrannotitanMod
 	public static String id;
 
 	// Basic Features
-	public static void initBasicFeatures(String modId) 
+	public static void initStrippingMap(String modId) 
 	{
 		id = modId;
 		DeferredWorkQueue.runLater(() -> 
@@ -25,13 +25,13 @@ public class TyrannotitanMod
 	}
 
 	// Spawn Eggs
-	public static void initSpawnEggs(String modId) 
+	public static void initSpawnEggs() 
 	{
 		TyrannoSpawnEggItem.initSpawnEggs();
 	}
 
 	// Tyrannomation
-	public static void initTyrannomation(String modId) 
+	public static void initTyrannomation() 
 	{
 		if(!hasInitialized) 
 		{

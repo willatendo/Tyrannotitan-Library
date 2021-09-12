@@ -43,7 +43,6 @@ public class TyrannoSpawnEggItem extends SpawnEggItem
 		final Map<EntityType<?>, SpawnEggItem> EGGS = ObfuscationReflectionHelper.getPrivateValue(SpawnEggItem.class, null, "field_195987_b");
 		DefaultDispenseItemBehavior dispenseBehaviour = new DefaultDispenseItemBehavior() 
 		{
-			
 			@Override
 			protected ItemStack execute(IBlockSource source, ItemStack stack) 
 			{
