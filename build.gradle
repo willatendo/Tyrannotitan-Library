@@ -8,9 +8,9 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '4.1.+', changing: true
-        classpath 'com.github.jengelman.gradle.plugins:shadow:4.0.4'
-    }
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath "gradle.plugin.com.github.jengelman.gradle.plugins:shadow:7.0.0"
+	}
 }
 
 apply plugin: 'net.minecraftforge.gradle'
@@ -25,7 +25,10 @@ archivesBaseName = 'tyrannotitanlib'
 java.toolchain.languageVersion = JavaLanguageVersion.of(8)
 
 configurations {
+    library
     shade
+    implementation.extendsFrom library
+    shade.extendsFrom library
 }
 
 minecraft {
@@ -87,13 +90,11 @@ repositories {
 dependencies {
     minecraft 'net.minecraftforge:forge:1.16.5-36.2.2'
     
-    compile 'com.eliotlash.molang:molang:SNAPSHOT.12'
-    compile 'com.eliotlash.mclib:mclib:SNAPSHOT.12'
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.0'
-    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.9.0'
-    
-    compile 'com.github.jengelman.gradle.plugins:shadow:4.0.4'
-	
+    library 'com.eliotlash.molang:molang:SNAPSHOT.12'
+    library 'com.eliotlash.mclib:mclib:SNAPSHOT.12'
+    library group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.0'
+    library group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.9.0'
+    	
     shade 'com.eliotlash.molang:molang:SNAPSHOT.12'
     shade 'com.eliotlash.mclib:mclib:SNAPSHOT.12'
     shade group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.0'
