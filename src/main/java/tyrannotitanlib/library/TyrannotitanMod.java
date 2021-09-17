@@ -3,6 +3,7 @@ package tyrannotitanlib.library;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.DistExecutor;
+import tyrannotitanlib.content.server.util.TyrannoRegistries;
 import tyrannotitanlib.library.base.block.TyrannoLogBlock;
 import tyrannotitanlib.library.base.item.TyrannoSpawnEggItem;
 import tyrannotitanlib.library.tyrannomation.network.TyrannomationNetwork;
@@ -14,6 +15,12 @@ public class TyrannotitanMod
 
 	public static String id;
 
+	// Mandatory!
+	public static void init()
+	{
+		TyrannoRegistries.register();
+	}
+	
 	// Basic Features
 	public static void initStrippingMap(String modId) 
 	{
