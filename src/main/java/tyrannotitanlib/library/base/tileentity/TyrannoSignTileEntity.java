@@ -9,6 +9,6 @@ public class TyrannoSignTileEntity extends SignTileEntity
 	@Override
 	public TileEntityType<?> getType() 
 	{
-		return TyrannoTileEntities.SIGN;
+		return TyrannoTileEntities.SIGN_TILE_ENTITY;
 	}
 }

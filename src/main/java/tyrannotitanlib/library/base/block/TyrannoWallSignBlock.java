@@ -5,6 +5,7 @@ import net.minecraft.block.WallSignBlock;
 import net.minecraft.block.WoodType;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockReader;
+import tyrannotitanlib.content.server.init.TyrannoTileEntities;
 import tyrannotitanlib.library.base.tileentity.TyrannoSignTileEntity;
 
 public class TyrannoWallSignBlock extends WallSignBlock implements ITyrannoSign
@@ -23,6 +24,6 @@ public class TyrannoWallSignBlock extends WallSignBlock implements ITyrannoSign
 	@Override
 	public TileEntity createTileEntity(BlockState state, IBlockReader world) 
 	{
-		return new TyrannoSignTileEntity();
+		return TyrannoTileEntities.SIGN_TILE_ENTITY.create();
 	}
 }

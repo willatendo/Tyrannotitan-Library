@@ -16,6 +16,6 @@ public class ClientSetup
 	@SubscribeEvent
 	public static void clientSetup(FMLClientSetupEvent event)
 	{
-		ClientRegistry.bindTileEntityRenderer(TyrannoTileEntities.SIGN, SignTileEntityRenderer::new);
+		ClientRegistry.bindTileEntityRenderer(TyrannoTileEntities.SIGN_TILE_ENTITY, SignTileEntityRenderer::new);
 	}
 }
