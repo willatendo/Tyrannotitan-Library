@@ -2,7 +2,7 @@ package tyrannotitanlib.library.tyrannomation.file;
 
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
-import tyrannotitanlib.library.base.util.TyrannoUtils;
+import tyrannotitanlib.library.base.utils.TyrannoUtils;
 import tyrannotitanlib.library.tyrannomation.tyranno.exception.TyrannotitanLibException;
 import tyrannotitanlib.library.tyrannomation.tyranno.raw.pojo.Converter;
 import tyrannotitanlib.library.tyrannomation.tyranno.raw.pojo.FormatVersion;

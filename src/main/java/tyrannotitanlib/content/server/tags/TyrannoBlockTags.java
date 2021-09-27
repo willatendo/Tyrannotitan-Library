@@ -3,7 +3,7 @@ package tyrannotitanlib.content.server.tags;
 import net.minecraft.block.Block;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ITag;
-import tyrannotitanlib.library.base.util.TyrannoUtils;
+import tyrannotitanlib.library.base.utils.TyrannoUtils;
 
 public final class TyrannoBlockTags 
 {

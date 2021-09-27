@@ -29,7 +29,7 @@ public class TyrannoDevKit extends Item
 		super(properties);
 	}
 	
-	public static Item init()
+	public static void init()
 	{
 		if(!FMLEnvironment.production)
 		{
@@ -39,6 +39,5 @@ public class TyrannoDevKit extends Item
 			TyrannoRegistries.create("dev.tool.axe", dev_tool_axe);
 			TyrannoRegistries.create("dev.tool.hoe", dev_tool_hoe);
 		}
-		return dev_tool_sword;
 	}
 }

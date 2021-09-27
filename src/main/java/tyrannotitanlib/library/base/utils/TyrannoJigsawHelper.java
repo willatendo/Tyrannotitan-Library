@@ -1,4 +1,4 @@
-package tyrannotitanlib.library.base.util;
+package tyrannotitanlib.library.base.utils;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -19,7 +19,7 @@ import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.network.FMLPlayMessages;
 import net.minecraftforge.fml.network.NetworkHooks;
 import tyrannotitanlib.content.server.init.TyrannoEntities;
-import tyrannotitanlib.library.base.util.TyrannoBoatRegistry;
+import tyrannotitanlib.library.base.utils.TyrannoBoatRegistry;
 
 public class TyrannoBoatEntity extends BoatEntity 
 {

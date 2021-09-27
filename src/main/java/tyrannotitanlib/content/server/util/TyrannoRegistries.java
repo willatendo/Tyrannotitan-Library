@@ -13,13 +13,20 @@ import net.minecraftforge.registries.ForgeRegistries;
 import tyrannotitanlib.content.server.init.TyrannoEntities;
 import tyrannotitanlib.content.server.init.TyrannoItems;
 import tyrannotitanlib.content.server.init.TyrannoTileEntities;
-import tyrannotitanlib.library.base.util.TyrannoUtils;
+import tyrannotitanlib.library.base.utils.TyrannoUtils;
 
 public class TyrannoRegistries 
 {
 	public static Item create(String id, Item item)
 	{
 		item.setRegistryName(new ResourceLocation(TyrannoUtils.TYRANNO_ID, id));
+		ForgeRegistries.ITEMS.register(item);
+		return item;
+	}
+	
+	public static Item create(String modid, String id, Item item)
+	{
+		item.setRegistryName(new ResourceLocation(modid, id));
 		ForgeRegistries.ITEMS.register(item);
 		return item;
 	}

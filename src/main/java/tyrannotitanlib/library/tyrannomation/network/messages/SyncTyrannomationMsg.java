@@ -7,7 +7,7 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.fml.network.NetworkDirection;
 import net.minecraftforge.fml.network.NetworkEvent;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
-import tyrannotitanlib.library.base.util.TyrannoUtils;
+import tyrannotitanlib.library.base.utils.TyrannoUtils;
 import tyrannotitanlib.library.tyrannomation.network.ISyncable;
 import tyrannotitanlib.library.tyrannomation.network.TyrannomationNetwork;
 

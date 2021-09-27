@@ -16,7 +16,7 @@ import net.minecraft.client.util.JSONException;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
-import tyrannotitanlib.library.base.util.TyrannoUtils;
+import tyrannotitanlib.library.base.utils.TyrannoUtils;
 import tyrannotitanlib.library.tyrannomation.core.builder.Tyrannomation;
 import tyrannotitanlib.library.tyrannomation.util.json.JsonTyrannomationUtils;
 

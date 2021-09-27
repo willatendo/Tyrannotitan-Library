@@ -5,7 +5,7 @@ issueTrackerURL="https://github.com/willatendo/Tyrannotitan-Library/issues"
 
 [[mods]]
 modId="tyrannotitanlib"
-version="v1.0.4"
+version="v1.1.0"
 displayName="Tyrannotitan Library"
 updateJSONURL="https://github.com/willatendo/Tyrannotitan-Library/raw/main/updates.json"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/tyrannotitan-library-forge"
