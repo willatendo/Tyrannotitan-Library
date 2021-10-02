@@ -15,7 +15,7 @@ public class TyrannotitanMod
 	public static String id;
 
 	// Mandatory!
-	public static void initBase(String modid)
+	public static void init(String modid)
 	{
 		id = modid;
 		TyrannoRegistries.register();
@@ -24,16 +24,10 @@ public class TyrannotitanMod
 		{
 			TyrannoLogBlock.addStripping();
 		});
-	}
-	
-	// Mandatory for Tyrannoregistry
-	public static void initTyrannoregistry()
-	{
-		
+		initTyrannomation();
 	}
 
-	// Mandatory for Tyrannomataion
-	public static void initTyrannomation() 
+	private static void initTyrannomation() 
 	{
 		if(!hasInitialized) 
 		{

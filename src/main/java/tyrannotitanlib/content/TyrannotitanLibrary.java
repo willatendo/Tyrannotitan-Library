@@ -17,8 +17,7 @@ public class TyrannotitanLibrary
 		
 		bus.addListener(this::commonSetup);
 		
-		TyrannotitanMod.initBase(TyrannoUtils.TYRANNO_ID);
-		TyrannotitanMod.initTyrannomation();
+		TyrannotitanMod.init(TyrannoUtils.TYRANNO_ID);
 	}
 	
 	private void commonSetup(final FMLCommonSetupEvent event) 

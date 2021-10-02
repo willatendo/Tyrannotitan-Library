@@ -40,7 +40,7 @@ public class TyrannoSpawnEggItem extends SpawnEggItem
 
 	public static void initSpawnEggs() 
 	{
-		final Map<EntityType<?>, SpawnEggItem> EGGS = ObfuscationReflectionHelper.getPrivateValue(SpawnEggItem.class, null, "field_195987_b");
+		final Map<EntityType<?>, TyrannoSpawnEggItem> EGGS = ObfuscationReflectionHelper.getPrivateValue(SpawnEggItem.class, null, "field_195987_b");
 		DefaultDispenseItemBehavior dispenseBehaviour = new DefaultDispenseItemBehavior() 
 		{
 			@Override
@@ -54,7 +54,7 @@ public class TyrannoSpawnEggItem extends SpawnEggItem
 			}
 		};
 
-		for (final SpawnEggItem spawnEgg : UNADDED_EGGS) 
+		for (final TyrannoSpawnEggItem spawnEgg : UNADDED_EGGS) 
 		{
 			EGGS.put(spawnEgg.getType(null), spawnEgg);
 			DispenserBlock.registerBehavior(spawnEgg, dispenseBehaviour);
