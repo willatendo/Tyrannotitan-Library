@@ -2,25 +2,23 @@ package tyrannotitanlib.library.tyrannoregister;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
 import com.google.common.collect.ArrayListMultimap;
 
 import net.minecraft.block.Block;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EntityType.IFactory;
 import net.minecraft.entity.merchant.villager.VillagerProfession;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.particles.ParticleType;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.Potion;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.village.PointOfInterestType;
 import net.minecraft.world.biome.Biome;
@@ -88,6 +86,12 @@ public class TyrannoRegister
 	{
 		register(potion, id);
 	}	
+	
+	
+	public static void registerEnchantment(String id, Enchantment enchantment)
+	{
+		register(enchantment, id);
+	}
 	
  	public static void registerItem(String id, Item item) 
 	{
@@ -174,19 +178,8 @@ public class TyrannoRegister
 		getCurrentModData().defers.put(entry.getRegistryType(), () -> entry);
 	}
 
-	public static void setCreativeTab(Block block, ItemGroup group) 
-	{
-		ResourceLocation res = block.getRegistryName();
-		if(res == null)
-			throw new IllegalArgumentException("Can't set the creative tab for a block without a registry name yet");
-
-		getCurrentModData().groups.put(block.getRegistryName(), group);
-	}
-
 	private static class ModData 
 	{
-		private Map<ResourceLocation, ItemGroup> groups = new LinkedHashMap<>();
-
 		private ArrayListMultimap<Class<?>, Supplier<IForgeRegistryEntry<?>>> defers = ArrayListMultimap.create();
 
 		private void register(IForgeRegistry registry) 
