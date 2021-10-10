@@ -18,7 +18,7 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: 'com.github.johnrengelman.shadow'
 
-version = '1.2.1'
+version = '1.2.2'
 group = 'tyrannotitanlib'
 archivesBaseName = 'tyrannotitanlib'
 
@@ -111,7 +111,7 @@ jar {
                 "Specification-Vendor" : "Willatendo",
                 "Specification-Version" : "1",
                 "Implementation-Title" : project.name,
-                "Implementation-Version" : "1.2.1",
+                "Implementation-Version" : "1.2.2",
                 "Implementation-Vendor" : "tyrannotitanlib",
                 "Implementation-Timestamp" : new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])

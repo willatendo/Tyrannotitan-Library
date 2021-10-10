@@ -3,7 +3,6 @@ package tyrannotitanlib.library;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.DistExecutor;
-import tyrannotitanlib.content.server.util.TyrannoRegistries;
 import tyrannotitanlib.library.base.block.TyrannoLogBlock;
 import tyrannotitanlib.library.base.item.TyrannoSpawnEggItem;
 import tyrannotitanlib.library.tyrannomation.network.TyrannomationNetwork;
@@ -18,7 +17,6 @@ public class TyrannotitanMod
 	public static void init(String modid)
 	{
 		id = modid;
-		TyrannoRegistries.register();
 		TyrannoSpawnEggItem.initSpawnEggs();
 		DeferredWorkQueue.runLater(() -> 
 		{

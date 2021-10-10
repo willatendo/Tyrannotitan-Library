@@ -6,7 +6,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import tyrannotitanlib.library.TyrannotitanMod;
+import tyrannotitanlib.content.server.util.TyrannoRegistries;
 import tyrannotitanlib.library.network.Tyrannonetwork;
 
 @Mod(TYRANNO_ID)
@@ -18,7 +18,7 @@ public class TyrannotitanLibrary
 		
 		bus.addListener(this::commonSetup);
 		
-		TyrannotitanMod.init(TYRANNO_ID);
+		TyrannoRegistries.register();
 	}
 	
 	private void commonSetup(final FMLCommonSetupEvent event) 
