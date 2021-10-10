@@ -2,15 +2,14 @@ package tyrannotitanlib.library.base.itemgroup;
 
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import tyrannotitanlib.library.TyrannotitanMod;
 
-public class Builder extends ItemGroup
+public class TabBuilder extends ItemGroup
 {
 	public ItemStack itemIcon;
 	
-	public Builder(String tabId) 
+	public TabBuilder(String modId, String tabId) 
 	{	
-		super(TyrannotitanMod.id + "." + tabId);
+		super(modId + "." + tabId);
 	}
 	
 	@Override
@@ -19,6 +18,7 @@ public class Builder extends ItemGroup
 		return itemIcon;
 	}
 	
+	//Set this in a Common event
 	public void setIcon(ItemStack icon)
 	{
 		this.itemIcon = icon;

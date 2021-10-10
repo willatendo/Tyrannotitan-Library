@@ -61,7 +61,8 @@ public class TyrannoBoatRenderer extends EntityRenderer<TyrannoBoatEntity>
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(TyrannoBoatEntity entity) {
+	public ResourceLocation getTextureLocation(TyrannoBoatEntity entity) 
+	{
 		return entity.getBoat().getTexture();
 	}
 

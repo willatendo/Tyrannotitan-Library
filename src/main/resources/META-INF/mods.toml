@@ -5,16 +5,16 @@ issueTrackerURL="https://github.com/willatendo/Tyrannotitan-Library/issues"
 
 [[mods]]
 modId="tyrannotitanlib"
-version="v1.2.2"
+version="v1.2.3"
 displayName="Tyrannotitan Library"
 updateJSONURL="https://github.com/willatendo/Tyrannotitan-Library/raw/main/updates.json"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/tyrannotitan-library-forge"
 logoFile="tyrannotitanlib.png"
-credit="Gecko, Eliot, AzureDoom (GeckoLib) || Team Abnormals (Various)"
-authors="Willatendo, Santispik3"
+credit="Gecko, Eliot, AzureDoom (GeckoLib : Tyrannomation) || Team Abnormals (Various : Base) || Slime Knights (Mantle : Tyrannobook) || Vazkii (AutoRegLib : Tyrannoregister)"
+authors="Willatendo, Santispik3" 
 
 description='''
-A library full of utilities for mods!
+A library for Tyrannotitan Studios with tonnes of useful code including setup registers, base classes, compatablilty classes, mod books, and easy-to-use animations.
 '''
 
 [[dependencies.tyrannotitanlib]]

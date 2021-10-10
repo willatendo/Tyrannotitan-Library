@@ -9,9 +9,7 @@ import com.google.common.collect.ArrayListMultimap;
 
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.EntityType.IFactory;
 import net.minecraft.entity.merchant.villager.VillagerProfession;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
@@ -128,9 +126,8 @@ public class TyrannoRegister
 		register(villagerProfession, id);
 	}
 	
-	public static void registerEntity(String id, IFactory factory, EntityClassification classification, float width, float height)
+	public static void registerEntity(String id, EntityType type)
 	{
-		EntityType type = EntityType.Builder.of(factory, classification).sized(width, height).build(id);
 		register(type, id);
 	}
 	

@@ -36,7 +36,7 @@ public class TyrannoRegistries
 	public static <T extends Entity> EntityType<T> create(String id, IFactory<T> factory, EntityClassification classifcation, float width, float height)
 	{
 		EntityType<T> entityType = EntityType.Builder.of(factory, classifcation).sized(width, height).build(id);
-		TyrannoRegister.registerEntity(id, factory, classifcation, width, height);
+		TyrannoRegister.registerEntity(id, entityType);
 		return entityType;
 	}
 	
