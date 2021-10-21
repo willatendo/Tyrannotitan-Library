@@ -328,7 +328,7 @@ public class TyrannobookScreen extends Screen
 			{
 				this.onClose();
 				this.bookPickup.accept(null);
-				}));
+			}));
 		}
 
 		this.buildPages();
@@ -516,7 +516,7 @@ public class TyrannobookScreen extends Screen
 	}
 
 	@Override
-	public void onClose() 
+	public void removed() 
 	{
 		if(this.minecraft == null || this.minecraft.player == null) 
 		{
