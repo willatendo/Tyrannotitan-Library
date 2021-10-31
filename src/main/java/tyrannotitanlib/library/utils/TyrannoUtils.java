@@ -1,4 +1,4 @@
-package tyrannotitanlib.library.base.utils;
+package tyrannotitanlib.library.utils;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

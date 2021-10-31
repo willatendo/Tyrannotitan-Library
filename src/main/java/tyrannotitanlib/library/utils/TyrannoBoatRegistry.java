@@ -1,4 +1,4 @@
-package tyrannotitanlib.library.base.utils;
+package tyrannotitanlib.library.utils;
 
 import java.util.Map;
 
@@ -11,7 +11,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
-import tyrannotitanlib.library.base.utils.TyrannoBoatRegistry.BoatData.DefaultBoatData;
+import tyrannotitanlib.library.utils.TyrannoBoatRegistry.BoatData.DefaultBoatData;
 
 public class TyrannoBoatRegistry 
 {

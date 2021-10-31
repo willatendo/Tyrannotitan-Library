@@ -5,7 +5,7 @@ import net.minecraft.item.Item.Properties;
 import net.minecraft.item.ItemGroup;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 
-public class PropertiesBuilder extends Properties
+public class TyrannoProperties extends Properties
 {	
 	public static Properties debug()
 	{

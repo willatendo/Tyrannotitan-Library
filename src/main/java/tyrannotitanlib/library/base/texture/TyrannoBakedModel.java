@@ -20,15 +20,15 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraftforge.client.model.data.IDynamicBakedModel;
 import net.minecraftforge.client.model.data.IModelData;
-import tyrannotitanlib.library.base.block.ConnectedTextureBlock;
+import tyrannotitanlib.library.base.block.TyrannoConnectedTextureBlock;
 
 public class TyrannoBakedModel implements IDynamicBakedModel
 {
 	private static final FaceBakery BAKERY = new FaceBakery();
 	
-	private final ConnectedTextureBlock block;
+	private final TyrannoConnectedTextureBlock block;
 	
-	public TyrannoBakedModel(ConnectedTextureBlock block)
+	public TyrannoBakedModel(TyrannoConnectedTextureBlock block)
 	{
 		this.block = block;
 	}

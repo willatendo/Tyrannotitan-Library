@@ -2,6 +2,7 @@ package tyrannotitanlib.library.tyrannoregister;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.function.Supplier;
 
@@ -13,18 +14,28 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.merchant.villager.VillagerProfession;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
+import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.particles.ParticleType;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.Potion;
+import net.minecraft.tileentity.BannerPattern;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.village.PointOfInterestType;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.blockplacer.BlockPlacerType;
+import net.minecraft.world.gen.carver.ConfiguredCarver;
+import net.minecraft.world.gen.carver.ICarverConfig;
 import net.minecraft.world.gen.carver.WorldCarver;
 import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.StructureFeature;
+import net.minecraft.world.gen.feature.structure.IStructurePieceType;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.foliageplacer.FoliagePlacerType;
+import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraftforge.common.world.ForgeWorldType;
 import net.minecraftforge.event.RegistryEvent;
@@ -34,7 +45,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.GameData;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
-import tyrannotitanlib.library.base.utils.TyrannoUtils;
+import tyrannotitanlib.library.utils.TyrannoUtils;
 
 public class TyrannoRegister 
 {
@@ -65,9 +76,36 @@ public class TyrannoRegister
 		getCurrentModData().register(event.getRegistry());
 	}
 
+	//Vanilla
+	public static BannerPattern registerPattern(String id) 
+	{
+		return BannerPattern.create(id.toUpperCase(Locale.ROOT), id, id, false);
+	}
+	
+	public static IStructurePieceType registerStructurePiece(String modId, String id, IStructurePieceType type) 
+	{
+		return Registry.register(Registry.STRUCTURE_PIECE, new ResourceLocation(modId, id.toLowerCase(Locale.ROOT)), type);
+	}
+	
+	public static StructureFeature<?, ?> registerConfiguredStructure(String modId, String id, StructureFeature<?, ?> structureFeature)
+	{
+		return Registry.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, new ResourceLocation(modId, id), structureFeature);
+	}
+	
+	public static <WC extends ICarverConfig> ConfiguredCarver<WC> registerConfiguredCarver(String modId, String id, ConfiguredCarver<WC> configuredCarver) 
+	{
+		return WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_CARVER, new ResourceLocation(modId, id), configuredCarver);
+	}
+	
+	//Forge
 	public static void registerParticle(String id, ParticleType particle)
 	{
 		register(particle, id);
+	}
+
+	public static void registerSerializer(String id, IRecipeSerializer<?> recipe)
+	{
+		register(recipe, id);
 	}
 
 	public static void registerSound(String id, SoundEvent sound)
@@ -151,6 +189,11 @@ public class TyrannoRegister
 		register(surfaceBuilder, id);
 	}
 	
+	public static void registerPlacement(String id, Placement placement)
+	{
+		register(placement, id);
+	}
+	
 	public static void registerFeature(String id, Feature feature)
 	{
 		register(feature, id);
@@ -169,7 +212,9 @@ public class TyrannoRegister
 	public static <T extends IForgeRegistryEntry<T>> void register(IForgeRegistryEntry<T> entry, String id) 
 	{
 		if(entry == null)
+		{
 			throw new IllegalArgumentException("Can't register null object.");
+		}
 
 		entry.setRegistryName(GameData.checkPrefix(id, false));
 		getCurrentModData().defers.put(entry.getRegistryType(), () -> entry);

@@ -1,20 +1,20 @@
-package tyrannotitanlib.library.base.tileentity;
+package tyrannotitanlib.library.base.block.entity;
 
 import net.minecraft.tileentity.ChestTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.AxisAlignedBB;
-import tyrannotitanlib.content.server.init.TyrannoTileEntities;
+import tyrannotitanlib.content.server.init.TyrannoBlockEntities;
 
-public class TyrannoChestTileEntity extends ChestTileEntity
+public class TyrannoChestBlockEntity extends ChestTileEntity
 {
-	protected TyrannoChestTileEntity(TileEntityType<?> typeIn) 
+	protected TyrannoChestBlockEntity(TileEntityType<?> typeIn) 
 	{
 		super(typeIn);
 	}
 
-	public TyrannoChestTileEntity() 
+	public TyrannoChestBlockEntity() 
 	{
-		super(TyrannoTileEntities.CHEST_TILE_ENTITY);
+		super(TyrannoBlockEntities.CHEST_BLOCK_ENTITY);
 	}
 	
 	@Override

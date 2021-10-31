@@ -1,11 +1,11 @@
 package tyrannotitanlib.library.network;
 
 import net.minecraftforge.fml.network.NetworkDirection;
-import tyrannotitanlib.library.base.utils.TyrannoUtils;
 import tyrannotitanlib.library.network.packets.DropLecternBookPacket;
 import tyrannotitanlib.library.network.packets.OpenLecternBookPacket;
 import tyrannotitanlib.library.network.packets.UpdateHeldPagePacket;
 import tyrannotitanlib.library.network.packets.UpdateLecturnPagePacket;
+import tyrannotitanlib.library.utils.TyrannoUtils;
 
 public class Tyrannonetwork 
 {

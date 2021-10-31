@@ -23,8 +23,8 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.gui.GuiUtils;
-import tyrannotitanlib.library.base.utils.TyrannoUtils;
 import tyrannotitanlib.library.tyrannobook.client.data.element.TextData;
+import tyrannotitanlib.library.utils.TyrannoUtils;
 
 @OnlyIn(Dist.CLIENT)
 public class TextDataRenderer 

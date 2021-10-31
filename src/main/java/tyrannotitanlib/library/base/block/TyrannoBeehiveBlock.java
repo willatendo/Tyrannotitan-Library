@@ -6,7 +6,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.world.IBlockReader;
-import tyrannotitanlib.content.server.init.TyrannoTileEntities;
+import tyrannotitanlib.content.server.init.TyrannoBlockEntities;
 
 public class TyrannoBeehiveBlock extends BeehiveBlock
 {
@@ -18,7 +18,7 @@ public class TyrannoBeehiveBlock extends BeehiveBlock
 	@Override
 	public TileEntity createTileEntity(BlockState state, IBlockReader world) 
 	{
-		return TyrannoTileEntities.BEEHIVE_TILE_ENTITY.create();
+		return TyrannoBlockEntities.BEEHIVE_BLOCK_ENTITY.create();
 	}
 	
 	@Override

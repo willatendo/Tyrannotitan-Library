@@ -13,11 +13,11 @@ import net.minecraft.world.IBlockDisplayReader;
 import net.minecraft.world.IBlockReader;
 import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.client.model.data.ModelProperty;
-import tyrannotitanlib.library.base.block.ConnectedTextureBlock;
+import tyrannotitanlib.library.base.block.TyrannoConnectedTextureBlock;
 
 public class TyrannoConnectedBakedModel extends TyrannoBakedModel 
 {
-	public TyrannoConnectedBakedModel(ConnectedTextureBlock block) 
+	public TyrannoConnectedBakedModel(TyrannoConnectedTextureBlock block) 
 	{
 		super(block);
 	}

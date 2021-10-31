@@ -11,7 +11,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockReader;
-import tyrannotitanlib.library.base.tileentity.TyrannoTrappedChestTileEntity;
+import tyrannotitanlib.library.base.block.entity.TyrannoTrappedChestBlockEntity;
 
 public class TyrannoTrappedChestBlock extends ChestBlock implements ITyrannoChestBlock 
 {
@@ -26,7 +26,7 @@ public class TyrannoTrappedChestBlock extends ChestBlock implements ITyrannoChes
 	@Override
 	public TileEntity newBlockEntity(IBlockReader reader) 
 	{
-		return new TyrannoTrappedChestTileEntity();
+		return new TyrannoTrappedChestBlockEntity();
 	}
 
 	@Override

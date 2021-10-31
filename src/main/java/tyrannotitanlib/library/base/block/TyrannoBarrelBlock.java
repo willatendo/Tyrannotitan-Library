@@ -3,7 +3,7 @@ package tyrannotitanlib.library.base.block;
 import net.minecraft.block.BarrelBlock;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockReader;
-import tyrannotitanlib.library.base.tileentity.TyrannoBarrelTileEntity;
+import tyrannotitanlib.library.base.block.entity.TyrannoBarrelBlockEntity;
 
 public class TyrannoBarrelBlock extends BarrelBlock
 {
@@ -15,6 +15,6 @@ public class TyrannoBarrelBlock extends BarrelBlock
 	@Override
 	public TileEntity newBlockEntity(IBlockReader reader) 
 	{
-		return new TyrannoBarrelTileEntity();
+		return new TyrannoBarrelBlockEntity();
 	}
 }
