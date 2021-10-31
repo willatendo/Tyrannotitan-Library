@@ -28,7 +28,7 @@ import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
 import tyrannotitanlib.library.base.block.ITyrannoChestBlock;
 
-public class TyrannoChestTileEntityRender<T extends TileEntity & IChestLid> extends TileEntityRenderer<T> 
+public class TyrannoChestBlockEntityRender<T extends TileEntity & IChestLid> extends TileEntityRenderer<T> 
 {
 	public static Block itemBlock = null;
 
@@ -43,9 +43,9 @@ public class TyrannoChestTileEntityRender<T extends TileEntity & IChestLid> exte
 	public final ModelRenderer leftLatch;
 	public boolean isChristmas;
 
-	public TyrannoChestTileEntityRender(TileEntityRendererDispatcher rendererDispatcherIn) 
+	public TyrannoChestBlockEntityRender(TileEntityRendererDispatcher rendererDispatcher) 
 	{
-		super(rendererDispatcherIn);
+		super(rendererDispatcher);
 		Calendar calendar = Calendar.getInstance();
 		if(calendar.get(Calendar.MONTH) + 1 == 12 && calendar.get(Calendar.DATE) >= 24 && calendar.get(Calendar.DATE) <= 26) 
 		{
@@ -81,55 +81,55 @@ public class TyrannoChestTileEntityRender<T extends TileEntity & IChestLid> exte
 		this.leftLatch.y = 8.0F;
 	}
 
-	public void render(T tileEntityIn, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn) 
+	public void render(T tileEntity, float partialTicks, MatrixStack matrixStack, IRenderTypeBuffer buffer, int combinedLight, int combinedOverlay) 
 	{
-		World world = tileEntityIn.getLevel();
+		World world = tileEntity.getLevel();
 		boolean flag = world != null;
-		BlockState blockstate = flag ? tileEntityIn.getBlockState()	: Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.SOUTH);
+		BlockState blockstate = flag ? tileEntity.getBlockState()	: Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.SOUTH);
 		ChestType chesttype = blockstate.hasProperty(ChestBlock.TYPE) ? blockstate.getValue(ChestBlock.TYPE) : ChestType.SINGLE;
 		Block block = blockstate.getBlock();
 		if(block instanceof AbstractChestBlock) 
 		{
 			AbstractChestBlock<?> abstractchestblock = (AbstractChestBlock) block;
 			boolean flag1 = chesttype != ChestType.SINGLE;
-			matrixStackIn.pushPose();
+			matrixStack.pushPose();
 			float f = blockstate.getValue(ChestBlock.FACING).toYRot();
-			matrixStackIn.translate(0.5D, 0.5D, 0.5D);
-			matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(-f));
-			matrixStackIn.translate(-0.5D, -0.5D, -0.5D);
+			matrixStack.translate(0.5D, 0.5D, 0.5D);
+			matrixStack.mulPose(Vector3f.YP.rotationDegrees(-f));
+			matrixStack.translate(-0.5D, -0.5D, -0.5D);
 			TileEntityMerger.ICallbackWrapper<? extends ChestTileEntity> icallbackwrapper;
 			if(flag) 
 			{
-				icallbackwrapper = abstractchestblock.combine(blockstate, world, tileEntityIn.getBlockPos(), true);
+				icallbackwrapper = abstractchestblock.combine(blockstate, world, tileEntity.getBlockPos(), true);
 			} 
 			else 
 			{
 				icallbackwrapper = TileEntityMerger.ICallback::acceptNone;
 			}
 
-			float f1 = icallbackwrapper.apply(ChestBlock.opennessCombiner(tileEntityIn)).get(partialTicks);
+			float f1 = icallbackwrapper.apply(ChestBlock.opennessCombiner(tileEntity)).get(partialTicks);
 			f1 = 1.0F - f1;
 			f1 = 1.0F - f1 * f1 * f1;
-			int i = icallbackwrapper.apply(new DualBrightnessCallback<>()).applyAsInt(combinedLightIn);
-			IVertexBuilder ivertexbuilder = this.getChestMaterial(tileEntityIn, chesttype).buffer(bufferIn,
+			int i = icallbackwrapper.apply(new DualBrightnessCallback<>()).applyAsInt(combinedLight);
+			IVertexBuilder ivertexbuilder = this.getChestMaterial(tileEntity, chesttype).buffer(buffer,
 					RenderType::entityCutout);
 			if(flag1) 
 			{
 				if(chesttype == ChestType.LEFT) 
 				{
-					this.render(matrixStackIn, ivertexbuilder, this.leftLid, this.leftLatch, this.leftBottom, f1, i, combinedOverlayIn);
+					this.render(matrixStack, ivertexbuilder, this.leftLid, this.leftLatch, this.leftBottom, f1, i, combinedOverlay);
 				} 
 				else 
 				{
-					this.render(matrixStackIn, ivertexbuilder, this.rightLid, this.rightLatch, this.rightBottom, f1, i, combinedOverlayIn);
+					this.render(matrixStack, ivertexbuilder, this.rightLid, this.rightLatch, this.rightBottom, f1, i, combinedOverlay);
 				}
 			} 
 			else 
 			{
-				this.render(matrixStackIn, ivertexbuilder, this.singleLid, this.singleLatch, this.singleBottom, f1, i, combinedOverlayIn);
+				this.render(matrixStack, ivertexbuilder, this.singleLid, this.singleLatch, this.singleBottom, f1, i, combinedOverlay);
 			}
 
-			matrixStackIn.popPose();
+			matrixStack.popPose();
 		}
 	}
 
@@ -153,26 +153,26 @@ public class TyrannoChestTileEntityRender<T extends TileEntity & IChestLid> exte
 			Block inventoryBlock = itemBlock;
 			if(inventoryBlock == null)
 				inventoryBlock = t.getBlockState().getBlock();
-			TyrannoChestManager.ChestInfo chestInfo = TyrannoChestManager.getInfoForChest(((ITyrannoChestBlock) inventoryBlock).getChestType());
+			TyrannoChestManager.ChestInfo chestfo = TyrannoChestManager.getInfoForChest(((ITyrannoChestBlock) inventoryBlock).getChestType());
 			switch(type) 
 			{
 			default:
 			case SINGLE:
-				return chestInfo != null ? chestInfo.getSingleMaterial() : Atlases.CHEST_LOCATION;
+				return chestfo != null ? chestfo.getSingleMaterial() : Atlases.CHEST_LOCATION;
 			case LEFT:
-				return chestInfo != null ? chestInfo.getLeftMaterial() : Atlases.CHEST_LOCATION_LEFT;
+				return chestfo != null ? chestfo.getLeftMaterial() : Atlases.CHEST_LOCATION_LEFT;
 			case RIGHT:
-				return chestInfo != null ? chestInfo.getRightMaterial() : Atlases.CHEST_LOCATION_RIGHT;
+				return chestfo != null ? chestfo.getRightMaterial() : Atlases.CHEST_LOCATION_RIGHT;
 			}
 		}
 	}
 
-	public void render(MatrixStack matrixStack, IVertexBuilder builder, ModelRenderer chestLid, ModelRenderer chestLatch, ModelRenderer chestBottom, float lidAngle, int combinedLightIn, int combinedOverlayIn) 
+	public void render(MatrixStack matrixStack, IVertexBuilder builder, ModelRenderer chestLid, ModelRenderer chestLatch, ModelRenderer chestBottom, float lidAngle, int combinedLight, int combinedOverlay) 
 	{
 		chestLid.xRot = -(lidAngle * ((float) Math.PI / 2F));
 		chestLatch.xRot = chestLid.xRot;
-		chestLid.render(matrixStack, builder, combinedLightIn, combinedOverlayIn);
-		chestLatch.render(matrixStack, builder, combinedLightIn, combinedOverlayIn);
-		chestBottom.render(matrixStack, builder, combinedLightIn, combinedOverlayIn);
+		chestLid.render(matrixStack, builder, combinedLight, combinedOverlay);
+		chestLatch.render(matrixStack, builder, combinedLight, combinedOverlay);
+		chestBottom.render(matrixStack, builder, combinedLight, combinedOverlay);
 	}
 }

@@ -25,10 +25,11 @@ public class TyrannoChestItemRenderer<T extends TileEntity> extends ItemStackTil
 	}
 
 	@Override
-	public void renderByItem(ItemStack itemStackIn, TransformType transformType, MatrixStack matrixStack, IRenderTypeBuffer buffer, int combinedLight, int combinedOverlay) {
-		BlockItem blockItem = (BlockItem) itemStackIn.getItem();
-		TyrannoChestTileEntityRender.itemBlock = blockItem.getBlock();
-		TileEntityRendererDispatcher.instance.renderItem(this.te.get(), matrixStack, buffer, combinedLight, combinedOverlay);
-		TyrannoChestTileEntityRender.itemBlock = null;
+	public void renderByItem(ItemStack stack, TransformType transformType, MatrixStack matrix, IRenderTypeBuffer buffer, int combinedLight, int combinedOverlay) 
+	{
+		BlockItem blockItem = (BlockItem) stack.getItem();
+		TyrannoChestBlockEntityRender.itemBlock = blockItem.getBlock();
+		TileEntityRendererDispatcher.instance.renderItem(this.te.get(), matrix, buffer, combinedLight, combinedOverlay);
+		TyrannoChestBlockEntityRender.itemBlock = null;
 	}
 }

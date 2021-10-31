@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import tyrannotitanlib.content.server.init.TyrannoEntities;
+import tyrannotitanlib.content.client.chest.TyrannoChestBlockEntityRender;
 import tyrannotitanlib.content.server.init.TyrannoBlockEntities;
 import tyrannotitanlib.library.base.client.TyrannoBoatRenderer;
 import tyrannotitanlib.library.utils.TyrannoUtils;
@@ -20,6 +21,8 @@ public class ClientSetup
 	public static void clientSetup(FMLClientSetupEvent event)
 	{		
 		ClientRegistry.bindTileEntityRenderer(TyrannoBlockEntities.SIGN_BLOCK_ENTITY, SignTileEntityRenderer::new);
+		ClientRegistry.bindTileEntityRenderer(TyrannoBlockEntities.CHEST_BLOCK_ENTITY, TyrannoChestBlockEntityRender::new);
+		ClientRegistry.bindTileEntityRenderer(TyrannoBlockEntities.TRAPPED_CHEST_BLOCK_ENTITY, TyrannoChestBlockEntityRender::new);
 
 		RenderingRegistry.registerEntityRenderingHandler(TyrannoEntities.BOAT, manager -> new TyrannoBoatRenderer(manager));
 	}
