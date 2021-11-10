@@ -6,11 +6,6 @@ import tyrannotitanlib.content.server.init.TyrannoBlockEntities;
 
 public class TyrannoBeehiveBlockEntity extends BeehiveTileEntity
 {
-	public TyrannoBeehiveBlockEntity() 
-	{
-		super();
-	}
-
 	@Override
 	public TileEntityType<?> getType() 
 	{

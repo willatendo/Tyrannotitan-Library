@@ -15,6 +15,7 @@ import net.minecraft.entity.merchant.villager.VillagerProfession;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.particles.ParticleType;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.Potion;
@@ -45,6 +46,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.GameData;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
+import tyrannotitanlib.library.base.recipe.TyrannoRecipeType;
 import tyrannotitanlib.library.utils.TyrannoUtils;
 
 public class TyrannoRegister 
@@ -77,6 +79,11 @@ public class TyrannoRegister
 	}
 
 	//Vanilla
+	public static <T extends IRecipeType> T registerType(String modId, String id) 
+	{
+		return (T) Registry.register(Registry.RECIPE_TYPE, new ResourceLocation(modId, id), new TyrannoRecipeType<>());
+	}
+	
 	public static BannerPattern registerPattern(String id) 
 	{
 		return BannerPattern.create(id.toUpperCase(Locale.ROOT), id, id, false);
@@ -122,7 +129,6 @@ public class TyrannoRegister
 	{
 		register(potion, id);
 	}	
-	
 	
 	public static void registerEnchantment(String id, Enchantment enchantment)
 	{

@@ -30,20 +30,20 @@ import tyrannotitanlib.library.utils.TyrannoUtils;
 public class TextDataRenderer 
 {
 	@Nullable
-	public static String drawText(MatrixStack matrixStack, int x, int y, int boxWidth, int boxHeight, TextData[] data, int mouseX, int mouseY, FontRenderer fr) 
+	public static String drawText(MatrixStack stack, int x, int y, int boxWidth, int boxHeight, TextData[] data, int mouseX, int mouseY, FontRenderer fr) 
 	{
 		List<ITextComponent> tooltip = new ArrayList<ITextComponent>();
-		String action = drawText(matrixStack, x, y, boxWidth, boxHeight, data, mouseX, mouseY, fr, tooltip);
+		String action = drawText(stack, x, y, boxWidth, boxHeight, data, mouseX, mouseY, fr, tooltip);
 
 		if(tooltip.size() > 0) 
 		{
-			drawTooltip(matrixStack, tooltip, mouseX, mouseY, fr);
+			drawTooltip(stack, tooltip, mouseX, mouseY, fr);
 		}
 
 		return action;
 	}
 
-	public static String drawText(MatrixStack matrixStack, int x, int y, int boxWidth, int boxHeight, TextData[] data, int mouseX, int mouseY, FontRenderer fr, List<ITextComponent> tooltip) 
+	public static String drawText(MatrixStack stack, int x, int y, int boxWidth, int boxHeight, TextData[] data, int mouseX, int mouseY, FontRenderer fr, List<ITextComponent> tooltip) 
 	{
 		String action = "";
 
@@ -123,7 +123,7 @@ public class TextDataRenderer
 				}
 
 				String s = split[i];
-				drawScaledString(matrixStack, fr, modifiers + s, atX, atY, item.rgbColor, item.dropshadow, item.scale);
+				drawScaledString(stack, fr, modifiers + s, atX, atY, item.rgbColor, item.dropshadow, item.scale);
 
 				if(i < split.length - 1) 
 				{
@@ -178,11 +178,11 @@ public class TextDataRenderer
 			{
 				if(item.dropshadow) 
 				{
-					fr.drawShadow(matrixStack, "...", atX, atY, 0);
+					fr.drawShadow(stack, "...", atX, atY, 0);
 				} 
 				else 
 				{
-					fr.draw(matrixStack, "...", atX, atY, 0);
+					fr.draw(stack, "...", atX, atY, 0);
 				}
 				break;
 			}
@@ -265,24 +265,24 @@ public class TextDataRenderer
 		return s.split("\r");
 	}
 
-	public static void drawTooltip(MatrixStack matrixStack, List<ITextComponent> textLines, int mouseX, int mouseY, FontRenderer font) 
+	public static void drawTooltip(MatrixStack stack, List<ITextComponent> textLines, int mouseX, int mouseY, FontRenderer font) 
 	{
-		GuiUtils.drawHoveringText(matrixStack, textLines, mouseX, mouseY, TyrannobookScreen.PAGE_WIDTH, TyrannobookScreen.PAGE_HEIGHT, TyrannobookScreen.PAGE_WIDTH, font);
+		GuiUtils.drawHoveringText(stack, textLines, mouseX, mouseY, TyrannobookScreen.PAGE_WIDTH, TyrannobookScreen.PAGE_HEIGHT, TyrannobookScreen.PAGE_WIDTH, font);
 		RenderHelper.turnOff();
 	}
 
-	public static void drawScaledString(MatrixStack matrixStack, FontRenderer font, String text, float x, float y, int color, boolean dropShadow, float scale) 
+	public static void drawScaledString(MatrixStack stack, FontRenderer font, String text, float x, float y, int color, boolean dropShadow, float scale) 
 	{
 		RenderSystem.pushMatrix();
 		RenderSystem.translatef(x, y, 0);
 		RenderSystem.scalef(scale, scale, 1F);
 		if(dropShadow) 
 		{
-			font.drawShadow(matrixStack, text, 0, 0, color);
+			font.drawShadow(stack, text, 0, 0, color);
 		} 
 		else 
 		{
-			font.draw(matrixStack, text, 0, 0, color);
+			font.draw(stack, text, 0, 0, color);
 		}
 		RenderSystem.popMatrix();
 	}

@@ -1,5 +1,6 @@
 package tyrannotitanlib.library.base.block;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.block.ChestBlock;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockReader;
@@ -20,6 +21,12 @@ public class TyrannoChestBlock extends ChestBlock implements ITyrannoChestBlock
 	public TileEntity newBlockEntity(IBlockReader reader) 
 	{
 		return new TyrannoChestBlockEntity();
+	}
+	
+	@Override
+	public TileEntity createTileEntity(BlockState state, IBlockReader world) 
+	{
+		return TyrannoBlockEntities.CHEST_BLOCK_ENTITY.create();
 	}
 
 	@Override

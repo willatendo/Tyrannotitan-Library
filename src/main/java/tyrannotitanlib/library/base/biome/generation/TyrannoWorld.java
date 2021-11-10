@@ -28,11 +28,11 @@ public class TyrannoWorld
 		addFeature(event, GenerationStage.Decoration.UNDERGROUND_ORES, ore);
 	}
 	
-	public static void addBiome(BiomeLoadingEvent event, ResourceLocation loc, BiomeType temp, RegistryKey<Biome> key, int weight, Type... types)
+	public static void addBiome(BiomeLoadingEvent event, ResourceLocation loc, BiomeType temperature, RegistryKey<Biome> key, int weight, Type... types)
 	{
 		if(event.getName().equals(loc))
 		{
-			BiomeManager.addBiome(temp, new BiomeManager.BiomeEntry(key, weight));
+			BiomeManager.addBiome(temperature, new BiomeManager.BiomeEntry(key, weight));
 			BiomeDictionary.addTypes(key, types);
 		}
 	}

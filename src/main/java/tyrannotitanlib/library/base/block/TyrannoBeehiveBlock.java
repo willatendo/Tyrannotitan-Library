@@ -7,6 +7,7 @@ import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.world.IBlockReader;
 import tyrannotitanlib.content.server.init.TyrannoBlockEntities;
+import tyrannotitanlib.library.base.block.entity.TyrannoBeehiveBlockEntity;
 
 public class TyrannoBeehiveBlock extends BeehiveBlock
 {
@@ -16,20 +17,26 @@ public class TyrannoBeehiveBlock extends BeehiveBlock
 	}
 	
 	@Override
+	public TileEntity newBlockEntity(IBlockReader reader) 
+	{
+		return new TyrannoBeehiveBlockEntity();
+	}
+	
+	@Override
 	public TileEntity createTileEntity(BlockState state, IBlockReader world) 
 	{
 		return TyrannoBlockEntities.BEEHIVE_BLOCK_ENTITY.create();
 	}
 	
 	@Override
-	public BlockState rotate(BlockState state, Rotation rot) 
+	public BlockState rotate(BlockState state, Rotation rotation) 
 	{
-		return state.setValue(FACING, rot.rotate(state.getValue(FACING)));
+		return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
 	}
 
 	@Override
-	public BlockState mirror(BlockState state, Mirror mirrorIn) 
+	public BlockState mirror(BlockState state, Mirror mirror) 
 	{
-		return mirrorIn == Mirror.NONE ? state : state.rotate(mirrorIn.getRotation(state.getValue(FACING)));
+		return mirror == Mirror.NONE ? state : state.rotate(mirror.getRotation(state.getValue(FACING)));
 	}
 }

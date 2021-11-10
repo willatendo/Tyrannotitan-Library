@@ -12,7 +12,7 @@ public class TyrannotitanMod
 {
 	public static volatile boolean hasInitialized;
 	public static String id;
-
+	
 	// Mandatory!
 	public static void init(String modid)
 	{

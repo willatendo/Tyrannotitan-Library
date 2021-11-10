@@ -40,10 +40,11 @@ public abstract class TyrannobookItem extends Item implements ITyrannoLecternBoo
 	public static void interactWithBlock(PlayerInteractEvent.RightClickBlock event) 
 	{
 		World world = event.getWorld();
-		if(world.isClientSide()) 
+		if(world.isClientSide() || event.getPlayer().isCrouching()) 
 		{
 			return;
 		}
+		
 		BlockPos pos = event.getPos();
 		BlockState state = world.getBlockState(pos);
 		if(state.is(Blocks.LECTERN)) 

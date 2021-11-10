@@ -38,21 +38,21 @@ public class TyrannoBoatItem extends Item
 	}
 
 	@Override
-	public ActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) 
+	public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand handIn) 
 	{
-		ItemStack itemstack = playerIn.getItemInHand(handIn);
-		RayTraceResult raytraceresult = getPlayerPOVHitResult(worldIn, playerIn, RayTraceContext.FluidMode.ANY);
+		ItemStack itemstack = player.getItemInHand(handIn);
+		RayTraceResult raytraceresult = getPlayerPOVHitResult(world, player, RayTraceContext.FluidMode.ANY);
 		if(raytraceresult.getType() == RayTraceResult.Type.MISS) 
 		{
 			return new ActionResult<>(ActionResultType.PASS, itemstack);
 		} 
 		else 
 		{
-			Vector3d vec3d = playerIn.getViewVector(1.0F);
-			List<Entity> list = worldIn.getEntities(playerIn, playerIn.getBoundingBox().expandTowards(vec3d.scale(5.0D)).inflate(1.0D), COLLISION_PREDICATE);
+			Vector3d vec3d = player.getViewVector(1.0F);
+			List<Entity> list = world.getEntities(player, player.getBoundingBox().expandTowards(vec3d.scale(5.0D)).inflate(1.0D), COLLISION_PREDICATE);
 			if(!list.isEmpty()) 
 			{
-				Vector3d vec3d1 = playerIn.getEyePosition(1.0F);
+				Vector3d vec3d1 = player.getEyePosition(1.0F);
 
 				for(Entity entity : list) 
 				{
@@ -66,26 +66,26 @@ public class TyrannoBoatItem extends Item
 
 			if(raytraceresult.getType() == RayTraceResult.Type.BLOCK) 
 			{
-				TyrannoBoatEntity boatentity = new TyrannoBoatEntity(worldIn, raytraceresult.getLocation().x, raytraceresult.getLocation().y, raytraceresult.getLocation().z);
+				TyrannoBoatEntity boatentity = new TyrannoBoatEntity(world, raytraceresult.getLocation().x, raytraceresult.getLocation().y, raytraceresult.getLocation().z);
 				boatentity.setBoat(this.type);
-				boatentity.yRot = playerIn.yRot;
-				if(!worldIn.noCollision(boatentity, boatentity.getBoundingBox().inflate(-0.1D))) 
+				boatentity.yRot = player.yRot;
+				if(!world.noCollision(boatentity, boatentity.getBoundingBox().inflate(-0.1D))) 
 				{
 					return new ActionResult<>(ActionResultType.FAIL, itemstack);
 				} 
 				else 
 				{
-					if(!worldIn.isClientSide) 
+					if(!world.isClientSide) 
 					{
-						worldIn.addFreshEntity(boatentity);
+						world.addFreshEntity(boatentity);
 					}
 
-					if(!playerIn.abilities.instabuild) 
+					if(!player.abilities.instabuild) 
 					{
 						itemstack.shrink(1);
 					}
 
-					playerIn.awardStat(Stats.ITEM_USED.get(this));
+					player.awardStat(Stats.ITEM_USED.get(this));
 					return new ActionResult<>(ActionResultType.SUCCESS, itemstack);
 				}
 			} 

@@ -44,9 +44,13 @@ public class StructureInfo implements Predicate<BlockPos>
 		showLayer = layer;
 
 		if(layer < 0)
+		{
 			this.reset();
+		}
 		else
+		{
 			this.blockIndex = (layer + 1) * (this.structureLength * this.structureWidth) - 1;
+		}
 	}
 
 	public void reset() 
@@ -61,7 +65,9 @@ public class StructureInfo implements Predicate<BlockPos>
 		do 
 		{
 			if(++this.blockIndex >= this.maxBlockIndex)
+			{
 				this.blockIndex = 0;
+			}
 		} 
 		while(this.isEmpty(this.blockIndex) && this.blockIndex != start);
 	}

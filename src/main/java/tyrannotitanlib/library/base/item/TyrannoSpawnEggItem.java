@@ -16,7 +16,6 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.common.util.NonNullSupplier;
-import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 public class TyrannoSpawnEggItem extends SpawnEggItem
@@ -25,13 +24,6 @@ public class TyrannoSpawnEggItem extends SpawnEggItem
 	private final Lazy<? extends EntityType<?>> entityTypeSupplier;
 
 	public TyrannoSpawnEggItem(NonNullSupplier<? extends EntityType<?>> entityTypeSupplier, int primaryColour, int secondaryColour, Properties properties) 
-	{
-		super(null, primaryColour, secondaryColour, properties.tab(ItemGroup.TAB_MISC));
-		this.entityTypeSupplier = Lazy.of(entityTypeSupplier::get);
-		UNADDED_EGGS.add(this);
-	}
-
-	public TyrannoSpawnEggItem(RegistryObject<? extends EntityType<?>> entityTypeSupplier, int primaryColour, int secondaryColour, Properties properties) 
 	{
 		super(null, primaryColour, secondaryColour, properties.tab(ItemGroup.TAB_MISC));
 		this.entityTypeSupplier = Lazy.of(entityTypeSupplier::get);

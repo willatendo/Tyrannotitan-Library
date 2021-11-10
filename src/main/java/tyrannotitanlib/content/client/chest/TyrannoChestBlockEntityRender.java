@@ -81,6 +81,7 @@ public class TyrannoChestBlockEntityRender<T extends TileEntity & IChestLid> ext
 		this.leftLatch.y = 8.0F;
 	}
 
+	@Override
 	public void render(T tileEntity, float partialTicks, MatrixStack matrixStack, IRenderTypeBuffer buffer, int combinedLight, int combinedOverlay) 
 	{
 		World world = tileEntity.getLevel();
@@ -139,13 +140,13 @@ public class TyrannoChestBlockEntityRender<T extends TileEntity & IChestLid> ext
 		{
 			switch (type) 
 			{
-			default:
-			case SINGLE:
-				return Atlases.CHEST_XMAS_LOCATION;
-			case LEFT:
-				return Atlases.CHEST_XMAS_LOCATION_LEFT;
-			case RIGHT:
-				return Atlases.CHEST_XMAS_LOCATION_RIGHT;
+				default:
+				case SINGLE:
+					return Atlases.CHEST_XMAS_LOCATION;
+				case LEFT:
+					return Atlases.CHEST_XMAS_LOCATION_LEFT;
+				case RIGHT:
+					return Atlases.CHEST_XMAS_LOCATION_RIGHT;
 			}
 		} 
 		else 
@@ -167,12 +168,12 @@ public class TyrannoChestBlockEntityRender<T extends TileEntity & IChestLid> ext
 		}
 	}
 
-	public void render(MatrixStack matrixStack, IVertexBuilder builder, ModelRenderer chestLid, ModelRenderer chestLatch, ModelRenderer chestBottom, float lidAngle, int combinedLight, int combinedOverlay) 
+	public void render(MatrixStack stack, IVertexBuilder builder, ModelRenderer chestLid, ModelRenderer chestLatch, ModelRenderer chestBottom, float lidAngle, int combinedLight, int combinedOverlay) 
 	{
 		chestLid.xRot = -(lidAngle * ((float) Math.PI / 2F));
 		chestLatch.xRot = chestLid.xRot;
-		chestLid.render(matrixStack, builder, combinedLight, combinedOverlay);
-		chestLatch.render(matrixStack, builder, combinedLight, combinedOverlay);
-		chestBottom.render(matrixStack, builder, combinedLight, combinedOverlay);
+		chestLid.render(stack, builder, combinedLight, combinedOverlay);
+		chestLatch.render(stack, builder, combinedLight, combinedOverlay);
+		chestBottom.render(stack, builder, combinedLight, combinedOverlay);
 	}
 }

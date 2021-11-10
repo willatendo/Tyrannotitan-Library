@@ -6,7 +6,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.network.NetworkEvent.Context;
 import tyrannotitanlib.library.base.item.ITyrannoLecternBookItem;
 
-public class OpenLecternBookPacket implements IThreadSafePacket {
+public class OpenLecternBookPacket implements IThreadSafePacket 
+{
 	private final BlockPos pos;
 	private final ItemStack book;
 

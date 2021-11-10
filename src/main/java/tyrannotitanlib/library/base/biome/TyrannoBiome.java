@@ -1,14 +1,27 @@
 package tyrannotitanlib.library.base.biome;
 
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeGenerationSettings;
 import net.minecraft.world.biome.DefaultBiomeFeatures;
 import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.gen.surfacebuilders.ISurfaceBuilderConfig;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 
-public class SimpleBiome 
+public class TyrannoBiome 
 {
+	private final Biome biome;
+	
+	public TyrannoBiome(Biome.Builder builder) 
+	{
+		this.biome = builder.build();
+	}
+	
+	public Biome getBiome()
+	{
+		return this.biome;
+	}
+	
 	public static int calculateSkyColor(float temperature) 
 	{
 		float colour = temperature / 3.0F;

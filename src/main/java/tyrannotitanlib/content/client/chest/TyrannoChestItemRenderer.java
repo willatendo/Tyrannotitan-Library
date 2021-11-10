@@ -17,11 +17,11 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class TyrannoChestItemRenderer<T extends TileEntity> extends ItemStackTileEntityRenderer
 {
-	private final Supplier<T> te;
+	private final Supplier<T> blockEntity;
 
-	public TyrannoChestItemRenderer(Supplier<T> te) 
+	public TyrannoChestItemRenderer(Supplier<T> blockEntity) 
 	{
-		this.te = te;
+		this.blockEntity = blockEntity;
 	}
 
 	@Override
@@ -29,7 +29,7 @@ public class TyrannoChestItemRenderer<T extends TileEntity> extends ItemStackTil
 	{
 		BlockItem blockItem = (BlockItem) stack.getItem();
 		TyrannoChestBlockEntityRender.itemBlock = blockItem.getBlock();
-		TileEntityRendererDispatcher.instance.renderItem(this.te.get(), matrix, buffer, combinedLight, combinedOverlay);
+		TileEntityRendererDispatcher.instance.renderItem(this.blockEntity.get(), matrix, buffer, combinedLight, combinedOverlay);
 		TyrannoChestBlockEntityRender.itemBlock = null;
 	}
 }

@@ -7,9 +7,9 @@ import tyrannotitanlib.content.server.init.TyrannoBlockEntities;
 
 public class TyrannoChestBlockEntity extends ChestTileEntity
 {
-	protected TyrannoChestBlockEntity(TileEntityType<?> typeIn) 
+	protected TyrannoChestBlockEntity(TileEntityType<?> type) 
 	{
-		super(typeIn);
+		super(type);
 	}
 
 	public TyrannoChestBlockEntity() 

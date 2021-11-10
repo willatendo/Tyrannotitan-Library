@@ -78,12 +78,12 @@ public class TyrannoBoatEntity extends BoatEntity
 	}
 
 	@Override
-	protected void checkFallDamage(double y, boolean onGroundIn, BlockState state, BlockPos pos) 
+	protected void checkFallDamage(double y, boolean onGround, BlockState state, BlockPos pos) 
 	{
 		this.lastYd = this.getDeltaMovement().y;
 		if(!this.isPassenger()) 
 		{
-			if(onGroundIn) 
+			if(onGround) 
 			{
 				if(this.fallDistance > 3.0F) 
 				{
