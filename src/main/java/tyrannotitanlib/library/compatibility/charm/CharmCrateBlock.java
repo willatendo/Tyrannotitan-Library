@@ -19,7 +19,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootContext;
 import net.minecraft.loot.LootParameters;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.ShulkerBoxTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
@@ -33,6 +32,7 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import tyrannotitanlib.content.server.init.TyrannoBlockEntities;
 
 public class CharmCrateBlock extends Block 
 {
@@ -45,14 +45,26 @@ public class CharmCrateBlock extends Block
 		super(properties);
 		this.drop = drop;
 	}
+	
+	@Override
+	public boolean hasTileEntity(BlockState state) 
+	{
+		return true;
+	}
+	
+	@Override
+	public TileEntity createTileEntity(BlockState state, IBlockReader world) 
+	{
+		return TyrannoBlockEntities.CRATE_BLOCK_ENTITY.create();
+	}
 
 	@Override
 	public void playerWillDestroy(World world, BlockPos pos, BlockState state, PlayerEntity entity) 
 	{
 		TileEntity tileentity = world.getBlockEntity(pos);
-		if(tileentity instanceof ShulkerBoxTileEntity) 
+		if(tileentity instanceof CharmCrateBlockEntity) 
 		{
-			ShulkerBoxTileEntity shulkerboxtileentity = (ShulkerBoxTileEntity) tileentity;
+			CharmCrateBlockEntity shulkerboxtileentity = (CharmCrateBlockEntity) tileentity;
 			if(!world.isClientSide && entity.isCreative() && !shulkerboxtileentity.isEmpty()) 
 			{
 				ItemStack itemstack = drop.getDefaultInstance();
@@ -84,9 +96,9 @@ public class CharmCrateBlock extends Block
 	public List<ItemStack> getDrops(BlockState state, LootContext.Builder loot) 
 	{
 		TileEntity tileentity = loot.getOptionalParameter(LootParameters.BLOCK_ENTITY);
-		if(tileentity instanceof ShulkerBoxTileEntity) 
+		if(tileentity instanceof CharmCrateBlockEntity) 
 		{
-			ShulkerBoxTileEntity shulkerboxtileentity = (ShulkerBoxTileEntity) tileentity;
+			CharmCrateBlockEntity shulkerboxtileentity = (CharmCrateBlockEntity) tileentity;
 			loot = loot.withDynamicDrop(CONTENTS, (lootcontext, stack) -> 
 			{
 				for(int i = 0; i < shulkerboxtileentity.getContainerSize(); ++i) 
@@ -106,9 +118,9 @@ public class CharmCrateBlock extends Block
 		if(stack.hasCustomHoverName()) 
 		{
 			TileEntity tileentity = world.getBlockEntity(pos);
-			if(tileentity instanceof ShulkerBoxTileEntity) 
+			if(tileentity instanceof CharmCrateBlockEntity) 
 			{
-				((ShulkerBoxTileEntity) tileentity).setCustomName(stack.getHoverName());
+				((CharmCrateBlockEntity) tileentity).setCustomName(stack.getHoverName());
 			}
 		}
 	}
@@ -119,7 +131,7 @@ public class CharmCrateBlock extends Block
 		if(!state.is(newstate.getBlock())) 
 		{
 			TileEntity tileentity = world.getBlockEntity(pos);
-			if(tileentity instanceof ShulkerBoxTileEntity) 
+			if(tileentity instanceof CharmCrateBlockEntity) 
 			{
 				world.updateNeighbourForOutputSignal(pos, state.getBlock());
 			}
@@ -194,7 +206,7 @@ public class CharmCrateBlock extends Block
 	public ItemStack getCloneItemStack(IBlockReader reader, BlockPos pos, BlockState state) 
 	{
 		ItemStack itemstack = super.getCloneItemStack(reader, pos, state);
-		ShulkerBoxTileEntity shulkerboxtileentity = (ShulkerBoxTileEntity) reader.getBlockEntity(pos);
+		CharmCrateBlockEntity shulkerboxtileentity = (CharmCrateBlockEntity) reader.getBlockEntity(pos);
 		CompoundNBT compoundnbt = shulkerboxtileentity.saveToTag(new CompoundNBT());
 		if(!compoundnbt.isEmpty()) 
 		{

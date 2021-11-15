@@ -17,6 +17,12 @@ public class TyrannoBeehiveBlock extends BeehiveBlock
 	}
 	
 	@Override
+	public boolean hasTileEntity(BlockState state) 
+	{
+		return true;
+	}
+	
+	@Override
 	public TileEntity newBlockEntity(IBlockReader reader) 
 	{
 		return new TyrannoBeehiveBlockEntity();

@@ -16,6 +16,12 @@ public class TyrannoStandingSignBlock extends StandingSignBlock implements ITyra
 	}
 	
 	@Override
+	public boolean hasTileEntity(BlockState state) 
+	{
+		return true;
+	}
+	
+	@Override
 	public TileEntity newBlockEntity(IBlockReader reader) 
 	{
 		return new TyrannoSignBlockEntity();

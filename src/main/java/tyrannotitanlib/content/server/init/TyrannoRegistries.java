@@ -1,38 +1,56 @@
 package tyrannotitanlib.content.server.init;
 
-import net.minecraft.entity.Entity;
+import net.minecraft.block.Block;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EntityType.IFactory;
-import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.Item.Properties;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.tileentity.TileEntityType;
 import tyrannotitanlib.library.tyrannoregister.TyrannoRegister;
 
 public class TyrannoRegistries 
 {	
-	protected static <T extends TileEntity> TileEntityType<T> create(String id, TileEntityType<T> tileEntity)
+	public static Item create(String id, Item item)
 	{
-		TyrannoRegister.registerBlockEntity(id, tileEntity);
-		return tileEntity;
+		TyrannoRegister.registerItem(id, item);
+		return item;
 	}
 	
-	protected static <T extends Container> ContainerType<T> create(String id, ContainerType<T> container)
+	public static Block create(String id, Block block)
+	{
+		BlockItem item = new BlockItem(block, new Properties().tab(ItemGroup.TAB_BUILDING_BLOCKS));
+		TyrannoRegister.registerItem(id, item);
+		TyrannoRegister.registerBlock(id, block);
+		return block;
+	}
+	
+	public static TileEntityType create(String id, TileEntityType blockEntity)
+	{
+		TyrannoRegister.registerBlockEntity(id, blockEntity);
+		return blockEntity;
+	}
+	
+	public static ContainerType create(String id, ContainerType container)
 	{
 		TyrannoRegister.registerContainer(id, container);
 		return container;
 	}
 	
-	protected static <T extends Entity> EntityType<T> create(String id, IFactory<T> factory, EntityClassification classifcation, float width, float height)
+	public static EntityType create(String id, IFactory factory, EntityClassification classifcation, float width, float height)
 	{
-		EntityType<T> entityType = EntityType.Builder.of(factory, classifcation).sized(width, height).build(id);
+		EntityType entityType = EntityType.Builder.of(factory, classifcation).sized(width, height).build(id);
 		TyrannoRegister.registerEntity(id, entityType);
 		return entityType;
 	}
 	
 	public static void register()
 	{
+		TyrannoItems.init();
+		TyrannoBlocks.init();
 		TyrannoBlockEntities.init();
 		TyrannoContainers.init();
 		TyrannoEntities.init();

@@ -1,5 +1,17 @@
 package tyrannotitanlib.library.utils;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -9,6 +21,8 @@ import net.minecraft.util.text.TranslationTextComponent;
 
 public class TyrannoUtils 
 {
+	public static List<String> TYRANNOTITANS = new ArrayList<>();
+
 	public static final Logger LOGGER = LogManager.getLogger(TyrannoUtils.TYRANNO_ID);
 	
 	public static final String TYRANNO_ID = "tyrannotitanlib";
@@ -40,5 +54,34 @@ public class TyrannoUtils
 		TranslationTextComponent text = tTC(type, key);
 		text.withStyle(TextFormatting.GRAY);
 		return text;
+	}
+	
+	@Nullable
+	public static BufferedReader getURLContents(@Nonnull String urlString, @Nonnull String backupFileLoc) 
+	{
+		try 
+		{
+			URL url = new URL(urlString);
+			URLConnection connection = url.openConnection();
+			InputStream stream = connection.getInputStream();
+			InputStreamReader reader = new InputStreamReader(stream);
+
+			return new BufferedReader(reader);
+		} 
+		catch(Exception e) 
+		{
+			e.printStackTrace();
+		}
+
+		try 
+		{
+			return new BufferedReader(new InputStreamReader(TyrannoUtils.class.getClass().getClassLoader().getResourceAsStream(backupFileLoc), StandardCharsets.UTF_8));
+		} 
+		catch(NullPointerException e) 
+		{
+			e.printStackTrace();
+		}
+
+		return null;
 	}
 }
