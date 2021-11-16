@@ -15,7 +15,7 @@ import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IFutureReloadListener.IStage;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
-import tyrannotitanlib.library.TyrannotitanMod;
+import tyrannotitanlib.content.TyrannotitanLibrary;
 import tyrannotitanlib.library.tyrannomation.file.TyrannomationFile;
 import tyrannotitanlib.library.tyrannomation.file.TyrannomationFileLoader;
 import tyrannotitanlib.library.tyrannomation.file.TyrannomationModelLoader;
@@ -33,18 +33,18 @@ public class TyrannomationCache
 
 	public Map<ResourceLocation, TyrannomationFile> getAnimations() 
 	{
-		if(!TyrannotitanMod.hasInitialized) 
+		if(!TyrannotitanLibrary.hasInitialized) 
 		{
-			throw new RuntimeException("TyrannotitanLib was never initialized! Please read the documentation!");
+			throw new RuntimeException("TyrannotitanLib was never initialized!");
 		}
 		return animations;
 	}
 
 	public Map<ResourceLocation, TyrannomationModel> getTyrannoModels() 
 	{
-		if(!TyrannotitanMod.hasInitialized) 
+		if(!TyrannotitanLibrary.hasInitialized) 
 		{
-			throw new RuntimeException("TyrannotitanLib was never initialized! Please read the documentation!");
+			throw new RuntimeException("TyrannotitanLib was never initialized!");
 		}
 		return geoModels;
 	}

@@ -11,11 +11,14 @@ import net.minecraft.client.network.play.NetworkPlayerInfo;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.event.TickEvent.ClientTickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import tyrannotitanlib.library.utils.TyrannoUtils;
 
+@OnlyIn(Dist.CLIENT)
 public class Capes 
 {
 	private final Minecraft minecraft = Minecraft.getInstance();

@@ -78,7 +78,7 @@ public class TyrannoRegister
 		getCurrentModData().register(event.getRegistry());
 	}
 
-	//Vanilla
+	//Non-Forge
 	public static <T extends IRecipeType> T registerType(String modId, String id) 
 	{
 		return (T) Registry.register(Registry.RECIPE_TYPE, new ResourceLocation(modId, id), new TyrannoRecipeType<>());

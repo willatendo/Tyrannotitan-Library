@@ -9,11 +9,17 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.Properties;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.tileentity.BannerPattern;
 import net.minecraft.tileentity.TileEntityType;
 import tyrannotitanlib.library.tyrannoregister.TyrannoRegister;
 
 public class TyrannoRegistries 
 {	
+	public static BannerPattern create(String id)
+	{
+		return TyrannoRegister.registerPattern(id);
+	}
+	
 	public static Item create(String id, Item item)
 	{
 		TyrannoRegister.registerItem(id, item);
@@ -49,10 +55,11 @@ public class TyrannoRegistries
 	
 	public static void register()
 	{
-		TyrannoItems.init();
+		TyrannoBanners.init();
 		TyrannoBlocks.init();
 		TyrannoBlockEntities.init();
 		TyrannoContainers.init();
+		TyrannoItems.init();
 		TyrannoEntities.init();
 	}
 }

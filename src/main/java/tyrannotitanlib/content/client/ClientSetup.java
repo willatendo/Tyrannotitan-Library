@@ -1,6 +1,5 @@
 package tyrannotitanlib.content.client;
 
-import net.minecraft.client.renderer.tileentity.SignTileEntityRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -8,9 +7,9 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import tyrannotitanlib.content.server.init.TyrannoEntities;
 import tyrannotitanlib.content.client.chest.TyrannoChestBlockEntityRender;
 import tyrannotitanlib.content.server.init.TyrannoBlockEntities;
+import tyrannotitanlib.content.server.init.TyrannoEntities;
 import tyrannotitanlib.library.base.client.TyrannoBoatRenderer;
 import tyrannotitanlib.library.utils.TyrannoUtils;
 
@@ -20,7 +19,6 @@ public class ClientSetup
 	@SubscribeEvent
 	public static void clientSetup(FMLClientSetupEvent event)
 	{		
-		ClientRegistry.bindTileEntityRenderer(TyrannoBlockEntities.SIGN_BLOCK_ENTITY, SignTileEntityRenderer::new);
 		ClientRegistry.bindTileEntityRenderer(TyrannoBlockEntities.CHEST_BLOCK_ENTITY, TyrannoChestBlockEntityRender::new);
 		ClientRegistry.bindTileEntityRenderer(TyrannoBlockEntities.TRAPPED_CHEST_BLOCK_ENTITY, TyrannoChestBlockEntityRender::new);
 
