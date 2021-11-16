@@ -1,4 +1,4 @@
-package tyrannotitanlib.library.network.util;
+package tyrannotitanlib.library.tyrannonetwork.util;
 
 import java.util.Optional;
 

@@ -1,4 +1,4 @@
-package tyrannotitanlib.library.network.packets;
+package tyrannotitanlib.library.tyrannonetwork.packets;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -7,8 +7,8 @@ import net.minecraft.tileentity.LecternTileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkEvent.Context;
-import tyrannotitanlib.library.network.util.TileEntityHelper;
 import tyrannotitanlib.library.tyrannobook.client.TyrannobookHelper;
+import tyrannotitanlib.library.tyrannonetwork.util.TileEntityHelper;
 
 public class UpdateLecturnPagePacket implements IThreadSafePacket 
 {

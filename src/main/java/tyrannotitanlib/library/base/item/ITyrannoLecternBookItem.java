@@ -4,8 +4,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import tyrannotitanlib.library.network.Tyrannonetwork;
-import tyrannotitanlib.library.network.packets.OpenLecternBookPacket;
+import tyrannotitanlib.library.tyrannonetwork.Tyrannonetwork;
+import tyrannotitanlib.library.tyrannonetwork.packets.OpenLecternBookPacket;
 
 public interface ITyrannoLecternBookItem 
 {

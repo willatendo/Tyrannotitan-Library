@@ -18,9 +18,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.resource.IResourceType;
 import net.minecraftforge.resource.ISelectiveResourceReloadListener;
-import tyrannotitanlib.library.network.Tyrannonetwork;
-import tyrannotitanlib.library.network.packets.UpdateHeldPagePacket;
-import tyrannotitanlib.library.network.packets.UpdateLecturnPagePacket;
 import tyrannotitanlib.library.tyrannobook.client.action.StringActionProcessor;
 import tyrannotitanlib.library.tyrannobook.client.action.protocol.ProtocolGoToPage;
 import tyrannotitanlib.library.tyrannobook.client.data.TyrannobookData;
@@ -39,6 +36,9 @@ import tyrannotitanlib.library.tyrannobook.client.data.content.ContentTextRightI
 import tyrannotitanlib.library.tyrannobook.client.data.content.PageContent;
 import tyrannotitanlib.library.tyrannobook.client.data.deserialiser.HexStringDeserialiser;
 import tyrannotitanlib.library.tyrannobook.client.repository.TyrannobookRepository;
+import tyrannotitanlib.library.tyrannonetwork.Tyrannonetwork;
+import tyrannotitanlib.library.tyrannonetwork.packets.UpdateHeldPagePacket;
+import tyrannotitanlib.library.tyrannonetwork.packets.UpdateLecturnPagePacket;
 
 @OnlyIn(Dist.CLIENT)
 public class TyrannobookLoader implements ISelectiveResourceReloadListener 

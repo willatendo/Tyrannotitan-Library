@@ -12,7 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import tyrannotitanlib.library.base.item.ITyrannoLecternBookItem;
-import tyrannotitanlib.library.network.util.TileEntityHelper;
+import tyrannotitanlib.library.tyrannonetwork.util.TileEntityHelper;
 
 public abstract class TyrannobookItem extends Item implements ITyrannoLecternBookItem 
 {

@@ -1,4 +1,4 @@
-package tyrannotitanlib.library.network.packets;
+package tyrannotitanlib.library.tyrannonetwork.packets;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;

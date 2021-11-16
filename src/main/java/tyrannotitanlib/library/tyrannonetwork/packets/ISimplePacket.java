@@ -1,4 +1,4 @@
-package tyrannotitanlib.library.network.packets;
+package tyrannotitanlib.library.tyrannonetwork.packets;
 
 import java.util.function.Supplier;
 

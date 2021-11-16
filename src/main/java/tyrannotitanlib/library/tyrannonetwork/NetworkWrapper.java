@@ -1,4 +1,4 @@
-package tyrannotitanlib.library.network;
+package tyrannotitanlib.library.tyrannonetwork;
 
 import java.util.Optional;
 import java.util.function.BiConsumer;
@@ -22,7 +22,7 @@ import net.minecraftforge.fml.network.NetworkEvent.Context;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
-import tyrannotitanlib.library.network.packets.ISimplePacket;
+import tyrannotitanlib.library.tyrannonetwork.packets.ISimplePacket;
 
 public class NetworkWrapper 
 {
