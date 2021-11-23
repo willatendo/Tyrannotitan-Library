@@ -1,4 +1,4 @@
-package tyrannotitanlib.library.base.item;
+package tyrannotitanlib.library.tyrannobook.item;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;

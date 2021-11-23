@@ -22,9 +22,9 @@ public class ConstantValue implements IValue
 		return new ConstantValue(d);
 	}
 
-	public static ConstantValue fromFloat(float d)
+	public static ConstantValue fromFloat(float f)
 	{
-		return new ConstantValue(d);
+		return new ConstantValue(f);
 	}
 
 	public static ConstantValue parseDouble(String s)

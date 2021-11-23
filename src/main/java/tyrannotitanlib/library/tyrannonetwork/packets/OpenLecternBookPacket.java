@@ -4,7 +4,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.network.NetworkEvent.Context;
-import tyrannotitanlib.library.base.item.ITyrannoLecternBookItem;
+import tyrannotitanlib.library.tyrannobook.item.ITyrannoLecternBookItem;
 
 public class OpenLecternBookPacket implements IThreadSafePacket 
 {
