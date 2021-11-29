@@ -5,7 +5,6 @@ import javax.annotation.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.BlockItemUseContext;
@@ -21,7 +20,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
-public abstract class TyrannoMachineBlock extends Block implements ITileEntityProvider
+public abstract class TyrannoMachineBlock extends Block
 {
 	public static final DirectionProperty HORIZONTAL_FACING = BlockStateProperties.HORIZONTAL_FACING;
 	public static final BooleanProperty ON = TyrannoBlockStateProperties.ON;
@@ -33,9 +32,9 @@ public abstract class TyrannoMachineBlock extends Block implements ITileEntityPr
 	}	
 	
 	@Override
-	public BlockState mirror(BlockState state, Mirror mirrorIn) 
+	public BlockState mirror(BlockState state, Mirror mirror) 
 	{
-		return state.rotate(mirrorIn.getRotation(state.getValue(HORIZONTAL_FACING)));
+		return state.rotate(mirror.getRotation(state.getValue(HORIZONTAL_FACING)));
 	}
 
 	@Override

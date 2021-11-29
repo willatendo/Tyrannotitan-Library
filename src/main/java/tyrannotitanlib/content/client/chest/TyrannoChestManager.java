@@ -14,7 +14,7 @@ import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
-import tyrannotitanlib.library.base.utils.TyrannoUtils;
+import tyrannotitanlib.library.utils.TyrannoUtils;
 
 @EventBusSubscriber(modid = TyrannoUtils.TYRANNO_ID, value = Dist.CLIENT, bus = Bus.MOD)
 public class TyrannoChestManager 

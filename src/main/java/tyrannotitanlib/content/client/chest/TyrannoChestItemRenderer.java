@@ -17,18 +17,19 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class TyrannoChestItemRenderer<T extends TileEntity> extends ItemStackTileEntityRenderer
 {
-	private final Supplier<T> te;
+	private final Supplier<T> blockEntity;
 
-	public TyrannoChestItemRenderer(Supplier<T> te) 
+	public TyrannoChestItemRenderer(Supplier<T> blockEntity) 
 	{
-		this.te = te;
+		this.blockEntity = blockEntity;
 	}
 
 	@Override
-	public void renderByItem(ItemStack itemStackIn, TransformType transformType, MatrixStack matrixStack, IRenderTypeBuffer buffer, int combinedLight, int combinedOverlay) {
-		BlockItem blockItem = (BlockItem) itemStackIn.getItem();
-		TyrannoChestTileEntityRender.itemBlock = blockItem.getBlock();
-		TileEntityRendererDispatcher.instance.renderItem(this.te.get(), matrixStack, buffer, combinedLight, combinedOverlay);
-		TyrannoChestTileEntityRender.itemBlock = null;
+	public void renderByItem(ItemStack stack, TransformType transformType, MatrixStack matrix, IRenderTypeBuffer buffer, int combinedLight, int combinedOverlay) 
+	{
+		BlockItem blockItem = (BlockItem) stack.getItem();
+		TyrannoChestBlockEntityRender.itemBlock = blockItem.getBlock();
+		TileEntityRendererDispatcher.instance.renderItem(this.blockEntity.get(), matrix, buffer, combinedLight, combinedOverlay);
+		TyrannoChestBlockEntityRender.itemBlock = null;
 	}
 }

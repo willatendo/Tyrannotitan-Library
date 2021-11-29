@@ -1,7 +1,7 @@
 package tyrannotitanlib.library.tyrannobook.client;
 
 import net.minecraft.util.ResourceLocation;
-import tyrannotitanlib.library.base.utils.TyrannoUtils;
+import tyrannotitanlib.library.utils.TyrannoUtils;
 
 public class Textures 
 {

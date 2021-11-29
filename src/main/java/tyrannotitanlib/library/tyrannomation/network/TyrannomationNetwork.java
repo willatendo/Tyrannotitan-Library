@@ -13,8 +13,8 @@ import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 import net.minecraftforge.registries.IRegistryDelegate;
-import tyrannotitanlib.library.base.utils.TyrannoUtils;
 import tyrannotitanlib.library.tyrannomation.network.messages.SyncTyrannomationMsg;
+import tyrannotitanlib.library.utils.TyrannoUtils;
 
 public class TyrannomationNetwork 
 {

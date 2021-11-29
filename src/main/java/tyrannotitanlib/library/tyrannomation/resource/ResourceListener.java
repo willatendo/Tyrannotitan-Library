@@ -2,7 +2,7 @@ package tyrannotitanlib.library.tyrannomation.resource;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.IReloadableResourceManager;
-import tyrannotitanlib.library.base.utils.TyrannoUtils;
+import tyrannotitanlib.library.utils.TyrannoUtils;
 
 public class ResourceListener 
 {

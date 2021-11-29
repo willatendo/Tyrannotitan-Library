@@ -22,9 +22,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import tyrannotitanlib.library.base.utils.TyrannoUtils;
-import tyrannotitanlib.library.network.Tyrannonetwork;
-import tyrannotitanlib.library.network.packets.DropLecternBookPacket;
 import tyrannotitanlib.library.tyrannobook.client.TyrannobookHelper;
 import tyrannotitanlib.library.tyrannobook.client.TyrannobookLoader;
 import tyrannotitanlib.library.tyrannobook.client.TyrannobookTransformer;
@@ -32,6 +29,9 @@ import tyrannotitanlib.library.tyrannobook.client.data.content.ContentError;
 import tyrannotitanlib.library.tyrannobook.client.data.element.ItemStackData;
 import tyrannotitanlib.library.tyrannobook.client.repository.TyrannobookRepository;
 import tyrannotitanlib.library.tyrannobook.client.screen.TyrannobookScreen;
+import tyrannotitanlib.library.tyrannonetwork.Tyrannonetwork;
+import tyrannotitanlib.library.tyrannonetwork.packets.DropLecternBookPacket;
+import tyrannotitanlib.library.utils.TyrannoUtils;
 
 @OnlyIn(Dist.CLIENT)
 public class TyrannobookData implements IDataItem 

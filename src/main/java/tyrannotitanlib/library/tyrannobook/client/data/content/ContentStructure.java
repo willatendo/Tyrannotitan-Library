@@ -14,7 +14,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.feature.template.Template;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import tyrannotitanlib.library.base.utils.TyrannoUtils;
 import tyrannotitanlib.library.tyrannobook.client.data.TyrannobookData;
 import tyrannotitanlib.library.tyrannobook.client.data.element.AnimationToggleElement;
 import tyrannotitanlib.library.tyrannobook.client.data.element.StructureElement;
@@ -23,6 +22,7 @@ import tyrannotitanlib.library.tyrannobook.client.data.element.TyrannobookElemen
 import tyrannotitanlib.library.tyrannobook.client.repository.TyrannobookRepository;
 import tyrannotitanlib.library.tyrannobook.client.screen.ArrowButton;
 import tyrannotitanlib.library.tyrannobook.client.screen.TyrannobookScreen;
+import tyrannotitanlib.library.utils.TyrannoUtils;
 
 @OnlyIn(Dist.CLIENT)
 public class ContentStructure extends PageContent 

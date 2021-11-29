@@ -4,10 +4,10 @@ import net.minecraft.block.WoodType;
 
 public class TyrannoWoodType extends WoodType
 {
-	protected TyrannoWoodType(String id) 
+	public TyrannoWoodType(String id) 
 	{
 		super(id);
 	}
-
-	public static final WoodType TEST = register(new TyrannoWoodType("test"));
+	
+	public static final WoodType CUSTOM = register(new TyrannoWoodType("custom"));
 }

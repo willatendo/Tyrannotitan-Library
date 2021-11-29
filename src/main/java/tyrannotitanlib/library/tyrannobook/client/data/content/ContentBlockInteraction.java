@@ -13,8 +13,8 @@ import tyrannotitanlib.library.tyrannobook.client.data.element.TextElement;
 import tyrannotitanlib.library.tyrannobook.client.data.element.TyrannobookElement;
 import tyrannotitanlib.library.tyrannobook.client.screen.TyrannobookScreen;
 
-public class ContentBlockInteraction extends PageContent {
-
+public class ContentBlockInteraction extends PageContent 
+{
 	public static final transient int TEX_SIZE = 512;
 	public static final transient ImageData IMG_SMITHING = new ImageData(Textures.TEX_MISC, 0, 0, 88, 55, TEX_SIZE, TEX_SIZE);
 

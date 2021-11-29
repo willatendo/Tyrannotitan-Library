@@ -183,7 +183,9 @@ public class StructureElement extends SizedTyrannobookElement
 		float angle = (float) Math.sqrt(axis.dot(axis));
 
 		if(!axis.normalize())
+		{
 			return TransformationMatrix.identity();
+		}
 
 		return new TransformationMatrix(null, new Quaternion(axis, angle, true), null, null);
 	}

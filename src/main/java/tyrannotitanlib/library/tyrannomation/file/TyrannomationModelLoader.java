@@ -2,7 +2,6 @@ package tyrannotitanlib.library.tyrannomation.file;
 
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
-import tyrannotitanlib.library.base.utils.TyrannoUtils;
 import tyrannotitanlib.library.tyrannomation.tyranno.exception.TyrannotitanLibException;
 import tyrannotitanlib.library.tyrannomation.tyranno.raw.pojo.Converter;
 import tyrannotitanlib.library.tyrannomation.tyranno.raw.pojo.FormatVersion;
@@ -10,6 +9,7 @@ import tyrannotitanlib.library.tyrannomation.tyranno.raw.pojo.RawTyrannomationMo
 import tyrannotitanlib.library.tyrannomation.tyranno.raw.tree.RawGeometryTree;
 import tyrannotitanlib.library.tyrannomation.tyranno.render.TyrannomationBuilder;
 import tyrannotitanlib.library.tyrannomation.tyranno.render.built.TyrannomationModel;
+import tyrannotitanlib.library.utils.TyrannoUtils;
 
 public class TyrannomationModelLoader 
 {
