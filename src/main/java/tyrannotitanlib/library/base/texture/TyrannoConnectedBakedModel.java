@@ -46,19 +46,31 @@ public class TyrannoConnectedBakedModel extends TyrannoBakedModel
 		else 
 		{ 
 			if(blocks.left && !blocks.up && !blocks.right && !blocks.down)
+			{
 				uv = this.getUV(3, 0);
+			}
 			else if(!blocks.left && blocks.up && !blocks.right && !blocks.down)
+			{
 				uv = this.getUV(0, 3);
+			}
 			else if(!blocks.left && !blocks.up && blocks.right && !blocks.down)
+			{
 				uv = this.getUV(1, 0);
+			}
 			else if(!blocks.left && !blocks.up && !blocks.right && blocks.down)
+			{
 				uv = this.getUV(0, 1);
+			}
 			else 
 			{
 				if(blocks.left && !blocks.up && blocks.right && !blocks.down)
+				{
 					uv = this.getUV(2, 0);
+				}
 				else if(!blocks.left && blocks.up && !blocks.right && blocks.down)
+				{
 					uv = this.getUV(0, 2);
+				}
 				else if(blocks.left && blocks.up && !blocks.right && !blocks.down) 
 				{
 					if(blocks.up_left)
@@ -136,43 +148,75 @@ public class TyrannoConnectedBakedModel extends TyrannoBakedModel
 					else
 					{
 						if(blocks.up_left && blocks.up_right && blocks.down_left && blocks.down_right)
+						{
 							uv = this.getUV(2, 2);
+						}
 						else 
 						{
 							if(!blocks.up_left && blocks.up_right && blocks.down_left && blocks.down_right)
+							{
 								uv = this.getUV(7, 7);
+							}
 							else if(blocks.up_left && !blocks.up_right && blocks.down_left && blocks.down_right)
+							{
 								uv = this.getUV(6, 7);
+							}
 							else if(blocks.up_left && blocks.up_right && !blocks.down_left && blocks.down_right)
+							{
 								uv = this.getUV(7, 6);
+							}
 							else if(blocks.up_left && blocks.up_right && blocks.down_left && !blocks.down_right)
+							{
 								uv = this.getUV(6, 6);
+							}
 							else 
 							{
 								if(!blocks.up_left && blocks.up_right && !blocks.down_right && blocks.down_left)
+								{
 									uv = this.getUV(0, 4);
+								}
 								else if(blocks.up_left && !blocks.up_right && blocks.down_right && !blocks.down_left)
+								{
 									uv = this.getUV(0, 5);
+								}
 								else if(!blocks.up_left && !blocks.up_right && blocks.down_right && blocks.down_left)
+								{
 									uv = this.getUV(3, 6);
+								}
 								else if(blocks.up_left && !blocks.up_right && !blocks.down_right && blocks.down_left)
+								{
 									uv = this.getUV(3, 7);
+								}
 								else if(blocks.up_left && blocks.up_right && !blocks.down_right && !blocks.down_left)
+								{
 									uv = this.getUV(2, 7);
+								}
 								else if(!blocks.up_left && blocks.up_right && blocks.down_right && !blocks.down_left)
+								{
 									uv = this.getUV(2, 6);
+								}
 								else 
 								{
 									if(blocks.up_left)
+									{
 										uv = this.getUV(5, 7);
+									}
 									else if(blocks.up_right)
+									{
 										uv = this.getUV(4, 7);
+									}
 									else if(blocks.down_right)
+									{
 										uv = this.getUV(4, 6);
+									}
 									else if(blocks.down_left)
+									{
 										uv = this.getUV(5, 6);
+									}
 									else
+									{
 										uv = this.getUV(0, 6);
+									}
 								}
 							}
 						}

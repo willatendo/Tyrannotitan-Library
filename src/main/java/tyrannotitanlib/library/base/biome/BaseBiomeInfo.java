@@ -7,7 +7,7 @@ import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.biome.Biome.Category;
 import net.minecraft.world.biome.Biome.RainType;
 
-public class BaseBiomes
+public class BaseBiomeInfo
 {
 	//Water Colour
 	public static final int BASE_WATER_COLOUR = 4159204;

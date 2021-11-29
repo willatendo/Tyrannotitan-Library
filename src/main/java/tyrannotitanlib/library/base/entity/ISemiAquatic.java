@@ -6,5 +6,7 @@ public interface ISemiAquatic
 
 	boolean shouldLeaveWater();
 
+	boolean shouldStopMoving();
+	
 	int getWaterSearchRange();
 }

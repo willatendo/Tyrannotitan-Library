@@ -65,7 +65,7 @@ public class TyrannotitanLibrary
 		
 		TyrannoRegistries.register();
 		initTyrannomation();
-		
+				
 		forgeBus.addListener(EventPriority.HIGH, OreGeneration::addOresToOverworld);
 		
 		forgeBus.register(new TyrannoRegister());

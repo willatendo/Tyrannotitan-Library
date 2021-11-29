@@ -22,16 +22,16 @@ public class TyrannoFallingRotatableBlock extends FallingBlock
 	public static final Map<Block, Map<Direction, VoxelShape>> SHAPES = new HashMap<Block, Map<Direction, VoxelShape>>();
 	public static final DirectionProperty HORIZONTAL_FACING = BlockStateProperties.HORIZONTAL_FACING;
 	
-	public TyrannoFallingRotatableBlock(Properties propoerties) 
+	public TyrannoFallingRotatableBlock(Properties properties) 
 	{
-		super(propoerties);
+		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(HORIZONTAL_FACING, Direction.NORTH));
 	}
 
 	@Override
-	public BlockState mirror(BlockState state, Mirror mirrorIn) 
+	public BlockState mirror(BlockState state, Mirror mirror) 
 	{
-		return state.rotate(mirrorIn.getRotation(state.getValue(HORIZONTAL_FACING)));
+		return state.rotate(mirror.getRotation(state.getValue(HORIZONTAL_FACING)));
 	}
 
 	@Override
@@ -49,7 +49,7 @@ public class TyrannoFallingRotatableBlock extends FallingBlock
 	@Override
 	protected void createBlockStateDefinition(Builder<Block, BlockState> builder) 
 	{
-		super.createBlockStateDefinition(builder);
 		builder.add(HORIZONTAL_FACING);
+		super.createBlockStateDefinition(builder);
 	}
 }

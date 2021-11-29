@@ -16,6 +16,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.common.util.NonNullSupplier;
+import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 public class TyrannoSpawnEggItem extends SpawnEggItem
@@ -23,18 +24,26 @@ public class TyrannoSpawnEggItem extends SpawnEggItem
 	protected static final List<TyrannoSpawnEggItem> UNADDED_EGGS = new ArrayList<TyrannoSpawnEggItem>();
 	private final Lazy<? extends EntityType<?>> entityTypeSupplier;
 
-	public TyrannoSpawnEggItem(NonNullSupplier<? extends EntityType<?>> entityTypeSupplier, int primaryColour, int secondaryColour, Properties properties) 
+	public TyrannoSpawnEggItem(NonNullSupplier<? extends EntityType<?>> entityTypeSupplier, int primaryColour, int secondaryColour, ItemGroup group) 
 	{
-		super(null, primaryColour, secondaryColour, properties.tab(ItemGroup.TAB_MISC));
+		super(null, primaryColour, secondaryColour, new Properties().tab(group));
+		this.entityTypeSupplier = Lazy.of(entityTypeSupplier::get);
+		UNADDED_EGGS.add(this);
+	}
+
+	public TyrannoSpawnEggItem(RegistryObject<? extends EntityType<?>> entityTypeSupplier, int primaryColour, int secondaryColour, ItemGroup group) 
+	{
+		super(null, primaryColour, secondaryColour, new Properties().tab(group));
 		this.entityTypeSupplier = Lazy.of(entityTypeSupplier::get);
 		UNADDED_EGGS.add(this);
 	}
 
 	public static void initSpawnEggs() 
 	{
-		final Map<EntityType<?>, TyrannoSpawnEggItem> EGGS = ObfuscationReflectionHelper.getPrivateValue(SpawnEggItem.class, null, "field_195987_b");
+		final Map<EntityType<?>, SpawnEggItem> EGGS = ObfuscationReflectionHelper.getPrivateValue(SpawnEggItem.class, null, "field_195987_b");
 		DefaultDispenseItemBehavior dispenseBehaviour = new DefaultDispenseItemBehavior() 
 		{
+			
 			@Override
 			protected ItemStack execute(IBlockSource source, ItemStack stack) 
 			{
@@ -46,7 +55,7 @@ public class TyrannoSpawnEggItem extends SpawnEggItem
 			}
 		};
 
-		for (final TyrannoSpawnEggItem spawnEgg : UNADDED_EGGS) 
+		for(final SpawnEggItem spawnEgg : UNADDED_EGGS) 
 		{
 			EGGS.put(spawnEgg.getType(null), spawnEgg);
 			DispenserBlock.registerBehavior(spawnEgg, dispenseBehaviour);

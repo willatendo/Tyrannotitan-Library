@@ -7,38 +7,51 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 
-public class DecorativeBlocksBeamBlock extends RotatedPillarBlock {
-
+public class DecorativeBlocksBeamBlock extends RotatedPillarBlock 
+{
 	private IDecorativeBlocksWoodType woodType;
 
-	public DecorativeBlocksBeamBlock(Block.Properties properties, IDecorativeBlocksWoodType woodType) {
+	public DecorativeBlocksBeamBlock(Block.Properties properties, IDecorativeBlocksWoodType woodType) 
+	{
 		super(properties);
 		this.woodType = woodType;
 	}
 
-	public IDecorativeBlocksWoodType getWoodType() {
+	public IDecorativeBlocksWoodType getWoodType() 
+	{
 		return woodType;
 	}
 
 	@Override
-	public boolean isFlammable(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
+	public boolean isFlammable(BlockState state, IBlockReader world, BlockPos pos, Direction face) 
+	{
 		return woodType.isFlammable();
 	}
 
 	@Override
-	public int getFlammability(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
-		if (woodType.isFlammable()) {
+	public int getFlammability(BlockState state, IBlockReader world, BlockPos pos, Direction face) 
+	{
+		if(woodType.isFlammable()) 
+		{
 			return 20;
-		} else
+		} 
+		else
+		{
 			return super.getFlammability(state, world, pos, face);
+		}
 	}
 
 	@Override
-	public int getFireSpreadSpeed(BlockState state, IBlockReader world, BlockPos pos, Direction face) {
-		if (woodType.isFlammable()) {
+	public int getFireSpreadSpeed(BlockState state, IBlockReader world, BlockPos pos, Direction face) 
+	{
+		if(woodType.isFlammable()) 
+		{
 			return 5;
-		} else
+		} 
+		else
+		{
 			return super.getFireSpreadSpeed(state, world, pos, face);
+		}
 	}
 
 }

@@ -63,7 +63,7 @@ public class DecorativeBlocksPalisadeBlock extends FourWayBlock
 	@Override
 	public BlockState updateShape(BlockState state, Direction facing, BlockState newState, IWorld world, BlockPos currentPos, BlockPos facingPos) 
 	{
-		if (state.getValue(WATERLOGGED)) 
+		if(state.getValue(WATERLOGGED)) 
 		{
 			world.getLiquidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickDelay(world));
 		}
