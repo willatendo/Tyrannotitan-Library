@@ -2,11 +2,11 @@ package tyrannotitanlib.library.base.block;
 
 import java.util.Random;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.RotatedPillarBlock;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.IWorldReader;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class TyrannoRotatedPillerOreBlock extends RotatedPillarBlock
 {
@@ -22,11 +22,11 @@ public class TyrannoRotatedPillerOreBlock extends RotatedPillarBlock
 	
 	protected int xpOnDrop(Random rand) 
 	{
-		return MathHelper.nextInt(rand, minXPDrop, maxXPDrop);
+		return Mth.nextInt(rand, minXPDrop, maxXPDrop);
 	}
 	
 	@Override
-	public int getExpDrop(BlockState state, IWorldReader reader, BlockPos pos, int fortune, int silktouch) 
+	public int getExpDrop(BlockState state, LevelReader reader, BlockPos pos, int fortune, int silktouch) 
 	{
 		return silktouch == 0 ? this.xpOnDrop(RANDOM) : 0;
 	}

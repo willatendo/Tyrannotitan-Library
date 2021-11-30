@@ -1,14 +1,16 @@
 package tyrannotitanlib.library.tyrannobook.client.screen;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.widget.button.Button;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import tyrannotitanlib.library.tyrannobook.client.Textures;
+
+import net.minecraft.client.gui.components.Button.OnPress;
 
 @OnlyIn(Dist.CLIENT)
 public class ArrowButton extends Button 
@@ -20,9 +22,9 @@ public class ArrowButton extends Button
 	public int color;
 	public int hoverColor;
 
-	public ArrowButton(int x, int y, ArrowType arrowType, int color, int hoverColor, IPressable iPressable) 
+	public ArrowButton(int x, int y, ArrowType arrowType, int color, int hoverColor, OnPress iPressable) 
 	{
-		super(x, y, arrowType.w, arrowType.h, StringTextComponent.EMPTY, iPressable);
+		super(x, y, arrowType.w, arrowType.h, TextComponent.EMPTY, iPressable);
 
 		this.arrowType = arrowType;
 		this.color = color;
@@ -30,10 +32,10 @@ public class ArrowButton extends Button
 	}
 
 	@Override
-	public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) 
+	public void renderButton(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) 
 	{
 		Minecraft minecraft = Minecraft.getInstance();
-		minecraft.getTextureManager().bind(Textures.TEX_BOOK);
+		minecraft.getTextureManager().bindForSetup(Textures.TEX_BOOK);
 
 		this.isHovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
 

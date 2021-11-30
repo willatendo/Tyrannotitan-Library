@@ -22,7 +22,7 @@ version = '1.4.1'
 group = 'tyrannotitanlib'
 archivesBaseName = 'tyrannotitanlib'
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(8)
+java.toolchain.languageVersion = JavaLanguageVersion.of(16)
 
 configurations {
     library
@@ -32,7 +32,7 @@ configurations {
 }
 
 minecraft {
-    mappings channel: 'official', version: '1.16.5'
+    mappings channel: 'official', version: '1.17.1'
     
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
     
@@ -87,13 +87,13 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.16.5-36.2.9'
+    minecraft 'net.minecraftforge:forge:1.17.1-37.0.126'
     
     library 'com.eliotlash.molang:molang:SNAPSHOT.12'
     library 'com.eliotlash.mclib:mclib:SNAPSHOT.12'
     library group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.0'
     library group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.9.0'
-    	
+
     shade 'com.eliotlash.molang:molang:SNAPSHOT.12'
     shade 'com.eliotlash.mclib:mclib:SNAPSHOT.12'
     shade group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.0'
@@ -112,6 +112,7 @@ shadowJar {
 reobf {
     shadowJar {}
 }
+
 tasks.build.dependsOn reobfShadowJar
 publish.dependsOn('reobfJar')
 shadowJar.dependsOn('classes')
@@ -155,13 +156,3 @@ afterEvaluate {
 
 shadowJar.finalizedBy(reobfShadowJar)
 jar.finalizedBy(packageSources)
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifact shadowJar
-            artifact packageSources
-            artifactId = 'tyrannotitanlib'
-        }
-    }
-}

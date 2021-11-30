@@ -2,18 +2,18 @@ package tyrannotitanlib.library.base.item;
 
 import java.util.function.Supplier;
 
-import net.minecraft.item.IItemTier;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.LazyValue;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.util.LazyLoadedValue;
 
-public class TyrannoItemTeir implements IItemTier 
+public class TyrannoItemTeir implements Tier 
 {
 	private final int harvestLevel;
 	private final int maxUses;
 	private final float efficiency;
 	private final float attackDamage;
 	private final int enchantability;
-	private final LazyValue<Ingredient> repairItem;
+	private final LazyLoadedValue<Ingredient> repairItem;
 
 	public TyrannoItemTeir(int harvestLevel, int maxUses, float efficiency, float attackDamage, int enchantability, Supplier<Ingredient> repairItem) 
 	{
@@ -22,7 +22,7 @@ public class TyrannoItemTeir implements IItemTier
 		this.efficiency = efficiency;
 		this.attackDamage = attackDamage;
 		this.enchantability = enchantability;
-		this.repairItem = new LazyValue<>(repairItem);
+		this.repairItem = new LazyLoadedValue<>(repairItem);
 	}
 
 	@Override

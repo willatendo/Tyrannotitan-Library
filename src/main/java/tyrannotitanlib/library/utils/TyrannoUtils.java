@@ -17,17 +17,16 @@ import org.apache.logging.log4j.Logger;
 
 import com.mojang.datafixers.util.Pair;
 
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.data.worldgen.ProcessorLists;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.DynamicRegistries;
-import net.minecraft.util.registry.MutableRegistry;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.gen.feature.jigsaw.JigsawPattern;
-import net.minecraft.world.gen.feature.jigsaw.JigsawPiece;
-import net.minecraft.world.gen.feature.template.ProcessorLists;
-import net.minecraft.world.gen.feature.template.StructureProcessorList;
+import net.minecraft.world.level.levelgen.feature.structures.StructurePoolElement;
+import net.minecraft.world.level.levelgen.feature.structures.StructureTemplatePool;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 
 public class TyrannoUtils 
 {
@@ -42,27 +41,27 @@ public class TyrannoUtils
 		return new ResourceLocation(TYRANNO_ID, location);
 	}
 	
-	public static TranslationTextComponent sTC(String key)
+	public static TranslatableComponent sTC(String key)
 	{
-		return new TranslationTextComponent(key);
+		return new TranslatableComponent(key);
 	}
 	
-	public static TranslationTextComponent tTC(String type, String key)
+	public static TranslatableComponent tTC(String type, String key)
 	{
-		return new TranslationTextComponent(type + "." + TYRANNO_ID + "." + key);
+		return new TranslatableComponent(type + "." + TYRANNO_ID + "." + key);
 	}
 	
-	public static TranslationTextComponent cTC(String type, String key, TextFormatting colour)
+	public static TranslatableComponent cTC(String type, String key, ChatFormatting colour)
 	{
-		TranslationTextComponent text = tTC(type, key);
+		TranslatableComponent text = tTC(type, key);
 		text.withStyle(colour);
 		return text;
 	}
 	
-	public static TranslationTextComponent gTC(String type, String key)
+	public static TranslatableComponent gTC(String type, String key)
 	{
-		TranslationTextComponent text = tTC(type, key);
-		text.withStyle(TextFormatting.GRAY);
+		TranslatableComponent text = tTC(type, key);
+		text.withStyle(ChatFormatting.GRAY);
 		return text;
 	}
 	
@@ -97,20 +96,20 @@ public class TyrannoUtils
 	
 	public static void registerJigsaw(MinecraftServer server, ResourceLocation poolLocation, ResourceLocation nbtLocation, int weight) 
 	{
-		DynamicRegistries manager = server.registryAccess();
-		MutableRegistry<JigsawPattern> pools = manager.registryOrThrow(Registry.TEMPLATE_POOL_REGISTRY);
-		JigsawPattern pool = pools.get(poolLocation);
+		RegistryAccess manager = server.registryAccess();
+		Registry<StructureTemplatePool> pools = manager.registryOrThrow(Registry.TEMPLATE_POOL_REGISTRY);
+		StructureTemplatePool pool = pools.get(poolLocation);
 		
 		StructureProcessorList processorList = manager.registryOrThrow(Registry.PROCESSOR_LIST_REGISTRY).getOptional(poolLocation).orElse(ProcessorLists.EMPTY);
-		List<JigsawPiece> elements = pool.templates;
+		List<StructurePoolElement> elements = pool.templates;
 		
-		JigsawPiece element = JigsawPiece.legacy(nbtLocation.toString(), processorList).apply(JigsawPattern.PlacementBehaviour.RIGID);
+		StructurePoolElement element = StructurePoolElement.legacy(nbtLocation.toString(), processorList).apply(StructureTemplatePool.Projection.RIGID);
 		for(int i = 0; i < weight; i++) 
 		{
 			elements.add(element);
 		}
 		
-		List<Pair<JigsawPiece, Integer>> elementCounts = new ArrayList(pool.rawTemplates);
+		List<Pair<StructurePoolElement, Integer>> elementCounts = new ArrayList(pool.rawTemplates);
 		
 		elements.addAll(pool.templates);
 		elementCounts.addAll(pool.rawTemplates);

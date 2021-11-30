@@ -16,7 +16,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 
-import net.minecraft.client.util.JSONException;
+import net.minecraft.server.ChainedJsonException;
 import tyrannotitanlib.library.tyrannomation.core.builder.Tyrannomation;
 import tyrannotitanlib.library.tyrannomation.core.keyframe.BoneTyrannomation;
 import tyrannotitanlib.library.tyrannomation.core.keyframe.EventKeyFrame;
@@ -106,12 +106,12 @@ public class JsonTyrannomationUtils
 		return custom_instructions == null ? new ArrayList<>() : new ArrayList<>(getObjectListAsArray(custom_instructions));
 	}
 
-	private static JsonElement getObjectByKey(Set<Map.Entry<String, JsonElement>> json, String key) throws JSONException 
+	private static JsonElement getObjectByKey(Set<Map.Entry<String, JsonElement>> json, String key) throws ChainedJsonException 
 	{
-		return json.stream().filter(x -> x.getKey().equals(key)).findFirst().orElseThrow(() -> new JSONException("Could not find key: " + key)).getValue();
+		return json.stream().filter(x -> x.getKey().equals(key)).findFirst().orElseThrow(() -> new ChainedJsonException("Could not find key: " + key)).getValue();
 	}
 
-	public static Map.Entry<String, JsonElement> getAnimation(JsonObject animationFile, String animationName) throws JSONException 
+	public static Map.Entry<String, JsonElement> getAnimation(JsonObject animationFile, String animationName) throws ChainedJsonException 
 	{
 		return new AbstractMap.SimpleEntry(animationName, getObjectByKey(getAnimations(animationFile), animationName));
 	}

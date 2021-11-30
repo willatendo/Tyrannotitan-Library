@@ -1,9 +1,9 @@
 package tyrannotitanlib.library.base.itemgroup;
 
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 
-public class TabBuilder extends ItemGroup
+public class TabBuilder extends CreativeModeTab
 {
 	public ItemStack itemIcon;
 	

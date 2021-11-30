@@ -1,10 +1,10 @@
 package tyrannotitanlib.library.base.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BushBlock;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import tyrannotitanlib.content.server.tags.TyrannoBlockTags;
 
 public class TyrannoBushBlock extends BushBlock
@@ -15,10 +15,10 @@ public class TyrannoBushBlock extends BushBlock
 	}
 	
 	@Override
-	protected boolean mayPlaceOn(BlockState state, IBlockReader reader, BlockPos po) 
+	protected boolean mayPlaceOn(BlockState state, BlockGetter reader, BlockPos po) 
 	{
 		Block block = state.getBlock();
 		
-		return block.is(TyrannoBlockTags.PLANT_PLACEABLE);
+		return block.defaultBlockState().is(TyrannoBlockTags.PLANT_PLACEABLE);
 	}
 }

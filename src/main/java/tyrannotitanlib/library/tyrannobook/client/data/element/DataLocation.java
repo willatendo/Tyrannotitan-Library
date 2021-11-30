@@ -1,7 +1,7 @@
 package tyrannotitanlib.library.tyrannobook.client.data.element;
 
-import net.minecraft.inventory.container.PlayerContainer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.resources.ResourceLocation;
 import tyrannotitanlib.library.tyrannobook.client.repository.TyrannobookRepository;
 
 public class DataLocation implements IDataElement
@@ -12,6 +12,6 @@ public class DataLocation implements IDataElement
 	@Override
 	public void load(TyrannobookRepository source) 
 	{
-		this.location = "$BLOCK_ATALS".equals(this.file) ? PlayerContainer.BLOCK_ATLAS : source.getResourceLocation(this.file, true);
+		this.location = "$BLOCK_ATALS".equals(this.file) ? InventoryMenu.BLOCK_ATLAS : source.getResourceLocation(this.file, true);
 	}
 }

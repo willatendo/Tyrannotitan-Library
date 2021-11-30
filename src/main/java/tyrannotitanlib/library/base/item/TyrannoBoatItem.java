@@ -3,31 +3,31 @@ package tyrannotitanlib.library.base.item;
 import java.util.List;
 import java.util.function.Predicate;
 
-import net.minecraft.block.DispenserBlock;
-import net.minecraft.dispenser.DefaultDispenseItemBehavior;
-import net.minecraft.dispenser.IBlockSource;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.level.block.DispenserBlock;
+import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
+import net.minecraft.core.BlockSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.EntityPredicates;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceContext;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.World;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.core.Direction;
+import net.minecraft.world.entity.EntitySelector;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.level.Level;
 import tyrannotitanlib.library.base.entity.TyrannoBoatEntity;
 
 public class TyrannoBoatItem extends Item
 {
-	private static final Predicate<Entity> COLLISION_PREDICATE = EntityPredicates.NO_SPECTATORS.and(Entity::isPickable);
+	private static final Predicate<Entity> COLLISION_PREDICATE = EntitySelector.NO_SPECTATORS.and(Entity::isPickable);
 	private final String type;
 
 	public TyrannoBoatItem(String type, Item.Properties properties) 
@@ -38,40 +38,40 @@ public class TyrannoBoatItem extends Item
 	}
 
 	@Override
-	public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand handIn) 
+	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand handIn) 
 	{
 		ItemStack itemstack = player.getItemInHand(handIn);
-		RayTraceResult raytraceresult = getPlayerPOVHitResult(world, player, RayTraceContext.FluidMode.ANY);
-		if(raytraceresult.getType() == RayTraceResult.Type.MISS) 
+		HitResult raytraceresult = getPlayerPOVHitResult(world, player, ClipContext.Fluid.ANY);
+		if(raytraceresult.getType() == HitResult.Type.MISS) 
 		{
-			return new ActionResult<>(ActionResultType.PASS, itemstack);
+			return new InteractionResultHolder<>(InteractionResult.PASS, itemstack);
 		} 
 		else 
 		{
-			Vector3d vec3d = player.getViewVector(1.0F);
+			Vec3 vec3d = player.getViewVector(1.0F);
 			List<Entity> list = world.getEntities(player, player.getBoundingBox().expandTowards(vec3d.scale(5.0D)).inflate(1.0D), COLLISION_PREDICATE);
 			if(!list.isEmpty()) 
 			{
-				Vector3d vec3d1 = player.getEyePosition(1.0F);
+				Vec3 vec3d1 = player.getEyePosition(1.0F);
 
 				for(Entity entity : list) 
 				{
-					AxisAlignedBB axisalignedbb = entity.getBoundingBox().inflate((double) entity.getPickRadius());
+					AABB axisalignedbb = entity.getBoundingBox().inflate((double) entity.getPickRadius());
 					if(axisalignedbb.contains(vec3d1)) 
 					{
-						return new ActionResult<>(ActionResultType.PASS, itemstack);
+						return new InteractionResultHolder<>(InteractionResult.PASS, itemstack);
 					}
 				}
 			}
 
-			if(raytraceresult.getType() == RayTraceResult.Type.BLOCK) 
+			if(raytraceresult.getType() == HitResult.Type.BLOCK) 
 			{
 				TyrannoBoatEntity boatentity = new TyrannoBoatEntity(world, raytraceresult.getLocation().x, raytraceresult.getLocation().y, raytraceresult.getLocation().z);
 				boatentity.setBoat(this.type);
 				boatentity.yRot = player.yRot;
 				if(!world.noCollision(boatentity, boatentity.getBoundingBox().inflate(-0.1D))) 
 				{
-					return new ActionResult<>(ActionResultType.FAIL, itemstack);
+					return new InteractionResultHolder<>(InteractionResult.FAIL, itemstack);
 				} 
 				else 
 				{
@@ -86,12 +86,12 @@ public class TyrannoBoatItem extends Item
 					}
 
 					player.awardStat(Stats.ITEM_USED.get(this));
-					return new ActionResult<>(ActionResultType.SUCCESS, itemstack);
+					return new InteractionResultHolder<>(InteractionResult.SUCCESS, itemstack);
 				}
 			} 
 			else 
 			{
-				return new ActionResult<>(ActionResultType.PASS, itemstack);
+				return new InteractionResultHolder<>(InteractionResult.PASS, itemstack);
 			}
 		}
 	}
@@ -106,10 +106,10 @@ public class TyrannoBoatItem extends Item
 			this.type = type;
 		}
 
-		public ItemStack execute(IBlockSource iBlockSource, ItemStack stack) 
+		public ItemStack execute(BlockSource iBlockSource, ItemStack stack) 
 		{
 			Direction direction = iBlockSource.getBlockState().getValue(DispenserBlock.FACING);
-			World world = iBlockSource.getLevel();
+			Level world = iBlockSource.getLevel();
 			double x = iBlockSource.x() + (double) ((float) direction.getStepX() * 1.125f);
 			double y = iBlockSource.y() + (double) ((float) direction.getStepY() * 1.125f);
 			double z = iBlockSource.z() + (double) ((float) direction.getStepZ() * 1.125f);
@@ -135,7 +135,7 @@ public class TyrannoBoatItem extends Item
 			return stack;
 		}
 
-		protected void playSound(IBlockSource iBlockSource) 
+		protected void playSound(BlockSource iBlockSource) 
 		{
 			iBlockSource.getLevel().levelEvent(1000, iBlockSource.getPos(), 0);
 		}

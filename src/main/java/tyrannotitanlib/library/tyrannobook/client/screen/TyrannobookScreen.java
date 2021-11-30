@@ -10,22 +10,22 @@ import javax.annotation.Nullable;
 import org.lwjgl.glfw.GLFW;
 
 import com.google.common.collect.ImmutableList;
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.button.Button;
-import net.minecraft.client.multiplayer.ClientAdvancementManager;
-import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.multiplayer.ClientAdvancements;
+import com.mojang.blaze3d.platform.Lighting;
 import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import tyrannotitanlib.library.tyrannobook.client.Textures;
@@ -85,7 +85,7 @@ public class TyrannobookScreen extends Screen
 		PAGE_HEIGHT = (int) ((PAGE_HEIGHT_UNSCALED - (PAGE_PADDING_TOP + PAGE_PADDING_BOT + PAGE_MARGIN + PAGE_MARGIN)) / PAGE_SCALE);
 	}
 
-	public TyrannobookScreen(ITextComponent title, TyrannobookData book, String page, @Nullable Consumer<String> pageUpdater, @Nullable Consumer<?> bookPickup) 
+	public TyrannobookScreen(Component title, TyrannobookData book, String page, @Nullable Consumer<String> pageUpdater, @Nullable Consumer<?> bookPickup) 
 	{
 		super(title);
 		this.book = book;
@@ -106,14 +106,14 @@ public class TyrannobookScreen extends Screen
 	}
 
 	@Override
-	public void render(MatrixStack stack, int mouseX, int mouseY, float partialTicks) 
+	public void render(PoseStack stack, int mouseX, int mouseY, float partialTicks) 
 	{
 		if(this.minecraft == null) 
 		{
 			return;
 		}
 		initWidthsAndHeights();
-		FontRenderer fontRenderer = this.book.fontRenderer;
+		Font fontRenderer = this.book.fontRenderer;
 		if(fontRenderer == null) 
 		{
 			fontRenderer = this.minecraft.font;
@@ -140,7 +140,7 @@ public class TyrannobookScreen extends Screen
 		if(this.page == -1) 
 		{
 			render.bind(Textures.TEX_BOOKFRONT);
-			RenderHelper.turnOff();
+			Lighting.turnOff();
 
 			RenderSystem.color3f(coverR, coverG, coverB);
 			blit(stack, this.width / 2 - PAGE_WIDTH_UNSCALED / 2, this.height / 2 - PAGE_HEIGHT_UNSCALED / 2, 0, 0, PAGE_WIDTH_UNSCALED, PAGE_HEIGHT_UNSCALED, TEX_SIZE, TEX_SIZE);
@@ -170,7 +170,7 @@ public class TyrannobookScreen extends Screen
 		else 
 		{
 			render.bind(Textures.TEX_BOOK);
-			RenderHelper.turnOff();
+			Lighting.turnOff();
 
 			RenderSystem.color3f(coverR, coverG, coverB);
 			blit(stack, this.width / 2 - PAGE_WIDTH_UNSCALED, this.height / 2 - PAGE_HEIGHT_UNSCALED / 2, 0, 0, PAGE_WIDTH_UNSCALED * 2, PAGE_HEIGHT_UNSCALED, TEX_SIZE, TEX_SIZE);
@@ -216,7 +216,7 @@ public class TyrannobookScreen extends Screen
 
 			render.bind(Textures.TEX_BOOK);
 			RenderSystem.color4f(1F, 1F, 1F, 1F);
-			RenderHelper.turnOff();
+			Lighting.turnOff();
 
 			int fullPageCount = this.book.getFullPageCount(this.advancementCache);
 			if(this.page < fullPageCount - 1 || this.book.getPageCount(this.advancementCache) % 2 != 0) 
@@ -324,7 +324,7 @@ public class TyrannobookScreen extends Screen
 				margin = 0;
 			}
 
-			this.addButton(new Button(this.width / 2 - 196 / 2, this.height / 2 + PAGE_HEIGHT_UNSCALED / 2 + margin, 196, 20, new TranslationTextComponent("lectern.take_book"), (button) -> 
+			this.addButton(new Button(this.width / 2 - 196 / 2, this.height / 2 + PAGE_HEIGHT_UNSCALED / 2 + margin, 196, 20, new TranslatableComponent("lectern.take_book"), (button) -> 
 			{
 				this.onClose();
 				this.bookPickup.accept(null);
@@ -724,7 +724,7 @@ public class TyrannobookScreen extends Screen
 		}
 	}
 
-	public static class AdvancementCache implements ClientAdvancementManager.IListener 
+	public static class AdvancementCache implements ClientAdvancements.Listener 
 	{
 		private final HashMap<Advancement, AdvancementProgress> progress = new HashMap<>();
 		private final HashMap<ResourceLocation, Advancement> nameCache = new HashMap<>();

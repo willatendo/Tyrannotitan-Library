@@ -1,7 +1,7 @@
 package tyrannotitanlib.library.tyrannomation.tyranno.render.built;
 
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.core.Direction;
+import com.mojang.math.Vector3f;
 
 public class TyrannomationQuad 
 {

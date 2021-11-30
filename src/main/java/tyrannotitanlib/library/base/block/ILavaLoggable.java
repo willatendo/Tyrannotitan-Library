@@ -1,26 +1,29 @@
 package tyrannotitanlib.library.base.block;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.IBucketPickupHandler;
-import net.minecraft.block.ILiquidContainer;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.BucketPickup;
+import net.minecraft.world.level.block.LiquidBlockContainer;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
 
-public interface ILavaLoggable extends IBucketPickupHandler, ILiquidContainer
+public interface ILavaLoggable extends BucketPickup, LiquidBlockContainer
 {
 	@Override
-	default boolean canPlaceLiquid(IBlockReader reader, BlockPos pos, BlockState state, Fluid fluid) 
+	default boolean canPlaceLiquid(BlockGetter reader, BlockPos pos, BlockState state, Fluid fluid) 
 	{
 		return !state.getValue(BooleanProperty.create("lavalogged")) && fluid == Fluids.LAVA;
 	}
 	
 	@Override
-	default boolean placeLiquid(IWorld world, BlockPos pos, BlockState state, FluidState fluid) 
+	default boolean placeLiquid(LevelAccessor world, BlockPos pos, BlockState state, FluidState fluid) 
 	{
 		if(!state.getValue(TyrannoBlockStateProperties.LAVALOGGED) && fluid.getType() == Fluids.LAVA) 
 		{
@@ -39,16 +42,21 @@ public interface ILavaLoggable extends IBucketPickupHandler, ILiquidContainer
 	}
 	
 	@Override
-	default Fluid takeLiquid(IWorld world, BlockPos pos, BlockState state) 
+	default ItemStack pickupBlock(LevelAccessor world, BlockPos pos, BlockState state) 
 	{
-		if(state.getValue(TyrannoBlockStateProperties.LAVALOGGED)) 
+		if(state.getValue(BlockStateProperties.WATERLOGGED)) 
 		{
-			world.setBlock(pos, state.setValue(TyrannoBlockStateProperties.LAVALOGGED, Boolean.valueOf(false)), 3);
-			return Fluids.WATER;
+			world.setBlock(pos, state.setValue(BlockStateProperties.WATERLOGGED, Boolean.valueOf(false)), 3);
+			if(!state.canSurvive(world, pos)) 
+			{
+				world.destroyBlock(pos, true);
+			}
+
+			return new ItemStack(Items.LAVA_BUCKET);
 		} 
 		else 
 		{
-			return Fluids.EMPTY;
+			return ItemStack.EMPTY;
 		}
 	}
 }

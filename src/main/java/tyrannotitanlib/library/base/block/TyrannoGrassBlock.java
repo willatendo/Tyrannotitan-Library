@@ -2,16 +2,16 @@ package tyrannotitanlib.library.base.block;
 
 import java.util.Random;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.lighting.LightEngine;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.lighting.LayerLightEngine;
 import net.minecraftforge.common.IPlantable;
 
 public class TyrannoGrassBlock extends Block
@@ -25,7 +25,7 @@ public class TyrannoGrassBlock extends Block
 	}
 	
 	@Override
-	public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) 
+	public void tick(BlockState state, ServerLevel worldIn, BlockPos pos, Random random) 
 	{
 		if(!worldIn.isClientSide()) 
 		{
@@ -50,23 +50,23 @@ public class TyrannoGrassBlock extends Block
 		}
 	}
 	
-	private static boolean isLightEnough(BlockState state, IWorldReader reader, BlockPos pos) 
+	private static boolean isLightEnough(BlockState state, LevelReader reader, BlockPos pos) 
 	{
 		BlockPos blockpos = pos.above();
 		BlockState blockstate = reader.getBlockState(blockpos);
 		
-		int i = LightEngine.getLightBlockInto(reader, state, pos, blockstate, blockpos, Direction.UP, blockstate.getLightBlock(reader, blockpos));
+		int i = LayerLightEngine.getLightBlockInto(reader, state, pos, blockstate, blockpos, Direction.UP, blockstate.getLightBlock(reader, blockpos));
 		return i < reader.getMaxLightLevel();
 	}
 	
-	private static boolean isValidBonemealTargetGrass(BlockState state, IWorldReader reader, BlockPos pos) 
+	private static boolean isValidBonemealTargetGrass(BlockState state, LevelReader reader, BlockPos pos) 
 	{
 		BlockPos blockpos = pos.above();
 		return isLightEnough(state, reader, pos) && !reader.getFluidState(blockpos).is(FluidTags.WATER);
 	}
 	
 	@Override
-	public boolean canSustainPlant(BlockState state, IBlockReader world, BlockPos pos, Direction facing, IPlantable plantable) 
+	public boolean canSustainPlant(BlockState state, BlockGetter world, BlockPos pos, Direction facing, IPlantable plantable) 
 	{
 		return true;
 	}

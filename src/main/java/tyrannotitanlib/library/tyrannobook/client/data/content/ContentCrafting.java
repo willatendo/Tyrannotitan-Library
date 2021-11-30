@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import org.apache.commons.lang3.StringUtils;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.ICraftingRecipe;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.core.NonNullList;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.crafting.IShapedRecipe;
 import tyrannotitanlib.library.tyrannobook.client.Textures;
 import tyrannotitanlib.library.tyrannobook.client.data.TyrannobookData;
@@ -120,8 +120,8 @@ public class ContentCrafting extends PageContent
 					break;
 			}
 
-			IRecipe<?> recipe = Minecraft.getInstance().level.getRecipeManager().byKey(new ResourceLocation(this.recipe)).orElse(null);
-			if(recipe instanceof ICraftingRecipe) 
+			Recipe<?> recipe = Minecraft.getInstance().level.getRecipeManager().byKey(new ResourceLocation(this.recipe)).orElse(null);
+			if(recipe instanceof CraftingRecipe) 
 			{
 				if(!recipe.canCraftInDimensions(w, h)) 
 				{

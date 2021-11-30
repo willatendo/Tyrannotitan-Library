@@ -8,21 +8,21 @@ import javax.annotation.Nullable;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.Tesselator;
 
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.client.gui.GuiUtils;
+import net.minecraftforge.fmlclient.gui.GuiUtils;
 import tyrannotitanlib.library.tyrannobook.client.data.element.TextData;
 import tyrannotitanlib.library.utils.TyrannoUtils;
 
@@ -30,9 +30,9 @@ import tyrannotitanlib.library.utils.TyrannoUtils;
 public class TextDataRenderer 
 {
 	@Nullable
-	public static String drawText(MatrixStack stack, int x, int y, int boxWidth, int boxHeight, TextData[] data, int mouseX, int mouseY, FontRenderer fr) 
+	public static String drawText(PoseStack stack, int x, int y, int boxWidth, int boxHeight, TextData[] data, int mouseX, int mouseY, Font fr) 
 	{
-		List<ITextComponent> tooltip = new ArrayList<ITextComponent>();
+		List<Component> tooltip = new ArrayList<Component>();
 		String action = drawText(stack, x, y, boxWidth, boxHeight, data, mouseX, mouseY, fr, tooltip);
 
 		if(tooltip.size() > 0) 
@@ -43,7 +43,7 @@ public class TextDataRenderer
 		return action;
 	}
 
-	public static String drawText(MatrixStack stack, int x, int y, int boxWidth, int boxHeight, TextData[] data, int mouseX, int mouseY, FontRenderer fr, List<ITextComponent> tooltip) 
+	public static String drawText(PoseStack stack, int x, int y, int boxWidth, int boxHeight, TextData[] data, int mouseX, int mouseY, Font fr, List<Component> tooltip) 
 	{
 		String action = "";
 
@@ -81,28 +81,28 @@ public class TextDataRenderer
 
 			if(item.useOldColor) 
 			{
-				modifiers += TextFormatting.getByName(item.color);
+				modifiers += ChatFormatting.getByName(item.color);
 			}
 
 			if(item.bold) 
 			{
-				modifiers += TextFormatting.BOLD;
+				modifiers += ChatFormatting.BOLD;
 			}
 			if(item.italic) 
 			{
-				modifiers += TextFormatting.ITALIC;
+				modifiers += ChatFormatting.ITALIC;
 			}
 			if(item.underlined) 
 			{
-				modifiers += TextFormatting.UNDERLINE;
+				modifiers += ChatFormatting.UNDERLINE;
 			}
 			if(item.strikethrough) 
 			{
-				modifiers += TextFormatting.STRIKETHROUGH;
+				modifiers += ChatFormatting.STRIKETHROUGH;
 			}
 			if(item.obfuscated) 
 			{
-				modifiers += TextFormatting.OBFUSCATED;
+				modifiers += ChatFormatting.OBFUSCATED;
 			}
 
 			String text = translateString(item.text);
@@ -191,8 +191,8 @@ public class TextDataRenderer
 
 		if(TyrannobookScreen.debug && action != null && !action.isEmpty()) 
 		{
-			tooltip.add(StringTextComponent.EMPTY);
-			tooltip.add(new StringTextComponent("Action: " + action).withStyle(TextFormatting.GRAY));
+			tooltip.add(TextComponent.EMPTY);
+			tooltip.add(new TextComponent("Action: " + action).withStyle(ChatFormatting.GRAY));
 		}
 
 		return action;
@@ -216,12 +216,12 @@ public class TextDataRenderer
 		return s.replace("$\0(", "$(").replace(")\0$", ")$");
 	}
 
-	public static String[] cropStringBySize(String s, String modifiers, int width, int height, FontRenderer fr, float scale) 
+	public static String[] cropStringBySize(String s, String modifiers, int width, int height, Font fr, float scale) 
 	{
 		return cropStringBySize(s, modifiers, width, height, width, fr, scale);
 	}
 
-	public static String[] cropStringBySize(String s, String modifiers, int width, int height, int firstWidth, FontRenderer fr, float scale) 
+	public static String[] cropStringBySize(String s, String modifiers, int width, int height, int firstWidth, Font fr, float scale) 
 	{
 		int curWidth = 0;
 		int curHeight = (int) (fr.lineHeight * scale);
@@ -265,13 +265,13 @@ public class TextDataRenderer
 		return s.split("\r");
 	}
 
-	public static void drawTooltip(MatrixStack stack, List<ITextComponent> textLines, int mouseX, int mouseY, FontRenderer font) 
+	public static void drawTooltip(PoseStack stack, List<Component> textLines, int mouseX, int mouseY, Font font) 
 	{
 		GuiUtils.drawHoveringText(stack, textLines, mouseX, mouseY, TyrannobookScreen.PAGE_WIDTH, TyrannobookScreen.PAGE_HEIGHT, TyrannobookScreen.PAGE_WIDTH, font);
-		RenderHelper.turnOff();
+		Lighting.turnOff();
 	}
 
-	public static void drawScaledString(MatrixStack stack, FontRenderer font, String text, float x, float y, int color, boolean dropShadow, float scale) 
+	public static void drawScaledString(PoseStack stack, Font font, String text, float x, float y, int color, boolean dropShadow, float scale) 
 	{
 		RenderSystem.pushMatrix();
 		RenderSystem.translatef(x, y, 0);
@@ -302,9 +302,9 @@ public class TextDataRenderer
 		RenderSystem.disableAlphaTest();
 		RenderSystem.blendFuncSeparate(770, 771, 1, 0);
 		RenderSystem.shadeModel(7425);
-		Tessellator tessellator = Tessellator.getInstance();
+		Tesselator tessellator = Tesselator.getInstance();
 		BufferBuilder vertexBuffer = tessellator.getBuilder();
-		vertexBuffer.begin(7, DefaultVertexFormats.POSITION_COLOR);
+		vertexBuffer.begin(7, DefaultVertexFormat.POSITION_COLOR);
 		vertexBuffer.vertex((double) right, (double) top, 0D).color(f1, f2, f3, f).endVertex();
 		vertexBuffer.vertex((double) left, (double) top, 0D).color(f1, f2, f3, f).endVertex();
 		vertexBuffer.vertex((double) left, (double) bottom, 0D).color(f5, f6, f7, f4).endVertex();

@@ -1,6 +1,6 @@
 package tyrannotitanlib.library.tyrannomation.model.provider;
 
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import tyrannotitanlib.library.tyrannomation.resource.TyrannomationCache;
 import tyrannotitanlib.library.tyrannomation.tyranno.render.built.TyrannomationModel;
 

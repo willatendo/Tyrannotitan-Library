@@ -1,6 +1,6 @@
 package tyrannotitanlib.library.base.block;
 
-import net.minecraft.block.WoodType;
+import net.minecraft.world.level.block.state.properties.WoodType;
 
 public class TyrannoWoodType extends WoodType
 {

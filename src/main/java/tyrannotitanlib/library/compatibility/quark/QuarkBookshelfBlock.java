@@ -1,28 +1,25 @@
 package tyrannotitanlib.library.compatibility.quark;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorldReader;
+//Quark is not for 1.17.1
 
-public class QuarkBookshelfBlock extends Block 
-{
-	public QuarkBookshelfBlock(Properties properties) 
-	{
-		super(properties);
-	}
-
-	@Override
-	public boolean isFlammable(BlockState state, IBlockReader world, BlockPos pos, Direction face) 
-	{
-		return true;
-	}
-	
-	@Override
-	public float getEnchantPowerBonus(BlockState state, IWorldReader world, BlockPos pos) 
-	{
-		return 1;
-	}
-}
+@Deprecated
+public class QuarkBookshelfBlock {}
+//extends Block 
+//{
+//	public QuarkBookshelfBlock(Properties properties) 
+//	{
+//		super(properties);
+//	}
+//
+//	@Override
+//	public boolean isFlammable(BlockState state, BlockGetter world, BlockPos pos, Direction face) 
+//	{
+//		return true;
+//	}
+//	
+//	@Override
+//	public float getEnchantPowerBonus(BlockState state, LevelReader world, BlockPos pos) 
+//	{
+//		return 1;
+//	}
+//}

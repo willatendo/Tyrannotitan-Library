@@ -2,36 +2,36 @@ package tyrannotitanlib.library.tyrannomation.renderers;
 
 import java.awt.Color;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Vector3f;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.DirectionalBlock;
-import net.minecraft.block.HorizontalBlock;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.DirectionalBlock;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import tyrannotitanlib.library.tyrannomation.core.ITyrannomatable;
 import tyrannotitanlib.library.tyrannomation.core.controller.TyrannomationController;
 import tyrannotitanlib.library.tyrannomation.model.TyrannomatedTyrannomationModel;
 import tyrannotitanlib.library.tyrannomation.tyranno.render.built.TyrannomationModel;
 
-public abstract class TyrannomationBlockmationRenderer<T extends TileEntity & ITyrannomatable> extends TileEntityRenderer implements ITyrannomationRenderer<T> 
+public abstract class TyrannomationBlockmationRenderer<T extends BlockEntity & ITyrannomatable> implements BlockEntityRenderer, ITyrannomationRenderer<T> 
 {
 	static 
 	{
 		TyrannomationController.addModelFetcher((ITyrannomatable object) -> 
 		{
-			if(object instanceof TileEntity) 
+			if(object instanceof BlockEntity) 
 			{
-				TileEntity tile = (TileEntity) object;
-				TileEntityRenderer<TileEntity> renderer = TileEntityRendererDispatcher.instance.getRenderer(tile);
+				BlockEntity tile = (BlockEntity) object;
+				BlockEntityRenderer<BlockEntity> renderer = Minecraft.getInstance().getBlockEntityRenderDispatcher().getRenderer(tile);
 				if(renderer instanceof TyrannomationBlockmationRenderer) 
 				{
 					return ((TyrannomationBlockmationRenderer<?>) renderer).getGeoModelProvider();
@@ -43,19 +43,18 @@ public abstract class TyrannomationBlockmationRenderer<T extends TileEntity & IT
 
 	private final TyrannomatedTyrannomationModel<T> modelProvider;
 
-	public TyrannomationBlockmationRenderer(TileEntityRendererDispatcher rendererDispatcherIn, TyrannomatedTyrannomationModel<T> modelProvider) 
+	public TyrannomationBlockmationRenderer(BlockEntityRenderDispatcher rendererDispatcherIn, TyrannomatedTyrannomationModel<T> modelProvider) 
 	{
-		super(rendererDispatcherIn);
 		this.modelProvider = modelProvider;
 	}
 
 	@Override
-	public void render(TileEntity tile, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn) 
+	public void render(BlockEntity tile, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) 
 	{
 		this.render((T) tile, partialTicks, matrixStackIn, bufferIn, combinedLightIn);
 	}
 
-	public void render(T tile, float partialTicks, MatrixStack stack, IRenderTypeBuffer bufferIn, int packedLightIn) 
+	public void render(T tile, float partialTicks, PoseStack stack, MultiBufferSource bufferIn, int packedLightIn) 
 	{
 		TyrannomationModel model = modelProvider.getModel(modelProvider.getModelLocation(tile));
 		modelProvider.setLivingAnimations(tile, this.getUniqueID(tile));
@@ -65,7 +64,7 @@ public abstract class TyrannomationBlockmationRenderer<T extends TileEntity & IT
 
 		rotateBlock(getFacing(tile), stack);
 
-		Minecraft.getInstance().textureManager.bind(getTextureLocation(tile));
+		Minecraft.getInstance().textureManager.bindForSetup(getTextureLocation(tile));
 		Color renderColor = getRenderColor(tile, partialTicks, stack, bufferIn, null, packedLightIn);
 		RenderType renderType = getRenderType(tile, partialTicks, stack, bufferIn, null, packedLightIn, getTextureLocation(tile));
 		render(model, tile, partialTicks, renderType, stack, bufferIn, null, packedLightIn, OverlayTexture.NO_OVERLAY, (float) renderColor.getRed() / 255f, (float) renderColor.getGreen() / 255f, (float) renderColor.getBlue() / 255f, (float) renderColor.getAlpha() / 255);
@@ -78,7 +77,7 @@ public abstract class TyrannomationBlockmationRenderer<T extends TileEntity & IT
 		return this.modelProvider;
 	}
 
-	protected void rotateBlock(Direction facing, MatrixStack stack) 
+	protected void rotateBlock(Direction facing, PoseStack stack) 
 	{
 		switch(facing) 
 		{
@@ -106,9 +105,9 @@ public abstract class TyrannomationBlockmationRenderer<T extends TileEntity & IT
 	private Direction getFacing(T tile) 
 	{
 		BlockState blockState = tile.getBlockState();
-		if(blockState.hasProperty(HorizontalBlock.FACING)) 
+		if(blockState.hasProperty(HorizontalDirectionalBlock.FACING)) 
 		{
-			return blockState.getValue(HorizontalBlock.FACING);
+			return blockState.getValue(HorizontalDirectionalBlock.FACING);
 		} 
 		else if(blockState.hasProperty(DirectionalBlock.FACING)) 
 		{

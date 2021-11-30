@@ -1,7 +1,7 @@
 package tyrannotitanlib.library.tyrannomation.resource;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.resources.IReloadableResourceManager;
+import net.minecraft.server.packs.resources.ReloadableResourceManager;
 import tyrannotitanlib.library.utils.TyrannoUtils;
 
 public class ResourceListener 
@@ -14,7 +14,7 @@ public class ResourceListener
 			{
 				throw new RuntimeException("TyrannotitanLib was initialized too early!");
 			}
-			IReloadableResourceManager reloadable = (IReloadableResourceManager) Minecraft.getInstance().getResourceManager();
+			ReloadableResourceManager reloadable = (ReloadableResourceManager) Minecraft.getInstance().getResourceManager();
 			reloadable.registerReloadListener(TyrannomationCache.getInstance()::reload);
 		} 
 		else

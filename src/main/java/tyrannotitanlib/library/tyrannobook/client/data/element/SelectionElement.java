@@ -3,13 +3,13 @@ package tyrannotitanlib.library.tyrannobook.client.data.element;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.client.gui.Font;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.ChatFormatting;
 import tyrannotitanlib.library.tyrannobook.client.data.SectionData;
 import tyrannotitanlib.library.tyrannobook.client.screen.TextDataRenderer;
 
@@ -38,7 +38,7 @@ public class SelectionElement extends SizedTyrannobookElement
 	}
 
 	@Override
-	public void draw(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks, FontRenderer fontRenderer) 
+	public void draw(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks, Font fontRenderer) 
 	{
 		boolean unlocked = this.section.isUnlocked(this.parent.advancementCache);
 		boolean hover = this.isHovered(mouseX, mouseY);
@@ -78,22 +78,22 @@ public class SelectionElement extends SizedTyrannobookElement
 	}
 
 	@Override
-	public void drawOverlay(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks, FontRenderer fontRenderer) 
+	public void drawOverlay(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks, Font fontRenderer) 
 	{
 		if(this.section != null && this.isHovered(mouseX, mouseY)) 
 		{
-			List<ITextComponent> text = new ArrayList<>();
+			List<Component> text = new ArrayList<>();
 
-			text.add(new StringTextComponent(this.section.getTitle()));
+			text.add(new TextComponent(this.section.getTitle()));
 
 			if(!this.section.isUnlocked(this.parent.advancementCache)) 
 			{
-				text.add(new StringTextComponent("Locked").withStyle(TextFormatting.RED));
-				text.add(new StringTextComponent("Requirements:"));
+				text.add(new TextComponent("Locked").withStyle(ChatFormatting.RED));
+				text.add(new TextComponent("Requirements:"));
 
 				for(String requirement : this.section.requirements) 
 				{
-					text.add(new StringTextComponent(requirement));
+					text.add(new TextComponent(requirement));
 				}
 			}
 

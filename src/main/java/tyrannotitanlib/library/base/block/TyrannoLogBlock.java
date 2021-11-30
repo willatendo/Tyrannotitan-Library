@@ -2,10 +2,12 @@ package tyrannotitanlib.library.base.block;
 
 import com.google.common.collect.Maps;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.RotatedPillarBlock;
-import net.minecraft.item.AxeItem;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.item.AxeItem;
 import net.minecraftforge.common.util.NonNullSupplier;
+
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
 public class TyrannoLogBlock extends RotatedPillarBlock
 {
@@ -21,7 +23,7 @@ public class TyrannoLogBlock extends RotatedPillarBlock
 	
 	public static void addStripping()
 	{
-		AxeItem.STRIPABLES = Maps.newHashMap(AxeItem.STRIPABLES);
-		AxeItem.STRIPABLES.put(logBlock, strippedLogBlock.get());
+		AxeItem.STRIPPABLES = Maps.newHashMap(AxeItem.STRIPPABLES);
+		AxeItem.STRIPPABLES.put(logBlock, strippedLogBlock.get());
 	}
 }

@@ -3,10 +3,10 @@ package tyrannotitanlib.library.tyrannomation.network.messages;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-import net.minecraft.network.PacketBuffer;
-import net.minecraftforge.fml.network.NetworkDirection;
-import net.minecraftforge.fml.network.NetworkEvent;
-import net.minecraftforge.fml.network.simple.SimpleChannel;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraftforge.fmllegacy.network.NetworkDirection;
+import net.minecraftforge.fmllegacy.network.NetworkEvent;
+import net.minecraftforge.fmllegacy.network.simple.SimpleChannel;
 import tyrannotitanlib.library.tyrannomation.network.ISyncable;
 import tyrannotitanlib.library.tyrannomation.network.TyrannomationNetwork;
 import tyrannotitanlib.library.utils.TyrannoUtils;
@@ -29,7 +29,7 @@ public class SyncTyrannomationMsg
         channel.registerMessage(id, SyncTyrannomationMsg.class, SyncTyrannomationMsg::encode, SyncTyrannomationMsg::decode, SyncTyrannomationMsg::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
     }
 
-    private static SyncTyrannomationMsg decode(PacketBuffer buf) 
+    private static SyncTyrannomationMsg decode(FriendlyByteBuf buf) 
     {
         final String key = buf.readUtf(32767); 
         final int id = buf.readVarInt();
@@ -37,7 +37,7 @@ public class SyncTyrannomationMsg
         return new SyncTyrannomationMsg(key, id, state);
     }
 
-    private void encode(PacketBuffer buf) 
+    private void encode(FriendlyByteBuf buf) 
     {
         buf.writeUtf(key);
         buf.writeVarInt(id);

@@ -1,10 +1,9 @@
 package tyrannotitanlib.library.base.block;
 
-import net.minecraft.block.BarrelBlock;
-import net.minecraft.block.BlockState;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.IBlockReader;
-import tyrannotitanlib.content.server.init.TyrannoBlockEntities;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.BarrelBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import tyrannotitanlib.library.base.block.entity.TyrannoBarrelBlockEntity;
 
 public class TyrannoBarrelBlock extends BarrelBlock
@@ -15,20 +14,8 @@ public class TyrannoBarrelBlock extends BarrelBlock
 	}
 	
 	@Override
-	public boolean hasTileEntity(BlockState state) 
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) 
 	{
-		return true;
-	}
-	
-	@Override
-	public TileEntity newBlockEntity(IBlockReader reader) 
-	{
-		return new TyrannoBarrelBlockEntity();
-	}
-	
-	@Override
-	public TileEntity createTileEntity(BlockState state, IBlockReader world) 
-	{
-		return TyrannoBlockEntities.BARREL_BLOCK_ENTITY.create();
+		return new TyrannoBarrelBlockEntity(pos, state);
 	}
 }

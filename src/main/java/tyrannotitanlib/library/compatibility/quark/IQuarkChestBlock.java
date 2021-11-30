@@ -1,6 +1,9 @@
 package tyrannotitanlib.library.compatibility.quark;
 
-public interface IQuarkChestBlock 
-{
-	String getChestType();
-}
+//Quark is not for 1.17.1
+
+@Deprecated
+public interface IQuarkChestBlock {}
+//{
+//	String getChestType();
+//}

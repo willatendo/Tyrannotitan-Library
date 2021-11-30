@@ -1,10 +1,10 @@
 package tyrannotitanlib.library.base.recipe;
 
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.core.Registry;
 
-public class TyrannoRecipeType<T extends IRecipe<?>> implements IRecipeType<T> 
+public class TyrannoRecipeType<T extends Recipe<?>> implements RecipeType<T> 
 {
 	@Override
 	public String toString() 

@@ -4,14 +4,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.block.Blocks;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.CompressedStreamTools;
-import net.minecraft.resources.IResource;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StringUtils;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.gen.feature.template.Template;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtIo;
+import net.minecraft.server.packs.resources.Resource;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.StringUtil;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import tyrannotitanlib.library.tyrannobook.client.data.TyrannobookData;
@@ -34,8 +34,8 @@ public class ContentStructure extends PageContent
 
 	public String text;
 
-	public final transient Template template = new Template();
-	public transient List<Template.BlockInfo> templateBlocks = new ArrayList<>();
+	public final transient StructureTemplate template = new StructureTemplate();
+	public transient List<StructureTemplate.StructureBlockInfo> templateBlocks = new ArrayList<>();
 
 	@Override
 	public void load() 
@@ -48,7 +48,7 @@ public class ContentStructure extends PageContent
 		}
 
 		ResourceLocation location = repo.getResourceLocation(this.data);
-		IResource resource = repo.getResource(location);
+		Resource resource = repo.getResource(location);
 
 		if (resource == null) 
 		{
@@ -57,7 +57,7 @@ public class ContentStructure extends PageContent
 
 		try 
 		{
-			CompoundNBT compoundnbt = CompressedStreamTools.readCompressed(resource.getInputStream());
+			CompoundTag compoundnbt = NbtIo.readCompressed(resource.getInputStream());
 			this.template.load(compoundnbt);
 		} 
 		catch(IOException e) 
@@ -70,7 +70,7 @@ public class ContentStructure extends PageContent
 
 		for(int i = 0; i < this.templateBlocks.size(); i++) 
 		{
-			Template.BlockInfo info = this.templateBlocks.get(i);
+			StructureTemplate.StructureBlockInfo info = this.templateBlocks.get(i);
 			if(info.state == Blocks.AIR.defaultBlockState()) 
 			{
 				this.templateBlocks.remove(i);
@@ -99,7 +99,7 @@ public class ContentStructure extends PageContent
 		int structureSizeX = TyrannobookScreen.PAGE_WIDTH;
 		int structureSizeY = TyrannobookScreen.PAGE_HEIGHT - y - 10;
 
-		if(!StringUtils.isNullOrEmpty(this.text)) 
+		if(!StringUtil.isNullOrEmpty(this.text)) 
 		{
 			offset = 15;
 			structureSizeX -= 2 * offset;

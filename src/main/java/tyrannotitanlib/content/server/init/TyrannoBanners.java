@@ -1,6 +1,6 @@
 package tyrannotitanlib.content.server.init;
 
-import net.minecraft.tileentity.BannerPattern;
+import net.minecraft.world.level.block.entity.BannerPattern;
 import tyrannotitanlib.library.utils.TyrannoUtils;
 
 public class TyrannoBanners 

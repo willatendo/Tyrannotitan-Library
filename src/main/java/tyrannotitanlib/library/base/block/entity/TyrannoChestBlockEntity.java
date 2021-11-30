@@ -1,25 +1,27 @@
 package tyrannotitanlib.library.base.block.entity;
 
-import net.minecraft.tileentity.ChestTileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.world.level.block.entity.ChestBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.phys.AABB;
 import tyrannotitanlib.content.server.init.TyrannoBlockEntities;
 
-public class TyrannoChestBlockEntity extends ChestTileEntity
+public class TyrannoChestBlockEntity extends ChestBlockEntity
 {
-	protected TyrannoChestBlockEntity(TileEntityType<?> type) 
+	protected TyrannoChestBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) 
 	{
-		super(type);
+		super(type, pos, state);
 	}
 
-	public TyrannoChestBlockEntity() 
+	public TyrannoChestBlockEntity(BlockPos pos, BlockState state) 
 	{
-		super(TyrannoBlockEntities.CHEST_BLOCK_ENTITY);
+		super(TyrannoBlockEntities.CHEST_BLOCK_ENTITY, pos, state);
 	}
 	
 	@Override
-	public AxisAlignedBB getRenderBoundingBox() 
+	public AABB getRenderBoundingBox() 
 	{
-		return new AxisAlignedBB(worldPosition.getX() - 1, worldPosition.getY(), worldPosition.getZ() - 1, worldPosition.getX() + 2, worldPosition.getY() + 2, worldPosition.getZ() + 2);
+		return new AABB(worldPosition.getX() - 1, worldPosition.getY(), worldPosition.getZ() - 1, worldPosition.getX() + 2, worldPosition.getY() + 2, worldPosition.getZ() + 2);
 	}
 }

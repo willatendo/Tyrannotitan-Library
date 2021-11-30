@@ -1,6 +1,6 @@
 package tyrannotitanlib.library.tyrannomation.tyranno.render.built;
 
-import net.minecraft.util.math.vector.Vector3f;
+import com.mojang.math.Vector3f;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.Validate;
 

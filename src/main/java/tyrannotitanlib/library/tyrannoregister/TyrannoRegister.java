@@ -8,36 +8,36 @@ import java.util.function.Supplier;
 
 import com.google.common.collect.ArrayListMultimap;
 
-import net.minecraft.block.Block;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.merchant.villager.VillagerProfession;
-import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.item.Item;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.particles.ParticleType;
-import net.minecraft.potion.Effect;
-import net.minecraft.potion.Potion;
-import net.minecraft.tileentity.BannerPattern;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.WorldGenRegistries;
-import net.minecraft.village.PointOfInterestType;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.blockplacer.BlockPlacerType;
-import net.minecraft.world.gen.carver.ConfiguredCarver;
-import net.minecraft.world.gen.carver.ICarverConfig;
-import net.minecraft.world.gen.carver.WorldCarver;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.StructureFeature;
-import net.minecraft.world.gen.feature.structure.IStructurePieceType;
-import net.minecraft.world.gen.feature.structure.Structure;
-import net.minecraft.world.gen.foliageplacer.FoliagePlacerType;
-import net.minecraft.world.gen.placement.Placement;
-import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.core.particles.ParticleType;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.level.block.entity.BannerPattern;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.core.Registry;
+import net.minecraft.data.BuiltinRegistries;
+import net.minecraft.world.entity.ai.village.poi.PoiType;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.levelgen.feature.blockplacers.BlockPlacerType;
+import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
+import net.minecraft.world.level.levelgen.carver.CarverConfiguration;
+import net.minecraft.world.level.levelgen.carver.WorldCarver;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
+import net.minecraft.world.level.levelgen.feature.StructurePieceType;
+import net.minecraft.world.level.levelgen.feature.StructureFeature;
+import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
+import net.minecraft.world.level.levelgen.placement.FeatureDecorator;
+import net.minecraft.world.level.levelgen.surfacebuilders.SurfaceBuilder;
 import net.minecraftforge.common.world.ForgeWorldType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -79,7 +79,7 @@ public class TyrannoRegister
 	}
 
 	//Non-Forge
-	public static <T extends IRecipeType> T registerType(String modId, String id) 
+	public static <T extends RecipeType> T registerType(String modId, String id) 
 	{
 		return (T) Registry.register(Registry.RECIPE_TYPE, new ResourceLocation(modId, id), new TyrannoRecipeType<>());
 	}
@@ -89,19 +89,19 @@ public class TyrannoRegister
 		return BannerPattern.create(id.toUpperCase(Locale.ROOT), id, id, false);
 	}
 	
-	public static IStructurePieceType registerStructurePiece(String modId, String id, IStructurePieceType type) 
+	public static StructurePieceType registerStructurePiece(String modId, String id, StructurePieceType type) 
 	{
 		return Registry.register(Registry.STRUCTURE_PIECE, new ResourceLocation(modId, id.toLowerCase(Locale.ROOT)), type);
 	}
 	
-	public static StructureFeature<?, ?> registerConfiguredStructure(String modId, String id, StructureFeature<?, ?> structureFeature)
+	public static ConfiguredStructureFeature<?, ?> registerConfiguredStructure(String modId, String id, ConfiguredStructureFeature<?, ?> structureFeature)
 	{
-		return Registry.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, new ResourceLocation(modId, id), structureFeature);
+		return Registry.register(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, new ResourceLocation(modId, id), structureFeature);
 	}
 	
-	public static <WC extends ICarverConfig> ConfiguredCarver<WC> registerConfiguredCarver(String modId, String id, ConfiguredCarver<WC> configuredCarver) 
+	public static <WC extends CarverConfiguration> ConfiguredWorldCarver<WC> registerConfiguredCarver(String modId, String id, ConfiguredWorldCarver<WC> configuredCarver) 
 	{
-		return WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_CARVER, new ResourceLocation(modId, id), configuredCarver);
+		return BuiltinRegistries.register(BuiltinRegistries.CONFIGURED_CARVER, new ResourceLocation(modId, id), configuredCarver);
 	}
 	
 	//Forge
@@ -110,7 +110,7 @@ public class TyrannoRegister
 		register(particle, id);
 	}
 
-	public static void registerSerializer(String id, IRecipeSerializer<?> recipe)
+	public static void registerSerializer(String id, RecipeSerializer<?> recipe)
 	{
 		register(recipe, id);
 	}
@@ -120,7 +120,7 @@ public class TyrannoRegister
 		register(sound, id);
 	}
 
-	public static void registerEffect(String id, Effect effect)
+	public static void registerEffect(String id, MobEffect effect)
 	{
 		register(effect, id);
 	}
@@ -140,12 +140,12 @@ public class TyrannoRegister
 		register(item, id);
 	}
 	
-	public static void registerBlockEntity(String id, TileEntityType blockEntity)
+	public static void registerBlockEntity(String id, BlockEntityType blockEntity)
 	{
 		register(blockEntity, id);
 	}
 	
-	public static void registerContainer(String id, ContainerType container)
+	public static void registerContainer(String id, MenuType container)
 	{
 		register(container, id);
 	}
@@ -160,7 +160,7 @@ public class TyrannoRegister
 		register(blockPlacer, id);
 	}
 	
-	public static void registerPointOfInterest(String id, PointOfInterestType pointOfInterest)
+	public static void registerPointOfInterest(String id, PoiType pointOfInterest)
 	{
 		register(pointOfInterest, id);
 	}
@@ -185,7 +185,7 @@ public class TyrannoRegister
 		register(biome, id);
 	}
 	
-	public static void registerStructure(String id, Structure structure)
+	public static void registerStructure(String id, StructureFeature structure)
 	{
 		register(structure, id);
 	}
@@ -195,7 +195,7 @@ public class TyrannoRegister
 		register(surfaceBuilder, id);
 	}
 	
-	public static void registerPlacement(String id, Placement placement)
+	public static void registerPlacement(String id, FeatureDecorator placement)
 	{
 		register(placement, id);
 	}

@@ -4,8 +4,8 @@ import static net.minecraftforge.common.util.Constants.NBT.TAG_INT;
 
 import java.util.Objects;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.server.level.ServerLevel;
 import tyrannotitanlib.library.tyrannomation.core.controller.TyrannomationController;
 import tyrannotitanlib.library.tyrannomation.core.manager.TyrannomationFactory;
 import tyrannotitanlib.library.tyrannomation.world.storage.TyrannoLibIdTracker;
@@ -24,7 +24,7 @@ public class TyrannomationUtil
 		return Objects.hash(stack.getItem().getRegistryName(), stack.getTag(), stack.getCount());
 	}
 
-	public static void writeIDToStack(ItemStack stack, ServerWorld world) 
+	public static void writeIDToStack(ItemStack stack, ServerLevel world) 
 	{
 		if(!stackHasIDTag(stack)) 
 		{
@@ -33,7 +33,7 @@ public class TyrannomationUtil
 		}
 	}
 	
-	public static int guaranteeIDForStack(ItemStack stack, ServerWorld world) 
+	public static int guaranteeIDForStack(ItemStack stack, ServerLevel world) 
 	{
 		if(!stackHasIDTag(stack)) 
 		{

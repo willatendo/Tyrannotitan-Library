@@ -1,43 +1,42 @@
 package tyrannotitanlib.library.tyrannomation.world.storage;
 
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.world.server.ServerWorld;
-import net.minecraft.world.storage.WorldSavedData;
-
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.saveddata.SavedData;
 
-public class TyrannoLibIdTracker extends WorldSavedData 
+public class TyrannoLibIdTracker extends SavedData 
 {
 	private static final String NAME = "tyranno_ids";
 	private final Object2IntMap<String> usedIds = new Object2IntOpenHashMap<>();
 
 	public TyrannoLibIdTracker() 
 	{
-		super(NAME);
 		this.usedIds.defaultReturnValue(-1);
 	}
 
-	public static TyrannoLibIdTracker from(ServerWorld world) 
+	public static TyrannoLibIdTracker from(ServerLevel world) 
 	{
-		return world.getServer().overworld().getDataStorage().computeIfAbsent(TyrannoLibIdTracker::new, NAME);
+		return world.getServer().overworld().getDataStorage().computeIfAbsent(TyrannoLibIdTracker::load, TyrannoLibIdTracker::new, NAME);
 	}
 
-	@Override
-	public void load(CompoundNBT tag) 
+	public static TyrannoLibIdTracker load(CompoundTag tag) 
 	{
-		this.usedIds.clear();
+		TyrannoLibIdTracker tracker = new TyrannoLibIdTracker();
+		tracker.usedIds.clear();
 		for(String key : tag.getAllKeys()) 
 		{
 			if(tag.contains(key, 99)) 
 			{
-				this.usedIds.put(key, tag.getInt(key));
+				tracker.usedIds.put(key, tag.getInt(key));
 			}
 		}
+		return tracker;
 	}
 
 	@Override
-	public CompoundNBT save(CompoundNBT tag) 
+	public CompoundTag save(CompoundTag tag) 
 	{
 		for(Object2IntMap.Entry<String> id : this.usedIds.object2IntEntrySet()) 
 		{

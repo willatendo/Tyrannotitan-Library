@@ -5,8 +5,8 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import net.minecraft.resources.IResource;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.server.packs.resources.Resource;
+import net.minecraft.resources.ResourceLocation;
 import tyrannotitanlib.library.tyrannobook.client.data.SectionData;
 
 public class DummyRepository extends TyrannobookRepository 
@@ -24,7 +24,7 @@ public class DummyRepository extends TyrannobookRepository
 	}
 
 	@Override
-	public IResource getResource(@Nullable ResourceLocation loc) 
+	public Resource getResource(@Nullable ResourceLocation loc) 
 	{
 		return null;
 	}
@@ -36,7 +36,7 @@ public class DummyRepository extends TyrannobookRepository
 	}
 
 	@Override
-	public String resourceToString(@Nullable IResource resource, boolean skipComments) 
+	public String resourceToString(@Nullable Resource resource, boolean skipComments) 
 	{
 		return "";
 	}

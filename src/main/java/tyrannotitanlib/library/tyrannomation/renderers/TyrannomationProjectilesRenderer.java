@@ -3,18 +3,18 @@ package tyrannotitanlib.library.tyrannomation.renderers;
 import java.awt.Color;
 import java.util.Collections;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Vector3f;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
 import tyrannotitanlib.library.tyrannomation.core.ITyrannomatable;
 import tyrannotitanlib.library.tyrannomation.core.ITyrannomatableModel;
 import tyrannotitanlib.library.tyrannomation.core.controller.TyrannomationController;
@@ -41,34 +41,34 @@ public class TyrannomationProjectilesRenderer<T extends Entity & ITyrannomatable
 
 	private final TyrannomatedTyrannomationModel<T> modelProvider;
 
-	protected TyrannomationProjectilesRenderer(EntityRendererManager renderManager, TyrannomatedTyrannomationModel<T> modelProvider) 
+	protected TyrannomationProjectilesRenderer(EntityRendererProvider.Context renderManager, TyrannomatedTyrannomationModel<T> modelProvider) 
 	{
 		super(renderManager);
 		this.modelProvider = modelProvider;
 	}
 
 	@Override
-	public void render(T entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) 
+	public void render(T entity, float entityYaw, float partialTicks, PoseStack matrixstack, MultiBufferSource bufferIn, int packedLightIn) 
 	{
-		TyrannomationModel model = modelProvider.getModel(modelProvider.getModelLocation(entityIn));
-		matrixStackIn.pushPose();
-		matrixStackIn.mulPose(Vector3f.YP.rotationDegrees(MathHelper.lerp(partialTicks, entityIn.yRotO, entityIn.yRot) - 90.0F));
-		matrixStackIn.mulPose(Vector3f.ZP.rotationDegrees(MathHelper.lerp(partialTicks, entityIn.xRotO, entityIn.xRot)));
-		Minecraft.getInstance().textureManager.bind(getTextureLocation(entityIn));
-		Color renderColor = getRenderColor(entityIn, partialTicks, matrixStackIn, bufferIn, null, packedLightIn);
-		RenderType renderType = getRenderType(entityIn, partialTicks, matrixStackIn, bufferIn, null, packedLightIn, getTextureLocation(entityIn));
-		render(model, entityIn, partialTicks, renderType, matrixStackIn, bufferIn, null, packedLightIn, getPackedOverlay(entityIn, 0), (float) renderColor.getRed() / 255f, (float) renderColor.getBlue() / 255f, (float) renderColor.getGreen() / 255f, (float) renderColor.getAlpha() / 255);
+		TyrannomationModel model = modelProvider.getModel(modelProvider.getModelLocation(entity));
+		matrixstack.pushPose();
+		matrixstack.mulPose(Vector3f.YP.rotationDegrees(Mth.lerp(partialTicks, entity.yRotO, entity.getYRot()) - 90.0F));
+		matrixstack.mulPose(Vector3f.ZP.rotationDegrees(Mth.lerp(partialTicks, entity.xRotO, entity.getXRot())));
+		Minecraft.getInstance().textureManager.bindForSetup(getTextureLocation(entity));
+		Color renderColor = getRenderColor(entity, partialTicks, matrixstack, bufferIn, null, packedLightIn);
+		RenderType renderType = getRenderType(entity, partialTicks, matrixstack, bufferIn, null, packedLightIn, getTextureLocation(entity));
+		render(model, entity, partialTicks, renderType, matrixstack, bufferIn, null, packedLightIn, getPackedOverlay(entity, 0), (float) renderColor.getRed() / 255f, (float) renderColor.getBlue() / 255f, (float) renderColor.getGreen() / 255f, (float) renderColor.getAlpha() / 255);
 
 		float lastLimbDistance = 0.0F;
 		float limbSwing = 0.0F;
 		EntityModelData entityModelData = new EntityModelData();
-		TyrannomationEvent<T> predicate = new TyrannomationEvent<T>(entityIn, limbSwing, lastLimbDistance, partialTicks, !(lastLimbDistance > -0.15F && lastLimbDistance < 0.15F), Collections.singletonList(entityModelData));
+		TyrannomationEvent<T> predicate = new TyrannomationEvent<T>(entity, limbSwing, lastLimbDistance, partialTicks, !(lastLimbDistance > -0.15F && lastLimbDistance < 0.15F), Collections.singletonList(entityModelData));
 		if(modelProvider instanceof ITyrannomatableModel) 
 		{
-			((ITyrannomatableModel<T>) modelProvider).setLivingAnimations(entityIn, this.getUniqueID(entityIn), predicate);
+			((ITyrannomatableModel<T>) modelProvider).setLivingAnimations(entity, this.getUniqueID(entity), predicate);
 		}
-		matrixStackIn.popPose();
-		super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
+		matrixstack.popPose();
+		super.render(entity, entityYaw, partialTicks, matrixstack, bufferIn, packedLightIn);
 	}
 
 	public static int getPackedOverlay(Entity livingEntityIn, float uIn) 

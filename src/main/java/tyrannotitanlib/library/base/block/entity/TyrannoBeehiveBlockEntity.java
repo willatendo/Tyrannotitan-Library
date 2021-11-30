@@ -1,13 +1,20 @@
 package tyrannotitanlib.library.base.block.entity;
 
-import net.minecraft.tileentity.BeehiveTileEntity;
-import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.entity.BeehiveBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import tyrannotitanlib.content.server.init.TyrannoBlockEntities;
 
-public class TyrannoBeehiveBlockEntity extends BeehiveTileEntity
+public class TyrannoBeehiveBlockEntity extends BeehiveBlockEntity
 {
+	public TyrannoBeehiveBlockEntity(BlockPos pos, BlockState state) 
+	{
+		super(pos, state);
+	}
+
 	@Override
-	public TileEntityType<?> getType() 
+	public BlockEntityType<?> getType() 
 	{
 		return TyrannoBlockEntities.BEEHIVE_BLOCK_ENTITY;
 	}

@@ -1,16 +1,16 @@
 package tyrannotitanlib.library.base.particle;
 
-import net.minecraft.client.particle.IAnimatedSprite;
-import net.minecraft.client.particle.IParticleFactory;
-import net.minecraft.client.particle.IParticleRenderType;
+import net.minecraft.client.particle.SpriteSet;
+import net.minecraft.client.particle.ParticleProvider;
+import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.client.particle.Particle;
-import net.minecraft.client.particle.SpriteTexturedParticle;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.particles.BasicParticleType;
+import net.minecraft.client.particle.TextureSheetParticle;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.core.particles.SimpleParticleType;
 
-public class TyrannoParticle extends SpriteTexturedParticle 
+public class TyrannoParticle extends TextureSheetParticle 
 {
-	public TyrannoParticle(ClientWorld world, double xCoord, double yCoord, double zCoord, double xSpeed, double ySpeed, double zSpeed) 
+	public TyrannoParticle(ClientLevel world, double xCoord, double yCoord, double zCoord, double xSpeed, double ySpeed, double zSpeed) 
 	{
 		super(world, xCoord, yCoord, zCoord, xSpeed, ySpeed, zSpeed);
 
@@ -28,9 +28,9 @@ public class TyrannoParticle extends SpriteTexturedParticle
 	}
 
 	@Override
-	public IParticleRenderType getRenderType() 
+	public ParticleRenderType getRenderType() 
 	{
-		return IParticleRenderType.PARTICLE_SHEET_OPAQUE;
+		return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
 	}
 
 	@Override
@@ -53,17 +53,17 @@ public class TyrannoParticle extends SpriteTexturedParticle
 		}
 	}
 
-	public static class Factory implements IParticleFactory<BasicParticleType> 
+	public static class Factory implements ParticleProvider<SimpleParticleType> 
 	{
-		private final IAnimatedSprite spriteSet;
+		private final SpriteSet spriteSet;
 
-		public Factory(IAnimatedSprite sprite) 
+		public Factory(SpriteSet sprite) 
 		{
 			this.spriteSet = sprite;
 		}
 
 		@Override
-		public Particle createParticle(BasicParticleType type, ClientWorld world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) 
+		public Particle createParticle(SimpleParticleType type, ClientLevel world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) 
 		{
 			TyrannoParticle particle = new TyrannoParticle(world, x, y, z, xSpeed, ySpeed, zSpeed);
 			particle.setColor(1.0f, 1.0f, 1.0f);

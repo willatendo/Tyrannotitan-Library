@@ -1,17 +1,16 @@
 package tyrannotitanlib.library.base.block;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ChestBlock;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.stats.Stat;
 import net.minecraft.stats.Stats;
-import net.minecraft.tileentity.ChestTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.IBlockReader;
-import tyrannotitanlib.content.server.init.TyrannoBlockEntities;
+import net.minecraft.util.Mth;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.ChestBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.ChestBlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import tyrannotitanlib.library.base.block.entity.TyrannoTrappedChestBlockEntity;
 
 public class TyrannoTrappedChestBlock extends ChestBlock implements ITyrannoChestBlock 
@@ -25,25 +24,13 @@ public class TyrannoTrappedChestBlock extends ChestBlock implements ITyrannoChes
 	}
 	
 	@Override
-	public boolean hasTileEntity(BlockState state) 
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) 
 	{
-		return true;
-	}
-	
-	@Override
-	public TileEntity newBlockEntity(IBlockReader reader) 
-	{
-		return new TyrannoTrappedChestBlockEntity();
-	}
-	
-	@Override
-	public TileEntity createTileEntity(BlockState state, IBlockReader world) 
-	{
-		return TyrannoBlockEntities.TRAPPED_CHEST_BLOCK_ENTITY.create();
+		return new TyrannoTrappedChestBlockEntity(pos, state);
 	}
 
 	@Override
-	public boolean isFlammable(BlockState state, IBlockReader world, BlockPos pos, Direction face) 
+	public boolean isFlammable(BlockState state, BlockGetter world, BlockPos pos, Direction face) 
 	{
 		return false;
 	}
@@ -67,13 +54,13 @@ public class TyrannoTrappedChestBlock extends ChestBlock implements ITyrannoChes
 	}
 
 	@Override
-	public int getSignal(BlockState state, IBlockReader reader, BlockPos pos, Direction direction) 
+	public int getSignal(BlockState state, BlockGetter reader, BlockPos pos, Direction direction) 
 	{
-		return MathHelper.clamp(ChestTileEntity.getOpenCount(reader, pos), 0, 15);
+		return Mth.clamp(ChestBlockEntity.getOpenCount(reader, pos), 0, 15);
 	}
 
 	@Override
-	public int getDirectSignal(BlockState state, IBlockReader reader, BlockPos pos, Direction direction) 
+	public int getDirectSignal(BlockState state, BlockGetter reader, BlockPos pos, Direction direction) 
 	{
 		return direction == Direction.UP ? state.getSignal(reader, pos, direction) : 0;
 	}

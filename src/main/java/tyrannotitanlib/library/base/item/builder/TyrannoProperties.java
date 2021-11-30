@@ -1,38 +1,38 @@
 package tyrannotitanlib.library.base.item.builder;
 
-import net.minecraft.item.Food;
-import net.minecraft.item.Item.Properties;
-import net.minecraft.item.ItemGroup;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.Item.Properties;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 
 public class TyrannoProperties extends Properties
 {	
 	public static Properties debug()
 	{
-		return FMLEnvironment.production ? new Properties().tab(ItemGroup.TAB_MISC) : new Properties();
+		return FMLEnvironment.production ? new Properties().tab(CreativeModeTab.TAB_MISC) : new Properties();
 	}
 	
-	public static Properties simple(ItemGroup itemGroup)
+	public static Properties simple(CreativeModeTab itemGroup)
 	{
 		return new Properties().tab(itemGroup);
 	}
 	
-	public static Properties customStackSize(ItemGroup itemGroup, int stackSize)
+	public static Properties customStackSize(CreativeModeTab itemGroup, int stackSize)
 	{
 		return simple(itemGroup).stacksTo(stackSize);
 	}
 	
-	public static Properties customDurability(ItemGroup itemGroup, int durability)
+	public static Properties customDurability(CreativeModeTab itemGroup, int durability)
 	{
 		return customStackSize(itemGroup, 1).defaultDurability(durability);
 	}
 	
-	public static Properties customFood(ItemGroup itemGroup, Food food)
+	public static Properties customFood(CreativeModeTab itemGroup, FoodProperties food)
 	{
 		return simple(itemGroup).food(food);
 	}
 	
-	public static Properties customFoodWithStackSize(ItemGroup itemGroup, Food food, int stackSize)
+	public static Properties customFoodWithStackSize(CreativeModeTab itemGroup, FoodProperties food, int stackSize)
 	{
 		return customStackSize(itemGroup, stackSize).food(food);
 	}

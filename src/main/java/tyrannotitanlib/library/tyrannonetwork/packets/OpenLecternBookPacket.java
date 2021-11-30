@@ -1,9 +1,9 @@
 package tyrannotitanlib.library.tyrannonetwork.packets;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fml.network.NetworkEvent.Context;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.fmllegacy.network.NetworkEvent.Context;
 import tyrannotitanlib.library.tyrannobook.item.ITyrannoLecternBookItem;
 
 public class OpenLecternBookPacket implements IThreadSafePacket 
@@ -11,7 +11,7 @@ public class OpenLecternBookPacket implements IThreadSafePacket
 	private final BlockPos pos;
 	private final ItemStack book;
 
-	public OpenLecternBookPacket(PacketBuffer buffer) 
+	public OpenLecternBookPacket(FriendlyByteBuf buffer) 
 	{
 		this.pos = buffer.readBlockPos();
 		this.book = buffer.readItem();
@@ -24,7 +24,7 @@ public class OpenLecternBookPacket implements IThreadSafePacket
 	}
 
 	@Override
-	public void encode(PacketBuffer buffer) 
+	public void encode(FriendlyByteBuf buffer) 
 	{
 		buffer.writeBlockPos(pos);
 		buffer.writeItem(book);

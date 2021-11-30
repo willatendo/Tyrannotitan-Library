@@ -1,13 +1,13 @@
 package tyrannotitanlib.library.base.biome.generation;
 
-import net.minecraft.entity.EntityClassification;
-import net.minecraft.entity.EntityType;
-import net.minecraft.util.RegistryKey;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.MobSpawnInfo.Spawners;
-import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.MobSpawnSettings.SpawnerData;
+import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.BiomeManager;
@@ -17,7 +17,7 @@ import net.minecraftforge.event.world.BiomeLoadingEvent;
 
 public class TyrannoWorld 
 {
-	public static void addFeature(BiomeLoadingEvent event, GenerationStage.Decoration decoration, ConfiguredFeature feature)
+	public static void addFeature(BiomeLoadingEvent event, GenerationStep.Decoration decoration, ConfiguredFeature feature)
 	{
 		BiomeGenerationSettingsBuilder generation = event.getGeneration();
 		generation.addFeature(decoration, feature);
@@ -25,10 +25,10 @@ public class TyrannoWorld
 	
 	public static void addOre(BiomeLoadingEvent event, ConfiguredFeature ore)
 	{
-		addFeature(event, GenerationStage.Decoration.UNDERGROUND_ORES, ore);
+		addFeature(event, GenerationStep.Decoration.UNDERGROUND_ORES, ore);
 	}
 	
-	public static void addBiome(BiomeLoadingEvent event, ResourceLocation loc, BiomeType temperature, RegistryKey<Biome> key, int weight, Type... types)
+	public static void addBiome(BiomeLoadingEvent event, ResourceLocation loc, BiomeType temperature, ResourceKey<Biome> key, int weight, Type... types)
 	{
 		if(event.getName().equals(loc))
 		{
@@ -37,8 +37,8 @@ public class TyrannoWorld
 		}
 	}
 
-	public static void addSpawn(BiomeLoadingEvent event, EntityClassification classification, EntityType toSpawn, int spawnWeight, int spawnGroupMinimum, int spawnGroupMaximum)
+	public static void addSpawn(BiomeLoadingEvent event, MobCategory classification, EntityType toSpawn, int spawnWeight, int spawnGroupMinimum, int spawnGroupMaximum)
 	{
-		event.getSpawns().addSpawn(classification, new Spawners(toSpawn, spawnWeight, spawnGroupMinimum, spawnGroupMaximum));
+		event.getSpawns().addSpawn(classification, new SpawnerData(toSpawn, spawnWeight, spawnGroupMinimum, spawnGroupMaximum));
 	}
 }

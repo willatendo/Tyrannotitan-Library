@@ -1,6 +1,6 @@
 package tyrannotitanlib.library.tyrannomation.tyranno.exception;
 
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 
 public class TyrannotitanLibException extends RuntimeException 
 {

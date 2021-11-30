@@ -4,8 +4,8 @@ import java.util.NavigableMap;
 import java.util.Random;
 import java.util.TreeMap;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.util.NonNullSupplier;
 
 public class TyrannoRandomOutputGenerator 

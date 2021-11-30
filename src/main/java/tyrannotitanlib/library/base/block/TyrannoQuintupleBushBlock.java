@@ -2,19 +2,19 @@ package tyrannotitanlib.library.base.block;
 
 import javax.annotation.Nullable;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.state.IntegerProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
 public class TyrannoQuintupleBushBlock extends TyrannoBushBlock
 {
@@ -26,7 +26,7 @@ public class TyrannoQuintupleBushBlock extends TyrannoBushBlock
 	}
 
 	@Override
-	public boolean canSurvive(BlockState state, IWorldReader world, BlockPos pos) 
+	public boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) 
 	{
 		if(state.getBlock() == this && state.getValue(LAYER) == 0) 
 		{
@@ -49,13 +49,13 @@ public class TyrannoQuintupleBushBlock extends TyrannoBushBlock
 
 	@Nullable
 	@Override
-	public BlockState getStateForPlacement(BlockItemUseContext context)
+	public BlockState getStateForPlacement(BlockPlaceContext context)
 	{
 		BlockPos blockpos = context.getClickedPos();
 		return blockpos.getY() < context.getLevel().dimensionType().logicalHeight() - 1 && context.getLevel().getBlockState(blockpos.above()).canBeReplaced(context) && context.getLevel().getBlockState(blockpos.above(2)).canBeReplaced(context) && context.getLevel().getBlockState(blockpos.above(3)).canBeReplaced(context) && context.getLevel().getBlockState(blockpos.above(4)).canBeReplaced(context) ? super.getStateForPlacement(context) : null;
 	}
 
-	public void placeAt(IWorld world, BlockPos pos, int flags) 
+	public void placeAt(LevelAccessor world, BlockPos pos, int flags) 
 	{
 		world.setBlock(pos, this.defaultBlockState().setValue(LAYER, 0), flags);
 		world.setBlock(pos.above(), this.defaultBlockState().setValue(LAYER, 1), flags);
@@ -64,7 +64,7 @@ public class TyrannoQuintupleBushBlock extends TyrannoBushBlock
 		world.setBlock(pos.above(4), this.defaultBlockState().setValue(LAYER, 4), flags);
 	}
 
-	public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) 
+	public void onBlockPlacedBy(Level world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) 
 	{
 		world.setBlock(pos, this.defaultBlockState().setValue(LAYER, 0), 2);
 		world.setBlock(pos.above(), this.defaultBlockState().setValue(LAYER, 1), 2);
@@ -74,7 +74,7 @@ public class TyrannoQuintupleBushBlock extends TyrannoBushBlock
 	}
 
 	@Override
-	public void playerWillDestroy(World world, BlockPos pos, BlockState state, PlayerEntity player) 
+	public void playerWillDestroy(Level world, BlockPos pos, BlockState state, Player player) 
 	{
 		if(state.getValue(LAYER) == 0) 
 		{
@@ -185,7 +185,7 @@ public class TyrannoQuintupleBushBlock extends TyrannoBushBlock
 	}
 	
 	@Override
-	protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
 		builder.add(LAYER);
 	}
 }

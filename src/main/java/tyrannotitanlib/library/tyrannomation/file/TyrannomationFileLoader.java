@@ -12,17 +12,17 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import net.minecraft.client.util.JSONException;
-import net.minecraft.resources.IResourceManager;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.ChainedJsonException;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.util.GsonHelper;
 import tyrannotitanlib.library.tyrannomation.core.builder.Tyrannomation;
 import tyrannotitanlib.library.tyrannomation.util.json.JsonTyrannomationUtils;
 import tyrannotitanlib.library.utils.TyrannoUtils;
 
 public class TyrannomationFileLoader 
 {
-	public TyrannomationFile loadAllAnimations(MolangParser parser, ResourceLocation location, IResourceManager manager) 
+	public TyrannomationFile loadAllAnimations(MolangParser parser, ResourceLocation location, ResourceManager manager) 
 	{
 		TyrannomationFile animationFile = new TyrannomationFile();
 		JsonObject jsonRepresentation = loadFile(location, manager);
@@ -36,7 +36,7 @@ public class TyrannomationFileLoader
 				animation = JsonTyrannomationUtils.deserializeJsonToAnimation(JsonTyrannomationUtils.getAnimation(jsonRepresentation, animationName), parser);
 				animationFile.putAnimation(animationName, animation);
 			} 
-			catch(JSONException e) 
+			catch(ChainedJsonException e) 
 			{
 				TyrannoUtils.LOGGER.error("Could not load animation: {}", animationName, e);
 				throw new RuntimeException(e);
@@ -45,14 +45,14 @@ public class TyrannomationFileLoader
 		return animationFile;
 	}
 	
-	private JsonObject loadFile(ResourceLocation location, IResourceManager manager) 
+	private JsonObject loadFile(ResourceLocation location, ResourceManager  manager) 
 	{
 		String content = getResourceAsString(location, manager);
 		Gson GSON = new Gson();
-		return JSONUtils.fromJson(GSON, content, JsonObject.class);
+		return GsonHelper.fromJson(GSON, content, JsonObject.class);
 	}
 
-	public static String getResourceAsString(ResourceLocation location, IResourceManager manager) 
+	public static String getResourceAsString(ResourceLocation location, ResourceManager  manager) 
 	{
 		try(InputStream inputStream = manager.getResource(location).getInputStream()) 
 		{

@@ -13,13 +13,13 @@ import java.util.stream.Collectors;
 import javax.annotation.Nullable;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.resources.IResource;
-import net.minecraft.util.Hand;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.client.gui.Font;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.server.packs.resources.Resource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import tyrannotitanlib.library.tyrannobook.client.TyrannobookHelper;
@@ -41,7 +41,7 @@ public class TyrannobookData implements IDataItem
 	public transient AppearanceData appearance = new AppearanceData();
 	public transient ArrayList<ItemStackData.ItemLink> itemLinks = new ArrayList<>();
 	public transient HashMap<String, String> strings = new HashMap<>();
-	public transient FontRenderer fontRenderer;
+	public transient Font fontRenderer;
 	private transient boolean initialized = false;
 
 	protected final transient ArrayList<TyrannobookTransformer> transformers = new ArrayList<>();
@@ -136,7 +136,7 @@ public class TyrannobookData implements IDataItem
 				{
 					try 
 					{
-						IResource resource = repo.getResource(languageLocation);
+						Resource resource = repo.getResource(languageLocation);
 						if(resource != null) 
 						{
 							BufferedReader br = new BufferedReader(new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8));
@@ -420,33 +420,33 @@ public class TyrannobookData implements IDataItem
 		return out != null ? out : string;
 	}
 	
-	public void openGui(ITextComponent title, String page, @Nullable Consumer<String> pageUpdater) 
+	public void openGui(Component title, String page, @Nullable Consumer<String> pageUpdater) 
 	{
 		this.openGui(title, page, pageUpdater, null);
 	}
 	
-	public void openGui(ITextComponent title, String page, @Nullable Consumer<String> pageUpdater, @Nullable Consumer<?> bookPickup) 
+	public void openGui(Component title, String page, @Nullable Consumer<String> pageUpdater, @Nullable Consumer<?> bookPickup) 
 	{
 		this.load();
 		Minecraft.getInstance().setScreen(new TyrannobookScreen(title, this, page, pageUpdater, bookPickup));
 	}
 	
-	public void openGui(Hand hand, ItemStack stack) 
+	public void openGui(InteractionHand hand, ItemStack stack) 
 	{
 		String page = TyrannobookHelper.getCurrentSavedPage(stack);
 		openGui(stack.getDisplayName(), page, newPage -> TyrannobookLoader.updateSavedPage(Minecraft.getInstance().player, hand, newPage));
 	}
 
 	@Deprecated
-	public void openGui(ITextComponent title, @Nullable ItemStack item) 
+	public void openGui(Component title, @Nullable ItemStack item) 
 	{
 		if(item == null) 
 		{
-			openGui(title, "", newPage -> TyrannobookLoader.updateSavedPage(Minecraft.getInstance().player, Hand.MAIN_HAND, newPage));
+			openGui(title, "", newPage -> TyrannobookLoader.updateSavedPage(Minecraft.getInstance().player, InteractionHand.MAIN_HAND, newPage));
 		} 
 		else 
 		{
-			openGui(Hand.MAIN_HAND, item);
+			openGui(InteractionHand.MAIN_HAND, item);
 		}
 	}
 	

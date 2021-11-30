@@ -5,21 +5,21 @@ import java.util.Collections;
 import javax.annotation.Nullable;
 
 import com.eliotlash.molang.MolangParser;
+import com.mojang.blaze3d.Blaze3D;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.util.NativeUtil;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.phys.Vec3;
 import tyrannotitanlib.library.tyrannomation.core.ITyrannomatable;
 import tyrannotitanlib.library.tyrannomation.core.ITyrannomatableModel;
 import tyrannotitanlib.library.tyrannomation.core.builder.Tyrannomation;
 import tyrannotitanlib.library.tyrannomation.core.event.predicate.TyrannomationEvent;
 import tyrannotitanlib.library.tyrannomation.core.manager.TyrannomationData;
-import tyrannotitanlib.library.tyrannomation.core.processor.TyrannomationProcessor;
 import tyrannotitanlib.library.tyrannomation.core.processor.IBone;
+import tyrannotitanlib.library.tyrannomation.core.processor.TyrannomationProcessor;
 import tyrannotitanlib.library.tyrannomation.file.TyrannomationFile;
 import tyrannotitanlib.library.tyrannomation.model.provider.ITyrannomatableModelProvider;
 import tyrannotitanlib.library.tyrannomation.model.provider.TyrannomationModelProvider;
@@ -152,8 +152,8 @@ public abstract class TyrannomatedTyrannomationModel<T extends ITyrannomatable> 
 				parser.setValue("query.is_on_fire", MolangUtils.booleanToFloat(livingEntity.isOnFire()));
 				parser.setValue("query.on_fire_time", livingEntity.getRemainingFireTicks());
 
-				Vector3d velocity = livingEntity.getDeltaMovement();
-				float groundSpeed = MathHelper.sqrt((velocity.x * velocity.x) + (velocity.z * velocity.z));
+				Vec3 velocity = livingEntity.getDeltaMovement();
+				float groundSpeed = Mth.sqrt((float) ((velocity.x * velocity.x) + (velocity.z * velocity.z)));
 				parser.setValue("query.ground_speed", groundSpeed);
 
 				float yawSpeed = livingEntity.getViewYRot((float) currentTick) - livingEntity.getViewYRot((float) (currentTick - 0.1));
@@ -165,6 +165,6 @@ public abstract class TyrannomatedTyrannomationModel<T extends ITyrannomatable> 
 	@Override
 	public double getCurrentTick() 
 	{
-		return NativeUtil.getTime() * 20;
+		return Blaze3D.getTime() * 20;
 	}
 }

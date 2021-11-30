@@ -1,11 +1,11 @@
 package tyrannotitanlib.library.base.biome;
 
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeAmbience;
-import net.minecraft.world.biome.BiomeGenerationSettings;
-import net.minecraft.world.biome.MobSpawnInfo;
-import net.minecraft.world.biome.Biome.Category;
-import net.minecraft.world.biome.Biome.RainType;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.BiomeSpecialEffects;
+import net.minecraft.world.level.biome.BiomeGenerationSettings;
+import net.minecraft.world.level.biome.MobSpawnSettings;
+import net.minecraft.world.level.biome.Biome.BiomeCategory;
+import net.minecraft.world.level.biome.Biome.Precipitation;
 
 public class BaseBiomeInfo
 {
@@ -28,8 +28,8 @@ public class BaseBiomeInfo
 	//Fog Colour
 	public static final int BASE_FOG_COLOUR = 12638463;
 	
-	public static Biome.Builder biome(RainType rain, Category category, float depth, float scale, float downfall, float temperature, BiomeAmbience ambience, BiomeGenerationSettings settings, MobSpawnInfo spawningInfo)
+	public static Biome.BiomeBuilder biome(Precipitation rain, BiomeCategory category, float depth, float scale, float downfall, float temperature, BiomeSpecialEffects ambience, BiomeGenerationSettings settings, MobSpawnSettings spawningInfo)
 	{
-		return new Biome.Builder().precipitation(rain).biomeCategory(category).depth(depth).scale(scale).downfall(downfall).temperature(temperature).generationSettings(settings).specialEffects(ambience).mobSpawnSettings(spawningInfo);
+		return new Biome.BiomeBuilder().precipitation(rain).biomeCategory(category).depth(depth).scale(scale).downfall(downfall).temperature(temperature).generationSettings(settings).specialEffects(ambience).mobSpawnSettings(spawningInfo);
 	}
 }

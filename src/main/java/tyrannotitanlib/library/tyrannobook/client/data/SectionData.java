@@ -9,7 +9,7 @@ import javax.annotation.Nullable;
 import com.google.common.collect.Sets;
 
 import net.minecraft.advancements.AdvancementProgress;
-import net.minecraft.resources.IResource;
+import net.minecraft.server.packs.resources.Resource;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import tyrannotitanlib.library.tyrannobook.client.TyrannobookLoader;
@@ -62,7 +62,7 @@ public class SectionData implements IDataItem
 
 		if(!this.data.equals("no-load")) 
 		{
-			IResource pagesInfo = this.source.getResource(this.source.getResourceLocation(this.data));
+			Resource pagesInfo = this.source.getResource(this.source.getResourceLocation(this.data));
 			if(pagesInfo != null) 
 			{
 				String data = this.source.resourceToString(pagesInfo);

@@ -6,11 +6,11 @@ import java.util.List;
 import com.mojang.authlib.minecraft.MinecraftProfileTexture.Type;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
-import net.minecraft.client.network.play.NetworkPlayerInfo;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Util;
+import net.minecraft.client.player.AbstractClientPlayer;
+import net.minecraft.client.multiplayer.PlayerInfo;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.Util;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RenderPlayerEvent;
@@ -27,8 +27,8 @@ public class Capes
 	@SubscribeEvent
 	public final void renderPlayer(final RenderPlayerEvent.Pre event) 
 	{
-		PlayerEntity player = event.getPlayer();
-		AbstractClientPlayerEntity acp = (AbstractClientPlayerEntity) player;
+		Player player = event.getPlayer();
+		AbstractClientPlayer acp = (AbstractClientPlayer) player;
 		String username = player.getName().getString();
 
 		if(TyrannoUtils.TYRANNOTITANS.contains(username)) 
@@ -37,7 +37,7 @@ public class Capes
 			{
 				this.players.add(username);
 
-				NetworkPlayerInfo playerInfo = acp.getPlayerInfo();
+				PlayerInfo playerInfo = acp.getPlayerInfo();
 
 				Util.backgroundExecutor().execute(() -> 
 				{

@@ -6,7 +6,7 @@ import java.lang.reflect.Modifier;
 
 import javax.annotation.Nullable;
 
-import net.minecraft.resources.IResource;
+import net.minecraft.server.packs.resources.Resource;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import tyrannotitanlib.library.tyrannobook.client.TyrannobookLoader;
@@ -57,7 +57,7 @@ public class PageData implements IDataItem
 
 		if(!this.data.equals("no-load")) 
 		{
-			IResource pageInfo = this.source.getResource(this.source.getResourceLocation(this.data));
+			Resource pageInfo = this.source.getResource(this.source.getResourceLocation(this.data));
 			if(pageInfo != null) 
 			{
 				String data = this.source.resourceToString(pageInfo);

@@ -12,8 +12,8 @@ import javax.annotation.Nullable;
 import org.apache.commons.io.IOUtils;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.resources.IResource;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.server.packs.resources.Resource;
+import net.minecraft.resources.ResourceLocation;
 import tyrannotitanlib.library.tyrannobook.client.data.SectionData;
 import tyrannotitanlib.library.tyrannobook.client.repository.TyrannobookRepository;
 
@@ -85,7 +85,7 @@ public class FileRepository extends TyrannobookRepository
 	}
 
 	@Override
-	public IResource getResource(@Nullable ResourceLocation loc) 
+	public Resource getResource(@Nullable ResourceLocation loc) 
 	{
 		if(loc == null) 
 		{
@@ -113,7 +113,7 @@ public class FileRepository extends TyrannobookRepository
 	}
 
 	@Override
-	public String resourceToString(@Nullable IResource resource, boolean skipComments) 
+	public String resourceToString(@Nullable Resource resource, boolean skipComments) 
 	{
 		if(resource == null) 
 		{

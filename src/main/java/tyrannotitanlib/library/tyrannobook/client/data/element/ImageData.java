@@ -1,6 +1,6 @@
 package tyrannotitanlib.library.tyrannobook.client.data.element;
 
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import tyrannotitanlib.library.tyrannobook.client.repository.TyrannobookRepository;
 
 public class ImageData extends DataLocation 

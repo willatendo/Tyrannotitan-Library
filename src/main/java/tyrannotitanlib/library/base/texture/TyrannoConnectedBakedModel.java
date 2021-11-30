@@ -5,12 +5,12 @@ import java.util.Map;
 
 import javax.annotation.Nonnull;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockDisplayReader;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.core.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockAndTintGetter;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraftforge.client.model.data.IModelData;
 import net.minecraftforge.client.model.data.ModelProperty;
 import tyrannotitanlib.library.base.block.TyrannoConnectedTextureBlock;
@@ -24,7 +24,7 @@ public class TyrannoConnectedBakedModel extends TyrannoBakedModel
 
 	@Nonnull
 	@Override
-	public IModelData getModelData(@Nonnull IBlockDisplayReader world, @Nonnull BlockPos pos, @Nonnull BlockState state, @Nonnull IModelData tileData) 
+	public IModelData getModelData(@Nonnull BlockAndTintGetter world, @Nonnull BlockPos pos, @Nonnull BlockState state, @Nonnull IModelData tileData) 
 	{
 		ModelData modelData = new ModelData();
 		for(Direction direction : Direction.values())
@@ -258,7 +258,7 @@ public class TyrannoConnectedBakedModel extends TyrannoBakedModel
 
 	private static class SideData 
 	{
-		private IBlockReader world;
+		private BlockGetter world;
 		private Block block;
 
 		public boolean left;
@@ -270,7 +270,7 @@ public class TyrannoConnectedBakedModel extends TyrannoBakedModel
 		public boolean down_left;
 		public boolean down_right;
 
-		public SideData(Direction side, IBlockReader world, BlockPos pos, Block block) 
+		public SideData(Direction side, BlockGetter world, BlockPos pos, Block block) 
 		{
 			this.world = world;
 			this.block = block;

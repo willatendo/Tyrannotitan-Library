@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.ArrayUtils;
 
-import net.minecraft.util.math.vector.Vector3f;
+import com.mojang.math.Vector3f;
 import tyrannotitanlib.library.tyrannomation.tyranno.raw.pojo.Bone;
 import tyrannotitanlib.library.tyrannomation.tyranno.raw.pojo.Cube;
 import tyrannotitanlib.library.tyrannomation.tyranno.raw.pojo.ModelProperties;

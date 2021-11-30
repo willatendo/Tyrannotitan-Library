@@ -1,13 +1,20 @@
 package tyrannotitanlib.library.base.block.entity;
 
-import net.minecraft.tileentity.BarrelTileEntity;
-import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.entity.BarrelBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import tyrannotitanlib.content.server.init.TyrannoBlockEntities;
 
-public class TyrannoBarrelBlockEntity extends BarrelTileEntity
+public class TyrannoBarrelBlockEntity extends BarrelBlockEntity
 {
+	public TyrannoBarrelBlockEntity(BlockPos pos, BlockState state) 
+	{
+		super(pos, state);
+	}
+
 	@Override
-	public TileEntityType<?> getType() 
+	public BlockEntityType<?> getType() 
 	{
 		return TyrannoBlockEntities.BARREL_BLOCK_ENTITY;
 	}

@@ -1,10 +1,12 @@
 package tyrannotitanlib.library.base.item;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.item.FishBucketItem;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.item.FishBucketItem;
 import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.common.util.NonNullSupplier;
+
+import net.minecraft.world.item.Item.Properties;
 
 public class TyrannoFishBucketItem extends FishBucketItem
 {
