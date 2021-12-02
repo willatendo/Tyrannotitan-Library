@@ -24,7 +24,6 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -47,7 +46,6 @@ import tyrannotitanlib.library.tyrannomation.network.TyrannomationNetwork;
 import tyrannotitanlib.library.tyrannomation.resource.ResourceListener;
 import tyrannotitanlib.library.tyrannonetwork.Tyrannonetwork;
 import tyrannotitanlib.library.tyrannoregister.TyrannoRegister;
-import tyrannotitanlib.library.tyrannores.world.OreGeneration;
 import tyrannotitanlib.library.utils.TyrannoUtils;
 
 @Mod(TYRANNO_ID)
@@ -65,9 +63,7 @@ public class TyrannotitanLibrary
 		
 		TyrannoRegistries.register();
 		initTyrannomation();
-				
-		forgeBus.addListener(EventPriority.HIGH, OreGeneration::addOresToOverworld);
-		
+						
 		forgeBus.register(new TyrannoRegister());
 		
 		ModLoadingContext.get().registerConfig(Type.SERVER, TyrannotitanConfig.serverConfig);
@@ -110,10 +106,9 @@ public class TyrannotitanLibrary
 
 		Tyrannonetwork.registerPackets();
 		
-		TyrannoLogBlock.addStripping();
-		
 		event.enqueueWork(() -> 
 		{
+			TyrannoLogBlock.addStripping();
 			this.addBeehivePOI();	
 		});
 		

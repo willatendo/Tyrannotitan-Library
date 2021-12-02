@@ -1,6 +1,0 @@
-{
-	"parent": "minecraft:block/cube_all",
-	"textures": {
-		"all": "tyrannotitanlib:block/copper_ore_oxidization_1"
-	}
-}

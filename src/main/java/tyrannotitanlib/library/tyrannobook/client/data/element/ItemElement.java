@@ -5,18 +5,17 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.systems.RenderSystem;
-
-import net.minecraft.world.level.block.Block;
-import net.minecraft.client.gui.Font;
 import com.mojang.blaze3d.platform.Lighting;
+import com.mojang.blaze3d.vertex.PoseStack;
+
+import net.minecraft.Util;
+import net.minecraft.client.gui.Font;
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.chat.Component;
+import net.minecraft.util.Mth;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.core.NonNullList;
-import net.minecraft.Util;
-import net.minecraft.util.Mth;
-import net.minecraft.network.chat.Component;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import tyrannotitanlib.library.tyrannobook.client.action.StringActionProcessor;
@@ -87,7 +86,7 @@ public class ItemElement extends SizedTyrannobookElement
 	}
 
 	@Override
-	public void draw(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks, Font fontRenderer) 
+	public void draw(PoseStack pose, int mouseX, int mouseY, float partialTicks, Font fontRenderer) 
 	{
 		long nano = Util.getNanos();
 
@@ -102,31 +101,35 @@ public class ItemElement extends SizedTyrannobookElement
 			}
 		}
 
-		RenderSystem.pushMatrix();
-		RenderSystem.translatef(this.x, this.y, 0);
-		RenderSystem.scalef(this.scale, this.scale, 1.0F);
+		pose.pushPose();
+		pose.translate(this.x, this.y, 0);
+		pose.scale(this.scale, this.scale, 1.0F);
+		//RenderSystem.pushMatrix();
+		//RenderSystem.translatef(this.x, this.y, 0);
+		//RenderSystem.scalef(this.scale, this.scale, 1.0F);
 
 		if(this.currentItem < this.itemCycle.size()) 
 		{
 			this.mc.getItemRenderer().renderAndDecorateItem(this.itemCycle.get(this.currentItem), 0, 0);
 		}
 
-		RenderSystem.popMatrix();
-		Lighting.turnOff();
+		pose.popPose();
+		//RenderSystem.popMatrix();
+		Lighting.setupForFlatItems();
 	}
 
 	@Override
-	public void drawOverlay(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks, Font fontRenderer) 
+	public void drawOverlay(PoseStack pose, int mouseX, int mouseY, float partialTicks, Font fontRenderer) 
 	{
 		if(this.isHovered(mouseX, mouseY) && this.currentItem < this.itemCycle.size()) 
 		{
 			if(this.tooltip != null) 
 			{
-				this.drawHoveringText(matrixStack, this.tooltip, mouseX, mouseY, fontRenderer);
+				this.drawHoveringText(pose, this.tooltip, mouseX, mouseY, fontRenderer);
 			} 
 			else 
 			{
-				this.renderToolTip(matrixStack, fontRenderer, this.itemCycle.get(this.currentItem), mouseX, mouseY);
+				this.renderToolTip(pose, fontRenderer, this.itemCycle.get(this.currentItem), mouseX, mouseY);
 			}
 		}
 	}

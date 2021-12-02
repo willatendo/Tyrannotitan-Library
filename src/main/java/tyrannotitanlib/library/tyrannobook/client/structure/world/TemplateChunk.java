@@ -8,17 +8,15 @@ import java.util.function.Predicate;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.EmptyLevelChunk;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate.StructureBlockInfo;
-
-import net.minecraft.world.level.chunk.LevelChunk.EntityCreationType;
+import net.minecraft.world.level.material.FluidState;
 
 public class TemplateChunk extends EmptyLevelChunk 
 {
@@ -26,9 +24,9 @@ public class TemplateChunk extends EmptyLevelChunk
 	private final Map<BlockPos, BlockEntity> tiles;
 	private final Predicate<BlockPos> shouldShow;
 
-	public TemplateChunk(Level worldIn, ChunkPos chunkPos, List<StructureBlockInfo> blocksInChunk, Predicate<BlockPos> shouldShow) 
+	public TemplateChunk(Level level, ChunkPos chunkPos, List<StructureBlockInfo> blocksInChunk, Predicate<BlockPos> shouldShow) 
 	{
-		super(worldIn, chunkPos);
+		super(level, chunkPos);
 		this.shouldShow = shouldShow;
 		this.blocksInChunk = new HashMap<>();
 		this.tiles = new HashMap<>();
@@ -39,11 +37,11 @@ public class TemplateChunk extends EmptyLevelChunk
 
 			if(info.nbt != null) 
 			{
-				BlockEntity tile = BlockEntity.loadStatic(info.state, info.nbt);
+				BlockEntity tile = BlockEntity.loadStatic(info.pos, info.state, info.nbt);
 
 				if(tile != null) 
 				{
-					tile.setLevelAndPosition(worldIn, info.pos);
+					tile.setLevel(level);
 					this.tiles.put(info.pos, tile);
 				}
 			}
@@ -77,7 +75,9 @@ public class TemplateChunk extends EmptyLevelChunk
 	public BlockEntity getBlockEntity(@Nonnull BlockPos pos, @Nonnull EntityCreationType creationMode) 
 	{
 		if(!this.shouldShow.test(pos))
+		{
 			return null;
+		}
 
 		return this.tiles.get(pos);
 	}

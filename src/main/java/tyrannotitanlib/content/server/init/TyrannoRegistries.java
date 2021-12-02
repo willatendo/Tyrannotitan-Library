@@ -56,9 +56,7 @@ public class TyrannoRegistries
 	public static void register()
 	{
 		TyrannoBanners.init();
-		TyrannoBlocks.init();
 		TyrannoBlockEntities.init();
-		TyrannoContainers.init();
 		TyrannoItems.init();
 		TyrannoEntities.init();
 	}

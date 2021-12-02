@@ -10,32 +10,34 @@ import javax.annotation.Nullable;
 
 import com.google.common.collect.ImmutableList;
 
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.TagContainer;
+import net.minecraft.util.profiling.InactiveProfiler;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.item.crafting.RecipeManager;
-import net.minecraft.util.profiling.InactiveProfiler;
-import net.minecraft.world.scores.Scoreboard;
-import net.minecraft.tags.TagContainer;
-import net.minecraft.core.Direction;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.core.Registry;
-import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.EmptyTickList;
-import net.minecraft.world.level.TickList;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.TickList;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkSource;
+import net.minecraft.world.level.dimension.DimensionType;
+import net.minecraft.world.level.entity.LevelEntityGetter;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate.StructureBlockInfo;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
+import net.minecraft.world.scores.Scoreboard;
 
-public class TemplateWorld extends Level 
+public class TemplateLevel extends Level 
 {
 	private final Map<String, MapItemSavedData> maps = new HashMap<>();
 	private final Scoreboard scoreboard = new Scoreboard();
@@ -43,7 +45,7 @@ public class TemplateWorld extends Level
 	private final TemplateChunkProvider chunkProvider;
 	private final RegistryAccess registries = RegistryAccess.builtin();
 
-	public TemplateWorld(List<StructureBlockInfo> blocks, Predicate<BlockPos> shouldShow) 
+	public TemplateLevel(List<StructureBlockInfo> blocks, Predicate<BlockPos> shouldShow) 
 	{
 		super(new FakeSpawnInfo(), Level.OVERWORLD, DimensionType.DEFAULT_OVERWORLD, () -> InactiveProfiler.INSTANCE, true, false, 0);
 
@@ -75,12 +77,6 @@ public class TemplateWorld extends Level
 	public MapItemSavedData getMapData(@Nonnull String mapName) 
 	{
 		return this.maps.get(mapName);
-	}
-	
-	@Override
-	public void setMapData(@Nonnull MapItemSavedData mapDataIn) 
-	{
-		this.maps.put(mapDataIn.getId(), mapDataIn);
 	}
 	
 	@Override
@@ -163,5 +159,29 @@ public class TemplateWorld extends Level
 	public Biome getUncachedNoiseBiome(int x, int y, int z) 
 	{
 		return this.registryAccess().registryOrThrow(Registry.BIOME_REGISTRY).getOrThrow(Biomes.PLAINS);
+	}
+
+
+	@Override
+	public void gameEvent(Entity entity, GameEvent event, BlockPos pos) { }
+
+
+	@Override
+	public String gatherChunkSourceStats() 
+	{
+		return null;
+	}
+
+	
+	@Override
+	public void setMapData(String data, @Nonnull MapItemSavedData mapData) 
+	{
+		this.maps.put(data, mapData);
+	}
+
+	@Override
+	protected LevelEntityGetter<Entity> getEntities() 
+	{
+		return null;
 	}
 }

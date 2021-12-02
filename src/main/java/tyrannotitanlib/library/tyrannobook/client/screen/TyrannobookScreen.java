@@ -10,22 +10,21 @@ import javax.annotation.Nullable;
 import org.lwjgl.glfw.GLFW;
 
 import com.google.common.collect.ImmutableList;
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.multiplayer.ClientAdvancements;
-import com.mojang.blaze3d.platform.Lighting;
 import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import tyrannotitanlib.library.tyrannobook.client.Textures;
@@ -106,7 +105,7 @@ public class TyrannobookScreen extends Screen
 	}
 
 	@Override
-	public void render(PoseStack stack, int mouseX, int mouseY, float partialTicks) 
+	public void render(PoseStack pose, int mouseX, int mouseY, float partialTicks) 
 	{
 		if(this.minecraft == null) 
 		{
@@ -121,15 +120,17 @@ public class TyrannobookScreen extends Screen
 
 		if(debug) 
 		{
-			fill(stack, 0, 0, fontRenderer.width("DEBUG") + 4, fontRenderer.lineHeight + 4, 0x55000000);
-			fontRenderer.draw(stack, "DEBUG", 2, 2, 0xFFFFFFFF);
+			fill(pose, 0, 0, fontRenderer.width("DEBUG") + 4, fontRenderer.lineHeight + 4, 0x55000000);
+			fontRenderer.draw(pose, "DEBUG", 2, 2, 0xFFFFFFFF);
 		}
 
-		RenderSystem.enableAlphaTest();
+		//RenderSystem.enableAlphaTest();
 		RenderSystem.enableBlend();
 
-		RenderSystem.pushMatrix();
-		RenderSystem.color3f(1F, 1F, 1F);
+		pose.pushPose();
+		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+		//RenderSystem.pushMatrix();
+		//RenderSystem.color3f(1F, 1F, 1F);
 
 		float coverR = ((this.book.appearance.coverColor >> 16) & 0xff) / 255.F;
 		float coverG = ((this.book.appearance.coverColor >> 8) & 0xff) / 255.F;
@@ -139,57 +140,68 @@ public class TyrannobookScreen extends Screen
 
 		if(this.page == -1) 
 		{
-			render.bind(Textures.TEX_BOOKFRONT);
-			Lighting.turnOff();
+			render.bindForSetup(Textures.TEX_BOOKFRONT);
+			//Lighting.turnOff();
 
-			RenderSystem.color3f(coverR, coverG, coverB);
-			blit(stack, this.width / 2 - PAGE_WIDTH_UNSCALED / 2, this.height / 2 - PAGE_HEIGHT_UNSCALED / 2, 0, 0, PAGE_WIDTH_UNSCALED, PAGE_HEIGHT_UNSCALED, TEX_SIZE, TEX_SIZE);
-			RenderSystem.color3f(1F, 1F, 1F);
+			//RenderSystem.color3f(coverR, coverG, coverB);
+			blit(pose, this.width / 2 - PAGE_WIDTH_UNSCALED / 2, this.height / 2 - PAGE_HEIGHT_UNSCALED / 2, 0, 0, PAGE_WIDTH_UNSCALED, PAGE_HEIGHT_UNSCALED, TEX_SIZE, TEX_SIZE);
+			RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+			//RenderSystem.color3f(1F, 1F, 1F);
 
 			if(!this.book.appearance.title.isEmpty()) 
 			{
-				blit(stack, this.width / 2 - PAGE_WIDTH_UNSCALED / 2, this.height / 2 - PAGE_HEIGHT_UNSCALED / 2, 0, PAGE_HEIGHT_UNSCALED, PAGE_WIDTH_UNSCALED, PAGE_HEIGHT_UNSCALED, TEX_SIZE, TEX_SIZE);
+				blit(pose, this.width / 2 - PAGE_WIDTH_UNSCALED / 2, this.height / 2 - PAGE_HEIGHT_UNSCALED / 2, 0, PAGE_HEIGHT_UNSCALED, PAGE_WIDTH_UNSCALED, PAGE_HEIGHT_UNSCALED, TEX_SIZE, TEX_SIZE);
 
-				RenderSystem.pushMatrix();
+				pose.pushPose();
+				//RenderSystem.pushMatrix();
 
 				float scale = fontRenderer.width(this.book.appearance.title) <= 67 ? 2.5F : 2F;
 
-				RenderSystem.scalef(scale, scale, 1F);
-				fontRenderer.drawShadow(stack, this.book.appearance.title, (this.width / 2) / scale + 3 - fontRenderer.width(this.book.appearance.title) / 2, (this.height / 2 - fontRenderer.lineHeight / 2) / scale - 4, 0xAE8000);
-				RenderSystem.popMatrix();
+				pose.scale(scale, scale, 1F);
+				//RenderSystem.scalef(scale, scale, 1F);
+				fontRenderer.drawShadow(pose, this.book.appearance.title, (this.width / 2) / scale + 3 - fontRenderer.width(this.book.appearance.title) / 2, (this.height / 2 - fontRenderer.lineHeight / 2) / scale - 4, 0xAE8000);
+				pose.popPose();
+				//RenderSystem.popMatrix();
 			}
 
-			if (!this.book.appearance.subtitle.isEmpty()) 
+			if(!this.book.appearance.subtitle.isEmpty()) 
 			{
-				RenderSystem.pushMatrix();
-				RenderSystem.scalef(1.5F, 1.5F, 1F);
-				fontRenderer.drawShadow(stack, this.book.appearance.subtitle, (this.width / 2) / 1.5F + 7 - fontRenderer.width(this.book.appearance.subtitle) / 2, (this.height / 2 + 100 - fontRenderer.lineHeight * 2) / 1.5F, 0xAE8000);
-				RenderSystem.popMatrix();
+				pose.pushPose();
+				pose.scale(1.5F, 1.5F, 1.0F);
+				//RenderSystem.pushMatrix();
+				//RenderSystem.scalef(1.5F, 1.5F, 1F);
+				fontRenderer.drawShadow(pose, this.book.appearance.subtitle, (this.width / 2) / 1.5F + 7 - fontRenderer.width(this.book.appearance.subtitle) / 2, (this.height / 2 + 100 - fontRenderer.lineHeight * 2) / 1.5F, 0xAE8000);
+				pose.popPose();
+				//RenderSystem.popMatrix();
 			}
 		} 
 		else 
 		{
-			render.bind(Textures.TEX_BOOK);
-			Lighting.turnOff();
+			render.bindForSetup(Textures.TEX_BOOK);
+			//Lighting.turnOff();
 
-			RenderSystem.color3f(coverR, coverG, coverB);
-			blit(stack, this.width / 2 - PAGE_WIDTH_UNSCALED, this.height / 2 - PAGE_HEIGHT_UNSCALED / 2, 0, 0, PAGE_WIDTH_UNSCALED * 2, PAGE_HEIGHT_UNSCALED, TEX_SIZE, TEX_SIZE);
+			RenderSystem.setShaderColor(coverR, coverG, coverB, 1.0F);
+			//RenderSystem.color3f(coverR, coverG, coverB);
+			blit(pose, this.width / 2 - PAGE_WIDTH_UNSCALED, this.height / 2 - PAGE_HEIGHT_UNSCALED / 2, 0, 0, PAGE_WIDTH_UNSCALED * 2, PAGE_HEIGHT_UNSCALED, TEX_SIZE, TEX_SIZE);
 
-			RenderSystem.color3f(1F, 1F, 1F);
+			RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+			//RenderSystem.color3f(1F, 1F, 1F);
 
 			if(this.page != 0) 
 			{
-				blit(stack, this.width / 2 - PAGE_WIDTH_UNSCALED, this.height / 2 - PAGE_HEIGHT_UNSCALED / 2, 0, PAGE_HEIGHT_UNSCALED, PAGE_WIDTH_UNSCALED, PAGE_HEIGHT_UNSCALED, TEX_SIZE, TEX_SIZE);
+				blit(pose, this.width / 2 - PAGE_WIDTH_UNSCALED, this.height / 2 - PAGE_HEIGHT_UNSCALED / 2, 0, PAGE_HEIGHT_UNSCALED, PAGE_WIDTH_UNSCALED, PAGE_HEIGHT_UNSCALED, TEX_SIZE, TEX_SIZE);
 
-				RenderSystem.pushMatrix();
-				this.drawerTransform(false);
+				pose.pushPose();
+				//RenderSystem.pushMatrix();
+				this.drawerTransform(pose, false);
 
-				RenderSystem.scalef(PAGE_SCALE, PAGE_SCALE, 1F);
+				pose.scale(PAGE_SCALE, PAGE_SCALE, 1.0F);
+				//RenderSystem.scalef(PAGE_SCALE, PAGE_SCALE, 1F);
 
 				if(this.book.appearance.drawPageNumbers) 
 				{
 					String pNum = (this.page - 1) * 2 + 2 + "";
-					fontRenderer.draw(stack, pNum, PAGE_WIDTH / 2 - fontRenderer.width(pNum) / 2, PAGE_HEIGHT - 10, 0xFFAAAAAA);
+					fontRenderer.draw(pose, pNum, PAGE_WIDTH / 2 - fontRenderer.width(pNum) / 2, PAGE_HEIGHT - 10, 0xFFAAAAAA);
 				}
 
 				int mX = this.getMouseX(false);
@@ -199,39 +211,45 @@ public class TyrannobookScreen extends Screen
 				{
 					TyrannobookElement element = this.leftElements.get(i);
 
-					RenderSystem.color4f(1F, 1F, 1F, 1F);
-					element.draw(stack, mX, mY, partialTicks, fontRenderer);
+					RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+					//RenderSystem.color4f(1F, 1F, 1F, 1F);
+					element.draw(pose, mX, mY, partialTicks, fontRenderer);
 				}
 
 				for(int i = 0; i < this.leftElements.size(); i++) 
 				{
 					TyrannobookElement element = this.leftElements.get(i);
 
-					RenderSystem.color4f(1F, 1F, 1F, 1F);
-					element.drawOverlay(stack, mX, mY, partialTicks, fontRenderer);
+					RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+					//RenderSystem.color4f(1F, 1F, 1F, 1F);
+					element.drawOverlay(pose, mX, mY, partialTicks, fontRenderer);
 				}
 
-				RenderSystem.popMatrix();
+				pose.popPose();
+				//RenderSystem.popMatrix();
 			}
 
-			render.bind(Textures.TEX_BOOK);
-			RenderSystem.color4f(1F, 1F, 1F, 1F);
-			Lighting.turnOff();
+			render.bindForSetup(Textures.TEX_BOOK);
+			RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+			//RenderSystem.color4f(1F, 1F, 1F, 1F);
+			//Lighting.turnOff();
 
 			int fullPageCount = this.book.getFullPageCount(this.advancementCache);
 			if(this.page < fullPageCount - 1 || this.book.getPageCount(this.advancementCache) % 2 != 0) 
 			{
-				blit(stack, this.width / 2, this.height / 2 - PAGE_HEIGHT_UNSCALED / 2, PAGE_WIDTH_UNSCALED, PAGE_HEIGHT_UNSCALED, PAGE_WIDTH_UNSCALED, PAGE_HEIGHT_UNSCALED, TEX_SIZE, TEX_SIZE);
+				blit(pose, this.width / 2, this.height / 2 - PAGE_HEIGHT_UNSCALED / 2, PAGE_WIDTH_UNSCALED, PAGE_HEIGHT_UNSCALED, PAGE_WIDTH_UNSCALED, PAGE_HEIGHT_UNSCALED, TEX_SIZE, TEX_SIZE);
 
-				RenderSystem.pushMatrix();
-				this.drawerTransform(true);
+				pose.pushPose();
+				//RenderSystem.pushMatrix();
+				this.drawerTransform(pose, true);
 
-				RenderSystem.scalef(PAGE_SCALE, PAGE_SCALE, 1F);
+				pose.scale(PAGE_SCALE, PAGE_SCALE, 1.0F);
+				//RenderSystem.scalef(PAGE_SCALE, PAGE_SCALE, 1F);
 
 				if(this.book.appearance.drawPageNumbers) 
 				{
 					String pNum = (this.page - 1) * 2 + 3 + "";
-					fontRenderer.draw(stack, pNum, PAGE_WIDTH / 2 - fontRenderer.width(pNum) / 2, PAGE_HEIGHT - 10, 0xFFAAAAAA);
+					fontRenderer.draw(pose, pNum, PAGE_WIDTH / 2 - fontRenderer.width(pNum) / 2, PAGE_HEIGHT - 10, 0xFFAAAAAA);
 				}
 
 				int mX = this.getMouseX(true);
@@ -241,25 +259,29 @@ public class TyrannobookScreen extends Screen
 				{
 					TyrannobookElement element = this.rightElements.get(i);
 
-					RenderSystem.color4f(1F, 1F, 1F, 1F);
-					element.draw(stack, mX, mY, partialTicks, fontRenderer);
+					RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+					//RenderSystem.color4f(1F, 1F, 1F, 1F);
+					element.draw(pose, mX, mY, partialTicks, fontRenderer);
 				}
 
 				for(int i = 0; i < this.rightElements.size(); i++) 
 				{
 					TyrannobookElement element = this.rightElements.get(i);
 
-					RenderSystem.color4f(1F, 1F, 1F, 1F);
-					element.drawOverlay(stack, mX, mY, partialTicks, fontRenderer);
+					RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+					//RenderSystem.color4f(1F, 1F, 1F, 1F);
+					element.drawOverlay(pose, mX, mY, partialTicks, fontRenderer);
 				}
 
-				RenderSystem.popMatrix();
+				pose.popPose();
+				//RenderSystem.popMatrix();
 			}
 		}
 
-		super.render(stack, mouseX, mouseY, partialTicks);
+		super.render(pose, mouseX, mouseY, partialTicks);
 
-		RenderSystem.popMatrix();
+		pose.popPose();
+		//RenderSystem.popMatrix();
 	}
 
 	@Override
@@ -267,10 +289,10 @@ public class TyrannobookScreen extends Screen
 	{
 		super.init();
 
-		this.buttons.clear();
+		this.renderables.clear();
 		this.children.clear();
 
-		this.previousArrow = this.addButton(new ArrowButton(-50, -50, ArrowButton.ArrowType.PREV, this.book.appearance.arrowColor, this.book.appearance.arrowColorHover, (button) -> 
+		this.previousArrow = this.addRenderableWidget(new ArrowButton(-50, -50, ArrowButton.ArrowType.PREV, this.book.appearance.arrowColor, this.book.appearance.arrowColorHover, (button) -> 
 		{
 			this.page--;
 			if(this.page < -1) 
@@ -282,7 +304,7 @@ public class TyrannobookScreen extends Screen
 			this.buildPages();
 		}));
 
-		this.nextArrow = this.addButton(new ArrowButton(-50, -50, ArrowButton.ArrowType.NEXT, this.book.appearance.arrowColor, this.book.appearance.arrowColorHover, (button) -> 
+		this.nextArrow = this.addRenderableWidget(new ArrowButton(-50, -50, ArrowButton.ArrowType.NEXT, this.book.appearance.arrowColor, this.book.appearance.arrowColorHover, (button) -> 
 		{
 			this.page++;
 			
@@ -297,7 +319,7 @@ public class TyrannobookScreen extends Screen
 			this.buildPages();
 		}));
 
-		this.backArrow = this.addButton(new ArrowButton(this.width / 2 - ArrowButton.WIDTH / 2, this.height / 2 + ArrowButton.HEIGHT / 2 + PAGE_HEIGHT / 2, ArrowButton.ArrowType.LEFT, this.book.appearance.arrowColor, this.book.appearance.arrowColorHover, (button) -> 
+		this.backArrow = this.addRenderableWidget(new ArrowButton(this.width / 2 - ArrowButton.WIDTH / 2, this.height / 2 + ArrowButton.HEIGHT / 2 + PAGE_HEIGHT / 2, ArrowButton.ArrowType.LEFT, this.book.appearance.arrowColor, this.book.appearance.arrowColorHover, (button) -> 
 		{
 			if(this.oldPage >= -1) 
 			{
@@ -308,7 +330,7 @@ public class TyrannobookScreen extends Screen
 			this.buildPages();
 		}));
 
-		this.indexArrow = this.addButton(new ArrowButton(this.width / 2 - PAGE_WIDTH_UNSCALED - ArrowButton.WIDTH / 2, this.height / 2 - PAGE_HEIGHT_UNSCALED / 2, ArrowButton.ArrowType.BACK_UP, this.book.appearance.arrowColor, this.book.appearance.arrowColorHover, (button) -> 
+		this.indexArrow = this.addRenderableWidget(new ArrowButton(this.width / 2 - PAGE_WIDTH_UNSCALED - ArrowButton.WIDTH / 2, this.height / 2 - PAGE_HEIGHT_UNSCALED / 2, ArrowButton.ArrowType.BACK_UP, this.book.appearance.arrowColor, this.book.appearance.arrowColorHover, (button) -> 
 		{
 			this.openPage(this.book.findPageNumber("index.page1"));
 			
@@ -324,7 +346,7 @@ public class TyrannobookScreen extends Screen
 				margin = 0;
 			}
 
-			this.addButton(new Button(this.width / 2 - 196 / 2, this.height / 2 + PAGE_HEIGHT_UNSCALED / 2 + margin, 196, 20, new TranslatableComponent("lectern.take_book"), (button) -> 
+			this.addRenderableWidget(new Button(this.width / 2 - 196 / 2, this.height / 2 + PAGE_HEIGHT_UNSCALED / 2 + margin, 196, 20, new TranslatableComponent("lectern.take_book"), (button) -> 
 			{
 				this.onClose();
 				this.bookPickup.accept(null);
@@ -448,7 +470,7 @@ public class TyrannobookScreen extends Screen
 
 		int oldPage = this.page;
 		List<TyrannobookElement> elementList = ImmutableList.copyOf(right ? this.rightElements : this.leftElements);
-		for (TyrannobookElement element : elementList) 
+		for(TyrannobookElement element : elementList) 
 		{
 			element.mouseClicked(mouseX, mouseY, mouseButton);
 			if(this.page != oldPage) 
@@ -501,7 +523,9 @@ public class TyrannobookScreen extends Screen
 		if(lastClick != null) 
 		{
 			if(lastDrag == null)
+			{
 				lastDrag = new double[] { mouseX, mouseY };
+			}
 
 			for(int i = 0; right ? i < this.rightElements.size() : i < this.leftElements.size(); i++) 
 			{
@@ -548,15 +572,17 @@ public class TyrannobookScreen extends Screen
 		return false;
 	}
 
-	public void drawerTransform(boolean rightSide) 
+	public void drawerTransform(PoseStack pose, boolean rightSide) 
 	{
 		if(rightSide) 
 		{
-			RenderSystem.translatef(this.width / 2 + PAGE_PADDING_RIGHT + PAGE_MARGIN, this.height / 2 - PAGE_HEIGHT_UNSCALED / 2 + PAGE_PADDING_TOP + PAGE_MARGIN, 0);
+			pose.translate(this.width / 2 + PAGE_PADDING_RIGHT + PAGE_MARGIN, this.height / 2 - PAGE_HEIGHT_UNSCALED / 2 + PAGE_PADDING_TOP + PAGE_MARGIN, 0);
+			//RenderSystem.translatef(this.width / 2 + PAGE_PADDING_RIGHT + PAGE_MARGIN, this.height / 2 - PAGE_HEIGHT_UNSCALED / 2 + PAGE_PADDING_TOP + PAGE_MARGIN, 0);
 		} 
 		else 
 		{
-			RenderSystem.translatef(this.width / 2 - PAGE_WIDTH_UNSCALED + PAGE_PADDING_LEFT + PAGE_MARGIN, this.height / 2 - PAGE_HEIGHT_UNSCALED / 2 + PAGE_PADDING_TOP + PAGE_MARGIN, 0);
+			pose.translate(this.width / 2 - PAGE_WIDTH_UNSCALED + PAGE_PADDING_LEFT + PAGE_MARGIN, this.height / 2 - PAGE_HEIGHT_UNSCALED / 2 + PAGE_PADDING_TOP + PAGE_MARGIN, 0);
+			//RenderSystem.translatef(this.width / 2 - PAGE_WIDTH_UNSCALED + PAGE_PADDING_LEFT + PAGE_MARGIN, this.height / 2 - PAGE_HEIGHT_UNSCALED / 2 + PAGE_PADDING_TOP + PAGE_MARGIN, 0);
 		}
 	}
 

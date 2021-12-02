@@ -1,23 +1,24 @@
 package tyrannotitanlib.library.base.entity;
 
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.vehicle.Boat;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.vehicle.Boat;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.fml.network.FMLPlayMessages;
-import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraftforge.fmllegacy.network.FMLPlayMessages;
+import net.minecraftforge.fmllegacy.network.NetworkHooks;
 import tyrannotitanlib.content.server.init.TyrannoEntities;
 import tyrannotitanlib.library.utils.TyrannoBoatRegistry;
 
@@ -93,10 +94,10 @@ public class TyrannoBoatEntity extends Boat
 						return;
 					}
 
-					this.causeFallDamage(this.fallDistance, 1.0F);
+					this.causeFallDamage(this.fallDistance, 1.0F, DamageSource.FALLING_BLOCK);
 					if(!this.level.isClientSide && this.isAlive()) 
 					{
-						this.remove();
+						this.remove(RemovalReason.KILLED);
 						if(this.level.getGameRules().getBoolean(GameRules.RULE_DOENTITYDROPS)) 
 						{
 							for(int i = 0; i < 3; ++i) 

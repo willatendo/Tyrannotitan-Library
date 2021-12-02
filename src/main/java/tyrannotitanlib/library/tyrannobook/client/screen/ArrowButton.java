@@ -1,7 +1,7 @@
 package tyrannotitanlib.library.tyrannobook.client.screen;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
@@ -9,8 +9,6 @@ import net.minecraft.network.chat.TextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import tyrannotitanlib.library.tyrannobook.client.Textures;
-
-import net.minecraft.client.gui.components.Button.OnPress;
 
 @OnlyIn(Dist.CLIENT)
 public class ArrowButton extends Button 
@@ -45,7 +43,7 @@ public class ArrowButton extends Button
 		float g = ((color >> 8) & 0xff) / 255.F;
 		float b = (color & 0xff) / 255.F;
 
-		RenderSystem.color3f(r, g, b);
+		RenderSystem.setShaderColor(r, g, b, 1.0F);
 		blit(matrixStack, this.x, this.y, this.width, this.height, this.arrowType.x, this.arrowType.y, this.width, this.height, 512, 512);
 		this.renderBg(matrixStack, minecraft, mouseX, mouseY);
 	}

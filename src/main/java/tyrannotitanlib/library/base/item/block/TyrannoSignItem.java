@@ -1,10 +1,9 @@
 package tyrannotitanlib.library.base.item.block;
 
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SignItem;
-
-import net.minecraft.world.item.Item.Properties;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.block.Block;
 
 public class TyrannoSignItem extends SignItem
 {	
@@ -14,7 +13,7 @@ public class TyrannoSignItem extends SignItem
 	}
 	
 	@Override
-	public int getBurnTime(ItemStack stack) 
+	public int getBurnTime(ItemStack itemStack, RecipeType<?> recipeType) 
 	{
 		return 200;
 	}

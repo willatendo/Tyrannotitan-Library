@@ -5,7 +5,7 @@ issueTrackerURL="https://github.com/willatendo/Tyrannotitan-Library/issues"
 
 [[mods]]
 modId="tyrannotitanlib"
-version="1.4.1"
+version="2.0.0"
 displayName="Tyrannotitan Library"
 updateJSONURL="https://github.com/willatendo/Tyrannotitan-Library/raw/main/updates.json"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/tyrannotitan-library-forge"
@@ -29,7 +29,7 @@ PLEASE NOTE: A LOT OF THE CODE IS FROM OTHER'S MODS. I IN NO WAY CLAM THIS CODE 
 [[dependencies.tyrannotitanlib]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.16.5,1.17)"
+    versionRange="[1.17.1,1.18)"
     ordering="NONE"
     side="BOTH"
 	

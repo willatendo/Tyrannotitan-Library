@@ -8,12 +8,12 @@ import javax.annotation.Nullable;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
+import com.mojang.blaze3d.vertex.VertexFormat;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.Font;
@@ -30,20 +30,20 @@ import tyrannotitanlib.library.utils.TyrannoUtils;
 public class TextDataRenderer 
 {
 	@Nullable
-	public static String drawText(PoseStack stack, int x, int y, int boxWidth, int boxHeight, TextData[] data, int mouseX, int mouseY, Font fr) 
+	public static String drawText(PoseStack pose, int x, int y, int boxWidth, int boxHeight, TextData[] data, int mouseX, int mouseY, Font fr) 
 	{
 		List<Component> tooltip = new ArrayList<Component>();
-		String action = drawText(stack, x, y, boxWidth, boxHeight, data, mouseX, mouseY, fr, tooltip);
+		String action = drawText(pose, x, y, boxWidth, boxHeight, data, mouseX, mouseY, fr, tooltip);
 
 		if(tooltip.size() > 0) 
 		{
-			drawTooltip(stack, tooltip, mouseX, mouseY, fr);
+			drawTooltip(pose, tooltip, mouseX, mouseY, fr);
 		}
 
 		return action;
 	}
 
-	public static String drawText(PoseStack stack, int x, int y, int boxWidth, int boxHeight, TextData[] data, int mouseX, int mouseY, Font fr, List<Component> tooltip) 
+	public static String drawText(PoseStack pose, int x, int y, int boxWidth, int boxHeight, TextData[] data, int mouseX, int mouseY, Font fr, List<Component> tooltip) 
 	{
 		String action = "";
 
@@ -123,7 +123,7 @@ public class TextDataRenderer
 				}
 
 				String s = split[i];
-				drawScaledString(stack, fr, modifiers + s, atX, atY, item.rgbColor, item.dropshadow, item.scale);
+				drawScaledString(pose, fr, modifiers + s, atX, atY, item.rgbColor, item.dropshadow, item.scale);
 
 				if(i < split.length - 1) 
 				{
@@ -178,11 +178,11 @@ public class TextDataRenderer
 			{
 				if(item.dropshadow) 
 				{
-					fr.drawShadow(stack, "...", atX, atY, 0);
+					fr.drawShadow(pose, "...", atX, atY, 0);
 				} 
 				else 
 				{
-					fr.draw(stack, "...", atX, atY, 0);
+					fr.draw(pose, "...", atX, atY, 0);
 				}
 				break;
 			}
@@ -265,26 +265,30 @@ public class TextDataRenderer
 		return s.split("\r");
 	}
 
-	public static void drawTooltip(PoseStack stack, List<Component> textLines, int mouseX, int mouseY, Font font) 
+	public static void drawTooltip(PoseStack pose, List<Component> textLines, int mouseX, int mouseY, Font font) 
 	{
-		GuiUtils.drawHoveringText(stack, textLines, mouseX, mouseY, TyrannobookScreen.PAGE_WIDTH, TyrannobookScreen.PAGE_HEIGHT, TyrannobookScreen.PAGE_WIDTH, font);
-		Lighting.turnOff();
+		GuiUtils.drawHoveringText(pose, textLines, mouseX, mouseY, TyrannobookScreen.PAGE_WIDTH, TyrannobookScreen.PAGE_HEIGHT, TyrannobookScreen.PAGE_WIDTH, font);
+		//Lighting.setupForFlatItems();
 	}
 
-	public static void drawScaledString(PoseStack stack, Font font, String text, float x, float y, int color, boolean dropShadow, float scale) 
+	public static void drawScaledString(PoseStack pose, Font font, String text, float x, float y, int color, boolean dropShadow, float scale) 
 	{
-		RenderSystem.pushMatrix();
-		RenderSystem.translatef(x, y, 0);
-		RenderSystem.scalef(scale, scale, 1F);
+		pose.pushPose();
+		pose.translate(x, y, 0);
+		pose.scale(scale, scale, 1.0F);
+		//RenderSystem.pushMatrix();
+		//RenderSystem.translatef(x, y, 0);
+		//RenderSystem.scalef(scale, scale, 1F);
 		if(dropShadow) 
 		{
-			font.drawShadow(stack, text, 0, 0, color);
+			font.drawShadow(pose, text, 0, 0, color);
 		} 
 		else 
 		{
-			font.draw(stack, text, 0, 0, color);
+			font.draw(pose, text, 0, 0, color);
 		}
-		RenderSystem.popMatrix();
+		pose.popPose();
+		//RenderSystem.popMatrix();
 	}
 
 	@SuppressWarnings("unused")
@@ -299,19 +303,19 @@ public class TextDataRenderer
 		float f6 = (float) (endColor >> 8 & 255) / 255.0F;
 		float f7 = (float) (endColor & 255) / 255.0F;
 		RenderSystem.disableTexture();
-		RenderSystem.disableAlphaTest();
+		//RenderSystem.disableAlphaTest();
 		RenderSystem.blendFuncSeparate(770, 771, 1, 0);
-		RenderSystem.shadeModel(7425);
+		//RenderSystem.shadeModel(7425);
 		Tesselator tessellator = Tesselator.getInstance();
 		BufferBuilder vertexBuffer = tessellator.getBuilder();
-		vertexBuffer.begin(7, DefaultVertexFormat.POSITION_COLOR);
+		vertexBuffer.begin(VertexFormat.Mode.TRIANGLE_FAN, DefaultVertexFormat.POSITION_COLOR);
 		vertexBuffer.vertex((double) right, (double) top, 0D).color(f1, f2, f3, f).endVertex();
 		vertexBuffer.vertex((double) left, (double) top, 0D).color(f1, f2, f3, f).endVertex();
 		vertexBuffer.vertex((double) left, (double) bottom, 0D).color(f5, f6, f7, f4).endVertex();
 		vertexBuffer.vertex((double) right, (double) bottom, 0D).color(f5, f6, f7, f4).endVertex();
 		tessellator.end();
-		RenderSystem.shadeModel(7424);
-		RenderSystem.enableAlphaTest();
+		//RenderSystem.shadeModel(7424);
+		//RenderSystem.enableAlphaTest();
 		RenderSystem.enableTexture();
 	}
 }

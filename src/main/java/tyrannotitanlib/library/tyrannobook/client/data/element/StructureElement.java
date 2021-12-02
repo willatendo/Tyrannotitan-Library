@@ -4,26 +4,25 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.systems.RenderSystem;
-
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
-import net.minecraft.client.renderer.block.BlockRenderDispatcher;
-import net.minecraft.client.renderer.MultiBufferSource;
 import com.mojang.blaze3d.vertex.Tesselator;
-import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.core.BlockPos;
 import com.mojang.math.Quaternion;
 import com.mojang.math.Transformation;
 import com.mojang.math.Vector3f;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.block.BlockRenderDispatcher;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraftforge.client.model.data.EmptyModelData;
 import net.minecraftforge.client.model.data.IModelData;
 import tyrannotitanlib.library.tyrannobook.client.screen.TyrannobookScreen;
 import tyrannotitanlib.library.tyrannobook.client.structure.StructureInfo;
-import tyrannotitanlib.library.tyrannobook.client.structure.world.TemplateWorld;
+import tyrannotitanlib.library.tyrannobook.client.structure.world.TemplateLevel;
 
 public class StructureElement extends SizedTyrannobookElement 
 {
@@ -34,7 +33,7 @@ public class StructureElement extends SizedTyrannobookElement
 	public float transY = 0;
 	public Transformation additionalTransform;
 	public final StructureInfo renderInfo;
-	public final TemplateWorld structureWorld;
+	public final TemplateLevel structureWorld;
 
 	public long lastStep = -1;
 	public long lastPrintedErrorTimeMs = -1;
@@ -54,7 +53,7 @@ public class StructureElement extends SizedTyrannobookElement
 
 		this.renderInfo = new StructureInfo(structure);
 
-		this.structureWorld = new TemplateWorld(structure, renderInfo);
+		this.structureWorld = new TemplateLevel(structure, renderInfo);
 
 		this.transX = x + width / 2F;
 		this.transY = y + height / 2F;
@@ -109,7 +108,7 @@ public class StructureElement extends SizedTyrannobookElement
 						BlockPos pos = new BlockPos(l, h, w);
 						BlockState state = this.structureWorld.getBlockState(pos);
 
-						if(!state.isAir(this.structureWorld, pos)) 
+						if(!state.isAir()) 
 						{
 							transform.pushPose();
 							transform.translate(l, h, w);
@@ -117,19 +116,26 @@ public class StructureElement extends SizedTyrannobookElement
 							int overlay;
 
 							if(pos.equals(new BlockPos(1, 1, 1)))
+							{
+								
 								overlay = OverlayTexture.pack(0, true);
+							}
 							else
+							{
 								overlay = OverlayTexture.NO_OVERLAY;
+							}
 
 							IModelData modelData = EmptyModelData.INSTANCE;
 							BlockEntity te = structureWorld.getBlockEntity(pos);
 
-							if (te != null)
+							if(te != null)
+							{
 								modelData = te.getModelData();
+							}
 
-							RenderSystem.disableLighting();
+							//RenderSystem.disableLighting();
 
-							blockRender.renderBlock(state, transform, buffer, 0xf000f0, overlay, modelData);
+							blockRender.renderSingleBlock(state, transform, buffer, 0xf000f0, overlay, modelData);
 							transform.popPose();
 						}
 					}

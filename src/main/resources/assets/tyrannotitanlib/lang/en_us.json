@@ -1,6 +1,4 @@
 {
-	"item.tyrannotitanlib.copper_ingot": "Copper Ingot",
-	"item.tyrannotitanlib.copper_nugget": "Copper Nugget",
 	"item.tyrannotitanlib.tyrannotitan_banner_pattern": "Banner Pattern",
 	"item.tyrannotitanlib.tyrannotitan_banner_pattern.desc": "Tyrannotitan",
 	"block.minecraft.banner.tyrannotitan.white": "White Tyrannotitan",
@@ -20,6 +18,5 @@
 	"block.minecraft.banner.tyrannotitan.red": "Red Tyrannotitan",
 	"block.minecraft.banner.tyrannotitan.black": "Black Tyrannotitan",
 	"advancements.end.tyrannotitan_studios.title": "Tyrannotitan Studios",
-	"advancements.end.tyrannotitan_studios.description": "Aquire the rarest item in the game, a Tyrannotitan Banner Pattern.",
-	"block.tyrannotitanlib.copper_ore": "Copper Ore"
+	"advancements.end.tyrannotitan_studios.description": "Aquire the rarest item in the game, a Tyrannotitan Banner Pattern."
 }

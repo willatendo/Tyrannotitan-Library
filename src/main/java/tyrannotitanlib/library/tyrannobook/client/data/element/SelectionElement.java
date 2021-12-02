@@ -49,14 +49,16 @@ public class SelectionElement extends SizedTyrannobookElement
 		}
 		if(unlocked) 
 		{
-			RenderSystem.color4f(1F, 1F, 1F, hover ? 1F : 0.5F);
+			RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, hover ? 1.0F : 0.5F);
+			//RenderSystem.color4f(1F, 1F, 1F, hover ? 1F : 0.5F);
 		} 
 		else 
 		{
 			float r = ((this.parent.book.appearance.lockedSectionColor >> 16) & 0xff) / 255.F;
 			float g = ((this.parent.book.appearance.lockedSectionColor >> 8) & 0xff) / 255.F;
 			float b = (this.parent.book.appearance.lockedSectionColor & 0xff) / 255.F;
-			RenderSystem.color4f(r, g, b, 0.75F);
+			RenderSystem.setShaderColor(r, g, b, 0.75F);
+			//RenderSystem.color4f(r, g, b, 0.75F);
 		}
 
 		this.iconRenderer.draw(matrixStack, mouseX, mouseY, partialTicks, fontRenderer);

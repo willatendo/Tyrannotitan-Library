@@ -1,7 +1,6 @@
 package tyrannotitanlib.library.tyrannobook.client;
 
 import java.util.HashMap;
-import java.util.function.Predicate;
 
 import javax.annotation.Nullable;
 
@@ -10,14 +9,13 @@ import com.google.gson.GsonBuilder;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.resource.IResourceType;
-import net.minecraftforge.resource.ISelectiveResourceReloadListener;
 import tyrannotitanlib.library.tyrannobook.client.action.StringActionProcessor;
 import tyrannotitanlib.library.tyrannobook.client.action.protocol.ProtocolGoToPage;
 import tyrannotitanlib.library.tyrannobook.client.data.TyrannobookData;
@@ -41,7 +39,7 @@ import tyrannotitanlib.library.tyrannonetwork.packets.UpdateHeldPagePacket;
 import tyrannotitanlib.library.tyrannonetwork.packets.UpdateLecturnPagePacket;
 
 @OnlyIn(Dist.CLIENT)
-public class TyrannobookLoader implements ISelectiveResourceReloadListener 
+public class TyrannobookLoader implements ResourceManagerReloadListener 
 {
 	public static final Gson GSON = new GsonBuilder().registerTypeAdapter(int.class, new HexStringDeserialiser()).create();
 	
@@ -126,7 +124,7 @@ public class TyrannobookLoader implements ISelectiveResourceReloadListener
 	}
 	
 	@Override
-	public void onResourceManagerReload(ResourceManager resourceManager, Predicate<IResourceType> resourcePredicate) 
+	public void onResourceManagerReload(ResourceManager resourceManager) 
 	{
 		books.forEach((s, bookData) -> bookData.reset());
 	}

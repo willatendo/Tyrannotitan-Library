@@ -3,26 +3,26 @@ package tyrannotitanlib.library.base.item;
 import java.util.List;
 import java.util.function.Predicate;
 
-import net.minecraft.world.level.block.DispenserBlock;
-import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockSource;
+import net.minecraft.core.Direction;
+import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
+import net.minecraft.stats.Stats;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.stats.Stats;
-import net.minecraft.tags.FluidTags;
-import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.core.Direction;
-import net.minecraft.world.entity.EntitySelector;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.DispenserBlock;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.level.Level;
 import tyrannotitanlib.library.base.entity.TyrannoBoatEntity;
 
 public class TyrannoBoatItem extends Item
@@ -38,49 +38,49 @@ public class TyrannoBoatItem extends Item
 	}
 
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand handIn) 
+	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) 
 	{
-		ItemStack itemstack = player.getItemInHand(handIn);
-		HitResult raytraceresult = getPlayerPOVHitResult(world, player, ClipContext.Fluid.ANY);
-		if(raytraceresult.getType() == HitResult.Type.MISS) 
+		ItemStack itemstack = player.getItemInHand(hand);
+		HitResult hitResult = getPlayerPOVHitResult(level, player, ClipContext.Fluid.ANY);
+		if(hitResult.getType() == HitResult.Type.MISS) 
 		{
 			return new InteractionResultHolder<>(InteractionResult.PASS, itemstack);
 		} 
 		else 
 		{
 			Vec3 vec3d = player.getViewVector(1.0F);
-			List<Entity> list = world.getEntities(player, player.getBoundingBox().expandTowards(vec3d.scale(5.0D)).inflate(1.0D), COLLISION_PREDICATE);
+			List<Entity> list = level.getEntities(player, player.getBoundingBox().expandTowards(vec3d.scale(5.0D)).inflate(1.0D), COLLISION_PREDICATE);
 			if(!list.isEmpty()) 
 			{
 				Vec3 vec3d1 = player.getEyePosition(1.0F);
 
 				for(Entity entity : list) 
 				{
-					AABB axisalignedbb = entity.getBoundingBox().inflate((double) entity.getPickRadius());
-					if(axisalignedbb.contains(vec3d1)) 
+					AABB aabb = entity.getBoundingBox().inflate(entity.getPickRadius());
+					if(aabb.contains(vec3d1)) 
 					{
 						return new InteractionResultHolder<>(InteractionResult.PASS, itemstack);
 					}
 				}
 			}
 
-			if(raytraceresult.getType() == HitResult.Type.BLOCK) 
+			if(hitResult.getType() == HitResult.Type.BLOCK) 
 			{
-				TyrannoBoatEntity boatentity = new TyrannoBoatEntity(world, raytraceresult.getLocation().x, raytraceresult.getLocation().y, raytraceresult.getLocation().z);
-				boatentity.setBoat(this.type);
-				boatentity.yRot = player.yRot;
-				if(!world.noCollision(boatentity, boatentity.getBoundingBox().inflate(-0.1D))) 
+				TyrannoBoatEntity boat = new TyrannoBoatEntity(level, hitResult.getLocation().x, hitResult.getLocation().y, hitResult.getLocation().z);
+				boat.setBoat(this.type);
+				boat.setYRot(player.getYRot());
+				if(!level.noCollision(boat, boat.getBoundingBox().inflate(-0.1D))) 
 				{
 					return new InteractionResultHolder<>(InteractionResult.FAIL, itemstack);
 				} 
 				else 
 				{
-					if(!world.isClientSide) 
+					if(!level.isClientSide) 
 					{
-						world.addFreshEntity(boatentity);
+						level.addFreshEntity(boat);
 					}
 
-					if(!player.abilities.instabuild) 
+					if(!player.getAbilities().instabuild) 
 					{
 						itemstack.shrink(1);
 					}
@@ -129,7 +129,7 @@ public class TyrannoBoatItem extends Item
 			}
 			TyrannoBoatEntity boat = new TyrannoBoatEntity(world, x, y + adjustY, z);
 			boat.setBoat(this.type);
-			boat.yRot = direction.toYRot();
+			boat.setYRot(direction.toYRot());
 			world.addFreshEntity(boat);
 			stack.shrink(1);
 			return stack;

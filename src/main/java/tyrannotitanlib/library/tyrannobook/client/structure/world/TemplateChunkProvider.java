@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BooleanSupplier;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -69,5 +70,17 @@ public class TemplateChunkProvider extends ChunkSource
 	public BlockGetter getLevel() 
 	{
 		return this.world;
+	}
+
+	@Override
+	public void tick(BooleanSupplier booleanSupplier) 
+	{
+		
+	}
+
+	@Override
+	public int getLoadedChunksCount() 
+	{
+		return 0;
 	}
 }

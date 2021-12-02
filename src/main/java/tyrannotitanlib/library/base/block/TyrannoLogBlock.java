@@ -2,12 +2,10 @@ package tyrannotitanlib.library.base.block;
 
 import com.google.common.collect.Maps;
 
+import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RotatedPillarBlock;
-import net.minecraft.world.item.AxeItem;
 import net.minecraftforge.common.util.NonNullSupplier;
-
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
 public class TyrannoLogBlock extends RotatedPillarBlock
 {

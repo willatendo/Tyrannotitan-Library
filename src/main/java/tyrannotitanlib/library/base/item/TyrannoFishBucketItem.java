@@ -1,20 +1,19 @@
 package tyrannotitanlib.library.base.item;
 
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.level.material.Fluid;
-import net.minecraft.world.item.FishBucketItem;
 import net.minecraftforge.common.util.Lazy;
 import net.minecraftforge.common.util.NonNullSupplier;
 
-import net.minecraft.world.item.Item.Properties;
-
-public class TyrannoFishBucketItem extends FishBucketItem
+public class TyrannoFishBucketItem extends MobBucketItem
 {
 	private final Lazy<? extends EntityType<?>> entityTypeSupplier;
 	
 	public TyrannoFishBucketItem(NonNullSupplier<? extends EntityType<?>> entityTypeSupplier, Fluid fluid, Properties properties) 
 	{
-		super(null, fluid, properties);
+		super(null, fluid, SoundEvents.BUCKET_EMPTY_FISH, properties);
 		this.entityTypeSupplier = Lazy.of(entityTypeSupplier::get);
 	}
 

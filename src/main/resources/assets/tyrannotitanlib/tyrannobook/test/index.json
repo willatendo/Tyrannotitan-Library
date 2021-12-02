@@ -1,0 +1,11 @@
+[
+	{
+		"name": "test",
+		"data": "sections/test.json",
+		"icon": {
+			"item": {
+				"id": "minecraft:stone"
+			}
+		}
+	}
+]
