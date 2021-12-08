@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.google.common.collect.Lists;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Vector3f;
@@ -145,7 +146,7 @@ public abstract class TyrannomationEntityRenderer<T extends LivingEntity & ITyra
 		}
 
 		stack.translate(0, 0.01f, 0);
-		Minecraft.getInstance().textureManager.bindForSetup(getTextureLocation(entity));
+		RenderSystem.setShaderTexture(0, getTextureLocation(entity));		
 		Color renderColor = getRenderColor(entity, partialTicks, stack, bufferIn, null, packedLightIn);
 		RenderType renderType = getRenderType(entity, partialTicks, stack, bufferIn, null, packedLightIn, getTextureLocation(entity));
 		boolean invis = entity.isInvisibleTo(Minecraft.getInstance().player);

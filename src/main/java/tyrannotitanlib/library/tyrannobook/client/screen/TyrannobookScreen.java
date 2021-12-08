@@ -20,7 +20,6 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.multiplayer.ClientAdvancements;
-import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -33,6 +32,7 @@ import tyrannotitanlib.library.tyrannobook.client.data.PageData;
 import tyrannotitanlib.library.tyrannobook.client.data.TyrannobookData;
 import tyrannotitanlib.library.tyrannobook.client.data.element.ItemStackData;
 import tyrannotitanlib.library.tyrannobook.client.data.element.TyrannobookElement;
+import tyrannotitanlib.library.utils.TyrannoUtils;
 
 @OnlyIn(Dist.CLIENT)
 public class TyrannobookScreen extends Screen 
@@ -136,13 +136,12 @@ public class TyrannobookScreen extends Screen
 		float coverG = ((this.book.appearance.coverColor >> 8) & 0xff) / 255.F;
 		float coverB = (this.book.appearance.coverColor & 0xff) / 255.F;
 
-		TextureManager render = this.minecraft.textureManager;
-
 		if(this.page == -1) 
 		{
-			render.bindForSetup(Textures.TEX_BOOKFRONT);
+			RenderSystem.setShaderTexture(0, Textures.TEX_BOOKFRONT);
 			//Lighting.turnOff();
 
+			RenderSystem.setShaderColor(coverR, coverG, coverB, 1.0F);
 			//RenderSystem.color3f(coverR, coverG, coverB);
 			blit(pose, this.width / 2 - PAGE_WIDTH_UNSCALED / 2, this.height / 2 - PAGE_HEIGHT_UNSCALED / 2, 0, 0, PAGE_WIDTH_UNSCALED, PAGE_HEIGHT_UNSCALED, TEX_SIZE, TEX_SIZE);
 			RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
@@ -150,6 +149,7 @@ public class TyrannobookScreen extends Screen
 
 			if(!this.book.appearance.title.isEmpty()) 
 			{
+				TyrannoUtils.LOGGER.debug("Hay this worked");
 				blit(pose, this.width / 2 - PAGE_WIDTH_UNSCALED / 2, this.height / 2 - PAGE_HEIGHT_UNSCALED / 2, 0, PAGE_HEIGHT_UNSCALED, PAGE_WIDTH_UNSCALED, PAGE_HEIGHT_UNSCALED, TEX_SIZE, TEX_SIZE);
 
 				pose.pushPose();
@@ -162,6 +162,10 @@ public class TyrannobookScreen extends Screen
 				fontRenderer.drawShadow(pose, this.book.appearance.title, (this.width / 2) / scale + 3 - fontRenderer.width(this.book.appearance.title) / 2, (this.height / 2 - fontRenderer.lineHeight / 2) / scale - 4, 0xAE8000);
 				pose.popPose();
 				//RenderSystem.popMatrix();
+			}
+			else
+			{
+				TyrannoUtils.LOGGER.debug("Hay this messed up");
 			}
 
 			if(!this.book.appearance.subtitle.isEmpty()) 
@@ -177,7 +181,7 @@ public class TyrannobookScreen extends Screen
 		} 
 		else 
 		{
-			render.bindForSetup(Textures.TEX_BOOK);
+			RenderSystem.setShaderTexture(0, Textures.TEX_BOOK);
 			//Lighting.turnOff();
 
 			RenderSystem.setShaderColor(coverR, coverG, coverB, 1.0F);
@@ -229,7 +233,7 @@ public class TyrannobookScreen extends Screen
 				//RenderSystem.popMatrix();
 			}
 
-			render.bindForSetup(Textures.TEX_BOOK);
+			RenderSystem.setShaderTexture(0, Textures.TEX_BOOK);
 			RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 			//RenderSystem.color4f(1F, 1F, 1F, 1F);
 			//Lighting.turnOff();

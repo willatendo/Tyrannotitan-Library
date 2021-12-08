@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.google.common.collect.Lists;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 
@@ -159,7 +160,7 @@ public abstract class TyrannoReplacedEntityRenderer<T extends ITyrannomatable> e
 		}
 
 		stack.translate(0, 0.01f, 0);
-		Minecraft.getInstance().textureManager.bindForSetup(getTextureLocation(entity));
+		RenderSystem.setShaderTexture(0, getTextureLocation(entity));
 		Color renderColor = getRenderColor(animatable, partialTicks, stack, bufferIn, null, packedLightIn);
 		RenderType renderType = getRenderType(entity, partialTicks, stack, bufferIn, null, packedLightIn, getTextureLocation(entity));
 		boolean invis = entity.isInvisibleTo(Minecraft.getInstance().player);

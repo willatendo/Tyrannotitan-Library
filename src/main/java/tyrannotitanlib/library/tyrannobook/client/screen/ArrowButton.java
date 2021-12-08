@@ -33,7 +33,7 @@ public class ArrowButton extends Button
 	public void renderButton(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) 
 	{
 		Minecraft minecraft = Minecraft.getInstance();
-		minecraft.getTextureManager().bindForSetup(Textures.TEX_BOOK);
+		RenderSystem.setShaderTexture(0, Textures.TEX_BOOK);
 
 		this.isHovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
 

@@ -3,5 +3,10 @@
 		"name": "test",
 		"type": "text",
 		"data": "test/test.json"
+	},
+	{
+		"name": "recipe",
+		"type": "crafting",
+		"data": "test/beacon.json"
 	}
 ]

@@ -2,6 +2,7 @@ package tyrannotitanlib.library.tyrannomation.renderers;
 
 import java.awt.Color;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 
@@ -64,7 +65,7 @@ public abstract class TyrannomationBlockmationRenderer<T extends BlockEntity & I
 
 		rotateBlock(getFacing(tile), stack);
 
-		Minecraft.getInstance().textureManager.bindForSetup(getTextureLocation(tile));
+		RenderSystem.setShaderTexture(0, getTextureLocation(tile));
 		Color renderColor = getRenderColor(tile, partialTicks, stack, bufferIn, null, packedLightIn);
 		RenderType renderType = getRenderType(tile, partialTicks, stack, bufferIn, null, packedLightIn, getTextureLocation(tile));
 		render(model, tile, partialTicks, renderType, stack, bufferIn, null, packedLightIn, OverlayTexture.NO_OVERLAY, (float) renderColor.getRed() / 255f, (float) renderColor.getGreen() / 255f, (float) renderColor.getBlue() / 255f, (float) renderColor.getAlpha() / 255);

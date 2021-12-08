@@ -1,10 +1,10 @@
 package tyrannotitanlib.library.tyrannobook.client.data.element;
 
-import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.gui.Font;
-import com.mojang.blaze3d.platform.Lighting;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -81,7 +81,7 @@ public class ImageElement extends SizedTyrannobookElement
 
 		if(this.image.item == null) 
 		{
-			this.renderEngine.bindForSetup(this.image.location);
+			RenderSystem.setShaderTexture(0, this.image.location);
 
 			blitRaw(pose, this.x, this.y, this.width, this.height, this.image.u, this.image.u + this.image.uw, this.image.v, this.image.v + this.image.vh, this.image.texWidth, this.image.texHeight);
 		}

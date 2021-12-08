@@ -1,12 +1,12 @@
-package tyrannotitanlib.library.tyrannomation.renderers;
+	package tyrannotitanlib.library.tyrannomation.renderers;
 
 import java.awt.Color;
 import java.util.Collections;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -54,7 +54,7 @@ public class TyrannomationProjectilesRenderer<T extends Entity & ITyrannomatable
 		matrixstack.pushPose();
 		matrixstack.mulPose(Vector3f.YP.rotationDegrees(Mth.lerp(partialTicks, entity.yRotO, entity.getYRot()) - 90.0F));
 		matrixstack.mulPose(Vector3f.ZP.rotationDegrees(Mth.lerp(partialTicks, entity.xRotO, entity.getXRot())));
-		Minecraft.getInstance().textureManager.bindForSetup(getTextureLocation(entity));
+		RenderSystem.setShaderTexture(0, getTextureLocation(entity));
 		Color renderColor = getRenderColor(entity, partialTicks, matrixstack, bufferIn, null, packedLightIn);
 		RenderType renderType = getRenderType(entity, partialTicks, matrixstack, bufferIn, null, packedLightIn, getTextureLocation(entity));
 		render(model, entity, partialTicks, renderType, matrixstack, bufferIn, null, packedLightIn, getPackedOverlay(entity, 0), (float) renderColor.getRed() / 255f, (float) renderColor.getBlue() / 255f, (float) renderColor.getGreen() / 255f, (float) renderColor.getAlpha() / 255);
