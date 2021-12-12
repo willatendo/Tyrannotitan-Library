@@ -47,6 +47,8 @@ import tyrannotitanlib.library.tyrannomation.resource.ResourceListener;
 import tyrannotitanlib.library.tyrannonetwork.Tyrannonetwork;
 import tyrannotitanlib.library.tyrannoregister.TyrannoRegister;
 import tyrannotitanlib.library.utils.TyrannoUtils;
+import tyrannotitanlib.test.BooksTest;
+import tyrannotitanlib.test.TestItems;
 
 @Mod(TYRANNO_ID)
 public class TyrannotitanLibrary 
@@ -63,6 +65,7 @@ public class TyrannotitanLibrary
 		
 		TyrannoRegistries.register();
 		initTyrannomation();
+		TestItems.init();
 						
 		forgeBus.register(new TyrannoRegister());
 		
@@ -123,6 +126,8 @@ public class TyrannotitanLibrary
 	
 	private void clientSetup(FMLClientSetupEvent event)
 	{
+		BooksTest.initBooks();
+		
 		final IEventBus forgeBus = MinecraftForge.EVENT_BUS;
 		forgeBus.register(new Capes());
 

@@ -9,13 +9,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Item.Properties;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import tyrannotitanlib.library.tyrannobook.item.TyrannobookItem;
 import tyrannotitanlib.library.tyrannoregister.TyrannoRegister;
-import tyrannotitanlib.library.utils.TyrannoUtils;
 
-@EventBusSubscriber(modid = TyrannoUtils.TYRANNO_ID, bus = Bus.MOD)
 public class TestItems 
 {
 	public static final Item BOOK = register("book", new TyrannobookItem(new Properties().tab(CreativeModeTab.TAB_MISC))
@@ -43,4 +39,6 @@ public class TestItems
 		TyrannoRegister.registerItem(id, item);
 		return item;
 	}
+	
+	public static void init() { };
 }

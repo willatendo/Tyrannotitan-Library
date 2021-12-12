@@ -32,7 +32,6 @@ import tyrannotitanlib.library.tyrannobook.client.data.PageData;
 import tyrannotitanlib.library.tyrannobook.client.data.TyrannobookData;
 import tyrannotitanlib.library.tyrannobook.client.data.element.ItemStackData;
 import tyrannotitanlib.library.tyrannobook.client.data.element.TyrannobookElement;
-import tyrannotitanlib.library.utils.TyrannoUtils;
 
 @OnlyIn(Dist.CLIENT)
 public class TyrannobookScreen extends Screen 
@@ -149,7 +148,6 @@ public class TyrannobookScreen extends Screen
 
 			if(!this.book.appearance.title.isEmpty()) 
 			{
-				TyrannoUtils.LOGGER.debug("Hay this worked");
 				blit(pose, this.width / 2 - PAGE_WIDTH_UNSCALED / 2, this.height / 2 - PAGE_HEIGHT_UNSCALED / 2, 0, PAGE_HEIGHT_UNSCALED, PAGE_WIDTH_UNSCALED, PAGE_HEIGHT_UNSCALED, TEX_SIZE, TEX_SIZE);
 
 				pose.pushPose();
@@ -162,10 +160,6 @@ public class TyrannobookScreen extends Screen
 				fontRenderer.drawShadow(pose, this.book.appearance.title, (this.width / 2) / scale + 3 - fontRenderer.width(this.book.appearance.title) / 2, (this.height / 2 - fontRenderer.lineHeight / 2) / scale - 4, 0xAE8000);
 				pose.popPose();
 				//RenderSystem.popMatrix();
-			}
-			else
-			{
-				TyrannoUtils.LOGGER.debug("Hay this messed up");
 			}
 
 			if(!this.book.appearance.subtitle.isEmpty()) 

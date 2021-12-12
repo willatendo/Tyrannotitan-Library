@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.Util;
@@ -104,6 +103,7 @@ public class ItemElement extends SizedTyrannobookElement
 		pose.pushPose();
 		pose.translate(this.x, this.y, 0);
 		pose.scale(this.scale, this.scale, 1.0F);
+		
 		//RenderSystem.pushMatrix();
 		//RenderSystem.translatef(this.x, this.y, 0);
 		//RenderSystem.scalef(this.scale, this.scale, 1.0F);
@@ -115,7 +115,7 @@ public class ItemElement extends SizedTyrannobookElement
 
 		pose.popPose();
 		//RenderSystem.popMatrix();
-		Lighting.setupForFlatItems();
+		//Lighting.setupForFlatItems();
 	}
 
 	@Override
