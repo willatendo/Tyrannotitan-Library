@@ -17,38 +17,32 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class TyrannoFallingRotatableBlock extends FallingBlock
-{
+public class TyrannoFallingRotatableBlock extends FallingBlock {
 	public static final Map<Block, Map<Direction, VoxelShape>> SHAPES = new HashMap<Block, Map<Direction, VoxelShape>>();
 	public static final DirectionProperty HORIZONTAL_FACING = BlockStateProperties.HORIZONTAL_FACING;
-	
-	public TyrannoFallingRotatableBlock(Properties properties) 
-	{
+
+	public TyrannoFallingRotatableBlock(Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(HORIZONTAL_FACING, Direction.NORTH));
 	}
 
 	@Override
-	public BlockState mirror(BlockState state, Mirror mirror) 
-	{
+	public BlockState mirror(BlockState state, Mirror mirror) {
 		return state.rotate(mirror.getRotation(state.getValue(HORIZONTAL_FACING)));
 	}
 
 	@Override
-	public BlockState rotate(BlockState state, LevelAccessor world, BlockPos pos, Rotation direction) 
-	{
+	public BlockState rotate(BlockState state, LevelAccessor world, BlockPos pos, Rotation direction) {
 		return state.setValue(HORIZONTAL_FACING, direction.rotate(state.getValue(HORIZONTAL_FACING)));
 	}
 
 	@Override
-	public BlockState getStateForPlacement(BlockPlaceContext context) 
-	{
+	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		return this.defaultBlockState().setValue(HORIZONTAL_FACING, context.getHorizontalDirection().getOpposite());
 	}
-	
+
 	@Override
-	protected void createBlockStateDefinition(Builder<Block, BlockState> builder) 
-	{
+	protected void createBlockStateDefinition(Builder<Block, BlockState> builder) {
 		builder.add(HORIZONTAL_FACING);
 		super.createBlockStateDefinition(builder);
 	}

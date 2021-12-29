@@ -7,12 +7,10 @@ import tyrannotitanlib.library.tyrannonetwork.packets.UpdateHeldPagePacket;
 import tyrannotitanlib.library.tyrannonetwork.packets.UpdateLecturnPagePacket;
 import tyrannotitanlib.library.utils.TyrannoUtils;
 
-public class Tyrannonetwork 
-{
+public class Tyrannonetwork {
 	public static final NetworkWrapper INSTANCE = new NetworkWrapper(TyrannoUtils.rL("network"));
-	
-	public static void registerPackets() 
-	{
+
+	public static void registerPackets() {
 		INSTANCE.registerPacket(OpenLecternBookPacket.class, OpenLecternBookPacket::new, NetworkDirection.PLAY_TO_CLIENT);
 		INSTANCE.registerPacket(UpdateLecturnPagePacket.class, UpdateLecturnPagePacket::new, NetworkDirection.PLAY_TO_SERVER);
 		INSTANCE.registerPacket(UpdateHeldPagePacket.class, UpdateHeldPagePacket::new, NetworkDirection.PLAY_TO_SERVER);

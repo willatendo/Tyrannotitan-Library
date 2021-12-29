@@ -14,48 +14,36 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 
-public interface ILavaLoggable extends BucketPickup, LiquidBlockContainer
-{
+public interface ILavaLoggable extends BucketPickup, LiquidBlockContainer {
 	@Override
-	default boolean canPlaceLiquid(BlockGetter reader, BlockPos pos, BlockState state, Fluid fluid) 
-	{
+	default boolean canPlaceLiquid(BlockGetter reader, BlockPos pos, BlockState state, Fluid fluid) {
 		return !state.getValue(BooleanProperty.create("lavalogged")) && fluid == Fluids.LAVA;
 	}
-	
+
 	@Override
-	default boolean placeLiquid(LevelAccessor world, BlockPos pos, BlockState state, FluidState fluid) 
-	{
-		if(!state.getValue(TyrannoBlockStateProperties.LAVALOGGED) && fluid.getType() == Fluids.LAVA) 
-		{
-			if(!world.isClientSide()) 
-			{
+	default boolean placeLiquid(LevelAccessor world, BlockPos pos, BlockState state, FluidState fluid) {
+		if (!state.getValue(TyrannoBlockStateProperties.LAVALOGGED) && fluid.getType() == Fluids.LAVA) {
+			if (!world.isClientSide()) {
 				world.setBlock(pos, state.setValue(TyrannoBlockStateProperties.LAVALOGGED, Boolean.valueOf(true)), 3);
 				world.getLiquidTicks().scheduleTick(pos, fluid.getType(), fluid.getType().getTickDelay(world));
 			}
-			
+
 			return true;
-		} 
-		else 
-		{
+		} else {
 			return false;
 		}
 	}
-	
+
 	@Override
-	default ItemStack pickupBlock(LevelAccessor world, BlockPos pos, BlockState state) 
-	{
-		if(state.getValue(BlockStateProperties.WATERLOGGED)) 
-		{
+	default ItemStack pickupBlock(LevelAccessor world, BlockPos pos, BlockState state) {
+		if (state.getValue(BlockStateProperties.WATERLOGGED)) {
 			world.setBlock(pos, state.setValue(BlockStateProperties.WATERLOGGED, Boolean.valueOf(false)), 3);
-			if(!state.canSurvive(world, pos)) 
-			{
+			if (!state.canSurvive(world, pos)) {
 				world.destroyBlock(pos, true);
 			}
 
 			return new ItemStack(Items.LAVA_BUCKET);
-		} 
-		else 
-		{
+		} else {
 			return ItemStack.EMPTY;
 		}
 	}

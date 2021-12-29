@@ -27,6 +27,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.config.ModConfig.Type;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -51,6 +52,7 @@ import tyrannotitanlib.test.BooksTest;
 import tyrannotitanlib.test.TestItems;
 
 @Mod(TYRANNO_ID)
+@Mod.EventBusSubscriber(bus = Bus.MOD, modid = TYRANNO_ID)
 public class TyrannotitanLibrary 
 {
 	public static volatile boolean hasInitialized;
@@ -147,7 +149,7 @@ public class TyrannotitanLibrary
 	private void addBeehivePOI() 
 	{
 		PoiType.BEEHIVE.matchingStates = Sets.newHashSet(PoiType.BEEHIVE.matchingStates);
-		Map<BlockState, PoiType> statePointOfInterestMap = ObfuscationReflectionHelper.getPrivateValue(PoiType.class, null, "field_221073_u");
+		Map<BlockState, PoiType> statePointOfInterestMap = ObfuscationReflectionHelper.getPrivateValue(PoiType.class, null, "f_27323_");
 		if(statePointOfInterestMap != null) 
 		{
 			for(Block block : TyrannoBlockEntities.collectBlocks(TyrannoBeehiveBlock.class)) 

@@ -21,7 +21,6 @@ import net.minecraft.util.profiling.InactiveProfiler;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.crafting.RecipeManager;
-import net.minecraft.world.level.EmptyTickList;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.TickList;
 import net.minecraft.world.level.biome.Biome;
@@ -37,151 +36,130 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import net.minecraft.world.scores.Scoreboard;
 
-public class TemplateLevel extends Level 
-{
+public class TemplateLevel extends Level {
 	private final Map<String, MapItemSavedData> maps = new HashMap<>();
 	private final Scoreboard scoreboard = new Scoreboard();
 	private final RecipeManager recipeManager = new RecipeManager();
-	private final TemplateChunkProvider chunkProvider;
+	private final TemplateChunkProvider chunkSource;
 	private final RegistryAccess registries = RegistryAccess.builtin();
 
-	public TemplateLevel(List<StructureBlockInfo> blocks, Predicate<BlockPos> shouldShow) 
-	{
-		super(new FakeSpawnInfo(), Level.OVERWORLD, DimensionType.DEFAULT_OVERWORLD, () -> InactiveProfiler.INSTANCE, true, false, 0);
+	public TemplateLevel(List<StructureBlockInfo> blocks, Predicate<BlockPos> shouldShow) {
+		super(new FakeLevelData(), Level.OVERWORLD, DimensionType.DEFAULT_OVERWORLD, () -> InactiveProfiler.INSTANCE, true, false, 0);
 
-		this.chunkProvider = new TemplateChunkProvider(blocks, this, shouldShow);
-	}
-	
-	
-	@Override
-	public void sendBlockUpdated(@Nonnull BlockPos pos, @Nonnull BlockState oldState, @Nonnull BlockState newState, int flags) 
-	{
+		this.chunkSource = new TemplateChunkProvider(blocks, this, shouldShow);
 	}
 
 	@Override
-	public void playSound(@Nullable Player player, double x, double y, double z, @Nonnull SoundEvent soundIn, @Nonnull SoundSource category, float volume, float pitch) { }
-	
+	public void sendBlockUpdated(@Nonnull BlockPos pos, @Nonnull BlockState oldState, @Nonnull BlockState newState, int flags) {
+	}
 
 	@Override
-	public void playSound(@Nullable Player playerIn, @Nonnull Entity entityIn, @Nonnull SoundEvent eventIn, @Nonnull SoundSource categoryIn, float volume, float pitch) { }
-	
+	public void playSound(@Nullable Player player, double x, double y, double z, @Nonnull SoundEvent soundIn, @Nonnull SoundSource category, float volume, float pitch) {
+	}
+
+	@Override
+	public void playSound(@Nullable Player playerIn, @Nonnull Entity entityIn, @Nonnull SoundEvent eventIn, @Nonnull SoundSource categoryIn, float volume, float pitch) {
+	}
+
+	@Override
+	public String gatherChunkSourceStats() {
+		return chunkSource.gatherStats();
+	}
+
 	@Nullable
 	@Override
-	public Entity getEntity(int id) 
-	{
+	public Entity getEntity(int id) {
 		return null;
 	}
 
 	@Nullable
 	@Override
-	public MapItemSavedData getMapData(@Nonnull String mapName) 
-	{
+	public MapItemSavedData getMapData(@Nonnull String mapName) {
 		return this.maps.get(mapName);
 	}
-	
+
 	@Override
-	public int getFreeMapId() 
-	{
+	public void setMapData(String mapId, MapItemSavedData mapDataIn) {
+		this.maps.put(mapId, mapDataIn);
+	}
+
+	@Override
+	public int getFreeMapId() {
 		return this.maps.size();
 	}
-	
+
 	@Override
 	public void destroyBlockProgress(int breakerId, @Nonnull BlockPos pos, int progress) {
 	}
 
 	@Nonnull
 	@Override
-	public Scoreboard getScoreboard() 
-	{
+	public Scoreboard getScoreboard() {
 		return this.scoreboard;
 	}
 
 	@Nonnull
 	@Override
-	public RecipeManager getRecipeManager() 
-	{
+	public RecipeManager getRecipeManager() {
 		return this.recipeManager;
 	}
-	
+
 	@Nonnull
 	@Override
-	public TagContainer getTagManager() 
-	{
+	public TagContainer getTagManager() {
 		return TagContainer.EMPTY;
-	}
-	
-	@Nonnull
-	@Override
-	public TickList<Block> getBlockTicks() 
-	{
-		return EmptyTickList.empty();
-	}
-	
-	@Nonnull
-	@Override
-	public TickList<Fluid> getLiquidTicks() 
-	{
-		return EmptyTickList.empty();
-	}
-	
-	@Nonnull
-	@Override
-	public ChunkSource getChunkSource() 
-	{
-		return this.chunkProvider;
 	}
 
 	@Override
-	public void levelEvent(@Nullable Player player, int type, @Nonnull BlockPos pos, int data) { }
-	
+	protected LevelEntityGetter<Entity> getEntities() {
+		return FakeEntityGetter.INSTANCE;
+	}
+
 	@Nonnull
 	@Override
-	public RegistryAccess registryAccess() 
-	{
+	public ChunkSource getChunkSource() {
+		return this.chunkSource;
+	}
+
+	@Override
+	public void levelEvent(@Nullable Player player, int type, @Nonnull BlockPos pos, int data) {
+	}
+
+	@Override
+	public void gameEvent(@Nullable Entity pEntity, GameEvent pEvent, BlockPos pPos) {
+
+	}
+
+	@Nonnull
+	@Override
+	public RegistryAccess registryAccess() {
 		return this.registries;
 	}
-	
+
 	@Override
-	public float getShade(@Nonnull Direction direction, boolean shade) 
-	{
+	public float getShade(@Nonnull Direction p_230487_1_, boolean p_230487_2_) {
 		return 0;
 	}
 
 	@Nonnull
 	@Override
-	public List<? extends Player> players() 
-	{
+	public List<? extends Player> players() {
 		return ImmutableList.of();
 	}
-	
+
 	@Nonnull
 	@Override
-	public Biome getUncachedNoiseBiome(int x, int y, int z) 
-	{
+	public Biome getUncachedNoiseBiome(int x, int y, int z) {
 		return this.registryAccess().registryOrThrow(Registry.BIOME_REGISTRY).getOrThrow(Biomes.PLAINS);
 	}
 
-
 	@Override
-	public void gameEvent(Entity entity, GameEvent event, BlockPos pos) { }
-
-
-	@Override
-	public String gatherChunkSourceStats() 
-	{
+	public TickList<Block> getBlockTicks() {
 		return null;
 	}
 
-	
 	@Override
-	public void setMapData(String data, @Nonnull MapItemSavedData mapData) 
-	{
-		this.maps.put(data, mapData);
-	}
-
-	@Override
-	protected LevelEntityGetter<Entity> getEntities() 
-	{
+	public TickList<Fluid> getLiquidTicks() {
 		return null;
 	}
 }

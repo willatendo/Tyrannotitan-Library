@@ -7,5 +7,14 @@
 				"id": "minecraft:stone"
 			}
 		}
+	},
+	{
+		"name": "other",
+		"data": "sections/other.json",
+		"icon": {
+			"item": {
+				"id": "minecraft:grass_block"
+			}
+		}
 	}
 ]

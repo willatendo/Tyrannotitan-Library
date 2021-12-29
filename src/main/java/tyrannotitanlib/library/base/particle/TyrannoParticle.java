@@ -8,10 +8,8 @@ import net.minecraft.client.particle.TextureSheetParticle;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.particles.SimpleParticleType;
 
-public class TyrannoParticle extends TextureSheetParticle 
-{
-	public TyrannoParticle(ClientLevel world, double xCoord, double yCoord, double zCoord, double xSpeed, double ySpeed, double zSpeed) 
-	{
+public class TyrannoParticle extends TextureSheetParticle {
+	public TyrannoParticle(ClientLevel world, double xCoord, double yCoord, double zCoord, double xSpeed, double ySpeed, double zSpeed) {
 		super(world, xCoord, yCoord, zCoord, xSpeed, ySpeed, zSpeed);
 
 		float f = this.random.nextFloat() * 1.0f;
@@ -28,24 +26,19 @@ public class TyrannoParticle extends TextureSheetParticle
 	}
 
 	@Override
-	public ParticleRenderType getRenderType() 
-	{
+	public ParticleRenderType getRenderType() {
 		return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
 	}
 
 	@Override
-	public void tick() 
-	{
+	public void tick() {
 		this.xo = this.x;
 		this.yo = this.y;
 		this.zo = this.z;
 
-		if(this.lifetime-- <= 0) 
-		{
+		if (this.lifetime-- <= 0) {
 			this.remove();
-		} 
-		else 
-		{
+		} else {
 			this.move(this.xd, this.yd, this.zd);
 			this.xd *= 1.0D;
 			this.yd *= 1.0D;
@@ -53,18 +46,15 @@ public class TyrannoParticle extends TextureSheetParticle
 		}
 	}
 
-	public static class Factory implements ParticleProvider<SimpleParticleType> 
-	{
+	public static class Factory implements ParticleProvider<SimpleParticleType> {
 		private final SpriteSet spriteSet;
 
-		public Factory(SpriteSet sprite) 
-		{
+		public Factory(SpriteSet sprite) {
 			this.spriteSet = sprite;
 		}
 
 		@Override
-		public Particle createParticle(SimpleParticleType type, ClientLevel world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) 
-		{
+		public Particle createParticle(SimpleParticleType type, ClientLevel world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
 			TyrannoParticle particle = new TyrannoParticle(world, x, y, z, xSpeed, ySpeed, zSpeed);
 			particle.setColor(1.0f, 1.0f, 1.0f);
 			particle.pickSprite(this.spriteSet);

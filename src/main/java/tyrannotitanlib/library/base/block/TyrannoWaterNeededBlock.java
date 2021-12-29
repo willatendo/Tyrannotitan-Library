@@ -14,50 +14,39 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.FarmlandWaterManager;
 import net.minecraftforge.common.IPlantable;
 
-public class TyrannoWaterNeededBlock extends Block
-{
+public class TyrannoWaterNeededBlock extends Block {
 	private static Block turnToBlock;
-	
-	public TyrannoWaterNeededBlock(Properties properties, Block turnIntoBlock) 
-	{
+
+	public TyrannoWaterNeededBlock(Properties properties, Block turnIntoBlock) {
 		super(properties.randomTicks());
 		turnToBlock = turnIntoBlock;
 	}
-	
+
 	@Override
-	public void randomTick(BlockState state, ServerLevel world, BlockPos pos, Random rand) 
-	{
-		if(!isNearWater(world, pos) && !world.isRainingAt(pos.above())) 
-		{
+	public void randomTick(BlockState state, ServerLevel world, BlockPos pos, Random rand) {
+		if (!isNearWater(world, pos) && !world.isRainingAt(pos.above())) {
 			return;
-		} 
-		else
-		{
+		} else {
 			turnToDirt(state, world, pos);
 		}
 	}
-	
-	private static boolean isNearWater(LevelReader render, BlockPos pos) 
-	{
-		for(BlockPos blockpos : BlockPos.betweenClosed(pos.offset(-4, 0, -4), pos.offset(4, 1, 4))) 
-		{
-			if (render.getFluidState(blockpos).is(FluidTags.WATER)) 
-			{
+
+	private static boolean isNearWater(LevelReader render, BlockPos pos) {
+		for (BlockPos blockpos : BlockPos.betweenClosed(pos.offset(-4, 0, -4), pos.offset(4, 1, 4))) {
+			if (render.getFluidState(blockpos).is(FluidTags.WATER)) {
 				return true;
 			}
 		}
-		
+
 		return FarmlandWaterManager.hasBlockWaterTicket(render, pos);
 	}
-	
-	public static void turnToDirt(BlockState state, Level world, BlockPos pos) 
-	{
+
+	public static void turnToDirt(BlockState state, Level world, BlockPos pos) {
 		world.setBlockAndUpdate(pos, turnToBlock.defaultBlockState());
 	}
-	
+
 	@Override
-	public boolean canSustainPlant(BlockState state, BlockGetter world, BlockPos pos, Direction facing, IPlantable plantable) 
-	{
+	public boolean canSustainPlant(BlockState state, BlockGetter world, BlockPos pos, Direction facing, IPlantable plantable) {
 		return true;
 	}
 }

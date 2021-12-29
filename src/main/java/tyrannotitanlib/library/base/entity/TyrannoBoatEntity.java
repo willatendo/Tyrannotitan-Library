@@ -22,18 +22,15 @@ import net.minecraftforge.fmllegacy.network.NetworkHooks;
 import tyrannotitanlib.content.server.init.TyrannoEntities;
 import tyrannotitanlib.library.utils.TyrannoBoatRegistry;
 
-public class TyrannoBoatEntity extends Boat 
-{
+public class TyrannoBoatEntity extends Boat {
 	private static final EntityDataAccessor<String> BOAT_TYPE = SynchedEntityData.defineId(TyrannoBoatEntity.class, EntityDataSerializers.STRING);
 
-	public TyrannoBoatEntity(EntityType<? extends TyrannoBoatEntity> type, Level world) 
-	{
+	public TyrannoBoatEntity(EntityType<? extends TyrannoBoatEntity> type, Level world) {
 		super(type, world);
 		this.blocksBuilding = true;
 	}
 
-	public TyrannoBoatEntity(Level worldIn, double x, double y, double z) 
-	{
+	public TyrannoBoatEntity(Level worldIn, double x, double y, double z) {
 		this(TyrannoEntities.BOAT, worldIn);
 		this.setPos(x, y, z);
 		this.setDeltaMovement(Vec3.ZERO);
@@ -42,71 +39,56 @@ public class TyrannoBoatEntity extends Boat
 		this.zo = z;
 	}
 
-	public TyrannoBoatEntity(FMLPlayMessages.SpawnEntity spawnEntity, Level world) 
-	{
+	public TyrannoBoatEntity(FMLPlayMessages.SpawnEntity spawnEntity, Level world) {
 		this(TyrannoEntities.BOAT, world);
 	}
 
 	@Override
-	protected void defineSynchedData() 
-	{
+	protected void defineSynchedData() {
 		super.defineSynchedData();
 		this.entityData.define(BOAT_TYPE, "minecraft:oak");
 	}
 
 	@Override
-	protected void addAdditionalSaveData(CompoundTag compound) 
-	{
+	protected void addAdditionalSaveData(CompoundTag compound) {
 		compound.putString("Type", TyrannoBoatRegistry.getNameForData(this.getBoat()));
 	}
 
 	@Override
-	protected void readAdditionalSaveData(CompoundTag compound) 
-	{
-		if(compound.contains("Type", Constants.NBT.TAG_STRING)) 
-		{
+	protected void readAdditionalSaveData(CompoundTag compound) {
+		if (compound.contains("Type", Constants.NBT.TAG_STRING)) {
 			String type = compound.getString("Type");
 			TyrannoBoatRegistry.BoatData data = TyrannoBoatRegistry.getDataForBoat(type);
-			if(data != null)
+			if (data != null) {
 				this.setBoat(TyrannoBoatRegistry.getNameForData(data));
-			else
+			} else {
 				this.setBoat(TyrannoBoatRegistry.getBaseBoatName());
-		} 
-		else 
-		{
+			}
+		} else {
 			this.setBoat(TyrannoBoatRegistry.getBaseBoatName());
 		}
 	}
 
 	@Override
-	protected void checkFallDamage(double y, boolean onGround, BlockState state, BlockPos pos) 
-	{
+	protected void checkFallDamage(double y, boolean onGround, BlockState state, BlockPos pos) {
 		this.lastYd = this.getDeltaMovement().y;
-		if(!this.isPassenger()) 
-		{
-			if(onGround) 
-			{
-				if(this.fallDistance > 3.0F) 
-				{
-					if(this.status != TyrannoBoatEntity.Status.ON_LAND) 
-					{
+		if (!this.isPassenger()) {
+			if (onGround) {
+				if (this.fallDistance > 3.0F) {
+					if (this.status != TyrannoBoatEntity.Status.ON_LAND) {
 						this.fallDistance = 0.0F;
 						return;
 					}
 
 					this.causeFallDamage(this.fallDistance, 1.0F, DamageSource.FALLING_BLOCK);
-					if(!this.level.isClientSide && this.isAlive()) 
-					{
+					if (!this.level.isClientSide && this.isAlive()) {
 						this.remove(RemovalReason.KILLED);
-						if(this.level.getGameRules().getBoolean(GameRules.RULE_DOENTITYDROPS)) 
-						{
-							for(int i = 0; i < 3; ++i) 
-							{
+						if (this.level.getGameRules().getBoolean(GameRules.RULE_DOENTITYDROPS)) {
+							for (int i = 0; i < 3; ++i) {
 								this.spawnAtLocation(this.getBoat().getPlankItem());
 							}
 
-							for(int j = 0; j < 2; ++j) 
-							{
+							for (int j = 0; j < 2; ++j) {
 								this.spawnAtLocation(Items.STICK);
 							}
 						}
@@ -114,33 +96,27 @@ public class TyrannoBoatEntity extends Boat
 				}
 
 				this.fallDistance = 0.0F;
-			} 
-			else if(!this.level.getFluidState((new BlockPos(this.position())).below()).is(FluidTags.WATER) && y < 0.0D) 
-			{
+			} else if (!this.level.getFluidState((new BlockPos(this.position())).below()).is(FluidTags.WATER) && y < 0.0D) {
 				this.fallDistance = (float) ((double) this.fallDistance - y);
 			}
 		}
 	}
 
 	@Override
-	public Item getDropItem() 
-	{
+	public Item getDropItem() {
 		return this.getBoat().getBoatItem();
 	}
 
-	public void setBoat(String boat) 
-	{
+	public void setBoat(String boat) {
 		this.entityData.set(BOAT_TYPE, boat);
 	}
 
-	public TyrannoBoatRegistry.BoatData getBoat() 
-	{
+	public TyrannoBoatRegistry.BoatData getBoat() {
 		return TyrannoBoatRegistry.getDataForBoat(this.entityData.get(BOAT_TYPE));
 	}
 
 	@Override
-	public Packet<?> getAddEntityPacket() 
-	{
+	public Packet<?> getAddEntityPacket() {
 		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 }

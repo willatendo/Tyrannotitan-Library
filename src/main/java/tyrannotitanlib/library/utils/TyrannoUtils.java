@@ -28,92 +28,77 @@ import net.minecraft.world.level.levelgen.feature.structures.StructurePoolElemen
 import net.minecraft.world.level.levelgen.feature.structures.StructureTemplatePool;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 
-public class TyrannoUtils 
-{
+public class TyrannoUtils {
 	public static List<String> TYRANNOTITANS = new ArrayList<>();
 
 	public static final Logger LOGGER = LogManager.getLogger(TyrannoUtils.TYRANNO_ID);
-	
+
 	public static final String TYRANNO_ID = "tyrannotitanlib";
-	
-	public static ResourceLocation rL(String location)
-	{
+
+	public static ResourceLocation rL(String location) {
 		return new ResourceLocation(TYRANNO_ID, location);
 	}
-	
-	public static TranslatableComponent sTC(String key)
-	{
+
+	public static TranslatableComponent sTC(String key) {
 		return new TranslatableComponent(key);
 	}
-	
-	public static TranslatableComponent tTC(String type, String key)
-	{
+
+	public static TranslatableComponent tTC(String type, String key) {
 		return new TranslatableComponent(type + "." + TYRANNO_ID + "." + key);
 	}
-	
-	public static TranslatableComponent cTC(String type, String key, ChatFormatting colour)
-	{
+
+	public static TranslatableComponent cTC(String type, String key, ChatFormatting colour) {
 		TranslatableComponent text = tTC(type, key);
 		text.withStyle(colour);
 		return text;
 	}
-	
-	public static TranslatableComponent gTC(String type, String key)
-	{
+
+	public static TranslatableComponent gTC(String type, String key) {
 		TranslatableComponent text = tTC(type, key);
 		text.withStyle(ChatFormatting.GRAY);
 		return text;
 	}
-	
+
 	@Nullable
-	public static BufferedReader getURLContents(@Nonnull String urlString, @Nonnull String backupFileLoc) 
-	{
-		try 
-		{
+	public static BufferedReader getURLContents(@Nonnull String urlString, @Nonnull String backupFileLoc) {
+		try {
 			URL url = new URL(urlString);
 			URLConnection connection = url.openConnection();
 			InputStream stream = connection.getInputStream();
 			InputStreamReader reader = new InputStreamReader(stream);
 
 			return new BufferedReader(reader);
-		} 
-		catch(Exception e) 
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		try 
-		{
+		try {
 			return new BufferedReader(new InputStreamReader(TyrannoUtils.class.getClass().getClassLoader().getResourceAsStream(backupFileLoc), StandardCharsets.UTF_8));
-		} 
-		catch(NullPointerException e) 
-		{
+		} catch (NullPointerException e) {
 			e.printStackTrace();
 		}
 
 		return null;
 	}
-	
-	public static void registerJigsaw(MinecraftServer server, ResourceLocation poolLocation, ResourceLocation nbtLocation, int weight) 
-	{
+
+	public static void registerJigsaw(MinecraftServer server, ResourceLocation poolLocation, ResourceLocation nbtLocation, int weight) {
 		RegistryAccess manager = server.registryAccess();
 		Registry<StructureTemplatePool> pools = manager.registryOrThrow(Registry.TEMPLATE_POOL_REGISTRY);
 		StructureTemplatePool pool = pools.get(poolLocation);
-		
+
 		StructureProcessorList processorList = manager.registryOrThrow(Registry.PROCESSOR_LIST_REGISTRY).getOptional(poolLocation).orElse(ProcessorLists.EMPTY);
 		List<StructurePoolElement> elements = pool.templates;
-		
+
 		StructurePoolElement element = StructurePoolElement.legacy(nbtLocation.toString(), processorList).apply(StructureTemplatePool.Projection.RIGID);
-		for(int i = 0; i < weight; i++) 
-		{
+		for (int i = 0; i < weight; i++) {
 			elements.add(element);
 		}
-		
+
 		List<Pair<StructurePoolElement, Integer>> elementCounts = new ArrayList(pool.rawTemplates);
-		
+
 		elements.addAll(pool.templates);
 		elementCounts.addAll(pool.rawTemplates);
-		
+
 		pool.templates = elements;
 		pool.rawTemplates = elementCounts;
 	}

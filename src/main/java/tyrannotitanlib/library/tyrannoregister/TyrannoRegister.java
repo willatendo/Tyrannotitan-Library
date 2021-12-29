@@ -49,20 +49,16 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 import tyrannotitanlib.library.base.recipe.TyrannoRecipeType;
 import tyrannotitanlib.library.utils.TyrannoUtils;
 
-public class TyrannoRegister 
-{
+public class TyrannoRegister {
 	private static final Map<String, ModData> modData = new HashMap<>();
 
-	private static ModData getCurrentModData() 
-	{
+	private static ModData getCurrentModData() {
 		return getModData(ModLoadingContext.get().getActiveNamespace());
 	}
 
-	private static ModData getModData(String modid) 
-	{
+	private static ModData getModData(String modid) {
 		ModData data = modData.get(modid);
-		if(data == null) 
-		{
+		if (data == null) {
 			data = new ModData();
 			modData.put(modid, data);
 
@@ -73,152 +69,122 @@ public class TyrannoRegister
 	}
 
 	@SubscribeEvent
-	public static void onRegistryEvent(RegistryEvent.Register<?> event) 
-	{
+	public static void onRegistryEvent(RegistryEvent.Register<?> event) {
 		getCurrentModData().register(event.getRegistry());
 	}
 
-	//Non-Forge
-	public static <T extends RecipeType> T registerType(String modId, String id) 
-	{
+	// Non-Forge
+	public static <T extends RecipeType> T registerType(String modId, String id) {
 		return (T) Registry.register(Registry.RECIPE_TYPE, new ResourceLocation(modId, id), new TyrannoRecipeType<>());
 	}
-	
-	public static BannerPattern registerPattern(String id) 
-	{
+
+	public static BannerPattern registerPattern(String id) {
 		return BannerPattern.create(id.toUpperCase(Locale.ROOT), id, id, false);
 	}
-	
-	public static StructurePieceType registerStructurePiece(String modId, String id, StructurePieceType type) 
-	{
+
+	public static StructurePieceType registerStructurePiece(String modId, String id, StructurePieceType type) {
 		return Registry.register(Registry.STRUCTURE_PIECE, new ResourceLocation(modId, id.toLowerCase(Locale.ROOT)), type);
 	}
-	
-	public static ConfiguredStructureFeature<?, ?> registerConfiguredStructure(String modId, String id, ConfiguredStructureFeature<?, ?> structureFeature)
-	{
+
+	public static ConfiguredStructureFeature<?, ?> registerConfiguredStructure(String modId, String id, ConfiguredStructureFeature<?, ?> structureFeature) {
 		return Registry.register(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, new ResourceLocation(modId, id), structureFeature);
 	}
-	
-	public static <WC extends CarverConfiguration> ConfiguredWorldCarver<WC> registerConfiguredCarver(String modId, String id, ConfiguredWorldCarver<WC> configuredCarver) 
-	{
+
+	public static <WC extends CarverConfiguration> ConfiguredWorldCarver<WC> registerConfiguredCarver(String modId, String id, ConfiguredWorldCarver<WC> configuredCarver) {
 		return BuiltinRegistries.register(BuiltinRegistries.CONFIGURED_CARVER, new ResourceLocation(modId, id), configuredCarver);
 	}
-	
-	//Forge
-	public static void registerParticle(String id, ParticleType particle)
-	{
+
+	// Forge
+	public static void registerParticle(String id, ParticleType particle) {
 		register(particle, id);
 	}
 
-	public static void registerSerializer(String id, RecipeSerializer<?> recipe)
-	{
+	public static void registerSerializer(String id, RecipeSerializer<?> recipe) {
 		register(recipe, id);
 	}
 
-	public static void registerSound(String id, SoundEvent sound)
-	{
+	public static void registerSound(String id, SoundEvent sound) {
 		register(sound, id);
 	}
 
-	public static void registerEffect(String id, MobEffect effect)
-	{
+	public static void registerEffect(String id, MobEffect effect) {
 		register(effect, id);
 	}
 
-	public static void registerPotion(String id, Potion potion)
-	{
+	public static void registerPotion(String id, Potion potion) {
 		register(potion, id);
-	}	
-	
-	public static void registerEnchantment(String id, Enchantment enchantment)
-	{
+	}
+
+	public static void registerEnchantment(String id, Enchantment enchantment) {
 		register(enchantment, id);
 	}
-	
- 	public static void registerItem(String id, Item item) 
-	{
+
+	public static void registerItem(String id, Item item) {
 		register(item, id);
 	}
-	
-	public static void registerBlockEntity(String id, BlockEntityType blockEntity)
-	{
+
+	public static void registerBlockEntity(String id, BlockEntityType blockEntity) {
 		register(blockEntity, id);
 	}
-	
-	public static void registerContainer(String id, MenuType container)
-	{
+
+	public static void registerContainer(String id, MenuType container) {
 		register(container, id);
 	}
-	
-	public static void registerBlock(String id, Block block) 
-	{
+
+	public static void registerBlock(String id, Block block) {
 		register(block, id);
 	}
-	
-	public static void registerBlockPlacer(String id, BlockPlacerType blockPlacer)
-	{
+
+	public static void registerBlockPlacer(String id, BlockPlacerType blockPlacer) {
 		register(blockPlacer, id);
 	}
-	
-	public static void registerPointOfInterest(String id, PoiType pointOfInterest)
-	{
+
+	public static void registerPointOfInterest(String id, PoiType pointOfInterest) {
 		register(pointOfInterest, id);
 	}
-	
-	public static void registerVillagerProfession(String id, VillagerProfession villagerProfession)
-	{
+
+	public static void registerVillagerProfession(String id, VillagerProfession villagerProfession) {
 		register(villagerProfession, id);
 	}
-	
-	public static void registerEntity(String id, EntityType type)
-	{
+
+	public static void registerEntity(String id, EntityType type) {
 		register(type, id);
 	}
-	
-	public static void registerFoliagePlacer(String id, FoliagePlacerType foliagePlacer)
-	{
+
+	public static void registerFoliagePlacer(String id, FoliagePlacerType foliagePlacer) {
 		register(foliagePlacer, id);
 	}
-	
-	public static void registerBiome(String id, Biome biome)
-	{
+
+	public static void registerBiome(String id, Biome biome) {
 		register(biome, id);
 	}
-	
-	public static void registerStructure(String id, StructureFeature structure)
-	{
+
+	public static void registerStructure(String id, StructureFeature structure) {
 		register(structure, id);
 	}
-	
-	public static void registerSurfaceBuilder(String id, SurfaceBuilder surfaceBuilder)
-	{
+
+	public static void registerSurfaceBuilder(String id, SurfaceBuilder surfaceBuilder) {
 		register(surfaceBuilder, id);
 	}
-	
-	public static void registerPlacement(String id, FeatureDecorator placement)
-	{
+
+	public static void registerPlacement(String id, FeatureDecorator placement) {
 		register(placement, id);
 	}
-	
-	public static void registerFeature(String id, Feature feature)
-	{
+
+	public static void registerFeature(String id, Feature feature) {
 		register(feature, id);
 	}
-	
-	public static void registerWorldCarver(String id, WorldCarver carver)
-	{
+
+	public static void registerWorldCarver(String id, WorldCarver carver) {
 		register(carver, id);
 	}
-	
-	public static void registerWorldType(String id, ForgeWorldType worldType)
-	{
+
+	public static void registerWorldType(String id, ForgeWorldType worldType) {
 		register(worldType, id);
 	}
-	
-	public static <T extends IForgeRegistryEntry<T>> void register(IForgeRegistryEntry<T> entry, String id) 
-	{
-		if(entry == null)
-		{
+
+	public static <T extends IForgeRegistryEntry<T>> void register(IForgeRegistryEntry<T> entry, String id) {
+		if (entry == null) {
 			throw new IllegalArgumentException("Can't register null object.");
 		}
 
@@ -226,19 +192,15 @@ public class TyrannoRegister
 		getCurrentModData().defers.put(entry.getRegistryType(), () -> entry);
 	}
 
-	private static class ModData 
-	{
+	private static class ModData {
 		private ArrayListMultimap<Class<?>, Supplier<IForgeRegistryEntry<?>>> defers = ArrayListMultimap.create();
 
-		private void register(IForgeRegistry registry) 
-		{	
+		private void register(IForgeRegistry registry) {
 			Class<?> type = registry.getRegistrySuperType();
 
-			if(defers.containsKey(type)) 
-			{
+			if (defers.containsKey(type)) {
 				Collection<Supplier<IForgeRegistryEntry<?>>> ourEntries = defers.get(type);
-				for(Supplier<IForgeRegistryEntry<?>> supplier : ourEntries) 
-				{
+				for (Supplier<IForgeRegistryEntry<?>> supplier : ourEntries) {
 					IForgeRegistryEntry<?> entry = supplier.get();
 					registry.register(entry);
 					TyrannoUtils.LOGGER.debug("Registering to " + registry.getRegistryName() + " - " + entry.getRegistryName());

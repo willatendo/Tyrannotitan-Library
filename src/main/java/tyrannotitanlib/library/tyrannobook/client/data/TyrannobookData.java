@@ -34,8 +34,7 @@ import tyrannotitanlib.library.tyrannonetwork.packets.DropLecternBookPacket;
 import tyrannotitanlib.library.utils.TyrannoUtils;
 
 @OnlyIn(Dist.CLIENT)
-public class TyrannobookData implements IDataItem 
-{
+public class TyrannobookData implements IDataItem {
 	public transient int unnamedSectionCounter = 0;
 	public transient ArrayList<SectionData> sections = new ArrayList<>();
 	public transient AppearanceData appearance = new AppearanceData();
@@ -48,47 +47,37 @@ public class TyrannobookData implements IDataItem
 
 	private final ArrayList<TyrannobookRepository> repositories;
 
-	public TyrannobookData(TyrannobookRepository... repositories) 
-	{
+	public TyrannobookData(TyrannobookRepository... repositories) {
 		this.repositories = new ArrayList<>(Arrays.asList(repositories));
 	}
 
-	public void reset() 
-	{
+	public void reset() {
 		this.initialized = false;
 	}
 
 	@Override
-	public void load() 
-	{
-		if(this.initialized) 
-		{
+	public void load() {
+		if (this.initialized) {
 			return;
 		}
 
 		TyrannoUtils.LOGGER.debug("Started loading book...");
 
-		try 
-		{
+		try {
 			this.initialized = true;
 			this.sections.clear();
 			this.appearance = new AppearanceData();
 			this.itemLinks.clear();
 
-			for(TyrannobookRepository repo : this.repositories) 
-			{
-				try 
-				{
+			for (TyrannobookRepository repo : this.repositories) {
+				try {
 					List<SectionData> repoContents = repo.getSections();
 					this.sections.addAll(repoContents);
 
-					for(SectionData section : repoContents) 
-					{
+					for (SectionData section : repoContents) {
 						section.source = repo;
 					}
-				} 
-				catch(Exception e) 
-				{
+				} catch (Exception e) {
 					SectionData error = new SectionData();
 					error.name = "errorenous";
 					PageData page = new PageData(true);
@@ -102,14 +91,10 @@ public class TyrannobookData implements IDataItem
 
 				ResourceLocation appearanceLocation = repo.getResourceLocation("appearance.json");
 
-				if(repo.resourceExists(appearanceLocation)) 
-				{
-					try 
-					{
+				if (repo.resourceExists(appearanceLocation)) {
+					try {
 						this.appearance = TyrannobookLoader.GSON.fromJson(repo.resourceToString(repo.getResource(appearanceLocation)), AppearanceData.class);
-					} 
-					catch(Exception e) 
-					{
+					} catch (Exception e) {
 						e.printStackTrace();
 					}
 				}
@@ -118,34 +103,25 @@ public class TyrannobookData implements IDataItem
 
 				ResourceLocation itemLinkLocation = repo.getResourceLocation("items.json");
 
-				if(repo.resourceExists(itemLinkLocation)) 
-				{
-					try 
-					{
+				if (repo.resourceExists(itemLinkLocation)) {
+					try {
 						this.itemLinks = new ArrayList<>(Arrays.asList(TyrannobookLoader.GSON.fromJson(repo.resourceToString(repo.getResource(itemLinkLocation)), ItemStackData.ItemLink[].class)));
-					} 
-					catch(Exception e) 
-					{
+					} catch (Exception e) {
 						e.printStackTrace();
 					}
 				}
 
 				ResourceLocation languageLocation = repo.getResourceLocation("language.lang");
 
-				if(repo.resourceExists(languageLocation)) 
-				{
-					try 
-					{
+				if (repo.resourceExists(languageLocation)) {
+					try {
 						Resource resource = repo.getResource(languageLocation);
-						if(resource != null) 
-						{
+						if (resource != null) {
 							BufferedReader br = new BufferedReader(new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8));
 							String next = br.readLine();
 
-							while(next != null) 
-							{
-								if(!next.startsWith("//") && next.contains("=")) 
-								{
+							while (next != null) {
+								if (!next.startsWith("//") && next.contains("=")) {
 									String key = next.substring(0, next.indexOf('='));
 									String value = next.substring(next.indexOf('=') + 1);
 
@@ -155,35 +131,30 @@ public class TyrannobookData implements IDataItem
 								next = br.readLine();
 							}
 						}
-					} 
-					catch(Exception ignored) { }
+					} catch (Exception ignored) {
+					}
 				}
 			}
 
-			for(int i = 0; i < this.sections.size(); i++) 
-			{
+			for (int i = 0; i < this.sections.size(); i++) {
 				SectionData section = this.sections.get(i);
 
-				if(section.name == null) 
-				{
+				if (section.name == null) {
 					continue;
 				}
 
 				List<SectionData> matchingSections = this.sections.stream().filter(sect -> section.name.equalsIgnoreCase(sect.name)).collect(Collectors.toList());
 
-				if(matchingSections.size() < 2) 
-				{
+				if (matchingSections.size() < 2) {
 					continue;
 				}
 
 				LinkedSectionData linkedSection = new LinkedSectionData();
 
-				for(SectionData match : matchingSections) 
-				{
+				for (SectionData match : matchingSections) {
 					linkedSection.addSection(match);
 
-					if(match != section) 
-					{
+					if (match != section) {
 						this.sections.remove(match);
 					}
 				}
@@ -191,10 +162,8 @@ public class TyrannobookData implements IDataItem
 				this.sections.set(i, linkedSection);
 			}
 
-			for(SectionData section : this.sections) 
-			{
-				if(section.source == null) 
-				{
+			for (SectionData section : this.sections) {
+				if (section.source == null) {
 					section.source = TyrannobookRepository.DUMMY;
 				}
 
@@ -202,27 +171,21 @@ public class TyrannobookData implements IDataItem
 				section.load();
 			}
 
-			for(TyrannobookTransformer transformer : this.transformers) 
-			{
+			for (TyrannobookTransformer transformer : this.transformers) {
 				transformer.transform(this);
 			}
-			
-			for(SectionData section : this.sections) 
-			{
-				if(section.source == null) 
-				{
+
+			for (SectionData section : this.sections) {
+				if (section.source == null) {
 					section.source = TyrannobookRepository.DUMMY;
 				}
 
-				if(section.parent == null) 
-				{
+				if (section.parent == null) {
 					section.parent = this;
 					section.load();
 				}
 			}
-		} 
-		catch(Exception e) 
-		{
+		} catch (Exception e) {
 			this.sections.clear();
 			SectionData section = new SectionData(true);
 			section.name = "errorenous";
@@ -237,20 +200,16 @@ public class TyrannobookData implements IDataItem
 	}
 
 	@Nullable
-	public SectionData findSection(String name) 
-	{
+	public SectionData findSection(String name) {
 		return this.findSection(name, null);
 	}
 
 	@Nullable
-	public SectionData findSection(String name, @Nullable TyrannobookScreen.AdvancementCache advancementCache) 
-	{
-		for(SectionData section : this.sections) 
-		{
+	public SectionData findSection(String name, @Nullable TyrannobookScreen.AdvancementCache advancementCache) {
+		for (SectionData section : this.sections) {
 			section.update(advancementCache);
 
-			if(section.name.equals(name.toLowerCase())) 
-			{
+			if (section.name.equals(name.toLowerCase())) {
 				return section.isUnlocked(advancementCache) ? section : null;
 			}
 		}
@@ -258,21 +217,17 @@ public class TyrannobookData implements IDataItem
 		return null;
 	}
 
-	public int getFirstPageNumber(SectionData section, @Nullable TyrannobookScreen.AdvancementCache advancementCache) 
-	{
+	public int getFirstPageNumber(SectionData section, @Nullable TyrannobookScreen.AdvancementCache advancementCache) {
 		int pages = 0;
 
-		for(SectionData sect : this.sections) 
-		{
+		for (SectionData sect : this.sections) {
 			sect.update(advancementCache);
 
-			if(section == sect) 
-			{
+			if (section == sect) {
 				return section.isUnlocked(advancementCache) ? pages + 1 : -1;
 			}
 
-			if(!sect.isUnlocked(advancementCache)) 
-			{
+			if (!sect.isUnlocked(advancementCache)) {
 				continue;
 			}
 
@@ -283,30 +238,23 @@ public class TyrannobookData implements IDataItem
 	}
 
 	@Nullable
-	public PageData findPage(int number, @Nullable TyrannobookScreen.AdvancementCache advancementCache) 
-	{
-		if(number < 0) 
-		{
+	public PageData findPage(int number, @Nullable TyrannobookScreen.AdvancementCache advancementCache) {
+		if (number < 0) {
 			return null;
 		}
 
 		int pages = 0;
 
-		for(SectionData section : this.sections) 
-		{
+		for (SectionData section : this.sections) {
 			section.update(advancementCache);
 
-			if(!section.isUnlocked(advancementCache)) 
-			{
+			if (!section.isUnlocked(advancementCache)) {
 				continue;
 			}
 
-			if(pages + section.getPageCount() > number) 
-			{
+			if (pages + section.getPageCount() > number) {
 				return section.pages.get(number - pages);
-			} 
-			else 
-			{
+			} else {
 				pages += section.getPageCount();
 			}
 		}
@@ -315,49 +263,40 @@ public class TyrannobookData implements IDataItem
 	}
 
 	@Nullable
-	public PageData findPage(String location, @Nullable TyrannobookScreen.AdvancementCache advancementCache) 
-	{
+	public PageData findPage(String location, @Nullable TyrannobookScreen.AdvancementCache advancementCache) {
 		return this.findPage(this.findPageNumber(location, advancementCache), advancementCache);
 	}
 
-	public int findPageNumber(String location) 
-	{
+	public int findPageNumber(String location) {
 		return this.findPageNumber(location, null);
 	}
 
-	public int findPageNumber(String location, @Nullable TyrannobookScreen.AdvancementCache advancementCache) 
-	{
+	public int findPageNumber(String location, @Nullable TyrannobookScreen.AdvancementCache advancementCache) {
 		location = location.toLowerCase();
 
 		int pages = 0;
 
-		if(!location.contains(".")) 
-		{
+		if (!location.contains(".")) {
 			return -1;
 		}
 
 		String sectionName = location.substring(0, location.indexOf('.'));
 		String pageName = location.substring(location.indexOf('.') + 1);
 
-		for(SectionData section : this.sections) 
-		{
+		for (SectionData section : this.sections) {
 			section.update(advancementCache);
 
-			if(!section.isUnlocked(advancementCache)) 
-			{
+			if (!section.isUnlocked(advancementCache)) {
 				continue;
 			}
 
-			if(!sectionName.equals(section.name)) 
-			{
+			if (!sectionName.equals(section.name)) {
 				pages += section.getPageCount();
 				continue;
 			}
 
-			for(PageData page : section.pages) 
-			{
-				if(!pageName.equals(page.name)) 
-				{
+			for (PageData page : section.pages) {
+				if (!pageName.equals(page.name)) {
 					pages++;
 					continue;
 				}
@@ -369,29 +308,23 @@ public class TyrannobookData implements IDataItem
 		return -1;
 	}
 
-	public int getPageCount(@Nullable TyrannobookScreen.AdvancementCache advancementCache) 
-	{
+	public int getPageCount(@Nullable TyrannobookScreen.AdvancementCache advancementCache) {
 		int pages = 0;
-		for(SectionData section : this.sections) 
-		{
+		for (SectionData section : this.sections) {
 			section.update(advancementCache);
 
 			pages += section.isUnlocked(advancementCache) ? section.getPageCount() : 0;
 		}
 		return pages;
 	}
-	
-	public int getFullPageCount(@Nullable TyrannobookScreen.AdvancementCache advancementCache) 
-	{
+
+	public int getFullPageCount(@Nullable TyrannobookScreen.AdvancementCache advancementCache) {
 		return (int) Math.ceil((this.getPageCount(advancementCache) - 1) / 2F) + 1;
 	}
 
-	public String getItemAction(ItemStackData item) 
-	{
-		for(ItemStackData.ItemLink link : this.itemLinks) 
-		{
-			if(item.id.equals(link.item.id) && (!link.damageSensitive)) 
-			{
+	public String getItemAction(ItemStackData item) {
+		for (ItemStackData.ItemLink link : this.itemLinks) {
+			if (item.id.equals(link.item.id) && (!link.damageSensitive)) {
 				return link.action;
 			}
 		}
@@ -399,14 +332,11 @@ public class TyrannobookData implements IDataItem
 		return "";
 	}
 
-	public List<SectionData> getVisibleSections(@Nullable TyrannobookScreen.AdvancementCache advancementCache) 
-	{
+	public List<SectionData> getVisibleSections(@Nullable TyrannobookScreen.AdvancementCache advancementCache) {
 		List<SectionData> visible = new ArrayList<>();
 
-		for(SectionData section : this.sections) 
-		{
-			if(section.isUnlocked(advancementCache) || !section.hideWhenLocked) 
-			{
+		for (SectionData section : this.sections) {
+			if (section.isUnlocked(advancementCache) || !section.hideWhenLocked) {
 				visible.add(section);
 			}
 		}
@@ -414,66 +344,52 @@ public class TyrannobookData implements IDataItem
 		return visible;
 	}
 
-	public String translate(String string) 
-	{
+	public String translate(String string) {
 		String out = this.strings.get(string);
 		return out != null ? out : string;
 	}
-	
-	public void openGui(Component title, String page, @Nullable Consumer<String> pageUpdater) 
-	{
+
+	public void openGui(Component title, String page, @Nullable Consumer<String> pageUpdater) {
 		this.openGui(title, page, pageUpdater, null);
 	}
-	
-	public void openGui(Component title, String page, @Nullable Consumer<String> pageUpdater, @Nullable Consumer<?> bookPickup) 
-	{
+
+	public void openGui(Component title, String page, @Nullable Consumer<String> pageUpdater, @Nullable Consumer<?> bookPickup) {
 		this.load();
 		Minecraft.getInstance().setScreen(new TyrannobookScreen(title, this, page, pageUpdater, bookPickup));
 	}
-	
-	public void openGui(InteractionHand hand, ItemStack stack) 
-	{
+
+	public void openGui(InteractionHand hand, ItemStack stack) {
 		String page = TyrannobookHelper.getCurrentSavedPage(stack);
 		openGui(stack.getDisplayName(), page, newPage -> TyrannobookLoader.updateSavedPage(Minecraft.getInstance().player, hand, newPage));
 	}
 
 	@Deprecated
-	public void openGui(Component title, @Nullable ItemStack item) 
-	{
-		if(item == null) 
-		{
+	public void openGui(Component title, @Nullable ItemStack item) {
+		if (item == null) {
 			openGui(title, "", newPage -> TyrannobookLoader.updateSavedPage(Minecraft.getInstance().player, InteractionHand.MAIN_HAND, newPage));
-		} 
-		else 
-		{
+		} else {
 			openGui(InteractionHand.MAIN_HAND, item);
 		}
 	}
-	
-	public void openGui(BlockPos pos, ItemStack stack) 
-	{
+
+	public void openGui(BlockPos pos, ItemStack stack) {
 		String page = TyrannobookHelper.getCurrentSavedPage(stack);
 
-		Consumer<?> bookPickup = (v) -> 
-		{
+		Consumer<?> bookPickup = (v) -> {
 			Tyrannonetwork.INSTANCE.network.sendToServer(new DropLecternBookPacket(pos));
 		};
 
 		openGui(stack.getDisplayName(), page, newPage -> TyrannobookLoader.updateSavedPage(pos, newPage), bookPickup);
 	}
-	
-	public void addRepository(@Nullable TyrannobookRepository repository) 
-	{
-		if(repository != null && !this.repositories.contains(repository)) 
-		{
+
+	public void addRepository(@Nullable TyrannobookRepository repository) {
+		if (repository != null && !this.repositories.contains(repository)) {
 			this.repositories.add(repository);
 		}
 	}
-	
-	public void addTransformer(@Nullable TyrannobookTransformer transformer) 
-	{
-		if(transformer != null && !this.transformers.contains(transformer)) 
-		{
+
+	public void addTransformer(@Nullable TyrannobookTransformer transformer) {
+		if (transformer != null && !this.transformers.contains(transformer)) {
 			this.transformers.add(transformer);
 		}
 	}

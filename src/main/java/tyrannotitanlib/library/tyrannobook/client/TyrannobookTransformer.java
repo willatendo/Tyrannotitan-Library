@@ -14,43 +14,34 @@ import tyrannotitanlib.library.tyrannobook.client.data.content.ContentTableOfCon
 import tyrannotitanlib.library.tyrannobook.client.data.element.TextData;
 import tyrannotitanlib.library.tyrannobook.client.screen.TyrannobookScreen;
 
-public abstract class TyrannobookTransformer 
-{
-	public static TyrannobookTransformer indexTranformer() 
-	{
+public abstract class TyrannobookTransformer {
+	public static TyrannobookTransformer indexTranformer() {
 		return IndexTranformer.INSTANCE;
 	}
 
-	public static TyrannobookTransformer contentTableTransformer() 
-	{
+	public static TyrannobookTransformer contentTableTransformer() {
 		return ContentTableTransformer.INSTANCE;
 	}
 
-	public static TyrannobookTransformer contentTableTransformerForSection(String sectionName) 
-	{
+	public static TyrannobookTransformer contentTableTransformerForSection(String sectionName) {
 		return new ContentTableTransformer(sectionName);
 	}
 
 	public abstract void transform(TyrannobookData book);
 
-	protected static class IndexTranformer extends TyrannobookTransformer 
-	{
+	protected static class IndexTranformer extends TyrannobookTransformer {
 		public static final IndexTranformer INSTANCE = new IndexTranformer();
 
 		@Override
-		public void transform(TyrannobookData book) 
-		{
-			SectionData index = new SectionData(true) 
-			{
+		public void transform(TyrannobookData book) {
+			SectionData index = new SectionData(true) {
 				@Override
-				public void update(@Nullable TyrannobookScreen.AdvancementCache advancementCache) 
-				{
+				public void update(@Nullable TyrannobookScreen.AdvancementCache advancementCache) {
 					this.pages.clear();
 
 					List<SectionData> visibleSections = this.parent.getVisibleSections(advancementCache);
 
-					if(visibleSections.isEmpty()) 
-					{
+					if (visibleSections.isEmpty()) {
 						return;
 					}
 
@@ -58,8 +49,7 @@ public abstract class TyrannobookTransformer
 
 					PageData[] pages = new PageData[(int) Math.ceil(visibleSections.size() / 9F)];
 
-					for(int i = 0; i < pages.length; i++) 
-					{
+					for (int i = 0; i < pages.length; i++) {
 						pages[i] = new PageData(true);
 
 						pages[i].name = "page" + (i + 1);
@@ -67,8 +57,7 @@ public abstract class TyrannobookTransformer
 						ContentSectionList content = new ContentSectionList();
 						pages[i].content = content;
 
-						for(int j = i * 9; j - i * 9 < 9 && j < visibleSections.size(); j++) 
-						{
+						for (int j = i * 9; j - i * 9 < 9 && j < visibleSections.size(); j++) {
 							content.addSection(visibleSections.get(j));
 						}
 					}
@@ -82,55 +71,45 @@ public abstract class TyrannobookTransformer
 		}
 	}
 
-	protected static class ContentTableTransformer extends TyrannobookTransformer 
-	{
+	protected static class ContentTableTransformer extends TyrannobookTransformer {
 		public static final ContentTableTransformer INSTANCE = new ContentTableTransformer();
 
 		private final String sectionToTransform;
 
-		public ContentTableTransformer(String sectionToTransform) 
-		{
+		public ContentTableTransformer(String sectionToTransform) {
 			this.sectionToTransform = sectionToTransform;
 		}
 
-		public ContentTableTransformer() 
-		{
+		public ContentTableTransformer() {
 			this.sectionToTransform = null;
 		}
 
 		@Override
-		public void transform(TyrannobookData book) 
-		{
+		public void transform(TyrannobookData book) {
 			final int ENTRIES_PER_PAGE = 24;
 
-			for(SectionData section : book.sections) 
-			{
-				if(section.name.equals("index")) 
-				{
+			for (SectionData section : book.sections) {
+				if (section.name.equals("index")) {
 					continue;
 				}
-				if(this.sectionToTransform != null && !section.name.equals(this.sectionToTransform)) 
-				{
+				if (this.sectionToTransform != null && !section.name.equals(this.sectionToTransform)) {
 					continue;
 				}
 
 				int genPages = (int) Math.ceil(section.getPageCount() * 1.F / ENTRIES_PER_PAGE);
 
-				if(genPages == 0) 
-				{
+				if (genPages == 0) {
 					continue;
 				}
 
 				PageData[] pages = new PageData[genPages];
 
-				for(int i = 0; i < pages.length; i++) 
-				{
+				for (int i = 0; i < pages.length; i++) {
 					pages[i] = new PageData(true);
 					pages[i].name = "tableofcontents" + i;
 					TextData[] text = new TextData[i > pages.length - 1 ? ENTRIES_PER_PAGE : section.getPageCount() - (genPages - 1) * ENTRIES_PER_PAGE];
 
-					for(int j = 0; j < text.length; j++) 
-					{
+					for (int j = 0; j < text.length; j++) {
 						text[j] = new TextData((i * ENTRIES_PER_PAGE + j + 1) + ". " + section.pages.get(i * ENTRIES_PER_PAGE + j).getTitle());
 						text[j].action = "go-to-page-rtn:" + section.name + "." + section.pages.get(i * ENTRIES_PER_PAGE + j).name;
 					}
@@ -138,8 +117,7 @@ public abstract class TyrannobookTransformer
 					pages[i].content = new ContentTableOfContents(i == 0 ? section.getTitle() : "", text);
 				}
 
-				for(int i = pages.length - 1; i >= 0; i--) 
-				{
+				for (int i = pages.length - 1; i >= 0; i--) {
 					section.pages.add(0, pages[i]);
 				}
 			}

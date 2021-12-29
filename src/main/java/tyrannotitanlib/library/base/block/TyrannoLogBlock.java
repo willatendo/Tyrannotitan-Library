@@ -7,20 +7,17 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraftforge.common.util.NonNullSupplier;
 
-public class TyrannoLogBlock extends RotatedPillarBlock
-{
+public class TyrannoLogBlock extends RotatedPillarBlock {
 	public static NonNullSupplier<Block> strippedLogBlock;
 	public static Block logBlock;
-	
-	public TyrannoLogBlock(NonNullSupplier<Block> strippedLog, Properties properties) 
-	{
+
+	public TyrannoLogBlock(NonNullSupplier<Block> strippedLog, Properties properties) {
 		super(properties);
 		logBlock = this;
 		strippedLogBlock = strippedLog;
 	}
-	
-	public static void addStripping()
-	{
+
+	public static void addStripping() {
 		AxeItem.STRIPPABLES = Maps.newHashMap(AxeItem.STRIPPABLES);
 		AxeItem.STRIPPABLES.put(logBlock, strippedLogBlock.get());
 	}

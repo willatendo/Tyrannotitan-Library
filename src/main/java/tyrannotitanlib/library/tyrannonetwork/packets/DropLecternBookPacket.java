@@ -11,56 +11,45 @@ import net.minecraft.world.level.block.entity.LecternBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fmllegacy.network.NetworkEvent.Context;
 
-public class DropLecternBookPacket implements IThreadSafePacket 
-{
+public class DropLecternBookPacket implements IThreadSafePacket {
 	private final BlockPos pos;
 
-	public DropLecternBookPacket(FriendlyByteBuf buffer) 
-	{
+	public DropLecternBookPacket(FriendlyByteBuf buffer) {
 		this.pos = buffer.readBlockPos();
 	}
-	
-	public DropLecternBookPacket(BlockPos pos) 
-	{
+
+	public DropLecternBookPacket(BlockPos pos) {
 		this.pos = pos;
 	}
 
 	@Override
-	public void encode(FriendlyByteBuf buffer) 
-	{
+	public void encode(FriendlyByteBuf buffer) {
 		buffer.writeBlockPos(pos);
 	}
 
 	@Override
-	public void handleThreadsafe(Context context) 
-	{
+	public void handleThreadsafe(Context context) {
 		ServerPlayer player = context.getSender();
-		if(player == null) 
-		{
+		if (player == null) {
 			return;
 		}
 
 		ServerLevel world = player.getLevel();
 
-		if(!world.hasChunkAt(pos)) 
-		{
+		if (!world.hasChunkAt(pos)) {
 			return;
 		}
 
 		BlockState state = world.getBlockState(pos);
 
-		if(state.getBlock() instanceof LecternBlock && state.getValue(LecternBlock.HAS_BOOK)) 
-		{
+		if (state.getBlock() instanceof LecternBlock && state.getValue(LecternBlock.HAS_BOOK)) {
 			BlockEntity te = world.getBlockEntity(pos);
-			if(te instanceof LecternBlockEntity) 
-			{
+			if (te instanceof LecternBlockEntity) {
 				LecternBlockEntity lecternTe = (LecternBlockEntity) te;
 
 				ItemStack book = lecternTe.getBook().copy();
-				if(!book.isEmpty()) 
-				{
-					if(!player.addItem(book)) 
-					{
+				if (!book.isEmpty()) {
+					if (!player.addItem(book)) {
 						player.drop(book, false, false);
 					}
 

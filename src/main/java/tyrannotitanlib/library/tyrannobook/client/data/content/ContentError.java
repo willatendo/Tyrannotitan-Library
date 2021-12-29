@@ -12,36 +12,30 @@ import tyrannotitanlib.library.tyrannobook.client.data.element.TyrannobookElemen
 import tyrannotitanlib.library.tyrannobook.client.screen.TyrannobookScreen;
 
 @OnlyIn(Dist.CLIENT)
-public class ContentError extends PageContent 
-{
+public class ContentError extends PageContent {
 	private final String errorStage;
 	private Exception exception;
 
-	public ContentError(String errorStage) 
-	{
+	public ContentError(String errorStage) {
 		this.errorStage = errorStage;
 	}
 
-	public ContentError(String errorStage, Exception e) 
-	{
+	public ContentError(String errorStage, Exception e) {
 		this(errorStage);
 		this.exception = e;
 	}
 
 	@Override
-	public void build(TyrannobookData book, ArrayList<TyrannobookElement> list, boolean rightSide) 
-	{
+	public void build(TyrannobookData book, ArrayList<TyrannobookElement> list, boolean rightSide) {
 		this.addTitle(list, "Error");
 
-		if(exception instanceof TyrannobookLoadException) 
-		{
+		if (exception instanceof TyrannobookLoadException) {
 			buildSimple(list);
 			return;
 		}
 
 		StackTraceElement[] stackTrace = null;
-		if(this.exception != null) 
-		{
+		if (this.exception != null) {
 			stackTrace = this.exception.getStackTrace();
 		}
 
@@ -51,8 +45,7 @@ public class ContentError extends PageContent
 		text[0].underlined = true;
 		text[0].paragraph = true;
 
-		if(this.exception != null) 
-		{
+		if (this.exception != null) {
 			text[1] = new TextData("The following error has occured:");
 			text[1].color = "dark_red";
 			text[1].paragraph = true;
@@ -64,10 +57,8 @@ public class ContentError extends PageContent
 
 		text[3] = TextData.LINEBREAK;
 
-		if(stackTrace != null) 
-		{
-			for(int i = 0; i < stackTrace.length && 5 + i * 2 < text.length; i++) 
-			{
+		if (stackTrace != null) {
+			for (int i = 0; i < stackTrace.length && 5 + i * 2 < text.length; i++) {
 				text[4 + i * 2] = new TextData(stackTrace[i].toString());
 				text[4 + i * 2].text += "\n";
 				text[4 + i * 2].color = "dark_red";
@@ -78,8 +69,7 @@ public class ContentError extends PageContent
 		list.add(new TextElement(0, TITLE_HEIGHT, TyrannobookScreen.PAGE_WIDTH, TyrannobookScreen.PAGE_HEIGHT - TITLE_HEIGHT, text));
 	}
 
-	public void buildSimple(ArrayList<TyrannobookElement> list) 
-	{
+	public void buildSimple(ArrayList<TyrannobookElement> list) {
 		TextData[] text = new TextData[1];
 
 		text[0] = new TextData(exception.getMessage());

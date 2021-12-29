@@ -19,34 +19,28 @@ import net.minecraftforge.common.util.NonNullSupplier;
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 import net.minecraftforge.fmllegacy.RegistryObject;
 
-public class TyrannoSpawnEggItem extends SpawnEggItem
-{
+public class TyrannoSpawnEggItem extends SpawnEggItem {
 	protected static final List<TyrannoSpawnEggItem> UNADDED_EGGS = new ArrayList<TyrannoSpawnEggItem>();
 	private final Lazy<? extends EntityType<?>> entityTypeSupplier;
 
-	public TyrannoSpawnEggItem(NonNullSupplier<? extends EntityType<?>> entityTypeSupplier, int primaryColour, int secondaryColour, CreativeModeTab group) 
-	{
+	public TyrannoSpawnEggItem(NonNullSupplier<? extends EntityType<?>> entityTypeSupplier, int primaryColour, int secondaryColour, CreativeModeTab group) {
 		super(null, primaryColour, secondaryColour, new Properties().tab(group));
 		this.entityTypeSupplier = Lazy.of(entityTypeSupplier::get);
 		UNADDED_EGGS.add(this);
 	}
 
-	public TyrannoSpawnEggItem(RegistryObject<? extends EntityType<?>> entityTypeSupplier, int primaryColour, int secondaryColour, CreativeModeTab group) 
-	{
+	public TyrannoSpawnEggItem(RegistryObject<? extends EntityType<?>> entityTypeSupplier, int primaryColour, int secondaryColour, CreativeModeTab group) {
 		super(null, primaryColour, secondaryColour, new Properties().tab(group));
 		this.entityTypeSupplier = Lazy.of(entityTypeSupplier::get);
 		UNADDED_EGGS.add(this);
 	}
 
-	public static void initSpawnEggs() 
-	{
-		final Map<EntityType<?>, SpawnEggItem> EGGS = ObfuscationReflectionHelper.getPrivateValue(SpawnEggItem.class, null, "field_195987_b");
-		DefaultDispenseItemBehavior dispenseBehaviour = new DefaultDispenseItemBehavior() 
-		{
-			
+	public static void initSpawnEggs() {
+		final Map<EntityType<?>, SpawnEggItem> EGGS = ObfuscationReflectionHelper.getPrivateValue(SpawnEggItem.class, null, "f_43201_");
+		DefaultDispenseItemBehavior dispenseBehaviour = new DefaultDispenseItemBehavior() {
+
 			@Override
-			protected ItemStack execute(BlockSource source, ItemStack stack) 
-			{
+			protected ItemStack execute(BlockSource source, ItemStack stack) {
 				Direction direction = source.getBlockState().getValue(DispenserBlock.FACING);
 				EntityType<?> type = ((SpawnEggItem) stack.getItem()).getType(stack.getTag());
 				type.spawn(source.getLevel(), stack, null, source.getPos().relative(direction), MobSpawnType.DISPENSER, direction != Direction.UP, false);
@@ -55,8 +49,7 @@ public class TyrannoSpawnEggItem extends SpawnEggItem
 			}
 		};
 
-		for(final SpawnEggItem spawnEgg : UNADDED_EGGS) 
-		{
+		for (final SpawnEggItem spawnEgg : UNADDED_EGGS) {
 			EGGS.put(spawnEgg.getType(null), spawnEgg);
 			DispenserBlock.registerBehavior(spawnEgg, dispenseBehaviour);
 		}
@@ -64,8 +57,7 @@ public class TyrannoSpawnEggItem extends SpawnEggItem
 	}
 
 	@Override
-	public EntityType<?> getType(CompoundTag nbt) 
-	{
+	public EntityType<?> getType(CompoundTag nbt) {
 		return this.entityTypeSupplier.get();
 	}
 }

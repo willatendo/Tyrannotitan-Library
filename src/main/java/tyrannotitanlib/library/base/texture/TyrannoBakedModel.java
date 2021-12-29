@@ -22,89 +22,74 @@ import net.minecraftforge.client.model.data.IDynamicBakedModel;
 import net.minecraftforge.client.model.data.IModelData;
 import tyrannotitanlib.library.base.block.TyrannoConnectedTextureBlock;
 
-public class TyrannoBakedModel implements IDynamicBakedModel
-{
+public class TyrannoBakedModel implements IDynamicBakedModel {
 	private static final FaceBakery BAKERY = new FaceBakery();
-	
+
 	private final TyrannoConnectedTextureBlock block;
-	
-	public TyrannoBakedModel(TyrannoConnectedTextureBlock block)
-	{
+
+	public TyrannoBakedModel(TyrannoConnectedTextureBlock block) {
 		this.block = block;
 	}
-	
+
 	@Override
-	public boolean useAmbientOcclusion() 
-	{
+	public boolean useAmbientOcclusion() {
 		return false;
 	}
-	
+
 	@Override
-	public boolean isGui3d() 
-	{
+	public boolean isGui3d() {
 		return false;
 	}
-	
+
 	@Override
-	public boolean usesBlockLight() 
-	{
+	public boolean usesBlockLight() {
 		return true;
 	}
-	
+
 	@Override
-	public boolean isCustomRenderer() 
-	{
+	public boolean isCustomRenderer() {
 		return false;
 	}
-	
+
 	@Override
-	public TextureAtlasSprite getParticleIcon() 
-	{
+	public TextureAtlasSprite getParticleIcon() {
 		return this.getParticle();
 	}
-	
+
 	@Override
-	public ItemOverrides getOverrides() 
-	{
+	public ItemOverrides getOverrides() {
 		return ItemOverrides.EMPTY;
 	}
-	
+
 	@Override
-	public ItemTransforms getTransforms() 
-	{
+	public ItemTransforms getTransforms() {
 		return Minecraft.getInstance().getModelManager().getModel(new ModelResourceLocation(Blocks.STONE.getRegistryName(), "")).getTransforms();
 	}
-	
+
 	@Override
-	public List<BakedQuad> getQuads(BlockState state, Direction side, Random rand, IModelData extraData) 
-	{
-		if(side == null)
-		{
+	public List<BakedQuad> getQuads(BlockState state, Direction side, Random rand, IModelData extraData) {
+		if (side == null) {
 			return Collections.emptyList();
 		}
-		
+
 		return Collections.singletonList(this.createQuads(side, extraData));
 	}
-	
-	protected TextureAtlasSprite getTexture()
-	{
+
+	protected TextureAtlasSprite getTexture() {
 		return TextureManager.TEXTURES.get(this.block);
 	}
-	
-	protected TextureAtlasSprite getParticle()
-	{
+
+	protected TextureAtlasSprite getParticle() {
 		return TextureManager.PARTICLES.get(this.block);
 	}
-	
-	protected BakedQuad createQuads(Direction side, IModelData modelData)
-	{
+
+	protected BakedQuad createQuads(Direction side, IModelData modelData) {
 		BlockElementFace face = new BlockElementFace(side.getOpposite(), 0, "", new BlockFaceUV(this.getUV(side, modelData), 0));
 		BakedQuad quad = BAKERY.bakeQuad(new Vector3f(0, 0, 0), new Vector3f(16, 16, 16), face, getTexture(), side, BlockModelRotation.X0_Y0, null, true, null);
 		return quad;
 	}
-	
-	protected float[] getUV(Direction side, IModelData modelData)
-	{
+
+	protected float[] getUV(Direction side, IModelData modelData) {
 		return new float[] { 0, 0, 16, 16 };
 	}
 }

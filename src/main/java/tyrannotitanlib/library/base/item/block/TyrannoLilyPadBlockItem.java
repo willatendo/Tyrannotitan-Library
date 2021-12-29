@@ -12,22 +12,18 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.BlockHitResult;
 
-public class TyrannoLilyPadBlockItem extends BlockItem
-{
-	public TyrannoLilyPadBlockItem(Block block, Properties properties) 
-	{
+public class TyrannoLilyPadBlockItem extends BlockItem {
+	public TyrannoLilyPadBlockItem(Block block, Properties properties) {
 		super(block, properties);
 	}
-	
+
 	@Override
-	public InteractionResult useOn(UseOnContext context) 
-	{
+	public InteractionResult useOn(UseOnContext context) {
 		return InteractionResult.PASS;
 	}
 
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player entity, InteractionHand hand) 
-	{
+	public InteractionResultHolder<ItemStack> use(Level world, Player entity, InteractionHand hand) {
 		BlockHitResult blockraytraceresult = getPlayerPOVHitResult(world, entity, ClipContext.Fluid.SOURCE_ONLY);
 		BlockHitResult blockraytraceresult1 = blockraytraceresult.withPosition(blockraytraceresult.getBlockPos().above());
 		InteractionResult actionresulttype = super.useOn(new UseOnContext(entity, hand, blockraytraceresult1));

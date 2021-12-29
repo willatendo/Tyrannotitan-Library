@@ -3,8 +3,7 @@ package tyrannotitanlib.library.tyrannobook.client.data.element;
 import net.minecraft.resources.ResourceLocation;
 import tyrannotitanlib.library.tyrannobook.client.repository.TyrannobookRepository;
 
-public class ImageData extends DataLocation 
-{
+public class ImageData extends DataLocation {
 	public static final ImageData MISSING = new ImageData();
 	public ItemStackData item = null;
 	public int u = 0;
@@ -19,25 +18,22 @@ public class ImageData extends DataLocation
 	public int height = -1;
 	public int colorMultiplier = 0xFFFFFF;
 
-	public ImageData() { }
+	public ImageData() {
+	}
 
-	public ImageData(ResourceLocation location, int u, int v, int uw, int vh, int texWidth, int texHeight) 
-	{
+	public ImageData(ResourceLocation location, int u, int v, int uw, int vh, int texWidth, int texHeight) {
 		this(location, u, v, uw, vh, texWidth, texHeight, uw, vh, 0xFFFFFF);
 	}
 
-	public ImageData(ResourceLocation location, int u, int v, int uw, int vh, int texWidth, int texHeight, int colorMultiplier) 
-	{
+	public ImageData(ResourceLocation location, int u, int v, int uw, int vh, int texWidth, int texHeight, int colorMultiplier) {
 		this(location, u, v, uw, vh, texWidth, texHeight, uw, vh);
 	}
 
-	public ImageData(ResourceLocation location, int u, int v, int uw, int vh, int texWidth, int texHeight, int width, int height) 
-	{
+	public ImageData(ResourceLocation location, int u, int v, int uw, int vh, int texWidth, int texHeight, int width, int height) {
 		this(location, u, v, uw, vh, texWidth, texHeight, width, height, 0xFFFFFF);
 	}
 
-	public ImageData(ResourceLocation location, int u, int v, int uw, int vh, int texWidth, int texHeight, int width, int height, int colorMultiplier) 
-	{
+	public ImageData(ResourceLocation location, int u, int v, int uw, int vh, int texWidth, int texHeight, int width, int height, int colorMultiplier) {
 		this.location = location;
 		this.u = u;
 		this.v = v;
@@ -50,8 +46,7 @@ public class ImageData extends DataLocation
 		this.colorMultiplier = colorMultiplier;
 	}
 
-	static 
-	{
+	static {
 		MISSING.location = new ResourceLocation("mantle:textures/gui/missingno.png");
 		MISSING.texWidth = 32;
 		MISSING.texHeight = 32;
@@ -60,12 +55,10 @@ public class ImageData extends DataLocation
 	}
 
 	@Override
-	public void load(TyrannobookRepository source) 
-	{
+	public void load(TyrannobookRepository source) {
 		super.load(source);
 
-		if(this.item != null) 
-		{
+		if (this.item != null) {
 			this.item.load(source);
 		}
 	}

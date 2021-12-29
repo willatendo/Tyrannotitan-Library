@@ -1,16 +1,13 @@
 package tyrannotitanlib.library.base.dimension;
 
-public class WorldSeedHolder 
-{
+public class WorldSeedHolder {
 	private static long SEED = 0;
-	
-	public static long getSeed()
-	{
+
+	public static long getSeed() {
 		return SEED;
 	}
 
-	public static long setSeed(long seed)
-	{
+	public static long setSeed(long seed) {
 		SEED = seed;
 		return seed;
 	}

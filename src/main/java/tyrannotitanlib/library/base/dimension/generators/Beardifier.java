@@ -48,8 +48,7 @@ public class Beardifier {
 					if (structurepiece.isCloseToChunk(chunkpos, 12)) {
 						if (structurepiece instanceof PoolElementStructurePiece) {
 							PoolElementStructurePiece poolelementstructurepiece = (PoolElementStructurePiece) structurepiece;
-							StructureTemplatePool.Projection structuretemplatepool$projection = poolelementstructurepiece
-									.getElement().getProjection();
+							StructureTemplatePool.Projection structuretemplatepool$projection = poolelementstructurepiece.getElement().getProjection();
 							if (structuretemplatepool$projection == StructureTemplatePool.Projection.RIGID) {
 								this.rigids.add(poolelementstructurepiece);
 							}
@@ -88,9 +87,7 @@ public class Beardifier {
 			StructurePiece structurepiece = this.pieceIterator.next();
 			BoundingBox boundingbox = structurepiece.getBoundingBox();
 			int i = Math.max(0, Math.max(boundingbox.minX() - p_158073_, p_158073_ - boundingbox.maxX()));
-			int j = p_158074_ - (boundingbox.minY() + (structurepiece instanceof PoolElementStructurePiece
-					? ((PoolElementStructurePiece) structurepiece).getGroundLevelDelta()
-					: 0));
+			int j = p_158074_ - (boundingbox.minY() + (structurepiece instanceof PoolElementStructurePiece ? ((PoolElementStructurePiece) structurepiece).getGroundLevelDelta() : 0));
 			int k = Math.max(0, Math.max(boundingbox.minZ() - p_158075_, p_158075_ - boundingbox.maxZ()));
 			NoiseEffect noiseeffect = structurepiece.getNoiseEffect();
 			if (noiseeffect == NoiseEffect.BURY) {

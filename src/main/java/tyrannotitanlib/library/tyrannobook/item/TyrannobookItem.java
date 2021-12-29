@@ -14,47 +14,37 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import tyrannotitanlib.library.tyrannonetwork.util.TileEntityHelper;
 
-public abstract class TyrannobookItem extends Item implements ITyrannoLecternBookItem 
-{
-	public TyrannobookItem(Properties properties) 
-	{
+public abstract class TyrannobookItem extends Item implements ITyrannoLecternBookItem {
+	public TyrannobookItem(Properties properties) {
 		super(properties);
 	}
-	
+
 	@Override
-	public InteractionResult useOn(UseOnContext context) 
-	{
+	public InteractionResult useOn(UseOnContext context) {
 		Level world = context.getLevel();
 		BlockPos pos = context.getClickedPos();
 		BlockState state = world.getBlockState(pos);
 		Player entity = context.getPlayer();
-		if(state.is(Blocks.LECTERN)) 
-		{
-			if(LecternBlock.tryPlaceBook(entity, world, pos, state, context.getItemInHand())) 
-			{
+		if (state.is(Blocks.LECTERN)) {
+			if (LecternBlock.tryPlaceBook(entity, world, pos, state, context.getItemInHand())) {
 				return InteractionResult.sidedSuccess(world.isClientSide);
 			}
 		}
 		return InteractionResult.PASS;
 	}
 
-	public static void interactWithBlock(PlayerInteractEvent.RightClickBlock event) 
-	{
+	public static void interactWithBlock(PlayerInteractEvent.RightClickBlock event) {
 		Level world = event.getWorld();
-		if(world.isClientSide() || event.getPlayer().isCrouching()) 
-		{
+		if (world.isClientSide() || event.getPlayer().isCrouching()) {
 			return;
 		}
-		
+
 		BlockPos pos = event.getPos();
 		BlockState state = world.getBlockState(pos);
-		if(state.is(Blocks.LECTERN)) 
-		{
-			TileEntityHelper.getTile(LecternBlockEntity.class, world, pos).ifPresent(te -> 
-			{
+		if (state.is(Blocks.LECTERN)) {
+			TileEntityHelper.getTile(LecternBlockEntity.class, world, pos).ifPresent(te -> {
 				ItemStack book = te.getBook();
-				if(!book.isEmpty() && book.getItem() instanceof ITyrannoLecternBookItem && ((ITyrannoLecternBookItem) book.getItem()).openLecternScreen(world, pos, event.getPlayer(), book)) 
-				{
+				if (!book.isEmpty() && book.getItem() instanceof ITyrannoLecternBookItem && ((ITyrannoLecternBookItem) book.getItem()).openLecternScreen(world, pos, event.getPlayer(), book)) {
 					event.setCanceled(true);
 				}
 			});

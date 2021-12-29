@@ -1,6 +1,5 @@
 package tyrannotitanlib.library.base.block;
 
-public interface ITyrannoChestBlock 
-{
+public interface ITyrannoChestBlock {
 	String getChestType();
 }

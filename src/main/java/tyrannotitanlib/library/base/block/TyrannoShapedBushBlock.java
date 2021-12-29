@@ -6,19 +6,17 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class TyrannoShapedBushBlock extends TyrannoBushBlock
-{
+public class TyrannoShapedBushBlock extends TyrannoBushBlock {
 	private double minX;
 	private double minY;
 	private double minZ;
 	private double maxX;
 	private double maxY;
 	private double maxZ;
-	
+
 	private final VoxelShape SHAPE = box(minX, minY, minZ, maxX, maxY, maxZ);
-	
-	public TyrannoShapedBushBlock(Properties properties, double minX, double minY, double minZ, double maxX, double maxY, double maxZ) 
-	{
+
+	public TyrannoShapedBushBlock(Properties properties, double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
 		super(properties);
 		this.minX = minX;
 		this.minY = minY;
@@ -29,8 +27,7 @@ public class TyrannoShapedBushBlock extends TyrannoBushBlock
 	}
 
 	@Override
-	public VoxelShape getShape(BlockState state, BlockGetter reader, BlockPos pos, CollisionContext context) 
-	{
+	public VoxelShape getShape(BlockState state, BlockGetter reader, BlockPos pos, CollisionContext context) {
 		return SHAPE;
 	}
 }

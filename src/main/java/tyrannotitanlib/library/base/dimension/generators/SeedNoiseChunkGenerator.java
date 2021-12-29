@@ -65,18 +65,13 @@ import net.minecraft.world.level.levelgen.synth.SimplexNoise;
 import net.minecraft.world.level.levelgen.synth.SurfaceNoise;
 import tyrannotitanlib.library.base.dimension.WorldSeedHolder;
 
-public class SeedNoiseChunkGenerator extends ChunkGenerator 
-{
-	public static final Codec<SeedNoiseChunkGenerator> CODEC = RecordCodecBuilder.create((generatorinstance) -> 
-	{
-		return generatorinstance.group(BiomeSource.CODEC.fieldOf("biome_source").forGetter((generator) -> 
-		{
+public class SeedNoiseChunkGenerator extends ChunkGenerator {
+	public static final Codec<SeedNoiseChunkGenerator> CODEC = RecordCodecBuilder.create((generatorinstance) -> {
+		return generatorinstance.group(BiomeSource.CODEC.fieldOf("biome_source").forGetter((generator) -> {
 			return generator.biomeSource;
-		}), Codec.LONG.fieldOf("seed").stable().forGetter((generator) -> 
-		{
+		}), Codec.LONG.fieldOf("seed").stable().forGetter((generator) -> {
 			return WorldSeedHolder.getSeed();
-		}), NoiseGeneratorSettings.CODEC.fieldOf("settings").forGetter((generator) -> 
-		{
+		}), NoiseGeneratorSettings.CODEC.fieldOf("settings").forGetter((generator) -> {
 			return generator.settings;
 		})).apply(generatorinstance, generatorinstance.stable(SeedNoiseChunkGenerator::new));
 	});
@@ -101,13 +96,11 @@ public class SeedNoiseChunkGenerator extends ChunkGenerator
 	protected final OreVeinifier oreVeinifier;
 	protected final NoodleCavifier noodleCavifier;
 
-	public SeedNoiseChunkGenerator(BiomeSource biomes, long seed, Supplier<NoiseGeneratorSettings> generator) 
-	{
+	public SeedNoiseChunkGenerator(BiomeSource biomes, long seed, Supplier<NoiseGeneratorSettings> generator) {
 		this(biomes, biomes, seed, generator);
 	}
 
-	private SeedNoiseChunkGenerator(BiomeSource biomes1, BiomeSource biomes2, long seed, Supplier<NoiseGeneratorSettings> generator) 
-	{
+	private SeedNoiseChunkGenerator(BiomeSource biomes1, BiomeSource biomes2, long seed, Supplier<NoiseGeneratorSettings> generator) {
 		super(biomes1, biomes2, generator.get().structureSettings(), seed);
 		this.seed = seed;
 		NoiseGeneratorSettings noisegeneratorsettings = generator.get();
@@ -127,14 +120,11 @@ public class SeedNoiseChunkGenerator extends ChunkGenerator
 		worldgenrandom.consumeCount(2620);
 		PerlinNoise perlinnoise = new PerlinNoise(worldgenrandom, IntStream.rangeClosed(-15, 0));
 		SimplexNoise simplexnoise;
-		if(noisesettings.islandNoiseOverride()) 
-		{
+		if (noisesettings.islandNoiseOverride()) {
 			WorldgenRandom worldgenrandom1 = new WorldgenRandom(seed);
 			worldgenrandom1.consumeCount(17292);
 			simplexnoise = new SimplexNoise(worldgenrandom1);
-		} 
-		else 
-		{
+		} else {
 			simplexnoise = null;
 		}
 
@@ -142,12 +132,9 @@ public class SeedNoiseChunkGenerator extends ChunkGenerator
 		this.waterLevelNoise = NormalNoise.create(new SimpleRandomSource(worldgenrandom.nextLong()), -3, 1.0D, 0.0D, 2.0D);
 		this.lavaNoise = NormalNoise.create(new SimpleRandomSource(worldgenrandom.nextLong()), -1, 1.0D, 0.0D);
 		NoiseModifier noisemodifier;
-		if(noisegeneratorsettings.isNoiseCavesEnabled()) 
-		{
+		if (noisegeneratorsettings.isNoiseCavesEnabled()) {
 			noisemodifier = new Cavifier(worldgenrandom, noisesettings.minY() / this.cellHeight);
-		} 
-		else 
-		{
+		} else {
 			noisemodifier = NoiseModifier.PASSTHROUGH;
 		}
 
@@ -157,23 +144,19 @@ public class SeedNoiseChunkGenerator extends ChunkGenerator
 		this.noodleCavifier = new NoodleCavifier(seed);
 	}
 
-	private boolean isAquifersEnabled() 
-	{
+	private boolean isAquifersEnabled() {
 		return this.settings.get().isAquifersEnabled();
 	}
 
-	protected Codec<? extends ChunkGenerator> codec() 
-	{
+	protected Codec<? extends ChunkGenerator> codec() {
 		return CODEC;
 	}
 
-	public ChunkGenerator withSeed(long seed) 
-	{
+	public ChunkGenerator withSeed(long seed) {
 		return new SeedNoiseChunkGenerator(this.biomeSource.withSeed(seed), seed, this.settings);
 	}
 
-	public boolean stable(long seed, ResourceKey<NoiseGeneratorSettings> key) 
-	{
+	public boolean stable(long seed, ResourceKey<NoiseGeneratorSettings> key) {
 		return this.seed == seed && this.settings.get().stable(key);
 	}
 
@@ -185,25 +168,20 @@ public class SeedNoiseChunkGenerator extends ChunkGenerator
 
 	protected void fillNoiseColumn(double[] p_158467_, int p_158468_, int p_158469_, int p_158470_, int p_158471_) {
 		NoiseSettings noisesettings = this.settings.get().noiseSettings();
-		this.sampler.fillNoiseColumn(p_158467_, p_158468_, p_158469_, noisesettings, this.getSeaLevel(), p_158470_,
-				p_158471_);
+		this.sampler.fillNoiseColumn(p_158467_, p_158468_, p_158469_, noisesettings, this.getSeaLevel(), p_158470_, p_158471_);
 	}
 
 	public int getBaseHeight(int p_158405_, int p_158406_, Heightmap.Types p_158407_, LevelHeightAccessor p_158408_) {
 		int i = Math.max(this.settings.get().noiseSettings().minY(), p_158408_.getMinBuildHeight());
-		int j = Math.min(this.settings.get().noiseSettings().minY() + this.settings.get().noiseSettings().height(),
-				p_158408_.getMaxBuildHeight());
+		int j = Math.min(this.settings.get().noiseSettings().minY() + this.settings.get().noiseSettings().height(), p_158408_.getMaxBuildHeight());
 		int k = Mth.intFloorDiv(i, this.cellHeight);
 		int l = Mth.intFloorDiv(j - i, this.cellHeight);
-		return l <= 0 ? p_158408_.getMinBuildHeight()
-				: this.iterateNoiseColumn(p_158405_, p_158406_, (BlockState[]) null, p_158407_.isOpaque(), k, l)
-						.orElse(p_158408_.getMinBuildHeight());
+		return l <= 0 ? p_158408_.getMinBuildHeight() : this.iterateNoiseColumn(p_158405_, p_158406_, (BlockState[]) null, p_158407_.isOpaque(), k, l).orElse(p_158408_.getMinBuildHeight());
 	}
 
 	public NoiseColumn getBaseColumn(int p_158401_, int p_158402_, LevelHeightAccessor p_158403_) {
 		int i = Math.max(this.settings.get().noiseSettings().minY(), p_158403_.getMinBuildHeight());
-		int j = Math.min(this.settings.get().noiseSettings().minY() + this.settings.get().noiseSettings().height(),
-				p_158403_.getMaxBuildHeight());
+		int j = Math.min(this.settings.get().noiseSettings().minY() + this.settings.get().noiseSettings().height(), p_158403_.getMaxBuildHeight());
 		int k = Mth.intFloorDiv(i, this.cellHeight);
 		int l = Mth.intFloorDiv(j - i, this.cellHeight);
 		if (l <= 0) {
@@ -219,8 +197,7 @@ public class SeedNoiseChunkGenerator extends ChunkGenerator
 		return this.baseStoneSource;
 	}
 
-	protected OptionalInt iterateNoiseColumn(int p_158414_, int p_158415_, @Nullable BlockState[] p_158416_,
-			@Nullable Predicate<BlockState> p_158417_, int p_158418_, int p_158419_) {
+	protected OptionalInt iterateNoiseColumn(int p_158414_, int p_158415_, @Nullable BlockState[] p_158416_, @Nullable Predicate<BlockState> p_158417_, int p_158418_, int p_158419_) {
 		int i = SectionPos.blockToSectionCoord(p_158414_);
 		int j = SectionPos.blockToSectionCoord(p_158415_);
 		int k = Math.floorDiv(p_158414_, this.cellWidth);
@@ -229,10 +206,7 @@ public class SeedNoiseChunkGenerator extends ChunkGenerator
 		int j1 = Math.floorMod(p_158415_, this.cellWidth);
 		double d0 = (double) i1 / (double) this.cellWidth;
 		double d1 = (double) j1 / (double) this.cellWidth;
-		double[][] adouble = new double[][] { this.makeAndFillNoiseColumn(k, l, p_158418_, p_158419_),
-				this.makeAndFillNoiseColumn(k, l + 1, p_158418_, p_158419_),
-				this.makeAndFillNoiseColumn(k + 1, l, p_158418_, p_158419_),
-				this.makeAndFillNoiseColumn(k + 1, l + 1, p_158418_, p_158419_) };
+		double[][] adouble = new double[][] { this.makeAndFillNoiseColumn(k, l, p_158418_, p_158419_), this.makeAndFillNoiseColumn(k, l + 1, p_158418_, p_158419_), this.makeAndFillNoiseColumn(k + 1, l, p_158418_, p_158419_), this.makeAndFillNoiseColumn(k + 1, l + 1, p_158418_, p_158419_) };
 		Aquifer aquifer = this.getAquifer(p_158418_, p_158419_, new ChunkPos(i, j));
 
 		for (int k1 = p_158419_ - 1; k1 >= 0; --k1) {
@@ -250,8 +224,7 @@ public class SeedNoiseChunkGenerator extends ChunkGenerator
 				double d11 = Mth.lerp3(d10, d0, d1, d2, d6, d4, d8, d3, d7, d5, d9);
 				int i2 = k1 * this.cellHeight + l1;
 				int j2 = i2 + p_158418_ * this.cellHeight;
-				BlockState blockstate = this.updateNoiseAndGenerateBaseState(Beardifier.NO_BEARDS, aquifer,
-						this.baseStoneSource, NoiseModifier.PASSTHROUGH, p_158414_, j2, p_158415_, d11);
+				BlockState blockstate = this.updateNoiseAndGenerateBaseState(Beardifier.NO_BEARDS, aquifer, this.baseStoneSource, NoiseModifier.PASSTHROUGH, p_158414_, j2, p_158415_, d11);
 				if (p_158416_ != null) {
 					p_158416_[i2] = blockstate;
 				}
@@ -266,14 +239,10 @@ public class SeedNoiseChunkGenerator extends ChunkGenerator
 	}
 
 	protected Aquifer getAquifer(int p_158397_, int p_158398_, ChunkPos p_158399_) {
-		return !this.isAquifersEnabled() ? Aquifer.createDisabled(this.getSeaLevel(), this.defaultFluid)
-				: Aquifer.create(p_158399_, this.barrierNoise, this.waterLevelNoise, this.lavaNoise,
-						this.settings.get(), this.sampler, p_158397_ * this.cellHeight, p_158398_ * this.cellHeight);
+		return !this.isAquifersEnabled() ? Aquifer.createDisabled(this.getSeaLevel(), this.defaultFluid) : Aquifer.create(p_158399_, this.barrierNoise, this.waterLevelNoise, this.lavaNoise, this.settings.get(), this.sampler, p_158397_ * this.cellHeight, p_158398_ * this.cellHeight);
 	}
 
-	protected BlockState updateNoiseAndGenerateBaseState(Beardifier p_158440_, Aquifer p_158441_,
-			BaseStoneSource p_158442_, NoiseModifier p_158443_, int p_158444_, int p_158445_, int p_158446_,
-			double p_158447_) {
+	protected BlockState updateNoiseAndGenerateBaseState(Beardifier p_158440_, Aquifer p_158441_, BaseStoneSource p_158442_, NoiseModifier p_158443_, int p_158444_, int p_158445_, int p_158446_, double p_158447_) {
 		double d0 = Mth.clamp(p_158447_ / 200.0D, -1.0D, 1.0D);
 		d0 = d0 / 2.0D - d0 * d0 * d0 / 24.0D;
 		d0 = p_158443_.modifyNoise(d0, p_158444_, p_158445_, p_158446_);
@@ -297,12 +266,9 @@ public class SeedNoiseChunkGenerator extends ChunkGenerator
 				int k1 = k + i1;
 				int l1 = l + j1;
 				int i2 = p_64382_.getHeight(Heightmap.Types.WORLD_SURFACE_WG, i1, j1) + 1;
-				double d1 = this.surfaceNoise.getSurfaceNoiseValue((double) k1 * 0.0625D, (double) l1 * 0.0625D,
-						0.0625D, (double) i1 * 0.0625D) * 15.0D;
+				double d1 = this.surfaceNoise.getSurfaceNoiseValue((double) k1 * 0.0625D, (double) l1 * 0.0625D, 0.0625D, (double) i1 * 0.0625D) * 15.0D;
 				int j2 = this.settings.get().getMinSurfaceLevel();
-				p_64381_.getBiome(blockpos$mutableblockpos.set(k + i1, i2, l + j1)).buildSurfaceAt(worldgenrandom,
-						p_64382_, k1, l1, i2, d1, this.defaultBlock, this.defaultFluid, this.getSeaLevel(), j2,
-						p_64381_.getSeed());
+				p_64381_.getBiome(blockpos$mutableblockpos.set(k + i1, i2, l + j1)).buildSurfaceAt(worldgenrandom, p_64382_, k1, l1, i2, d1, this.defaultBlock, this.defaultFluid, this.getSeaLevel(), j2, p_64381_.getSeed());
 			}
 		}
 
@@ -326,9 +292,7 @@ public class SeedNoiseChunkGenerator extends ChunkGenerator
 				if (flag) {
 					for (int i2 = 0; i2 < 5; ++i2) {
 						if (i2 <= p_64401_.nextInt(5)) {
-							p_64400_.setBlockState(
-									blockpos$mutableblockpos.set(blockpos.getX(), i1 - i2, blockpos.getZ()),
-									Blocks.BEDROCK.defaultBlockState(), false);
+							p_64400_.setBlockState(blockpos$mutableblockpos.set(blockpos.getX(), i1 - i2, blockpos.getZ()), Blocks.BEDROCK.defaultBlockState(), false);
 						}
 					}
 				}
@@ -336,9 +300,7 @@ public class SeedNoiseChunkGenerator extends ChunkGenerator
 				if (flag1) {
 					for (int j2 = 4; j2 >= 0; --j2) {
 						if (j2 <= p_64401_.nextInt(5)) {
-							p_64400_.setBlockState(
-									blockpos$mutableblockpos.set(blockpos.getX(), l + j2, blockpos.getZ()),
-									Blocks.BEDROCK.defaultBlockState(), false);
+							p_64400_.setBlockState(blockpos$mutableblockpos.set(blockpos.getX(), l + j2, blockpos.getZ()), Blocks.BEDROCK.defaultBlockState(), false);
 						}
 					}
 				}
@@ -347,8 +309,7 @@ public class SeedNoiseChunkGenerator extends ChunkGenerator
 		}
 	}
 
-	public CompletableFuture<ChunkAccess> fillFromNoise(Executor p_158463_, StructureFeatureManager p_158464_,
-			ChunkAccess p_158465_) {
+	public CompletableFuture<ChunkAccess> fillFromNoise(Executor p_158463_, StructureFeatureManager p_158464_, ChunkAccess p_158465_) {
 		NoiseSettings noisesettings = this.settings.get().noiseSettings();
 		int i = Math.max(noisesettings.minY(), p_158465_.getMinBuildHeight());
 		int j = Math.min(noisesettings.minY() + noisesettings.height(), p_158465_.getMaxBuildHeight());
@@ -383,8 +344,7 @@ public class SeedNoiseChunkGenerator extends ChunkGenerator
 		}
 	}
 
-	protected ChunkAccess doFill(StructureFeatureManager p_158428_, ChunkAccess p_158429_, int p_158430_,
-			int p_158431_) {
+	protected ChunkAccess doFill(StructureFeatureManager p_158428_, ChunkAccess p_158429_, int p_158430_, int p_158431_) {
 		Heightmap heightmap = p_158429_.getOrCreateHeightmapUnprimed(Heightmap.Types.OCEAN_FLOOR_WG);
 		Heightmap heightmap1 = p_158429_.getOrCreateHeightmapUnprimed(Heightmap.Types.WORLD_SURFACE_WG);
 		ChunkPos chunkpos = p_158429_.getPos();
@@ -392,8 +352,7 @@ public class SeedNoiseChunkGenerator extends ChunkGenerator
 		int j = chunkpos.getMinBlockZ();
 		Beardifier beardifier = new Beardifier(p_158428_, p_158429_);
 		Aquifer aquifer = this.getAquifer(p_158430_, p_158431_, chunkpos);
-		NoiseInterpolator noiseinterpolator = new NoiseInterpolator(this.cellCountX, p_158431_, this.cellCountZ,
-				chunkpos, p_158430_, this::fillNoiseColumn);
+		NoiseInterpolator noiseinterpolator = new NoiseInterpolator(this.cellCountX, p_158431_, this.cellCountZ, chunkpos, p_158430_, this::fillNoiseColumn);
 		List<NoiseInterpolator> list = Lists.newArrayList(noiseinterpolator);
 		Consumer<NoiseInterpolator> consumer = list::add;
 		DoubleFunction<BaseStoneSource> doublefunction = this.createBaseStoneSource(p_158430_, chunkpos, consumer);
@@ -443,8 +402,7 @@ public class SeedNoiseChunkGenerator extends ChunkGenerator
 								int j4 = i4 & 15;
 								double d2 = (double) l3 / (double) this.cellWidth;
 								double d3 = noiseinterpolator.calculateValue(d2);
-								BlockState blockstate = this.updateNoiseAndGenerateBaseState(beardifier, aquifer,
-										doublefunction.apply(d2), doublefunction1.apply(d2), j3, j2, i4, d3);
+								BlockState blockstate = this.updateNoiseAndGenerateBaseState(beardifier, aquifer, doublefunction.apply(d2), doublefunction1.apply(d2), j3, j2, i4, d3);
 								if (blockstate != AIR) {
 									if (blockstate.getLightEmission() != 0 && p_158429_ instanceof ProtoChunk) {
 										blockpos$mutableblockpos.set(j3, j2, i4);
@@ -456,8 +414,7 @@ public class SeedNoiseChunkGenerator extends ChunkGenerator
 									heightmap1.update(k3, j2, j4, blockstate);
 									if (aquifer.shouldScheduleFluidUpdate() && !blockstate.getFluidState().isEmpty()) {
 										blockpos$mutableblockpos.set(j3, j2, i4);
-										p_158429_.getLiquidTicks().scheduleTick(blockpos$mutableblockpos,
-												blockstate.getFluidState().getType(), 0);
+										p_158429_.getLiquidTicks().scheduleTick(blockpos$mutableblockpos, blockstate.getFluidState().getType(), 0);
 									}
 								}
 							}
@@ -472,35 +429,29 @@ public class SeedNoiseChunkGenerator extends ChunkGenerator
 		return p_158429_;
 	}
 
-	protected DoubleFunction<NoiseModifier> createCaveNoiseModifier(int p_158421_, ChunkPos p_158422_,
-			Consumer<NoiseInterpolator> p_158423_) {
+	protected DoubleFunction<NoiseModifier> createCaveNoiseModifier(int p_158421_, ChunkPos p_158422_, Consumer<NoiseInterpolator> p_158423_) {
 		if (!this.settings.get().isNoodleCavesEnabled()) {
 			return (p_158473_) -> {
 				return NoiseModifier.PASSTHROUGH;
 			};
 		} else {
-			SeedNoiseChunkGenerator.NoodleCaveNoiseModifier noisebasedchunkgenerator$noodlecavenoisemodifier = new SeedNoiseChunkGenerator.NoodleCaveNoiseModifier(
-					p_158422_, p_158421_);
+			SeedNoiseChunkGenerator.NoodleCaveNoiseModifier noisebasedchunkgenerator$noodlecavenoisemodifier = new SeedNoiseChunkGenerator.NoodleCaveNoiseModifier(p_158422_, p_158421_);
 			noisebasedchunkgenerator$noodlecavenoisemodifier.listInterpolators(p_158423_);
 			return noisebasedchunkgenerator$noodlecavenoisemodifier::prepare;
 		}
 	}
 
-	protected DoubleFunction<BaseStoneSource> createBaseStoneSource(int p_158478_, ChunkPos p_158479_,
-			Consumer<NoiseInterpolator> p_158480_) {
+	protected DoubleFunction<BaseStoneSource> createBaseStoneSource(int p_158478_, ChunkPos p_158479_, Consumer<NoiseInterpolator> p_158480_) {
 		if (!this.settings.get().isOreVeinsEnabled()) {
 			return (p_158387_) -> {
 				return this.baseStoneSource;
 			};
 		} else {
-			SeedNoiseChunkGenerator.OreVeinNoiseSource noisebasedchunkgenerator$oreveinnoisesource = new SeedNoiseChunkGenerator.OreVeinNoiseSource(
-					p_158479_, p_158478_, this.seed + 1L);
+			SeedNoiseChunkGenerator.OreVeinNoiseSource noisebasedchunkgenerator$oreveinnoisesource = new SeedNoiseChunkGenerator.OreVeinNoiseSource(p_158479_, p_158478_, this.seed + 1L);
 			noisebasedchunkgenerator$oreveinnoisesource.listInterpolators(p_158480_);
 			BaseStoneSource basestonesource = (p_158450_, p_158451_, p_158452_) -> {
-				BlockState blockstate = noisebasedchunkgenerator$oreveinnoisesource.getBaseBlock(p_158450_, p_158451_,
-						p_158452_);
-				return blockstate != this.defaultBlock ? blockstate
-						: this.baseStoneSource.getBaseBlock(p_158450_, p_158451_, p_158452_);
+				BlockState blockstate = noisebasedchunkgenerator$oreveinnoisesource.getBaseBlock(p_158450_, p_158451_, p_158452_);
+				return blockstate != this.defaultBlock ? blockstate : this.baseStoneSource.getBaseBlock(p_158450_, p_158451_, p_158452_);
 			};
 			return (p_158456_) -> {
 				noisebasedchunkgenerator$oreveinnoisesource.prepare(p_158456_);
@@ -528,10 +479,8 @@ public class SeedNoiseChunkGenerator extends ChunkGenerator
 		return this.settings.get().noiseSettings().minY();
 	}
 
-	public WeightedRandomList<MobSpawnSettings.SpawnerData> getMobsAt(Biome p_158433_,
-			StructureFeatureManager p_158434_, MobCategory p_158435_, BlockPos p_158436_) {
-		WeightedRandomList<MobSpawnSettings.SpawnerData> spawns = net.minecraftforge.common.world.StructureSpawnManager
-				.getStructureSpawns(p_158434_, p_158435_, p_158436_);
+	public WeightedRandomList<MobSpawnSettings.SpawnerData> getMobsAt(Biome p_158433_, StructureFeatureManager p_158434_, MobCategory p_158435_, BlockPos p_158436_) {
+		WeightedRandomList<MobSpawnSettings.SpawnerData> spawns = net.minecraftforge.common.world.StructureSpawnManager.getStructureSpawns(p_158434_, p_158435_, p_158436_);
 		if (spawns != null)
 			return spawns;
 		if (false) {
@@ -560,10 +509,7 @@ public class SeedNoiseChunkGenerator extends ChunkGenerator
 			}
 		}
 
-		return p_158435_ == MobCategory.UNDERGROUND_WATER_CREATURE
-				&& p_158434_.getStructureAt(p_158436_, false, StructureFeature.OCEAN_MONUMENT).isValid()
-						? StructureFeature.OCEAN_MONUMENT.getSpecialUndergroundWaterAnimals()
-						: super.getMobsAt(p_158433_, p_158434_, p_158435_, p_158436_);
+		return p_158435_ == MobCategory.UNDERGROUND_WATER_CREATURE && p_158434_.getStructureAt(p_158436_, false, StructureFeature.OCEAN_MONUMENT).isValid() ? StructureFeature.OCEAN_MONUMENT.getSpecialUndergroundWaterAnimals() : super.getMobsAt(p_158433_, p_158434_, p_158435_, p_158436_);
 	}
 
 	public void spawnOriginalMobs(WorldGenRegion p_64379_) {
@@ -584,18 +530,10 @@ public class SeedNoiseChunkGenerator extends ChunkGenerator
 		private double factorZ;
 
 		public NoodleCaveNoiseModifier(ChunkPos p_158501_, int p_158502_) {
-			this.toggle = new NoiseInterpolator(SeedNoiseChunkGenerator.this.cellCountX,
-					SeedNoiseChunkGenerator.this.cellCountY, SeedNoiseChunkGenerator.this.cellCountZ, p_158501_,
-					p_158502_, SeedNoiseChunkGenerator.this.noodleCavifier::fillToggleNoiseColumn);
-			this.thickness = new NoiseInterpolator(SeedNoiseChunkGenerator.this.cellCountX,
-					SeedNoiseChunkGenerator.this.cellCountY, SeedNoiseChunkGenerator.this.cellCountZ, p_158501_,
-					p_158502_, SeedNoiseChunkGenerator.this.noodleCavifier::fillThicknessNoiseColumn);
-			this.ridgeA = new NoiseInterpolator(SeedNoiseChunkGenerator.this.cellCountX,
-					SeedNoiseChunkGenerator.this.cellCountY, SeedNoiseChunkGenerator.this.cellCountZ, p_158501_,
-					p_158502_, SeedNoiseChunkGenerator.this.noodleCavifier::fillRidgeANoiseColumn);
-			this.ridgeB = new NoiseInterpolator(SeedNoiseChunkGenerator.this.cellCountX,
-					SeedNoiseChunkGenerator.this.cellCountY, SeedNoiseChunkGenerator.this.cellCountZ, p_158501_,
-					p_158502_, SeedNoiseChunkGenerator.this.noodleCavifier::fillRidgeBNoiseColumn);
+			this.toggle = new NoiseInterpolator(SeedNoiseChunkGenerator.this.cellCountX, SeedNoiseChunkGenerator.this.cellCountY, SeedNoiseChunkGenerator.this.cellCountZ, p_158501_, p_158502_, SeedNoiseChunkGenerator.this.noodleCavifier::fillToggleNoiseColumn);
+			this.thickness = new NoiseInterpolator(SeedNoiseChunkGenerator.this.cellCountX, SeedNoiseChunkGenerator.this.cellCountY, SeedNoiseChunkGenerator.this.cellCountZ, p_158501_, p_158502_, SeedNoiseChunkGenerator.this.noodleCavifier::fillThicknessNoiseColumn);
+			this.ridgeA = new NoiseInterpolator(SeedNoiseChunkGenerator.this.cellCountX, SeedNoiseChunkGenerator.this.cellCountY, SeedNoiseChunkGenerator.this.cellCountZ, p_158501_, p_158502_, SeedNoiseChunkGenerator.this.noodleCavifier::fillRidgeANoiseColumn);
+			this.ridgeB = new NoiseInterpolator(SeedNoiseChunkGenerator.this.cellCountX, SeedNoiseChunkGenerator.this.cellCountY, SeedNoiseChunkGenerator.this.cellCountZ, p_158501_, p_158502_, SeedNoiseChunkGenerator.this.noodleCavifier::fillRidgeBNoiseColumn);
 		}
 
 		public NoiseModifier prepare(double p_158504_) {
@@ -608,8 +546,7 @@ public class SeedNoiseChunkGenerator extends ChunkGenerator
 			double d1 = this.thickness.calculateValue(this.factorZ);
 			double d2 = this.ridgeA.calculateValue(this.factorZ);
 			double d3 = this.ridgeB.calculateValue(this.factorZ);
-			return SeedNoiseChunkGenerator.this.noodleCavifier.noodleCavify(p_158508_, p_158509_, p_158510_, p_158511_,
-					d0, d1, d2, d3, SeedNoiseChunkGenerator.this.getMinY());
+			return SeedNoiseChunkGenerator.this.noodleCavifier.noodleCavify(p_158508_, p_158509_, p_158510_, p_158511_, d0, d1, d2, d3, SeedNoiseChunkGenerator.this.getMinY());
 		}
 
 		public void listInterpolators(Consumer<NoiseInterpolator> p_158506_) {
@@ -629,15 +566,9 @@ public class SeedNoiseChunkGenerator extends ChunkGenerator
 		private final WorldgenRandom random = new WorldgenRandom();
 
 		public OreVeinNoiseSource(ChunkPos p_158521_, int p_158522_, long p_158523_) {
-			this.veininess = new NoiseInterpolator(SeedNoiseChunkGenerator.this.cellCountX,
-					SeedNoiseChunkGenerator.this.cellCountY, SeedNoiseChunkGenerator.this.cellCountZ, p_158521_,
-					p_158522_, SeedNoiseChunkGenerator.this.oreVeinifier::fillVeininessNoiseColumn);
-			this.veinA = new NoiseInterpolator(SeedNoiseChunkGenerator.this.cellCountX,
-					SeedNoiseChunkGenerator.this.cellCountY, SeedNoiseChunkGenerator.this.cellCountZ, p_158521_,
-					p_158522_, SeedNoiseChunkGenerator.this.oreVeinifier::fillNoiseColumnA);
-			this.veinB = new NoiseInterpolator(SeedNoiseChunkGenerator.this.cellCountX,
-					SeedNoiseChunkGenerator.this.cellCountY, SeedNoiseChunkGenerator.this.cellCountZ, p_158521_,
-					p_158522_, SeedNoiseChunkGenerator.this.oreVeinifier::fillNoiseColumnB);
+			this.veininess = new NoiseInterpolator(SeedNoiseChunkGenerator.this.cellCountX, SeedNoiseChunkGenerator.this.cellCountY, SeedNoiseChunkGenerator.this.cellCountZ, p_158521_, p_158522_, SeedNoiseChunkGenerator.this.oreVeinifier::fillVeininessNoiseColumn);
+			this.veinA = new NoiseInterpolator(SeedNoiseChunkGenerator.this.cellCountX, SeedNoiseChunkGenerator.this.cellCountY, SeedNoiseChunkGenerator.this.cellCountZ, p_158521_, p_158522_, SeedNoiseChunkGenerator.this.oreVeinifier::fillNoiseColumnA);
+			this.veinB = new NoiseInterpolator(SeedNoiseChunkGenerator.this.cellCountX, SeedNoiseChunkGenerator.this.cellCountY, SeedNoiseChunkGenerator.this.cellCountZ, p_158521_, p_158522_, SeedNoiseChunkGenerator.this.oreVeinifier::fillNoiseColumnB);
 			this.seed = p_158523_;
 		}
 
@@ -656,8 +587,7 @@ public class SeedNoiseChunkGenerator extends ChunkGenerator
 			double d1 = this.veinA.calculateValue(this.factorZ);
 			double d2 = this.veinB.calculateValue(this.factorZ);
 			this.random.setBaseStoneSeed(this.seed, p_158529_, p_158530_, p_158531_);
-			return SeedNoiseChunkGenerator.this.oreVeinifier.oreVeinify(this.random, p_158529_, p_158530_, p_158531_,
-					d0, d1, d2);
+			return SeedNoiseChunkGenerator.this.oreVeinifier.oreVeinify(this.random, p_158529_, p_158530_, p_158531_, d0, d1, d2);
 		}
 	}
 }

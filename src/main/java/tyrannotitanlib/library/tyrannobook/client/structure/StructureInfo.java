@@ -8,8 +8,7 @@ import java.util.function.Predicate;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate.StructureBlockInfo;
 
-public class StructureInfo implements Predicate<BlockPos> 
-{
+public class StructureInfo implements Predicate<BlockPos> {
 	public Map<BlockPos, StructureBlockInfo> data = new HashMap<>();
 	public final int structureHeight;
 	public final int structureLength;
@@ -19,14 +18,12 @@ public class StructureInfo implements Predicate<BlockPos>
 	public int showLayer = -1;
 	public int blockIndex;
 
-	public StructureInfo(List<StructureBlockInfo> structure) 
-	{
+	public StructureInfo(List<StructureBlockInfo> structure) {
 		int structureHeight = 0;
 		int structureWidth = 0;
 		int structureLength = 0;
 
-		for(StructureBlockInfo block : structure) 
-		{
+		for (StructureBlockInfo block : structure) {
 			structureHeight = Math.max(structureHeight, block.pos.getY() + 1);
 			structureWidth = Math.max(structureWidth, block.pos.getZ() + 1);
 			structureLength = Math.max(structureLength, block.pos.getX() + 1);
@@ -39,41 +36,31 @@ public class StructureInfo implements Predicate<BlockPos>
 		this.structureWidth = structureWidth;
 	}
 
-	public void setShowLayer(int layer) 
-	{
+	public void setShowLayer(int layer) {
 		showLayer = layer;
 
-		if(layer < 0)
-		{
+		if (layer < 0) {
 			this.reset();
-		}
-		else
-		{
+		} else {
 			this.blockIndex = (layer + 1) * (this.structureLength * this.structureWidth) - 1;
 		}
 	}
 
-	public void reset() 
-	{
+	public void reset() {
 		this.blockIndex = this.maxBlockIndex;
 	}
 
-	public void step() 
-	{
+	public void step() {
 		final int start = this.blockIndex;
 
-		do 
-		{
-			if(++this.blockIndex >= this.maxBlockIndex)
-			{
+		do {
+			if (++this.blockIndex >= this.maxBlockIndex) {
 				this.blockIndex = 0;
 			}
-		} 
-		while(this.isEmpty(this.blockIndex) && this.blockIndex != start);
+		} while (this.isEmpty(this.blockIndex) && this.blockIndex != start);
 	}
 
-	private boolean isEmpty(int index) 
-	{
+	private boolean isEmpty(int index) {
 		int y = index / (this.structureLength * this.structureWidth);
 		int r = index % (this.structureLength * this.structureWidth);
 		int x = r / this.structureWidth;
@@ -82,14 +69,12 @@ public class StructureInfo implements Predicate<BlockPos>
 		return !this.data.containsKey(new BlockPos(x, y, z));
 	}
 
-	public int getLimiter() 
-	{
+	public int getLimiter() {
 		return this.blockIndex;
 	}
 
 	@Override
-	public boolean test(BlockPos blockPos) 
-	{
+	public boolean test(BlockPos blockPos) {
 		int index = blockPos.getZ() + this.structureWidth * (blockPos.getX() + this.structureLength * blockPos.getY());
 		return index <= this.getLimiter();
 	}

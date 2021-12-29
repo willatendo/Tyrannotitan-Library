@@ -15,38 +15,32 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import tyrannotitanlib.library.base.entity.TyrannoBoatEntity;
 
-public class TyrannoBoatRenderer extends EntityRenderer<TyrannoBoatEntity> 
-{
+public class TyrannoBoatRenderer extends EntityRenderer<TyrannoBoatEntity> {
 	private final BoatModel model;
 
-	public TyrannoBoatRenderer(EntityRendererProvider.Context context) 
-	{
+	public TyrannoBoatRenderer(EntityRendererProvider.Context context) {
 		super(context);
 		this.model = new BoatModel(BoatModel.createBodyModel().bakeRoot());
 		this.shadowRadius = 0.8F;
 	}
 
 	@Override
-	public void render(TyrannoBoatEntity entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource source, int packedLight) 
-	{
+	public void render(TyrannoBoatEntity entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource source, int packedLight) {
 		poseStack.pushPose();
 		poseStack.translate(0.0D, 0.375D, 0.0D);
 		poseStack.mulPose(Vector3f.YP.rotationDegrees(180.0F - entityYaw));
 		float f = (float) entity.getHurtTime() - partialTicks;
 		float f1 = entity.getDamage() - partialTicks;
-		if(f1 < 0.0F) 
-		{
+		if (f1 < 0.0F) {
 			f1 = 0.0F;
 		}
 
-		if(f > 0.0F) 
-		{
+		if (f > 0.0F) {
 			poseStack.mulPose(Vector3f.XP.rotationDegrees(Mth.sin(f) * f * f1 / 10.0F * (float) entity.getHurtDir()));
 		}
 
 		float f2 = entity.getBubbleAngle(partialTicks);
-		if(!Mth.equal(f2, 0.0F)) 
-		{
+		if (!Mth.equal(f2, 0.0F)) {
 			poseStack.mulPose(new Quaternion(new Vector3f(1.0F, 0.0F, 1.0F), entity.getBubbleAngle(partialTicks), true));
 		}
 
@@ -62,8 +56,7 @@ public class TyrannoBoatRenderer extends EntityRenderer<TyrannoBoatEntity>
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(TyrannoBoatEntity entity) 
-	{
+	public ResourceLocation getTextureLocation(TyrannoBoatEntity entity) {
 		return entity.getBoat().getTexture();
 	}
 }

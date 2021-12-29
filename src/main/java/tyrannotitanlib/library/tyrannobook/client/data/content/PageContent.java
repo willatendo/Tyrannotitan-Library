@@ -13,26 +13,24 @@ import tyrannotitanlib.library.tyrannobook.client.repository.TyrannobookReposito
 import tyrannotitanlib.library.tyrannobook.client.screen.TyrannobookScreen;
 
 @OnlyIn(Dist.CLIENT)
-public abstract class PageContent 
-{
+public abstract class PageContent {
 	public static final transient int TITLE_HEIGHT = 16;
-	
+
 	public transient PageData parent;
 	public transient TyrannobookRepository source;
-	
-	public void load() { }
-	
+
+	public void load() {
+	}
+
 	public abstract void build(TyrannobookData book, ArrayList<TyrannobookElement> list, boolean rightSide);
-	
-	public void addTitle(ArrayList<TyrannobookElement> list, String title) 
-	{
+
+	public void addTitle(ArrayList<TyrannobookElement> list, String title) {
 		TextData tdTitle = new TextData(title);
 		tdTitle.underlined = true;
-		this.addTitle(list, new TextData[]{tdTitle});
+		this.addTitle(list, new TextData[] { tdTitle });
 	}
-	
-	public void addTitle(ArrayList<TyrannobookElement> list, TextData[] title) 
-	{
+
+	public void addTitle(ArrayList<TyrannobookElement> list, TextData[] title) {
 		list.add(new TextElement(0, 0, TyrannobookScreen.PAGE_WIDTH, 9, title));
 	}
 }

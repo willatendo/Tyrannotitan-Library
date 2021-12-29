@@ -8,5 +8,10 @@
 		"name": "recipe",
 		"type": "crafting",
 		"data": "test/beacon.json"
+	},
+	{
+		"name": "image",
+		"type": "image",
+		"data": "test/image.json"
 	}
 ]

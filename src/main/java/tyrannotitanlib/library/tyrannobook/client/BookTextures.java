@@ -3,8 +3,7 @@ package tyrannotitanlib.library.tyrannobook.client;
 import net.minecraft.resources.ResourceLocation;
 import tyrannotitanlib.library.utils.TyrannoUtils;
 
-public class Textures 
-{
+public class BookTextures {
 	public static final ResourceLocation TEX_BOOK = TyrannoUtils.rL("textures/gui/book/book.png");
 	public static final ResourceLocation TEX_BOOKFRONT = TyrannoUtils.rL("textures/gui/book/bookfront.png");
 
