@@ -1,8 +1,6 @@
 {
-	"coverTexture": "tyrannotitanlib:textures/gui/book/bookfront.png",
-	"coverColor": -1,
-	"bookTexture": "tyrannotitanlib:textures/gui/book/book.png",
-	"arrowColor": -1,
+	"title": "Test",
+	"subtitle": "Willatendo",
 	"slotColor": 15058562,
 	"drawSectionListText": true,
 	"centerPageTitles": true,
