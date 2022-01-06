@@ -3,18 +3,14 @@
 		"name": "test",
 		"data": "sections/test.json",
 		"icon": {
-			"item": {
-				"id": "minecraft:stone"
-			}
+			"item": "minecraft:stone"
 		}
 	},
 	{
 		"name": "other",
 		"data": "sections/other.json",
 		"icon": {
-			"item": {
-				"id": "minecraft:grass_block"
-			}
+			"item": "minecraft:grass_block"
 		}
 	}
 ]

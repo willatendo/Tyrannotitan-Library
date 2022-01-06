@@ -9,12 +9,12 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Item.Properties;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import tyrannotitanlib.library.tyrannobook.item.TyrannobookItem;
+import tyrannotitanlib.library.tyrannobook.LecternBookItem;
 import tyrannotitanlib.library.tyrannoregister.TyrannoRegister;
 
 public class TestItems 
 {
-	public static final Item BOOK = register("book", new TyrannobookItem(new Properties().tab(CreativeModeTab.TAB_MISC))
+	public static final Item BOOK = register("book", new LecternBookItem(new Properties().tab(CreativeModeTab.TAB_MISC))
 	{
 		@Override
 		public InteractionResultHolder<ItemStack> use(Level level, Player entity, InteractionHand hand) 

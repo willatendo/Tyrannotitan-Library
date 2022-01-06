@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.entity.LecternBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fmllegacy.network.NetworkEvent.Context;
 
-public class DropLecternBookPacket implements IThreadSafePacket {
+public class DropLecternBookPacket implements IThreadsafePacket {
 	private final BlockPos pos;
 
 	public DropLecternBookPacket(FriendlyByteBuf buffer) {

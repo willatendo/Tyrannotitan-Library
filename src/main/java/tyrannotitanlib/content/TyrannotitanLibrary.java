@@ -9,19 +9,15 @@ import java.util.Map;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.server.packs.resources.ReloadableResourceManager;
-import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
@@ -41,8 +37,7 @@ import tyrannotitanlib.library.base.block.TyrannoBeehiveBlock;
 import tyrannotitanlib.library.base.block.TyrannoLogBlock;
 import tyrannotitanlib.library.base.block.TyrannoSignManager;
 import tyrannotitanlib.library.base.item.TyrannoSpawnEggItem;
-import tyrannotitanlib.library.tyrannobook.client.TyrannobookLoader;
-import tyrannotitanlib.library.tyrannobook.item.TyrannobookItem;
+import tyrannotitanlib.library.tyrannobook.TyrannobookLoader;
 import tyrannotitanlib.library.tyrannomation.network.TyrannomationNetwork;
 import tyrannotitanlib.library.tyrannomation.resource.ResourceListener;
 import tyrannotitanlib.library.tyrannonetwork.Tyrannonetwork;
@@ -53,109 +48,85 @@ import tyrannotitanlib.test.TestItems;
 
 @Mod(TYRANNO_ID)
 @Mod.EventBusSubscriber(bus = Bus.MOD, modid = TYRANNO_ID)
-public class TyrannotitanLibrary 
-{
+public class TyrannotitanLibrary {
 	public static volatile boolean hasInitialized;
-	
-	public TyrannotitanLibrary() 
-	{
+
+	public TyrannotitanLibrary() {
 		final IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 		final IEventBus forgeBus = MinecraftForge.EVENT_BUS;
-		
+
 		bus.addListener(this::commonSetup);
 		bus.addListener(this::clientSetup);
-		
-		TyrannoRegistries.register();
+
+		TyrannoRegistries.register();	
 		initTyrannomation();
 		TestItems.init();
-						
+
 		forgeBus.register(new TyrannoRegister());
-		
+
 		ModLoadingContext.get().registerConfig(Type.SERVER, TyrannotitanConfig.serverConfig);
-		
-		MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, false, PlayerInteractEvent.RightClickBlock.class, TyrannobookItem::interactWithBlock);
 	}
-	
-	private static void initTyrannomation() 
-	{
-		if(!hasInitialized) 
-		{
+
+	private static void initTyrannomation() {
+		if (!hasInitialized) {
 			DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> ResourceListener::registerReloadListener);
 			TyrannomationNetwork.initialize();
 		}
 		hasInitialized = true;
 	}
-	
-	private void commonSetup(final FMLCommonSetupEvent event) 
-	{
+
+	private void commonSetup(final FMLCommonSetupEvent event) {
 		BufferedReader urlContents = TyrannoUtils.getURLContents("https://raw.githubusercontent.com/Willatendo/Tyrannotitan-Library/master/src/main/resources/assets/tyrannotitanlib/tyrannotitan.txt", "assets/tyrannotitanlib/tyrannotitan.txt");
-		if(urlContents != null) 
-		{
-			try 
-			{
+		if (urlContents != null) {
+			try {
 				String line;
-				while((line = urlContents.readLine()) != null) 
-				{
+				while ((line = urlContents.readLine()) != null) {
 					TyrannoUtils.TYRANNOTITANS.add(line);
 				}
-			} 
-			catch(IOException e) 
-			{
+			} catch (IOException e) {
 				TyrannoUtils.LOGGER.warn("Failed to load tyrannotitan member's capes");
 			}
-		} 
-		else
-		{
+		} else {
 			TyrannoUtils.LOGGER.warn("Failed to load tyrannotitan member's capes");
 		}
 
 		Tyrannonetwork.registerPackets();
-		
-		event.enqueueWork(() -> 
-		{
+
+		event.enqueueWork(() -> {
 			TyrannoLogBlock.addStripping();
-			this.addBeehivePOI();	
+			this.addBeehivePOI();
 		});
-		
-		event.enqueueWork(() -> 
-		{
+
+		event.enqueueWork(() -> {
 			ImmutableSet.Builder<Block> builder = ImmutableSet.builder();
 			builder.addAll(BlockEntityType.SIGN.validBlocks);
 			TyrannoSignManager.forEachSignBlock(builder::add);
 			BlockEntityType.SIGN.validBlocks = builder.build();
 		});
 	}
-	
-	private void clientSetup(FMLClientSetupEvent event)
-	{
-		BooksTest.initBooks();
-		
+
+	@SubscribeEvent
+	static void registerListeners(RegisterClientReloadListenersEvent event) {
+		event.registerReloadListener(new TyrannobookLoader());
+	}
+
+	private void clientSetup(FMLClientSetupEvent event) {
 		final IEventBus forgeBus = MinecraftForge.EVENT_BUS;
 		forgeBus.register(new Capes());
-
-		ResourceManager manager = Minecraft.getInstance().getResourceManager();
-		if(manager instanceof ReloadableResourceManager) 
-		{
-			((ReloadableResourceManager)manager).registerReloadListener(new TyrannobookLoader());
-		}
+		BooksTest.initBooks();
 	}
-	
+
 	@SubscribeEvent
-	public static void entityRegistry(RegistryEvent.Register<EntityType<?>> event) 
-	{
+	public static void entityRegistry(RegistryEvent.Register<EntityType<?>> event) {
 		TyrannoSpawnEggItem.initSpawnEggs();
 	}
-	
-	private void addBeehivePOI() 
-	{
+
+	private void addBeehivePOI() {
 		PoiType.BEEHIVE.matchingStates = Sets.newHashSet(PoiType.BEEHIVE.matchingStates);
 		Map<BlockState, PoiType> statePointOfInterestMap = ObfuscationReflectionHelper.getPrivateValue(PoiType.class, null, "f_27323_");
-		if(statePointOfInterestMap != null) 
-		{
-			for(Block block : TyrannoBlockEntities.collectBlocks(TyrannoBeehiveBlock.class)) 
-			{
-				block.getStateDefinition().getPossibleStates().forEach(state -> 
-				{
+		if (statePointOfInterestMap != null) {
+			for (Block block : TyrannoBlockEntities.collectBlocks(TyrannoBeehiveBlock.class)) {
+				block.getStateDefinition().getPossibleStates().forEach(state -> {
 					statePointOfInterestMap.put(state, PoiType.BEEHIVE);
 					PoiType.BEEHIVE.matchingStates.add(state);
 				});

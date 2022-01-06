@@ -1,24 +1,21 @@
 package tyrannotitanlib.library.tyrannonetwork.packets;
 
+import lombok.RequiredArgsConstructor;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fmllegacy.network.NetworkEvent.Context;
-import tyrannotitanlib.library.tyrannobook.client.TyrannobookHelper;
+import tyrannotitanlib.library.tyrannobook.TyrannobookHelper;
 
-public class UpdateHeldPagePacket implements IThreadSafePacket {
+@RequiredArgsConstructor
+public class UpdateHeldPagePacket implements IThreadsafePacket {
 	private final InteractionHand hand;
 	private final String page;
 
 	public UpdateHeldPagePacket(FriendlyByteBuf buffer) {
 		this.hand = buffer.readEnum(InteractionHand.class);
 		this.page = buffer.readUtf(100);
-	}
-
-	public UpdateHeldPagePacket(InteractionHand hand, String page) {
-		this.hand = hand;
-		this.page = page;
 	}
 
 	@Override

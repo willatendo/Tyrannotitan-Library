@@ -1,7 +1,7 @@
 [
 	{
 		"name": "other",
-		"type": "text",
+		"type": "tyrannotitanlib:text",
 		"data": "other/other.json"
 	}
 ]
