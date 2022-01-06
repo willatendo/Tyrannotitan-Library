@@ -2,7 +2,7 @@ package tyrannotitanlib.library.tyrannonetwork.packets;
 
 import java.util.function.Supplier;
 
-import net.minecraftforge.fmllegacy.network.NetworkEvent;
+import net.minecraftforge.network.NetworkEvent;
 
 public interface IThreadsafePacket extends ISimplePacket {
 	@Override

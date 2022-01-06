@@ -2,6 +2,7 @@ package tyrannotitanlib.library.base.entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -16,9 +17,8 @@ import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.fmllegacy.network.FMLPlayMessages;
-import net.minecraftforge.fmllegacy.network.NetworkHooks;
+import net.minecraftforge.network.NetworkHooks;
+import net.minecraftforge.network.PlayMessages;
 import tyrannotitanlib.content.server.init.TyrannoEntities;
 import tyrannotitanlib.library.utils.TyrannoBoatRegistry;
 
@@ -39,7 +39,7 @@ public class TyrannoBoatEntity extends Boat {
 		this.zo = z;
 	}
 
-	public TyrannoBoatEntity(FMLPlayMessages.SpawnEntity spawnEntity, Level world) {
+	public TyrannoBoatEntity(PlayMessages.SpawnEntity spawnEntity, Level world) {
 		this(TyrannoEntities.BOAT, world);
 	}
 
@@ -56,7 +56,7 @@ public class TyrannoBoatEntity extends Boat {
 
 	@Override
 	protected void readAdditionalSaveData(CompoundTag compound) {
-		if (compound.contains("Type", Constants.NBT.TAG_STRING)) {
+		if (compound.contains("Type", Tag.TAG_STRING)) {
 			String type = compound.getString("Type");
 			TyrannoBoatRegistry.BoatData data = TyrannoBoatRegistry.getDataForBoat(type);
 			if (data != null) {

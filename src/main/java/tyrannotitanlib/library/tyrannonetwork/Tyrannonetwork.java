@@ -1,6 +1,6 @@
 package tyrannotitanlib.library.tyrannonetwork;
 
-import net.minecraftforge.fmllegacy.network.NetworkDirection;
+import net.minecraftforge.network.NetworkDirection;
 import tyrannotitanlib.library.tyrannonetwork.packets.DropLecternBookPacket;
 import tyrannotitanlib.library.tyrannonetwork.packets.OpenLecternBookPacket;
 import tyrannotitanlib.library.tyrannonetwork.packets.OpenNamedBookPacket;

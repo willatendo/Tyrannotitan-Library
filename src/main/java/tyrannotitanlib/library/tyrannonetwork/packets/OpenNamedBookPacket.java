@@ -8,7 +8,7 @@ import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.fmllegacy.network.NetworkEvent;
+import net.minecraftforge.network.NetworkEvent;
 import tyrannotitanlib.library.tyrannobook.TyrannobookLoader;
 import tyrannotitanlib.library.tyrannobook.data.TyrannobookData;
 

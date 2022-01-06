@@ -72,7 +72,7 @@ public class TyrannomationEvent<T extends ITyrannomatable>
 		return extraData;
 	}
 
-	public <T> List<T> getExtraDataOfType(Class<T> type)
+	public List<T> getExtraDataOfType(Class<T> type)
 	{
 		return extraData.stream().filter(x -> type.isAssignableFrom(x.getClass())).map(x -> type.cast(x)).collect(Collectors.toList());
 	}

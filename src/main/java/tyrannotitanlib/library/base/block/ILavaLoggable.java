@@ -25,7 +25,7 @@ public interface ILavaLoggable extends BucketPickup, LiquidBlockContainer {
 		if (!state.getValue(TyrannoBlockStateProperties.LAVALOGGED) && fluid.getType() == Fluids.LAVA) {
 			if (!world.isClientSide()) {
 				world.setBlock(pos, state.setValue(TyrannoBlockStateProperties.LAVALOGGED, Boolean.valueOf(true)), 3);
-				world.getLiquidTicks().scheduleTick(pos, fluid.getType(), fluid.getType().getTickDelay(world));
+				world.scheduleTick(pos, fluid.getType(), fluid.getType().getTickDelay(world));
 			}
 
 			return true;

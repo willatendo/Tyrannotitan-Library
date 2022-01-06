@@ -1,6 +1,6 @@
 package tyrannotitanlib.library.compatibility.charm;
 
-//Charm is not for 1.17.1
+//Charm is not for 1.18.1
 
 @Deprecated(since = "2.0.0", forRemoval = false)
 public class CharmCrateBlockEntity {}

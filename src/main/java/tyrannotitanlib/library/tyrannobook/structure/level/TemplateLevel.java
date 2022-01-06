@@ -22,7 +22,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.TickList;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Block;
@@ -35,6 +34,8 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemp
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.saveddata.maps.MapItemSavedData;
 import net.minecraft.world.scores.Scoreboard;
+import net.minecraft.world.ticks.BlackholeTickAccess;
+import net.minecraft.world.ticks.LevelTickAccess;
 
 public class TemplateLevel extends Level {
 	private final Map<String, MapItemSavedData> maps = new HashMap<>();
@@ -153,12 +154,12 @@ public class TemplateLevel extends Level {
 	}
 
 	@Override
-	public TickList<Block> getBlockTicks() {
-		return null;
+	public LevelTickAccess<Block> getBlockTicks() {
+		return BlackholeTickAccess.emptyLevelList();
 	}
 
 	@Override
-	public TickList<Fluid> getLiquidTicks() {
-		return null;
+	public LevelTickAccess<Fluid> getFluidTicks() {
+		return BlackholeTickAccess.emptyLevelList();
 	}
 }

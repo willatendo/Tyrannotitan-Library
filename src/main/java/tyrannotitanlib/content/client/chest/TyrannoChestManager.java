@@ -36,7 +36,7 @@ public class TyrannoChestManager
 	@SubscribeEvent
 	public static void onStitch(TextureStitchEvent.Pre event) 
 	{
-		if(event.getMap().location().equals(Sheets.CHEST_SHEET)) 
+		if(event.getAtlas().location().equals(Sheets.CHEST_SHEET)) 
 		{
 			for(ChestInfo chestInfo : CHEST_INFO_MAP.values()) 
 			{
