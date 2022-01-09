@@ -8,8 +8,7 @@ import tyrannotitanlib.library.tyrannomation.core.controller.TyrannomationContro
 import tyrannotitanlib.library.tyrannomation.core.processor.IBone;
 import tyrannotitanlib.library.tyrannomation.core.snapshot.BoneSnapshot;
 
-public class TyrannomationData
-{
+public class TyrannomationData {
 	private HashMap<String, Pair<IBone, BoneSnapshot>> boneSnapshotCollection;
 	private HashMap<String, TyrannomationController> animationControllers = new HashMap<>();
 	public double tick;
@@ -19,45 +18,36 @@ public class TyrannomationData
 	public Object ticker;
 	public boolean shouldPlayWhilePaused = false;
 
-	public TyrannomationData()
-	{
+	public TyrannomationData() {
 		super();
-		boneSnapshotCollection = new HashMap<>();
-	}
-
-	public TyrannomationController addAnimationController(TyrannomationController value)
-	{
-		return this.animationControllers.put(value.getName(), value);
-	}
-
-	public HashMap<String, Pair<IBone, BoneSnapshot>> getBoneSnapshotCollection()
-	{
-		return boneSnapshotCollection;
-	}
-
-	public void setBoneSnapshotCollection(HashMap<String, Pair<IBone, BoneSnapshot>> boneSnapshotCollection)
-	{
-		this.boneSnapshotCollection = boneSnapshotCollection;
-	}
-
-	public void clearSnapshotCache()
-	{
 		this.boneSnapshotCollection = new HashMap<>();
 	}
 
-
-	public double getResetSpeed()
-	{
-		return resetTickLength;
+	public TyrannomationController addAnimationController(TyrannomationController value) {
+		return this.animationControllers.put(value.getName(), value);
 	}
 
-	public void setResetSpeedInTicks(double resetTickLength)
-	{
+	public HashMap<String, Pair<IBone, BoneSnapshot>> getBoneSnapshotCollection() {
+		return this.boneSnapshotCollection;
+	}
+
+	public void setBoneSnapshotCollection(HashMap<String, Pair<IBone, BoneSnapshot>> boneSnapshotCollection) {
+		this.boneSnapshotCollection = boneSnapshotCollection;
+	}
+
+	public void clearSnapshotCache() {
+		this.boneSnapshotCollection = new HashMap<>();
+	}
+
+	public double getResetSpeed() {
+		return this.resetTickLength;
+	}
+
+	public void setResetSpeedInTicks(double resetTickLength) {
 		this.resetTickLength = resetTickLength < 0 ? 0 : resetTickLength;
 	}
 
-	public HashMap<String, TyrannomationController> getAnimationControllers()
-	{
-		return animationControllers;
+	public HashMap<String, TyrannomationController> getAnimationControllers() {
+		return this.animationControllers;
 	}
 }

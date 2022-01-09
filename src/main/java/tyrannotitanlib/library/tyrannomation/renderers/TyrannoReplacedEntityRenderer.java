@@ -47,7 +47,7 @@ public abstract class TyrannoReplacedEntityRenderer<T extends ITyrannomatable> e
 		TyrannomationController.addModelFetcher((ITyrannomatable object) -> 
 		{
 			TyrannoReplacedEntityRenderer renderer = renderers.get(object.getClass());
-			return renderer == null ? null : renderer.getGeoModelProvider();
+			return renderer == null ? null : renderer.getTyrannoModelProvider();
 		});
 	}
 
@@ -191,7 +191,7 @@ public abstract class TyrannoReplacedEntityRenderer<T extends ITyrannomatable> e
 	}
 
 	@Override
-	public TyrannomatedTyrannomationModel getGeoModelProvider() 
+	public TyrannomatedTyrannomationModel getTyrannoModelProvider() 
 	{
 		return this.modelProvider;
 	}

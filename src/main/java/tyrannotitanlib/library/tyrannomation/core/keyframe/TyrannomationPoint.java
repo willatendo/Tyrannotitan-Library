@@ -2,9 +2,7 @@ package tyrannotitanlib.library.tyrannomation.core.keyframe;
 
 import com.eliotlash.mclib.math.IValue;
 
-
-public class TyrannomationPoint
-{
+public class TyrannomationPoint {
 	public final Double currentTick;
 	public final Double animationEndTick;
 	public final Double animationStartValue;
@@ -12,8 +10,7 @@ public class TyrannomationPoint
 
 	public final KeyFrame<IValue> keyframe;
 
-	public TyrannomationPoint( KeyFrame<IValue> keyframe, Double currentTick, Double animationEndTick, Double animationStartValue, Double animationEndValue)
-	{
+	public TyrannomationPoint(KeyFrame<IValue> keyframe, Double currentTick, Double animationEndTick, Double animationStartValue, Double animationEndValue) {
 		this.keyframe = keyframe;
 		this.currentTick = currentTick;
 		this.animationEndTick = animationEndTick;
@@ -21,8 +18,7 @@ public class TyrannomationPoint
 		this.animationEndValue = animationEndValue;
 	}
 
-	public TyrannomationPoint(KeyFrame<IValue> keyframe, double tick, double animationEndTick, float animationStartValue, double animationEndValue)
-	{
+	public TyrannomationPoint(KeyFrame<IValue> keyframe, double tick, double animationEndTick, float animationStartValue, double animationEndValue) {
 		this.keyframe = keyframe;
 		this.currentTick = tick;
 		this.animationEndTick = animationEndTick;
@@ -31,8 +27,7 @@ public class TyrannomationPoint
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		return "Tick: " + currentTick + " | End Tick: " + animationEndTick + " | Start Value: " + animationStartValue + " | End Value: " + animationEndValue;
 	}
 }

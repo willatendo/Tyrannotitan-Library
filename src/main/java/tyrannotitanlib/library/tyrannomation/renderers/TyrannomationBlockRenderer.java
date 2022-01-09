@@ -23,19 +23,14 @@ import tyrannotitanlib.library.tyrannomation.core.controller.TyrannomationContro
 import tyrannotitanlib.library.tyrannomation.model.TyrannomatedTyrannomationModel;
 import tyrannotitanlib.library.tyrannomation.tyranno.render.built.TyrannomationModel;
 
-public abstract class TyrannomationBlockmationRenderer<T extends BlockEntity & ITyrannomatable> implements BlockEntityRenderer, ITyrannomationRenderer<T> 
-{
-	static 
-	{
-		TyrannomationController.addModelFetcher((ITyrannomatable object) -> 
-		{
-			if(object instanceof BlockEntity) 
-			{
+public abstract class TyrannomationBlockRenderer<T extends BlockEntity & ITyrannomatable> implements BlockEntityRenderer, ITyrannomationRenderer<T> {
+	static {
+		TyrannomationController.addModelFetcher((ITyrannomatable object) -> {
+			if (object instanceof BlockEntity) {
 				BlockEntity tile = (BlockEntity) object;
 				BlockEntityRenderer<BlockEntity> renderer = Minecraft.getInstance().getBlockEntityRenderDispatcher().getRenderer(tile);
-				if(renderer instanceof TyrannomationBlockmationRenderer) 
-				{
-					return ((TyrannomationBlockmationRenderer<?>) renderer).getGeoModelProvider();
+				if (renderer instanceof TyrannomationBlockRenderer) {
+					return ((TyrannomationBlockRenderer<?>) renderer).getTyrannoModelProvider();
 				}
 			}
 			return null;
@@ -44,19 +39,16 @@ public abstract class TyrannomationBlockmationRenderer<T extends BlockEntity & I
 
 	private final TyrannomatedTyrannomationModel<T> modelProvider;
 
-	public TyrannomationBlockmationRenderer(BlockEntityRenderDispatcher rendererDispatcherIn, TyrannomatedTyrannomationModel<T> modelProvider) 
-	{
+	public TyrannomationBlockRenderer(BlockEntityRenderDispatcher rendererDispatcherIn, TyrannomatedTyrannomationModel<T> modelProvider) {
 		this.modelProvider = modelProvider;
 	}
 
 	@Override
-	public void render(BlockEntity tile, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) 
-	{
+	public void render(BlockEntity tile, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn) {
 		this.render((T) tile, partialTicks, matrixStackIn, bufferIn, combinedLightIn);
 	}
 
-	public void render(T tile, float partialTicks, PoseStack stack, MultiBufferSource bufferIn, int packedLightIn) 
-	{
+	public void render(T tile, float partialTicks, PoseStack stack, MultiBufferSource bufferIn, int packedLightIn) {
 		TyrannomationModel model = modelProvider.getModel(modelProvider.getModelLocation(tile));
 		modelProvider.setLivingAnimations(tile, this.getUniqueID(tile));
 		stack.pushPose();
@@ -73,15 +65,12 @@ public abstract class TyrannomationBlockmationRenderer<T extends BlockEntity & I
 	}
 
 	@Override
-	public TyrannomatedTyrannomationModel<T> getGeoModelProvider() 
-	{
+	public TyrannomatedTyrannomationModel<T> getTyrannoModelProvider() {
 		return this.modelProvider;
 	}
 
-	protected void rotateBlock(Direction facing, PoseStack stack) 
-	{
-		switch(facing) 
-		{
+	protected void rotateBlock(Direction facing, PoseStack stack) {
+		switch (facing) {
 		case SOUTH:
 			stack.mulPose(Vector3f.YP.rotationDegrees(180));
 			break;
@@ -103,26 +92,19 @@ public abstract class TyrannomationBlockmationRenderer<T extends BlockEntity & I
 		}
 	}
 
-	private Direction getFacing(T tile) 
-	{
+	private Direction getFacing(T tile) {
 		BlockState blockState = tile.getBlockState();
-		if(blockState.hasProperty(HorizontalDirectionalBlock.FACING)) 
-		{
+		if (blockState.hasProperty(HorizontalDirectionalBlock.FACING)) {
 			return blockState.getValue(HorizontalDirectionalBlock.FACING);
-		} 
-		else if(blockState.hasProperty(DirectionalBlock.FACING)) 
-		{
+		} else if (blockState.hasProperty(DirectionalBlock.FACING)) {
 			return blockState.getValue(DirectionalBlock.FACING);
-		} 
-		else 
-		{
+		} else {
 			return Direction.NORTH;
 		}
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(T instance) 
-	{
+	public ResourceLocation getTextureLocation(T instance) {
 		return this.modelProvider.getTextureLocation(instance);
 	}
 }

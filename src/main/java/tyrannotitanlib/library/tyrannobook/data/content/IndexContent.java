@@ -6,7 +6,6 @@ import java.util.Set;
 
 import com.google.common.collect.ImmutableSet;
 
-import lombok.RequiredArgsConstructor;
 import net.minecraft.resources.ResourceLocation;
 import tyrannotitanlib.library.tyrannobook.data.TyrannobookData;
 import tyrannotitanlib.library.tyrannobook.screen.book.element.BookElement;
@@ -45,10 +44,15 @@ public class IndexContent extends ListingContent {
 		super.build(book, list, rightSide);
 	}
 
-	@RequiredArgsConstructor
 	protected static final class Operation {
 		private final String before;
 		private final String action;
 		private final String data;
+		
+		public Operation(String before, String action, String data) {
+			this.before = before;
+			this.action = action;
+			this.data = data;
+		}
 	}
 }

@@ -14,20 +14,16 @@ import java.io.IOException;
 
 @JsonDeserialize(using = UvUnion.Deserializer.class)
 @JsonSerialize(using = UvUnion.Serializer.class)
-public class UvUnion 
-{
+public class UvUnion {
 	public double[] boxUVCoords;
 	public UvFaces faceUV;
 	public boolean isBoxUV;
 
-	static class Deserializer extends JsonDeserializer<UvUnion> 
-	{
+	static class Deserializer extends JsonDeserializer<UvUnion> {
 		@Override
-		public UvUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException 
-		{
+		public UvUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
 			UvUnion value = new UvUnion();
-			switch (jsonParser.currentToken()) 
-			{
+			switch (jsonParser.currentToken()) {
 			case VALUE_NULL:
 				break;
 			case START_ARRAY:
@@ -45,18 +41,14 @@ public class UvUnion
 		}
 	}
 
-	static class Serializer extends JsonSerializer<UvUnion> 
-	{
+	static class Serializer extends JsonSerializer<UvUnion> {
 		@Override
-		public void serialize(UvUnion obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException 
-		{
-			if(obj.boxUVCoords != null) 
-			{
+		public void serialize(UvUnion obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+			if (obj.boxUVCoords != null) {
 				jsonGenerator.writeObject(obj.boxUVCoords);
 				return;
 			}
-			if(obj.faceUV != null) 
-			{
+			if (obj.faceUV != null) {
 				jsonGenerator.writeObject(obj.faceUV);
 				return;
 			}

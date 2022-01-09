@@ -6,8 +6,7 @@ import java.util.stream.Collectors;
 import tyrannotitanlib.library.tyrannomation.core.ITyrannomatable;
 import tyrannotitanlib.library.tyrannomation.core.controller.TyrannomationController;
 
-public class TyrannomationEvent<T extends ITyrannomatable>
-{
+public class TyrannomationEvent<T extends ITyrannomatable> {
 	private final T animatable;
 	public double animationTick;
 	private final float limbSwing;
@@ -17,8 +16,7 @@ public class TyrannomationEvent<T extends ITyrannomatable>
 	private final List<Object> extraData;
 	protected TyrannomationController controller;
 
-	public TyrannomationEvent(T animatable, float limbSwing, float limbSwingAmount, float partialTick, boolean isMoving, List<Object> extraData)
-	{
+	public TyrannomationEvent(T animatable, float limbSwing, float limbSwingAmount, float partialTick, boolean isMoving, List<Object> extraData) {
 		this.animatable = animatable;
 		this.limbSwing = limbSwing;
 		this.limbSwingAmount = limbSwingAmount;
@@ -27,53 +25,43 @@ public class TyrannomationEvent<T extends ITyrannomatable>
 		this.extraData = extraData;
 	}
 
-	public double getAnimationTick()
-	{
+	public double getAnimationTick() {
 		return animationTick;
 	}
-	
-	public T getAnimatable() 
-	{
-		return animatable; 
+
+	public T getAnimatable() {
+		return animatable;
 	}
-	
-	public float getLimbSwing()
-	{
+
+	public float getLimbSwing() {
 		return limbSwing;
 	}
-	
-	public float getLimbSwingAmount()
-	{
+
+	public float getLimbSwingAmount() {
 		return limbSwingAmount;
 	}
-	
-	public float getPartialTick()
-	{
+
+	public float getPartialTick() {
 		return partialTick;
 	}
-	
-	public boolean isMoving() 
-	{ 
-		return isMoving; 
+
+	public boolean isMoving() {
+		return isMoving;
 	}
-	
-	public TyrannomationController getController()
-	{
+
+	public TyrannomationController getController() {
 		return controller;
 	}
 
-	public void setController(TyrannomationController controller)
-	{
+	public void setController(TyrannomationController controller) {
 		this.controller = controller;
 	}
 
-	public List<Object> getExtraData()
-	{
+	public List<Object> getExtraData() {
 		return extraData;
 	}
 
-	public List<T> getExtraDataOfType(Class<T> type)
-	{
+	public List<T> getExtraDataOfType(Class<T> type) {
 		return extraData.stream().filter(x -> type.isAssignableFrom(x.getClass())).map(x -> type.cast(x)).collect(Collectors.toList());
 	}
 }

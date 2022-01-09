@@ -14,25 +14,20 @@ import tyrannotitanlib.library.tyrannomation.model.provider.TyrannomationModelPr
 import tyrannotitanlib.library.tyrannomation.tyranno.render.built.TyrannomationModel;
 import tyrannotitanlib.library.tyrannomation.util.TyrannomationUtils;
 
-public abstract class TyrannomationLayerRenderer<T extends Entity & ITyrannomatable> 
-{
+public abstract class TyrannomationLayerRenderer<T extends Entity & ITyrannomatable> {
 	private final ITyrannomationRenderer<T> entityRenderer;
 
-	public TyrannomationLayerRenderer(ITyrannomationRenderer<T> entityRendererIn) 
-	{
+	public TyrannomationLayerRenderer(ITyrannomationRenderer<T> entityRendererIn) {
 		this.entityRenderer = entityRendererIn;
 	}
 
-	protected static <T extends LivingEntity & ITyrannomatable> void renderCopyModel(TyrannomationModelProvider<T> modelProviderIn, ResourceLocation textureLocationIn, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, T entityIn, float partialTicks, float red, float green, float blue) 
-	{
-		if(!entityIn.isInvisible()) 
-		{
+	protected static <T extends LivingEntity & ITyrannomatable> void renderCopyModel(TyrannomationModelProvider<T> modelProviderIn, ResourceLocation textureLocationIn, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, T entityIn, float partialTicks, float red, float green, float blue) {
+		if (!entityIn.isInvisible()) {
 			renderModel(modelProviderIn, textureLocationIn, matrixStackIn, bufferIn, packedLightIn, entityIn, partialTicks, red, green, blue);
 		}
 	}
 
-	protected static <T extends LivingEntity & ITyrannomatable> void renderModel(TyrannomationModelProvider<T> modelProviderIn, ResourceLocation textureLocationIn, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, T entityIn, float partialTicks, float red, float green, float blue) 
-	{
+	protected static <T extends LivingEntity & ITyrannomatable> void renderModel(TyrannomationModelProvider<T> modelProviderIn, ResourceLocation textureLocationIn, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, T entityIn, float partialTicks, float red, float green, float blue) {
 		TyrannomationModel model = modelProviderIn.getModel(modelProviderIn.getModelLocation(entityIn));
 		ITyrannomationRenderer<T> renderer = (ITyrannomationRenderer<T>) TyrannomationUtils.getRenderer(entityIn);
 		RenderType renderType = getRenderType(textureLocationIn);
@@ -40,18 +35,15 @@ public abstract class TyrannomationLayerRenderer<T extends Entity & ITyrannomata
 		renderer.render(model, entityIn, partialTicks, renderType, matrixStackIn, bufferIn, ivertexbuilder, packedLightIn, LivingEntityRenderer.getOverlayCoords(entityIn, 0.0F), red, green, blue, 1.0F);
 	}
 
-	public static RenderType getRenderType(ResourceLocation textureLocation) 
-	{
+	public static RenderType getRenderType(ResourceLocation textureLocation) {
 		return RenderType.entityCutout(textureLocation);
 	}
 
-	public TyrannomationModelProvider getEntityModel() 
-	{
-		return this.entityRenderer.getGeoModelProvider();
+	public TyrannomationModelProvider getEntityModel() {
+		return this.entityRenderer.getTyrannoModelProvider();
 	}
 
-	protected ResourceLocation getEntityTexture(T entityIn) 
-	{
+	protected ResourceLocation getEntityTexture(T entityIn) {
 		return this.entityRenderer.getTextureLocation(entityIn);
 	}
 

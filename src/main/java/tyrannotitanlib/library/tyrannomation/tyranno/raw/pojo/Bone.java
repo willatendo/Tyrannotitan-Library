@@ -4,8 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Map;
 
-public class Bone 
-{
+public class Bone {
 	private double[] bindPoseRotation;
 	private Cube[] cubes;
 	private Boolean debug;
@@ -23,182 +22,152 @@ public class Bone
 	private TextureMesh[] textureMeshes;
 
 	@JsonProperty("bind_pose_rotation")
-	public double[] getBindPoseRotation() 
-	{
+	public double[] getBindPoseRotation() {
 		return bindPoseRotation;
 	}
 
 	@JsonProperty("bind_pose_rotation")
-	public void setBindPoseRotation(double[] value) 
-	{
+	public void setBindPoseRotation(double[] value) {
 		this.bindPoseRotation = value;
 	}
 
 	@JsonProperty("cubes")
-	public Cube[] getCubes() 
-	{
+	public Cube[] getCubes() {
 		return cubes;
 	}
 
 	@JsonProperty("cubes")
-	public void setCubes(Cube[] value) 
-	{
+	public void setCubes(Cube[] value) {
 		this.cubes = value;
 	}
 
 	@JsonProperty("debug")
-	public Boolean getDebug() 
-	{
+	public Boolean getDebug() {
 		return debug;
 	}
 
 	@JsonProperty("debug")
-	public void setDebug(Boolean value) 
-	{
+	public void setDebug(Boolean value) {
 		this.debug = value;
 	}
 
 	@JsonProperty("inflate")
-	public Double getInflate() 
-	{
+	public Double getInflate() {
 		return inflate;
 	}
 
 	@JsonProperty("inflate")
-	public void setInflate(Double value) 
-	{
+	public void setInflate(Double value) {
 		this.inflate = value;
 	}
 
 	@JsonProperty("locators")
-	public Map<String, LocatorValue> getLocators() 
-	{
+	public Map<String, LocatorValue> getLocators() {
 		return locators;
 	}
 
 	@JsonProperty("locators")
-	public void setLocators(Map<String, LocatorValue> value) 
-	{
+	public void setLocators(Map<String, LocatorValue> value) {
 		this.locators = value;
 	}
 
 	@JsonProperty("mirror")
-	public Boolean getMirror() 
-	{
+	public Boolean getMirror() {
 		return mirror;
 	}
 
 	@JsonProperty("mirror")
-	public void setMirror(Boolean value) 
-	{
+	public void setMirror(Boolean value) {
 		this.mirror = value;
 	}
 
 	@JsonProperty("name")
-	public String getName() 
-	{
+	public String getName() {
 		return name;
 	}
 
 	@JsonProperty("name")
-	public void setName(String value) 
-	{
+	public void setName(String value) {
 		this.name = value;
 	}
 
 	@JsonProperty("neverRender")
-	public Boolean getNeverRender() 
-	{
+	public Boolean getNeverRender() {
 		return neverRender;
 	}
 
 	@JsonProperty("neverRender")
-	public void setNeverRender(Boolean value) 
-	{
+	public void setNeverRender(Boolean value) {
 		this.neverRender = value;
 	}
 
 	@JsonProperty("parent")
-	public String getParent() 
-	{
+	public String getParent() {
 		return parent;
 	}
 
 	@JsonProperty("parent")
-	public void setParent(String value) 
-	{
+	public void setParent(String value) {
 		this.parent = value;
 	}
 
 	@JsonProperty("pivot")
-	public double[] getPivot() 
-	{
+	public double[] getPivot() {
 		return pivot;
 	}
 
 	@JsonProperty("pivot")
-	public void setPivot(double[] value) 
-	{
+	public void setPivot(double[] value) {
 		this.pivot = value;
 	}
 
 	@JsonProperty("poly_mesh")
-	public PolyMesh getPolyMesh() 
-	{
+	public PolyMesh getPolyMesh() {
 		return polyMesh;
 	}
 
 	@JsonProperty("poly_mesh")
-	public void setPolyMesh(PolyMesh value) 
-	{
+	public void setPolyMesh(PolyMesh value) {
 		this.polyMesh = value;
 	}
 
 	@JsonProperty("render_group_id")
-	public Long getRenderGroupID() 
-	{
+	public Long getRenderGroupID() {
 		return renderGroupID;
 	}
 
 	@JsonProperty("render_group_id")
-	public void setRenderGroupID(Long value) 
-	{
+	public void setRenderGroupID(Long value) {
 		this.renderGroupID = value;
 	}
 
 	@JsonProperty("reset")
-	public Boolean getReset() 
-	{
+	public Boolean getReset() {
 		return reset;
 	}
 
 	@JsonProperty("reset")
-	public void setReset(Boolean value) 
-	{
+	public void setReset(Boolean value) {
 		this.reset = value;
 	}
-	
+
 	@JsonProperty("rotation")
-	public double[] getRotation() 
-	{
+	public double[] getRotation() {
 		return rotation;
 	}
 
 	@JsonProperty("rotation")
-	public void setRotation(double[] value) 
-	{
+	public void setRotation(double[] value) {
 		this.rotation = value;
 	}
-	
+
 	@JsonProperty("texture_meshes")
-	public TextureMesh[] getTextureMeshes() 
-	{
+	public TextureMesh[] getTextureMeshes() {
 		return textureMeshes;
 	}
 
 	@JsonProperty("texture_meshes")
-	public void setTextureMeshes(TextureMesh[] value) 
-	{
+	public void setTextureMeshes(TextureMesh[] value) {
 		this.textureMeshes = value;
 	}
 }

@@ -20,46 +20,35 @@ import tyrannotitanlib.library.tyrannomation.core.builder.Tyrannomation;
 import tyrannotitanlib.library.tyrannomation.util.json.JsonTyrannomationUtils;
 import tyrannotitanlib.library.utils.TyrannoUtils;
 
-public class TyrannomationFileLoader 
-{
-	public TyrannomationFile loadAllAnimations(MolangParser parser, ResourceLocation location, ResourceManager manager) 
-	{
+public class TyrannomationFileLoader {
+	public TyrannomationFile loadAllAnimations(MolangParser parser, ResourceLocation location, ResourceManager manager) {
 		TyrannomationFile animationFile = new TyrannomationFile();
 		JsonObject jsonRepresentation = loadFile(location, manager);
 		Set<Map.Entry<String, JsonElement>> entrySet = JsonTyrannomationUtils.getAnimations(jsonRepresentation);
-		for(Map.Entry<String, JsonElement> entry : entrySet) 
-		{
+		for (Map.Entry<String, JsonElement> entry : entrySet) {
 			String animationName = entry.getKey();
 			Tyrannomation animation;
-			try
-			{
+			try {
 				animation = JsonTyrannomationUtils.deserializeJsonToAnimation(JsonTyrannomationUtils.getAnimation(jsonRepresentation, animationName), parser);
 				animationFile.putAnimation(animationName, animation);
-			} 
-			catch(ChainedJsonException e) 
-			{
+			} catch (ChainedJsonException e) {
 				TyrannoUtils.LOGGER.error("Could not load animation: {}", animationName, e);
 				throw new RuntimeException(e);
 			}
 		}
 		return animationFile;
 	}
-	
-	private JsonObject loadFile(ResourceLocation location, ResourceManager  manager) 
-	{
+
+	private JsonObject loadFile(ResourceLocation location, ResourceManager manager) {
 		String content = getResourceAsString(location, manager);
 		Gson GSON = new Gson();
 		return GsonHelper.fromJson(GSON, content, JsonObject.class);
 	}
 
-	public static String getResourceAsString(ResourceLocation location, ResourceManager  manager) 
-	{
-		try(InputStream inputStream = manager.getResource(location).getInputStream()) 
-		{
+	public static String getResourceAsString(ResourceLocation location, ResourceManager manager) {
+		try (InputStream inputStream = manager.getResource(location).getInputStream()) {
 			return IOUtils.toString(inputStream);
-		} 
-		catch(Exception e) 
-		{
+		} catch (Exception e) {
 			String message = "Couldn't load " + location;
 			TyrannoUtils.LOGGER.error(message, e);
 			throw new RuntimeException(new FileNotFoundException(location.toString()));

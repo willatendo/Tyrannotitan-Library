@@ -2,32 +2,27 @@ package tyrannotitanlib.library.tyrannomation.tyranno.raw.pojo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class RawTyrannomationModel 
-{
+public class RawTyrannomationModel {
 	private FormatVersion formatVersion;
 	private MinecraftGeometry[] minecraftGeometry;
 
 	@JsonProperty("format_version")
-	public FormatVersion getFormatVersion() 
-	{
+	public FormatVersion getFormatVersion() {
 		return formatVersion;
 	}
 
 	@JsonProperty("format_version")
-	public void setFormatVersion(FormatVersion value) 
-	{
+	public void setFormatVersion(FormatVersion value) {
 		this.formatVersion = value;
 	}
 
 	@JsonProperty("minecraft:geometry")
-	public MinecraftGeometry[] getMinecraftGeometry() 
-	{
+	public MinecraftGeometry[] getMinecraftGeometry() {
 		return minecraftGeometry;
 	}
 
 	@JsonProperty("minecraft:geometry")
-	public void setMinecraftGeometry(MinecraftGeometry[] value) 
-	{
+	public void setMinecraftGeometry(MinecraftGeometry[] value) {
 		this.minecraftGeometry = value;
 	}
 }

@@ -14,19 +14,15 @@ import java.io.IOException;
 
 @JsonDeserialize(using = LocatorValue.Deserializer.class)
 @JsonSerialize(using = LocatorValue.Serializer.class)
-public class LocatorValue 
-{
+public class LocatorValue {
 	public LocatorClass locatorClassValue;
 	public double[] doubleArrayValue;
 
-	static class Deserializer extends JsonDeserializer<LocatorValue> 
-	{
+	static class Deserializer extends JsonDeserializer<LocatorValue> {
 		@Override
-		public LocatorValue deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException 
-		{
+		public LocatorValue deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
 			LocatorValue value = new LocatorValue();
-			switch (jsonParser.getCurrentToken()) 
-			{
+			switch (jsonParser.getCurrentToken()) {
 			case START_ARRAY:
 				value.doubleArrayValue = jsonParser.readValueAs(double[].class);
 				break;
@@ -40,18 +36,14 @@ public class LocatorValue
 		}
 	}
 
-	static class Serializer extends JsonSerializer<LocatorValue> 
-	{
+	static class Serializer extends JsonSerializer<LocatorValue> {
 		@Override
-		public void serialize(LocatorValue obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException 
-		{
-			if(obj.locatorClassValue != null) 
-			{
+		public void serialize(LocatorValue obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+			if (obj.locatorClassValue != null) {
 				jsonGenerator.writeObject(obj.locatorClassValue);
 				return;
 			}
-			if(obj.doubleArrayValue != null) 
-			{
+			if (obj.doubleArrayValue != null) {
 				jsonGenerator.writeObject(obj.doubleArrayValue);
 				return;
 			}

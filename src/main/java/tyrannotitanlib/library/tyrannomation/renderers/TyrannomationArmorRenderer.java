@@ -29,18 +29,14 @@ import tyrannotitanlib.library.tyrannomation.model.TyrannomatedTyrannomationMode
 import tyrannotitanlib.library.tyrannomation.tyranno.render.built.TyrannomationModel;
 import tyrannotitanlib.library.tyrannomation.util.TyrannomationUtils;
 
-public abstract class TyrannomationArmorRenderer<T extends ArmorItem & ITyrannomatable> extends HumanoidModel implements ITyrannomationRenderer<T> 
-{
+public abstract class TyrannomationArmorRenderer<T extends ArmorItem & ITyrannomatable> extends HumanoidModel implements ITyrannomationRenderer<T> {
 	private static Map<Class<? extends ArmorItem>, TyrannomationArmorRenderer> renderers = new ConcurrentHashMap<>();
 
-	static 
-	{
-		TyrannomationController.addModelFetcher((ITyrannomatable object) -> 
-		{
-			if(object instanceof ArmorItem) 
-			{
+	static {
+		TyrannomationController.addModelFetcher((ITyrannomatable object) -> {
+			if (object instanceof ArmorItem) {
 				TyrannomationArmorRenderer renderer = renderers.get(object.getClass());
-				return renderer == null ? null : renderer.getGeoModelProvider();
+				return renderer == null ? null : renderer.getTyrannoModelProvider();
 			}
 			return null;
 		});
@@ -60,16 +56,13 @@ public abstract class TyrannomationArmorRenderer<T extends ArmorItem & ITyrannom
 	public String rightBootBone = "armorRightBoot";
 	public String leftBootBone = "armorLeftBoot";
 
-	public static void registerArmorRenderer(Class<? extends ArmorItem> itemClass, TyrannomationArmorRenderer renderer) 
-	{
+	public static void registerArmorRenderer(Class<? extends ArmorItem> itemClass, TyrannomationArmorRenderer renderer) {
 		renderers.put(itemClass, renderer);
 	}
 
-	public static TyrannomationArmorRenderer getRenderer(Class<? extends ArmorItem> item) 
-	{
+	public static TyrannomationArmorRenderer getRenderer(Class<? extends ArmorItem> item) {
 		final TyrannomationArmorRenderer renderer = renderers.get(item);
-		if(renderer == null) 
-		{
+		if (renderer == null) {
 			throw new IllegalArgumentException("Renderer not registered for item " + item);
 		}
 		return renderer;
@@ -77,20 +70,17 @@ public abstract class TyrannomationArmorRenderer<T extends ArmorItem & ITyrannom
 
 	private final TyrannomatedTyrannomationModel<T> modelProvider;
 
-	public TyrannomationArmorRenderer(TyrannomatedTyrannomationModel<T> modelProvider) 
-	{
+	public TyrannomationArmorRenderer(TyrannomatedTyrannomationModel<T> modelProvider) {
 		super(Minecraft.getInstance().getEntityModels().bakeLayer(ModelLayers.PLAYER_INNER_ARMOR));
 		this.modelProvider = modelProvider;
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack matrixStackIn, VertexConsumer bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) 
-	{
+	public void renderToBuffer(PoseStack matrixStackIn, VertexConsumer bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
 		this.render(0, matrixStackIn, bufferIn, packedLightIn);
 	}
 
-	public void render(float partialTicks, PoseStack stack, VertexConsumer bufferIn, int packedLightIn) 
-	{
+	public void render(float partialTicks, PoseStack stack, VertexConsumer bufferIn, int packedLightIn) {
 		stack.translate(0.0D, 24 / 16F, 0.0D);
 		stack.scale(-1.0F, -1.0F, 1.0F);
 		TyrannomationModel model = modelProvider.getModel(modelProvider.getModelLocation(currentArmorItem));
@@ -108,12 +98,9 @@ public abstract class TyrannomationArmorRenderer<T extends ArmorItem & ITyrannom
 		stack.translate(0.0D, -24 / 16F, 0.0D);
 	}
 
-	protected void fitToBiped() 
-	{
-		if(!(this.entityLiving instanceof ArmorStand)) 
-		{
-			if(this.headBone != null) 
-			{
+	protected void fitToBiped() {
+		if (!(this.entityLiving instanceof ArmorStand)) {
+			if (this.headBone != null) {
 				IBone headBone = this.modelProvider.getBone(this.headBone);
 				TyrannomationUtils.copyRotations(this.head, headBone);
 				headBone.setPositionX(this.head.x);
@@ -121,8 +108,7 @@ public abstract class TyrannomationArmorRenderer<T extends ArmorItem & ITyrannom
 				headBone.setPositionZ(this.head.z);
 			}
 
-			if(this.bodyBone != null) 
-			{
+			if (this.bodyBone != null) {
 				IBone bodyBone = this.modelProvider.getBone(this.bodyBone);
 				TyrannomationUtils.copyRotations(this.body, bodyBone);
 				bodyBone.setPositionX(this.body.x);
@@ -130,8 +116,7 @@ public abstract class TyrannomationArmorRenderer<T extends ArmorItem & ITyrannom
 				bodyBone.setPositionZ(this.body.z);
 			}
 
-			if(this.rightArmBone != null) 
-			{
+			if (this.rightArmBone != null) {
 				IBone rightArmBone = this.modelProvider.getBone(this.rightArmBone);
 				TyrannomationUtils.copyRotations(this.rightArm, rightArmBone);
 				rightArmBone.setPositionX(this.rightArm.x + 5);
@@ -139,8 +124,7 @@ public abstract class TyrannomationArmorRenderer<T extends ArmorItem & ITyrannom
 				rightArmBone.setPositionZ(this.rightArm.z);
 			}
 
-			if(this.leftArmBone != null) 
-			{
+			if (this.leftArmBone != null) {
 				IBone leftArmBone = this.modelProvider.getBone(this.leftArmBone);
 				TyrannomationUtils.copyRotations(this.leftArm, leftArmBone);
 				leftArmBone.setPositionX(this.leftArm.x - 5);
@@ -148,15 +132,13 @@ public abstract class TyrannomationArmorRenderer<T extends ArmorItem & ITyrannom
 				leftArmBone.setPositionZ(this.leftArm.z);
 			}
 
-			if(this.rightLegBone != null) 
-			{
+			if (this.rightLegBone != null) {
 				IBone rightLegBone = this.modelProvider.getBone(this.rightLegBone);
 				TyrannomationUtils.copyRotations(this.rightLeg, rightLegBone);
 				rightLegBone.setPositionX(this.rightLeg.x + 2);
 				rightLegBone.setPositionY(12 - this.rightLeg.y);
 				rightLegBone.setPositionZ(this.rightLeg.z);
-				if(this.rightBootBone != null) 
-				{
+				if (this.rightBootBone != null) {
 					IBone rightBootBone = this.modelProvider.getBone(this.rightBootBone);
 					TyrannomationUtils.copyRotations(this.rightLeg, rightBootBone);
 					rightBootBone.setPositionX(this.rightLeg.x + 2);
@@ -165,15 +147,13 @@ public abstract class TyrannomationArmorRenderer<T extends ArmorItem & ITyrannom
 				}
 			}
 
-			if(this.leftLegBone != null) 
-			{
+			if (this.leftLegBone != null) {
 				IBone leftLegBone = this.modelProvider.getBone(this.leftLegBone);
 				TyrannomationUtils.copyRotations(this.leftLeg, leftLegBone);
 				leftLegBone.setPositionX(this.leftLeg.x - 2);
 				leftLegBone.setPositionY(12 - this.leftLeg.y);
 				leftLegBone.setPositionZ(this.leftLeg.z);
-				if(this.leftBootBone != null) 
-				{
+				if (this.leftBootBone != null) {
 					IBone leftBootBone = this.modelProvider.getBone(this.leftBootBone);
 					TyrannomationUtils.copyRotations(this.leftLeg, leftBootBone);
 					leftBootBone.setPositionX(this.leftLeg.x - 2);
@@ -185,19 +165,16 @@ public abstract class TyrannomationArmorRenderer<T extends ArmorItem & ITyrannom
 	}
 
 	@Override
-	public TyrannomatedTyrannomationModel<T> getGeoModelProvider() 
-	{
+	public TyrannomatedTyrannomationModel<T> getTyrannoModelProvider() {
 		return this.modelProvider;
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(T instance) 
-	{
+	public ResourceLocation getTextureLocation(T instance) {
 		return this.modelProvider.getTextureLocation(instance);
 	}
 
-	public TyrannomationArmorRenderer setCurrentItem(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot) 
-	{
+	public TyrannomationArmorRenderer setCurrentItem(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot) {
 		this.entityLiving = entityLiving;
 		this.itemStack = itemStack;
 		this.armorSlot = armorSlot;
@@ -205,8 +182,7 @@ public abstract class TyrannomationArmorRenderer<T extends ArmorItem & ITyrannom
 		return this;
 	}
 
-	public final TyrannomationArmorRenderer applyEntityStats(HumanoidModel defaultArmor) 
-	{
+	public final TyrannomationArmorRenderer applyEntityStats(HumanoidModel defaultArmor) {
 		this.young = defaultArmor.young;
 		this.crouching = defaultArmor.crouching;
 		this.riding = defaultArmor.riding;
@@ -215,8 +191,7 @@ public abstract class TyrannomationArmorRenderer<T extends ArmorItem & ITyrannom
 		return this;
 	}
 
-	public TyrannomationArmorRenderer applySlot(EquipmentSlot slot) 
-	{
+	public TyrannomationArmorRenderer applySlot(EquipmentSlot slot) {
 		modelProvider.getModel(modelProvider.getModelLocation(currentArmorItem));
 
 		IBone headBone = this.getAndHideBone(this.headBone);
@@ -228,40 +203,37 @@ public abstract class TyrannomationArmorRenderer<T extends ArmorItem & ITyrannom
 		IBone rightBootBone = this.getAndHideBone(this.rightBootBone);
 		IBone leftBootBone = this.getAndHideBone(this.leftBootBone);
 
-		switch(slot) 
-		{
+		switch (slot) {
 		case HEAD:
-			if(headBone != null)
+			if (headBone != null)
 				headBone.setHidden(false);
 			break;
 		case CHEST:
-			if(bodyBone != null)
+			if (bodyBone != null)
 				bodyBone.setHidden(false);
-			if(rightArmBone != null)
+			if (rightArmBone != null)
 				rightArmBone.setHidden(false);
-			if(leftArmBone != null)
+			if (leftArmBone != null)
 				leftArmBone.setHidden(false);
 			break;
 		case LEGS:
-			if(rightLegBone != null)
+			if (rightLegBone != null)
 				rightLegBone.setHidden(false);
-			if(leftLegBone != null)
+			if (leftLegBone != null)
 				leftLegBone.setHidden(false);
 			break;
 		case FEET:
-			if(rightBootBone != null)
+			if (rightBootBone != null)
 				rightBootBone.setHidden(false);
-			if(leftBootBone != null)
+			if (leftBootBone != null)
 				leftBootBone.setHidden(false);
 			break;
 		}
 		return this;
 	}
 
-	protected IBone getAndHideBone(String boneName) 
-	{
-		if(boneName != null) 
-		{
+	protected IBone getAndHideBone(String boneName) {
+		if (boneName != null) {
 			final IBone bone = this.modelProvider.getBone(boneName);
 			bone.setHidden(true);
 			return bone;
@@ -270,8 +242,7 @@ public abstract class TyrannomationArmorRenderer<T extends ArmorItem & ITyrannom
 	}
 
 	@Override
-	public Integer getUniqueID(T animatable) 
-	{
+	public Integer getUniqueID(T animatable) {
 		return Objects.hash(this.armorSlot, itemStack.getItem(), itemStack.getCount(), itemStack.hasTag() ? itemStack.getTag().toString() : 1, this.entityLiving.getUUID().toString());
 	}
 }

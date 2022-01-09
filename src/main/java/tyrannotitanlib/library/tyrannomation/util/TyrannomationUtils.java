@@ -9,37 +9,30 @@ import tyrannotitanlib.library.tyrannomation.core.processor.IBone;
 import tyrannotitanlib.library.tyrannomation.model.provider.TyrannomationModelProvider;
 import tyrannotitanlib.library.tyrannomation.renderers.ITyrannomationRenderer;
 
-public class TyrannomationUtils 
-{
-	public static double convertTicksToSeconds(double ticks) 
-	{
+public class TyrannomationUtils {
+	public static double convertTicksToSeconds(double ticks) {
 		return ticks / 20;
 	}
 
-	public static double convertSecondsToTicks(double seconds) 
-	{
+	public static double convertSecondsToTicks(double seconds) {
 		return seconds * 20;
 	}
 
-	public static <T extends Entity> EntityRenderer<T> getRenderer(T entity) 
-	{
+	public static <T extends Entity> EntityRenderer<T> getRenderer(T entity) {
 		EntityRenderDispatcher renderManager = Minecraft.getInstance().getEntityRenderDispatcher();
 		return (EntityRenderer<T>) renderManager.getRenderer(entity);
 	}
 
-	public static <T extends Entity> TyrannomationModelProvider getGeoModelForEntity(T entity) 
-	{
+	public static <T extends Entity> TyrannomationModelProvider getTyrannoModelForEntity(T entity) {
 		EntityRenderer<T> entityRenderer = getRenderer(entity);
 
-		if(entityRenderer instanceof ITyrannomationRenderer) 
-		{
-			return ((ITyrannomationRenderer<?>) entityRenderer).getGeoModelProvider();
+		if (entityRenderer instanceof ITyrannomationRenderer) {
+			return ((ITyrannomationRenderer<?>) entityRenderer).getTyrannoModelProvider();
 		}
 		return null;
 	}
-	
-	public static void copyRotations(ModelPart from, IBone to) 
-	{
+
+	public static void copyRotations(ModelPart from, IBone to) {
 		to.setRotationX(-from.xRot);
 		to.setRotationY(-from.yRot);
 		to.setRotationZ(from.zRot);

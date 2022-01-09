@@ -20,26 +20,22 @@ import tyrannotitanlib.library.tyrannomation.core.snapshot.BoneSnapshot;
 import tyrannotitanlib.library.tyrannomation.core.snapshot.DirtyTracker;
 import tyrannotitanlib.library.tyrannomation.core.util.MathUtil;
 
-public class TyrannomationProcessor<T extends ITyrannomatable>
-{
+public class TyrannomationProcessor<T extends ITyrannomatable> {
 	public boolean reloadAnimations = false;
 	private List<IBone> modelRendererList = new ArrayList();
 	private double lastTickValue = -1;
 	private final ITyrannomatableModel animatedModel;
 
-	public TyrannomationProcessor(ITyrannomatableModel animatedModel)
-	{
+	public TyrannomationProcessor(ITyrannomatableModel animatedModel) {
 		this.animatedModel = animatedModel;
 	}
 
-	public void tickAnimation(ITyrannomatable entity, Integer uniqueID, double seekTime, TyrannomationEvent event, MolangParser parser, boolean crashWhenCantFindBone)
-	{
-		if(seekTime == lastTickValue)
-		{
+	public void tickAnimation(ITyrannomatable entity, Integer uniqueID, double seekTime, TyrannomationEvent event, MolangParser parser, boolean crashWhenCantFindBone) {
+		if (seekTime == this.lastTickValue) {
 			return;
 		}
-		
-		lastTickValue = seekTime;
+
+		this.lastTickValue = seekTime;
 		TyrannomationData manager = entity.getFactory().getOrCreateAnimationData(uniqueID);
 		HashMap<String, DirtyTracker> modelTracker = createNewDirtyTracker();
 
@@ -47,10 +43,8 @@ public class TyrannomationProcessor<T extends ITyrannomatable>
 
 		HashMap<String, Pair<IBone, BoneSnapshot>> boneSnapshots = manager.getBoneSnapshotCollection();
 
-		for(TyrannomationController<T> controller : manager.getAnimationControllers().values())
-		{
-			if(reloadAnimations)
-			{
+		for (TyrannomationController<T> controller : manager.getAnimationControllers().values()) {
+			if (this.reloadAnimations) {
 				controller.markNeedsReload();
 				controller.getBoneAnimationQueues().clear();
 			}
@@ -59,10 +53,9 @@ public class TyrannomationProcessor<T extends ITyrannomatable>
 
 			event.setController(controller);
 
-			controller.process(seekTime, event, modelRendererList, boneSnapshots, parser, crashWhenCantFindBone);
+			controller.process(seekTime, event, this.modelRendererList, boneSnapshots, parser, crashWhenCantFindBone);
 
-			for(BoneTyrannomationQueue boneAnimation : controller.getBoneAnimationQueues().values())
-			{
+			for (BoneTyrannomationQueue boneAnimation : controller.getBoneAnimationQueues().values()) {
 				IBone bone = boneAnimation.bone;
 				BoneSnapshot snapshot = boneSnapshots.get(bone.getName()).getRight();
 				BoneSnapshot initialSnapshot = bone.getInitialSnapshot();
@@ -80,13 +73,11 @@ public class TyrannomationProcessor<T extends ITyrannomatable>
 				TyrannomationPoint sZPoint = boneAnimation.scaleZQueue.poll();
 
 				DirtyTracker dirtyTracker = modelTracker.get(bone.getName());
-				if(dirtyTracker == null)
-				{
+				if (dirtyTracker == null) {
 					continue;
 				}
-				
-				if(rXPoint != null && rYPoint != null && rZPoint != null)
-				{
+
+				if (rXPoint != null && rYPoint != null && rZPoint != null) {
 					bone.setRotationX(MathUtil.lerpValues(rXPoint, controller.easingType, controller.customEasingMethod) + initialSnapshot.rotationValueX);
 					bone.setRotationY(MathUtil.lerpValues(rYPoint, controller.easingType, controller.customEasingMethod) + initialSnapshot.rotationValueY);
 					bone.setRotationZ(MathUtil.lerpValues(rZPoint, controller.easingType, controller.customEasingMethod) + initialSnapshot.rotationValueZ);
@@ -97,8 +88,7 @@ public class TyrannomationProcessor<T extends ITyrannomatable>
 					dirtyTracker.hasRotationChanged = true;
 				}
 
-				if(pXPoint != null && pYPoint != null && pZPoint != null)
-				{
+				if (pXPoint != null && pYPoint != null && pZPoint != null) {
 					bone.setPositionX(MathUtil.lerpValues(pXPoint, controller.easingType, controller.customEasingMethod));
 					bone.setPositionY(MathUtil.lerpValues(pYPoint, controller.easingType, controller.customEasingMethod));
 					bone.setPositionZ(MathUtil.lerpValues(pZPoint, controller.easingType, controller.customEasingMethod));
@@ -110,8 +100,7 @@ public class TyrannomationProcessor<T extends ITyrannomatable>
 					dirtyTracker.hasPositionChanged = true;
 				}
 
-				if(sXPoint != null && sYPoint != null && sZPoint != null)
-				{
+				if (sXPoint != null && sYPoint != null && sZPoint != null) {
 					bone.setScaleX(MathUtil.lerpValues(sXPoint, controller.easingType, controller.customEasingMethod));
 					bone.setScaleY(MathUtil.lerpValues(sYPoint, controller.easingType, controller.customEasingMethod));
 					bone.setScaleZ(MathUtil.lerpValues(sZPoint, controller.easingType, controller.customEasingMethod));
@@ -128,27 +117,20 @@ public class TyrannomationProcessor<T extends ITyrannomatable>
 		this.reloadAnimations = false;
 
 		double resetTickLength = manager.getResetSpeed();
-		for(Map.Entry<String, DirtyTracker> tracker : modelTracker.entrySet())
-		{
+		for (Map.Entry<String, DirtyTracker> tracker : modelTracker.entrySet()) {
 			IBone model = tracker.getValue().model;
 			BoneSnapshot initialSnapshot = model.getInitialSnapshot();
 			BoneSnapshot saveSnapshot = boneSnapshots.get(tracker.getKey()).getRight();
-			if(saveSnapshot == null)
-			{
-				if(crashWhenCantFindBone)
-				{
+			if (saveSnapshot == null) {
+				if (crashWhenCantFindBone) {
 					throw new RuntimeException("Could not find save snapshot for bone: " + tracker.getValue().model.getName() + ". Please don't add bones that are used in an animation at runtime.");
-				}
-				else
-				{
+				} else {
 					continue;
 				}
 			}
 
-			if(!tracker.getValue().hasRotationChanged)
-			{
-				if(saveSnapshot.isCurrentlyRunningRotationAnimation)
-				{
+			if (!tracker.getValue().hasRotationChanged) {
+				if (saveSnapshot.isCurrentlyRunningRotationAnimation) {
 					saveSnapshot.mostRecentResetRotationTick = (float) seekTime;
 					saveSnapshot.isCurrentlyRunningRotationAnimation = false;
 				}
@@ -159,17 +141,14 @@ public class TyrannomationProcessor<T extends ITyrannomatable>
 				model.setRotationY(MathUtil.lerpValues(percentageReset, saveSnapshot.rotationValueY, initialSnapshot.rotationValueY));
 				model.setRotationZ(MathUtil.lerpValues(percentageReset, saveSnapshot.rotationValueZ, initialSnapshot.rotationValueZ));
 
-				if(percentageReset >= 1)
-				{
+				if (percentageReset >= 1) {
 					saveSnapshot.rotationValueX = model.getRotationX();
 					saveSnapshot.rotationValueY = model.getRotationY();
 					saveSnapshot.rotationValueZ = model.getRotationZ();
 				}
 			}
-			if(!tracker.getValue().hasPositionChanged)
-			{
-				if(saveSnapshot.isCurrentlyRunningPositionAnimation)
-				{
+			if (!tracker.getValue().hasPositionChanged) {
+				if (saveSnapshot.isCurrentlyRunningPositionAnimation) {
 					saveSnapshot.mostRecentResetPositionTick = (float) seekTime;
 					saveSnapshot.isCurrentlyRunningPositionAnimation = false;
 				}
@@ -180,17 +159,14 @@ public class TyrannomationProcessor<T extends ITyrannomatable>
 				model.setPositionY(MathUtil.lerpValues(percentageReset, saveSnapshot.positionOffsetY, initialSnapshot.positionOffsetY));
 				model.setPositionZ(MathUtil.lerpValues(percentageReset, saveSnapshot.positionOffsetZ, initialSnapshot.positionOffsetZ));
 
-				if(percentageReset >= 1)
-				{
+				if (percentageReset >= 1) {
 					saveSnapshot.positionOffsetX = model.getPositionX();
 					saveSnapshot.positionOffsetY = model.getPositionY();
 					saveSnapshot.positionOffsetZ = model.getPositionZ();
 				}
 			}
-			if(!tracker.getValue().hasScaleChanged)
-			{
-				if(saveSnapshot.isCurrentlyRunningScaleAnimation)
-				{
+			if (!tracker.getValue().hasScaleChanged) {
+				if (saveSnapshot.isCurrentlyRunningScaleAnimation) {
 					saveSnapshot.mostRecentResetScaleTick = (float) seekTime;
 					saveSnapshot.isCurrentlyRunningScaleAnimation = false;
 				}
@@ -201,8 +177,7 @@ public class TyrannomationProcessor<T extends ITyrannomatable>
 				model.setScaleY(MathUtil.lerpValues(percentageReset, saveSnapshot.scaleValueY, initialSnapshot.scaleValueY));
 				model.setScaleZ(MathUtil.lerpValues(percentageReset, saveSnapshot.scaleValueZ, initialSnapshot.scaleValueZ));
 
-				if(percentageReset >= 1)
-				{
+				if (percentageReset >= 1) {
 					saveSnapshot.scaleValueX = model.getScaleX();
 					saveSnapshot.scaleValueY = model.getScaleY();
 					saveSnapshot.scaleValueZ = model.getScaleZ();
@@ -212,51 +187,40 @@ public class TyrannomationProcessor<T extends ITyrannomatable>
 		manager.isFirstTick = false;
 	}
 
-	private HashMap<String, DirtyTracker> createNewDirtyTracker()
-	{
+	private HashMap<String, DirtyTracker> createNewDirtyTracker() {
 		HashMap<String, DirtyTracker> tracker = new HashMap<>();
-		for(IBone bone : modelRendererList)
-		{
+		for (IBone bone : this.modelRendererList) {
 			tracker.put(bone.getName(), new DirtyTracker(false, false, false, bone));
 		}
 		return tracker;
 	}
 
-	private void updateBoneSnapshots(HashMap<String, Pair<IBone, BoneSnapshot>> boneSnapshotCollection)
-	{
-		for(IBone bone : modelRendererList)
-		{
-			if(!boneSnapshotCollection.containsKey(bone.getName()))
-			{
+	private void updateBoneSnapshots(HashMap<String, Pair<IBone, BoneSnapshot>> boneSnapshotCollection) {
+		for (IBone bone : this.modelRendererList) {
+			if (!boneSnapshotCollection.containsKey(bone.getName())) {
 				boneSnapshotCollection.put(bone.getName(), Pair.of(bone, new BoneSnapshot(bone.getInitialSnapshot())));
 			}
 		}
 	}
 
-	public IBone getBone(String boneName)
-	{
-		return modelRendererList.stream().filter(x -> x.getName().equals(boneName)).findFirst().orElse(null);
+	public IBone getBone(String boneName) {
+		return this.modelRendererList.stream().filter(x -> x.getName().equals(boneName)).findFirst().orElse(null);
 	}
 
-	public void registerModelRenderer(IBone modelRenderer)
-	{
+	public void registerModelRenderer(IBone modelRenderer) {
 		modelRenderer.saveInitialSnapshot();
-		modelRendererList.add(modelRenderer);
+		this.modelRendererList.add(modelRenderer);
 	}
 
-
-	public void clearModelRendererList()
-	{
+	public void clearModelRendererList() {
 		this.modelRendererList.clear();
 	}
 
-	public List<IBone> getModelRendererList()
-	{
-		return modelRendererList;
+	public List<IBone> getModelRendererList() {
+		return this.modelRendererList;
 	}
 
-	public void preAnimationSetup(ITyrannomatable animatable, double seekTime)
-	{
+	public void preAnimationSetup(ITyrannomatable animatable, double seekTime) {
 		this.animatedModel.setMolangQueries(animatable, seekTime);
 	}
 }

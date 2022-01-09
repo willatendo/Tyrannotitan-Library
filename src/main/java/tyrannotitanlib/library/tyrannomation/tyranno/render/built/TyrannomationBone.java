@@ -71,55 +71,55 @@ public class TyrannomationBone implements IBone
 	@Override
 	public float getRotationX() 
 	{
-		return rotateX;
+		return this.rotateX;
 	}
 
 	@Override
 	public float getRotationY() 
 	{
-		return rotateY;
+		return this.rotateY;
 	}
 
 	@Override
 	public float getRotationZ() 
 	{
-		return rotateZ;
+		return this.rotateZ;
 	}
 
 	@Override
 	public float getPositionX() 
 	{
-		return positionX;
+		return this.positionX;
 	}
 
 	@Override
 	public float getPositionY() 
 	{
-		return positionY;
+		return this.positionY;
 	}
 
 	@Override
 	public float getPositionZ() 
 	{
-		return positionZ;
+		return this.positionZ;
 	}
 
 	@Override
 	public float getScaleX() 
 	{
-		return scaleX;
+		return this.scaleX;
 	}
 
 	@Override
 	public float getScaleY()
 	{
-		return scaleY;
+		return this.scaleY;
 	}
 
 	@Override
 	public float getScaleZ() 
 	{
-		return scaleZ;
+		return this.scaleZ;
 	}
 
 	@Override

@@ -1,75 +1,8 @@
-/*
- * Copyright (c) 2020.
- * Author: Bernie G. (Gecko)
- */
-
 package tyrannotitanlib.library.tyrannomation.core.snapshot;
 
 import tyrannotitanlib.library.tyrannomation.core.processor.IBone;
 
-public class BoneSnapshot
-{
-	public BoneSnapshot(IBone modelRenderer)
-	{
-		rotationValueX = modelRenderer.getRotationX();
-		rotationValueY = modelRenderer.getRotationY();
-		rotationValueZ = modelRenderer.getRotationZ();
-
-		positionOffsetX = modelRenderer.getPositionX();
-		positionOffsetY = modelRenderer.getPositionY();
-		positionOffsetZ = modelRenderer.getPositionZ();
-
-		scaleValueX = modelRenderer.getScaleX();
-		scaleValueY = modelRenderer.getScaleY();
-		scaleValueZ = modelRenderer.getScaleZ();
-
-		this.modelRenderer = modelRenderer;
-		this.name = modelRenderer.getName();
-	}
-
-	public BoneSnapshot(IBone modelRenderer, boolean dontSaveRotations)
-	{
-		if(dontSaveRotations)
-		{
-			rotationValueX = 0;
-			rotationValueY = 0;
-			rotationValueZ = 0;
-		}
-
-		rotationValueX = modelRenderer.getRotationX();
-		rotationValueY = modelRenderer.getRotationY();
-		rotationValueZ = modelRenderer.getRotationZ();
-
-		positionOffsetX = modelRenderer.getPositionX();
-		positionOffsetY = modelRenderer.getPositionY();
-		positionOffsetZ = modelRenderer.getPositionZ();
-
-		scaleValueX = modelRenderer.getScaleX();
-		scaleValueY = modelRenderer.getScaleY();
-		scaleValueZ = modelRenderer.getScaleZ();
-
-		this.modelRenderer = modelRenderer;
-		this.name = modelRenderer.getName();
-	}
-
-	public BoneSnapshot(BoneSnapshot snapshot)
-	{
-		scaleValueX = snapshot.scaleValueX;
-		scaleValueY = snapshot.scaleValueY;
-		scaleValueZ = snapshot.scaleValueZ;
-
-		positionOffsetX = snapshot.positionOffsetX;
-		positionOffsetY = snapshot.positionOffsetY;
-		positionOffsetZ = snapshot.positionOffsetZ;
-
-		rotationValueX = snapshot.rotationValueX;
-		rotationValueY = snapshot.rotationValueY;
-		rotationValueZ = snapshot.rotationValueZ;
-		this.modelRenderer = snapshot.modelRenderer;
-		this.name = snapshot.name;
-	}
-
-
+public class BoneSnapshot {
 	public String name;
 	private IBone modelRenderer;
 
@@ -93,25 +26,77 @@ public class BoneSnapshot
 	public boolean isCurrentlyRunningPositionAnimation = true;
 	public boolean isCurrentlyRunningScaleAnimation = true;
 
-	@Override
-	public boolean equals(Object o)
-	{
-		if(this == o)
-		{
-			return true;
+	public BoneSnapshot(IBone modelRenderer) {
+		this.rotationValueX = modelRenderer.getRotationX();
+		this.rotationValueY = modelRenderer.getRotationY();
+		this.rotationValueZ = modelRenderer.getRotationZ();
+
+		this.positionOffsetX = modelRenderer.getPositionX();
+		this.positionOffsetY = modelRenderer.getPositionY();
+		this.positionOffsetZ = modelRenderer.getPositionZ();
+
+		this.scaleValueX = modelRenderer.getScaleX();
+		this.scaleValueY = modelRenderer.getScaleY();
+		this.scaleValueZ = modelRenderer.getScaleZ();
+
+		this.modelRenderer = modelRenderer;
+		this.name = modelRenderer.getName();
+	}
+
+	public BoneSnapshot(IBone modelRenderer, boolean dontSaveRotations) {
+		if (dontSaveRotations) {
+			this.rotationValueX = 0;
+			this.rotationValueY = 0;
+			this.rotationValueZ = 0;
 		}
-		
-		if(o == null || getClass() != o.getClass())
-		{
-			return false;
-		}
-		BoneSnapshot that = (BoneSnapshot) o;
-		return name.equals(that.name);
+
+		this.rotationValueX = modelRenderer.getRotationX();
+		this.rotationValueY = modelRenderer.getRotationY();
+		this.rotationValueZ = modelRenderer.getRotationZ();
+
+		this.positionOffsetX = modelRenderer.getPositionX();
+		this.positionOffsetY = modelRenderer.getPositionY();
+		this.positionOffsetZ = modelRenderer.getPositionZ();
+
+		this.scaleValueX = modelRenderer.getScaleX();
+		this.scaleValueY = modelRenderer.getScaleY();
+		this.scaleValueZ = modelRenderer.getScaleZ();
+
+		this.modelRenderer = modelRenderer;
+		this.name = modelRenderer.getName();
+	}
+
+	public BoneSnapshot(BoneSnapshot snapshot) {
+		this.scaleValueX = snapshot.scaleValueX;
+		this.scaleValueY = snapshot.scaleValueY;
+		this.scaleValueZ = snapshot.scaleValueZ;
+
+		this.positionOffsetX = snapshot.positionOffsetX;
+		this.positionOffsetY = snapshot.positionOffsetY;
+		this.positionOffsetZ = snapshot.positionOffsetZ;
+
+		this.rotationValueX = snapshot.rotationValueX;
+		this.rotationValueY = snapshot.rotationValueY;
+		this.rotationValueZ = snapshot.rotationValueZ;
+		this.modelRenderer = snapshot.modelRenderer;
+		this.name = snapshot.name;
 	}
 
 	@Override
-	public int hashCode()
-	{
-		return name.hashCode();
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+		BoneSnapshot that = (BoneSnapshot) o;
+		return this.name.equals(that.name);
+	}
+
+	@Override
+	public int hashCode() {
+		return this.name.hashCode();
 	}
 }

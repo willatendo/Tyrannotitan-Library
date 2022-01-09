@@ -12,7 +12,7 @@ buildscript {
 		classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
 		classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
 		classpath "gradle.plugin.com.github.jengelman.gradle.plugins:shadow:7.0.0"
-		classpath 'io.freefair.gradle:lombok-plugin:6.3.0'
+		classpath "io.freefair.gradle:lombok-plugin:6.3.0"
 	}
 }
 
@@ -20,11 +20,10 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: 'com.github.johnrengelman.shadow'
-apply plugin: 'io.freefair.lombok'
+apply plugin: "io.freefair.lombok"
 apply plugin: 'org.spongepowered.mixin'
-apply from: 'https://raw.githubusercontent.com/SizableShrimp/Forge-Class-Remapper/main/classremapper.gradle'
 
-version = '3.0.0'
+version = '3.0.1'
 group = 'tyrannotitanlib'
 archivesBaseName = 'tyrannotitanlib'
 
@@ -127,8 +126,8 @@ dependencies {
 shadowJar {
 	configurations = [project.configurations.shade]
 	from sourceSets.main.allSource
-	relocate 'com.eliotlash', 'shadowed.eliotlash'
-	relocate 'com.fasterxml', 'shadowed.fasterxml'
+	relocate 'com.eliotlash', 'shadowed.com.eliotlash'
+	relocate 'com.fasterxml', 'shadowed.com.fasterxml'
 	classifier ''
 }
 
@@ -149,7 +148,7 @@ jar {
 				"Specification-Vendor" : "Willatendo",
 				"Specification-Version" : "1",
 				"Implementation-Title" : project.name,
-				"Implementation-Version" : "3.0.0",
+				"Implementation-Version" : "3.0.1",
 				"Implementation-Vendor" : "tyrannotitanlib",
 				"Implementation-Timestamp" : new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
        	     	"MixinConfigs": "tyrannotitanlib.mixins.json"
@@ -161,8 +160,8 @@ task packageSources(type: ShadowJar, dependsOn: 'classes') {
 	configurations = [project.configurations.shade]
 	from sourceSets.main.allSource
 	exclude('META-INF/**')
-	relocate 'com.eliotlash', 'shadowed.eliotlash'
-	relocate 'com.fasterxml', 'shadowed.fasterxml'
+	relocate 'com.eliotlash', 'shadowed.com.eliotlash'
+	relocate 'com.fasterxml', 'shadowed.com.fasterxml'
 	classifier = 'sources'
 }
 

@@ -20,10 +20,8 @@ import tyrannotitanlib.library.tyrannomation.core.keyframe.VectorKeyFrameList;
 import tyrannotitanlib.library.tyrannomation.util.TyrannomationUtils;
 import tyrannotitanlib.library.utils.TyrannoUtils;
 
-public class JsonKeyFrameUtils 
-{
-	private static VectorKeyFrameList<KeyFrame<IValue>> convertJson(List<Map.Entry<String, JsonElement>> element, boolean isRotation, MolangParser parser) throws NumberFormatException, MolangException 
-	{
+public class JsonKeyFrameUtils {
+	private static VectorKeyFrameList<KeyFrame<IValue>> convertJson(List<Map.Entry<String, JsonElement>> element, boolean isRotation, MolangParser parser) throws NumberFormatException, MolangException {
 		IValue previousXValue = null;
 		IValue previousYValue = null;
 		IValue previousZValue = null;
@@ -32,10 +30,9 @@ public class JsonKeyFrameUtils
 		List<KeyFrame<IValue>> yKeyFrames = new ArrayList();
 		List<KeyFrame<IValue>> zKeyFrames = new ArrayList();
 
-		for(int i = 0; i < element.size(); i++) 
-		{
+		for (int i = 0; i < element.size(); i++) {
 			Map.Entry<String, JsonElement> keyframe = element.get(i);
-			if(keyframe.getKey().equals("easing") || keyframe.getKey().equals("easingArgs")) 
+			if (keyframe.getKey().equals("easing") || keyframe.getKey().equals("easingArgs"))
 				continue;
 			Map.Entry<String, JsonElement> previousKeyFrame = i == 0 ? null : element.get(i - 1);
 
@@ -55,25 +52,20 @@ public class JsonKeyFrameUtils
 			KeyFrame<IValue> yKeyFrame;
 			KeyFrame<IValue> zKeyFrame;
 
-			if(keyframe.getValue().isJsonObject() && hasEasingType(keyframe.getValue())) 
-			{
+			if (keyframe.getValue().isJsonObject() && hasEasingType(keyframe.getValue())) {
 				EasingType easingType = getEasingType(keyframe.getValue());
-				if(hasEasingArgs(keyframe.getValue())) 
-				{
+				if (hasEasingArgs(keyframe.getValue())) {
 					List<IValue> easingArgs = getEasingArgs(keyframe.getValue());
 					xKeyFrame = new KeyFrame(TyrannomationUtils.convertSecondsToTicks(animationTimeDifference), i == 0 ? currentXValue : previousXValue, currentXValue, easingType, easingArgs);
 					yKeyFrame = new KeyFrame(TyrannomationUtils.convertSecondsToTicks(animationTimeDifference), i == 0 ? currentYValue : previousYValue, currentYValue, easingType, easingArgs);
 					zKeyFrame = new KeyFrame(TyrannomationUtils.convertSecondsToTicks(animationTimeDifference), i == 0 ? currentZValue : previousZValue, currentZValue, easingType, easingArgs);
-				}
-				else 
-				{
+				} else {
 					xKeyFrame = new KeyFrame(TyrannomationUtils.convertSecondsToTicks(animationTimeDifference), i == 0 ? currentXValue : previousXValue, currentXValue, easingType);
 					yKeyFrame = new KeyFrame(TyrannomationUtils.convertSecondsToTicks(animationTimeDifference), i == 0 ? currentYValue : previousYValue, currentYValue, easingType);
 					zKeyFrame = new KeyFrame(TyrannomationUtils.convertSecondsToTicks(animationTimeDifference), i == 0 ? currentZValue : previousZValue, currentZValue, easingType);
+
 				}
-			} 
-			else 
-			{
+			} else {
 				xKeyFrame = new KeyFrame(TyrannomationUtils.convertSecondsToTicks(animationTimeDifference), i == 0 ? currentXValue : previousXValue, currentXValue);
 				yKeyFrame = new KeyFrame(TyrannomationUtils.convertSecondsToTicks(animationTimeDifference), i == 0 ? currentYValue : previousYValue, currentYValue);
 				zKeyFrame = new KeyFrame(TyrannomationUtils.convertSecondsToTicks(animationTimeDifference), i == 0 ? currentZValue : previousZValue, currentZValue);
@@ -91,71 +83,54 @@ public class JsonKeyFrameUtils
 		return new VectorKeyFrameList<>(xKeyFrames, yKeyFrames, zKeyFrames);
 	}
 
-	private static JsonArray getKeyFrameVector(JsonElement element) 
-	{
-		if(element.isJsonArray()) 
-		{
+	private static JsonArray getKeyFrameVector(JsonElement element) {
+		if (element.isJsonArray()) {
 			return element.getAsJsonArray();
-		}
-		else 
-		{
+		} else {
 			return element.getAsJsonObject().get("vector").getAsJsonArray();
 		}
 	}
 
-	private static boolean hasEasingType(JsonElement element) 
-	{
+	private static boolean hasEasingType(JsonElement element) {
 		return element.getAsJsonObject().has("easing");
 	}
 
-	private static boolean hasEasingArgs(JsonElement element) 
-	{
+	private static boolean hasEasingArgs(JsonElement element) {
 		return element.getAsJsonObject().has("easingArgs");
 	}
 
-	private static EasingType getEasingType(JsonElement element) 
-	{
+	private static EasingType getEasingType(JsonElement element) {
 		final String easingString = element.getAsJsonObject().get("easing").getAsString();
-		try 
-		{
+		try {
 			final String uppercaseEasingString = Character.toUpperCase(easingString.charAt(0)) + easingString.substring(1);
 			EasingType easing = EasingType.valueOf(uppercaseEasingString);
 			return easing;
-		} 
-		catch(Exception e) 
-		{
+		} catch (Exception e) {
 			TyrannoUtils.LOGGER.fatal("Unknown easing type: {}", easingString);
 			throw new RuntimeException(e);
 		}
 	}
 
-	private static List<IValue> getEasingArgs(JsonElement element) 
-	{
+	private static List<IValue> getEasingArgs(JsonElement element) {
 		JsonObject asJsonObject = element.getAsJsonObject();
 		JsonElement easingArgs = asJsonObject.get("easingArgs");
 		JsonArray asJsonArray = easingArgs.getAsJsonArray();
 		return JsonTyrannomationUtils.convertJsonArrayToList(asJsonArray);
 	}
 
-	public static VectorKeyFrameList<KeyFrame<IValue>> convertJsonToKeyFrames(List<Map.Entry<String, JsonElement>> element, MolangParser parser) throws NumberFormatException, MolangException 
-	{
+	public static VectorKeyFrameList<KeyFrame<IValue>> convertJsonToKeyFrames(List<Map.Entry<String, JsonElement>> element, MolangParser parser) throws NumberFormatException, MolangException {
 		return convertJson(element, false, parser);
 	}
-
-	public static VectorKeyFrameList<KeyFrame<IValue>> convertJsonToRotationKeyFrames(List<Map.Entry<String, JsonElement>> element, MolangParser parser) throws NumberFormatException, MolangException 
-	{
+	
+	public static VectorKeyFrameList<KeyFrame<IValue>> convertJsonToRotationKeyFrames(List<Map.Entry<String, JsonElement>> element, MolangParser parser) throws NumberFormatException, MolangException {
 		VectorKeyFrameList<KeyFrame<IValue>> frameList = convertJson(element, true, parser);
 		return new VectorKeyFrameList(frameList.xKeyFrames, frameList.yKeyFrames, frameList.zKeyFrames);
 	}
 
-	public static IValue parseExpression(MolangParser parser, JsonElement element) throws MolangException 
-	{
-		if(element.getAsJsonPrimitive().isString()) 
-		{
+	public static IValue parseExpression(MolangParser parser, JsonElement element) throws MolangException {
+		if (element.getAsJsonPrimitive().isString()) {
 			return parser.parseJson(element);
-		} 
-		else 
-		{
+		} else {
 			return ConstantValue.fromDouble(element.getAsDouble());
 		}
 	}

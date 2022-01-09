@@ -1,4 +1,4 @@
-	package tyrannotitanlib.library.tyrannomation.renderers;
+package tyrannotitanlib.library.tyrannomation.renderers;
 
 import java.awt.Color;
 import java.util.Collections;
@@ -25,15 +25,11 @@ import tyrannotitanlib.library.tyrannomation.model.provider.data.EntityModelData
 import tyrannotitanlib.library.tyrannomation.tyranno.render.built.TyrannomationModel;
 import tyrannotitanlib.library.tyrannomation.util.TyrannomationUtils;
 
-public class TyrannomationProjectilesRenderer<T extends Entity & ITyrannomatable> extends EntityRenderer<T> implements ITyrannomationRenderer<T> 
-{
-	static 
-	{
-		TyrannomationController.addModelFetcher((ITyrannomatable object) -> 
-		{
-			if(object instanceof Entity) 
-			{
-				return (ITyrannomatableModel<?>) TyrannomationUtils.getGeoModelForEntity((Entity) object);
+public class TyrannomationProjectilesRenderer<T extends Entity & ITyrannomatable> extends EntityRenderer<T> implements ITyrannomationRenderer<T> {
+	static {
+		TyrannomationController.addModelFetcher((ITyrannomatable object) -> {
+			if (object instanceof Entity) {
+				return (ITyrannomatableModel<?>) TyrannomationUtils.getTyrannoModelForEntity((Entity) object);
 			}
 			return null;
 		});
@@ -41,15 +37,13 @@ public class TyrannomationProjectilesRenderer<T extends Entity & ITyrannomatable
 
 	private final TyrannomatedTyrannomationModel<T> modelProvider;
 
-	protected TyrannomationProjectilesRenderer(EntityRendererProvider.Context renderManager, TyrannomatedTyrannomationModel<T> modelProvider) 
-	{
+	protected TyrannomationProjectilesRenderer(EntityRendererProvider.Context renderManager, TyrannomatedTyrannomationModel<T> modelProvider) {
 		super(renderManager);
 		this.modelProvider = modelProvider;
 	}
 
 	@Override
-	public void render(T entity, float entityYaw, float partialTicks, PoseStack matrixstack, MultiBufferSource bufferIn, int packedLightIn) 
-	{
+	public void render(T entity, float entityYaw, float partialTicks, PoseStack matrixstack, MultiBufferSource bufferIn, int packedLightIn) {
 		TyrannomationModel model = modelProvider.getModel(modelProvider.getModelLocation(entity));
 		matrixstack.pushPose();
 		matrixstack.mulPose(Vector3f.YP.rotationDegrees(Mth.lerp(partialTicks, entity.yRotO, entity.getYRot()) - 90.0F));
@@ -63,28 +57,24 @@ public class TyrannomationProjectilesRenderer<T extends Entity & ITyrannomatable
 		float limbSwing = 0.0F;
 		EntityModelData entityModelData = new EntityModelData();
 		TyrannomationEvent<T> predicate = new TyrannomationEvent<T>(entity, limbSwing, lastLimbDistance, partialTicks, !(lastLimbDistance > -0.15F && lastLimbDistance < 0.15F), Collections.singletonList(entityModelData));
-		if(modelProvider instanceof ITyrannomatableModel) 
-		{
+		if (modelProvider instanceof ITyrannomatableModel) {
 			((ITyrannomatableModel<T>) modelProvider).setLivingAnimations(entity, this.getUniqueID(entity), predicate);
 		}
 		matrixstack.popPose();
 		super.render(entity, entityYaw, partialTicks, matrixstack, bufferIn, packedLightIn);
 	}
 
-	public static int getPackedOverlay(Entity livingEntityIn, float uIn) 
-	{
+	public static int getPackedOverlay(Entity livingEntityIn, float uIn) {
 		return OverlayTexture.pack(OverlayTexture.u(uIn), OverlayTexture.v(false));
 	}
 
 	@Override
-	public TyrannomationModelProvider<T> getGeoModelProvider() 
-	{
+	public TyrannomationModelProvider<T> getTyrannoModelProvider() {
 		return this.modelProvider;
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(T instance) 
-	{
+	public ResourceLocation getTextureLocation(T instance) {
 		return this.modelProvider.getTextureLocation(instance);
 	}
 

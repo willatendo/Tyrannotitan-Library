@@ -5,15 +5,12 @@ import tyrannotitanlib.library.tyrannomation.core.event.predicate.TyrannomationE
 import tyrannotitanlib.library.tyrannomation.core.processor.TyrannomationProcessor;
 import tyrannotitanlib.library.tyrannomation.core.processor.IBone;
 
-public interface ITyrannomatableModel<E>
-{
-	default double getCurrentTick()	
-	{
+public interface ITyrannomatableModel<E> {
+	default double getCurrentTick() {
 		return (System.nanoTime() / 1000000L / 50.0);
 	}
 
-	default void setLivingAnimations(E entity, Integer uniqueID)
-	{
+	default void setLivingAnimations(E entity, Integer uniqueID) {
 		this.setLivingAnimations(entity, uniqueID, null);
 	}
 
@@ -23,11 +20,9 @@ public interface ITyrannomatableModel<E>
 
 	Tyrannomation getAnimation(String name, ITyrannomatable animatable);
 
-	default IBone getBone(String boneName)
-	{
+	default IBone getBone(String boneName) {
 		IBone bone = this.getAnimationProcessor().getBone(boneName);
-		if(bone == null)
-		{
+		if (bone == null) {
 			throw new RuntimeException("Could not find bone: " + boneName);
 		}
 		return bone;

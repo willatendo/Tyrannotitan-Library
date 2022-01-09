@@ -9,8 +9,6 @@ import java.util.stream.Collectors;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.GsonHelper;
@@ -20,31 +18,38 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import tyrannotitanlib.library.tyrannobook.JsonHelper;
 
-@RequiredArgsConstructor(staticName = "of")
 public class SizedIngredient implements Predicate<ItemStack> {
 	public static final SizedIngredient EMPTY = of(Ingredient.EMPTY, 0);
 
 	private final Ingredient ingredient;
-	@Getter
-	private final int amountNeeded;
+	private final int amount;
 
 	private WeakReference<ItemStack[]> lastIngredientMatch;
 	private List<ItemStack> matchingStacks;
+	
+	private SizedIngredient(Ingredient ingredient, int amount) {
+		this.ingredient = ingredient;
+		this.amount = amount;
+	}
 
+	public static SizedIngredient of(Ingredient ingredient, int amount) {
+		return new SizedIngredient(ingredient, amount);
+	}
+	
 	public static SizedIngredient of(Ingredient ingredient) {
 		return of(ingredient, 1);
 	}
 
-	public static SizedIngredient fromItems(int amountNeeded, ItemLike... items) {
-		return of(Ingredient.of(items), amountNeeded);
+	public static SizedIngredient fromItems(int amount, ItemLike... items) {
+		return of(Ingredient.of(items), amount);
 	}
 
 	public static SizedIngredient fromItems(ItemLike... items) {
 		return fromItems(1, items);
 	}
 
-	public static SizedIngredient fromTag(Tag<Item> tag, int amountNeeded) {
-		return of(Ingredient.of(tag), amountNeeded);
+	public static SizedIngredient fromTag(Tag<Item> tag, int amount) {
+		return of(Ingredient.of(tag), amount);
 	}
 
 	public static SizedIngredient fromTag(Tag<Item> tag) {
@@ -53,7 +58,7 @@ public class SizedIngredient implements Predicate<ItemStack> {
 
 	@Override
 	public boolean test(ItemStack stack) {
-		return stack.getCount() >= this.amountNeeded && this.ingredient.test(stack);
+		return stack.getCount() >= this.amount && this.ingredient.test(stack);
 	}
 
 	public boolean hasNoMatchingStacks() {
@@ -64,9 +69,9 @@ public class SizedIngredient implements Predicate<ItemStack> {
 		ItemStack[] ingredientMatch = this.ingredient.getItems();
 		if (this.matchingStacks == null || this.lastIngredientMatch.get() != ingredientMatch) {
 			this.matchingStacks = Arrays.stream(ingredientMatch).map(stack -> {
-				if (stack.getCount() != this.amountNeeded) {
+				if (stack.getCount() != this.amount) {
 					stack = stack.copy();
-					stack.setCount(this.amountNeeded);
+					stack.setCount(this.amount);
 				}
 				return stack;
 			}).collect(Collectors.toList());
@@ -76,7 +81,7 @@ public class SizedIngredient implements Predicate<ItemStack> {
 	}
 
 	public void write(FriendlyByteBuf buffer) {
-		buffer.writeVarInt(this.amountNeeded);
+		buffer.writeVarInt(this.amount);
 		this.ingredient.toNetwork(buffer);
 	}
 
@@ -93,20 +98,20 @@ public class SizedIngredient implements Predicate<ItemStack> {
 			json = new JsonObject();
 			json.add("ingredient", ingredient);
 		}
-		if (this.amountNeeded != 1) {
-			json.addProperty("amount_needed", this.amountNeeded);
+		if (this.amount != 1) {
+			json.addProperty("amount_needed", this.amount);
 		}
 		return json;
 	}
 	
 	public static SizedIngredient read(FriendlyByteBuf buffer) {
-		int amountNeeded = buffer.readVarInt();
+		int amount = buffer.readVarInt();
 		Ingredient ingredient = Ingredient.fromNetwork(buffer);
-		return of(ingredient, amountNeeded);
+		return of(ingredient, amount);
 	}
 
 	public static SizedIngredient deserialize(JsonObject json) {
-		int amountNeeded = GsonHelper.getAsInt(json, "amount_needed", 1);
+		int amount = GsonHelper.getAsInt(json, "amount_needed", 1);
 		Ingredient ingredient;
 		if (json.has("ingredient")) {
 			ingredient = Ingredient.fromJson(JsonHelper.getElement(json, "ingredient"));
@@ -114,6 +119,6 @@ public class SizedIngredient implements Predicate<ItemStack> {
 			ingredient = Ingredient.fromJson(json);
 		}
 
-		return of(ingredient, amountNeeded);
+		return of(ingredient, amount);
 	}
 }

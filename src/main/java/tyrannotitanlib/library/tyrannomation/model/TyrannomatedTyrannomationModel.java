@@ -29,97 +29,78 @@ import tyrannotitanlib.library.tyrannomation.tyranno.render.built.TyrannomationB
 import tyrannotitanlib.library.tyrannomation.tyranno.render.built.TyrannomationModel;
 import tyrannotitanlib.library.tyrannomation.util.MolangUtils;
 
-public abstract class TyrannomatedTyrannomationModel<T extends ITyrannomatable> extends TyrannomationModelProvider<T> implements ITyrannomatableModel<T>, ITyrannomatableModelProvider<T> 
-{
+public abstract class TyrannomatedTyrannomationModel<T extends ITyrannomatable> extends TyrannomationModelProvider<T> implements ITyrannomatableModel<T>, ITyrannomatableModelProvider<T> {
 	private final TyrannomationProcessor animationProcessor;
 	private TyrannomationModel currentModel;
 
-	protected TyrannomatedTyrannomationModel() 
-	{
+	protected TyrannomatedTyrannomationModel() {
 		this.animationProcessor = new TyrannomationProcessor(this);
 	}
 
-	public void registerBone(TyrannomationBone bone) 
-	{
-		registerModelRenderer(bone);
+	public void registerBone(TyrannomationBone bone) {
+		this.registerModelRenderer(bone);
 
-		for(TyrannomationBone childBone : bone.childBones) 
-		{
-			registerBone(childBone);
+		for (TyrannomationBone childBone : bone.childBones) {
+			this.registerBone(childBone);
 		}
 	}
 
 	@Override
-	public void setLivingAnimations(T entity, Integer uniqueID, @Nullable TyrannomationEvent customPredicate) 
-	{
+	public void setLivingAnimations(T entity, Integer uniqueID, @Nullable TyrannomationEvent customPredicate) {
 		TyrannomationData manager = entity.getFactory().getOrCreateAnimationData(uniqueID);
-		if(manager.startTick == null) 
-		{
+		if (manager.startTick == null) {
 			manager.startTick = getCurrentTick();
 		}
 
-		if(!Minecraft.getInstance().isPaused() || manager.shouldPlayWhilePaused) 
-		{
+		if (!Minecraft.getInstance().isPaused() || manager.shouldPlayWhilePaused) {
 			manager.tick = (getCurrentTick() - manager.startTick);
 			double gameTick = manager.tick;
-			double deltaTicks = gameTick - lastGameTickTime;
-			seekTime += deltaTicks;
-			lastGameTickTime = gameTick;
+			double deltaTicks = gameTick - this.lastGameTickTime;
+			this.seekTime += deltaTicks;
+			this.lastGameTickTime = gameTick;
 		}
 
 		TyrannomationEvent<T> predicate;
-		if(customPredicate == null) 
-		{
+		if (customPredicate == null) {
 			predicate = new TyrannomationEvent<T>(entity, 0, 0, 0, false, Collections.emptyList());
-		} 
-		else 
-		{
+		} else {
 			predicate = customPredicate;
 		}
 
-		predicate.animationTick = seekTime;
-		animationProcessor.preAnimationSetup(predicate.getAnimatable(), seekTime);
-		if(!this.animationProcessor.getModelRendererList().isEmpty()) 
-		{
-			animationProcessor.tickAnimation(entity, uniqueID, seekTime, predicate, TyrannomationCache.getInstance().parser, shouldCrashOnMissing);
+		predicate.animationTick = this.seekTime;
+		this.animationProcessor.preAnimationSetup(predicate.getAnimatable(), this.seekTime);
+		if (!this.animationProcessor.getModelRendererList().isEmpty()) {
+			this.animationProcessor.tickAnimation(entity, uniqueID, this.seekTime, predicate, TyrannomationCache.getInstance().parser, this.shouldCrashOnMissing);
 		}
 	}
 
 	@Override
-	public TyrannomationProcessor getAnimationProcessor() 
-	{
+	public TyrannomationProcessor getAnimationProcessor() {
 		return this.animationProcessor;
 	}
 
-	public void registerModelRenderer(IBone modelRenderer) 
-	{
-		animationProcessor.registerModelRenderer(modelRenderer);
+	public void registerModelRenderer(IBone modelRenderer) {
+		this.animationProcessor.registerModelRenderer(modelRenderer);
 	}
 
 	@Override
-	public Tyrannomation getAnimation(String name, ITyrannomatable animatable) 
-	{
+	public Tyrannomation getAnimation(String name, ITyrannomatable animatable) {
 		TyrannomationFile animation = TyrannomationCache.getInstance().getAnimations().get(this.getAnimationFileLocation((T) animatable));
-		if(animation == null) 
-		{
+		if (animation == null) {
 			throw new TyrannotitanLibException(this.getAnimationFileLocation((T) animatable), "Could not find animation file. Please double check name.");
 		}
 		return animation.getAnimation(name);
 	}
 
 	@Override
-	public TyrannomationModel getModel(ResourceLocation location) 
-	{
+	public TyrannomationModel getModel(ResourceLocation location) {
 		TyrannomationModel model = super.getModel(location);
-		if(model == null) 
-		{
+		if (model == null) {
 			throw new TyrannotitanLibException(location, "Could not find model. If you are getting this with a built mod, please just restart your game.");
 		}
-		if(model != currentModel) 
-		{
+		if (model != currentModel) {
 			this.animationProcessor.clearModelRendererList();
-			for(TyrannomationBone bone : model.topLevelBones) 
-			{
+			for (TyrannomationBone bone : model.topLevelBones) {
 				registerBone(bone);
 			}
 			this.currentModel = model;
@@ -128,8 +109,7 @@ public abstract class TyrannomatedTyrannomationModel<T extends ITyrannomatable> 
 	}
 
 	@Override
-	public void setMolangQueries(ITyrannomatable animatable, double currentTick) 
-	{
+	public void setMolangQueries(ITyrannomatable animatable, double currentTick) {
 		MolangParser parser = TyrannomationCache.getInstance().parser;
 		Minecraft minecraftInstance = Minecraft.getInstance();
 
@@ -137,15 +117,13 @@ public abstract class TyrannomatedTyrannomationModel<T extends ITyrannomatable> 
 		parser.setValue("query.time_of_day", MolangUtils.normalizeTime(minecraftInstance.level.getDayTime()));
 		parser.setValue("query.moon_phase", minecraftInstance.level.getMoonPhase());
 
-		if (animatable instanceof Entity) 
-		{
+		if (animatable instanceof Entity) {
 			parser.setValue("query.distance_from_camera", minecraftInstance.gameRenderer.getMainCamera().getPosition().distanceTo(((Entity) animatable).position()));
 			parser.setValue("query.is_on_ground", MolangUtils.booleanToFloat(((Entity) animatable).isOnGround()));
 			parser.setValue("query.is_in_water", MolangUtils.booleanToFloat(((Entity) animatable).isInWater()));
 			parser.setValue("query.is_in_water_or_rain", MolangUtils.booleanToFloat(((Entity) animatable).isInWaterRainOrBubble()));
 
-			if(animatable instanceof LivingEntity) 
-			{
+			if (animatable instanceof LivingEntity) {
 				LivingEntity livingEntity = (LivingEntity) animatable;
 				parser.setValue("query.health", livingEntity.getHealth());
 				parser.setValue("query.max_health", livingEntity.getMaxHealth());
@@ -163,8 +141,7 @@ public abstract class TyrannomatedTyrannomationModel<T extends ITyrannomatable> 
 	}
 
 	@Override
-	public double getCurrentTick() 
-	{
+	public double getCurrentTick() {
 		return Blaze3D.getTime() * 20;
 	}
 }

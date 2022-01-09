@@ -20,25 +20,22 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.RenderProperties;
 import tyrannotitanlib.library.tyrannomation.core.ITyrannomatable;
+import tyrannotitanlib.library.tyrannomation.core.ITyrannomatableModel;
 import tyrannotitanlib.library.tyrannomation.core.controller.TyrannomationController;
 import tyrannotitanlib.library.tyrannomation.core.event.predicate.TyrannomationEvent;
 import tyrannotitanlib.library.tyrannomation.model.TyrannomatedTyrannomationModel;
+import tyrannotitanlib.library.tyrannomation.model.provider.TyrannomationModelProvider;
 import tyrannotitanlib.library.tyrannomation.tyranno.render.built.TyrannomationModel;
 import tyrannotitanlib.library.tyrannomation.util.TyrannomationUtil;
 
-public abstract class TyrannomationItemRenderer<T extends Item & ITyrannomatable> extends BlockEntityWithoutLevelRenderer implements ITyrannomationRenderer<T> 
-{
-	static 
-	{
-		TyrannomationController.addModelFetcher((ITyrannomatable object) -> 
-		{
-			if(object instanceof Item) 
-			{
+public abstract class TyrannomationItemRenderer<T extends Item & ITyrannomatable> extends BlockEntityWithoutLevelRenderer implements ITyrannomationRenderer<T> {
+	static {
+		TyrannomationController.addModelFetcher((ITyrannomatable object) -> {
+			if (object instanceof Item) {
 				Item item = (Item) object;
 				BlockEntityWithoutLevelRenderer renderer = RenderProperties.get(item).getItemStackRenderer();
-				if(renderer instanceof TyrannomationItemRenderer) 
-				{
-					return ((TyrannomationItemRenderer<?>) renderer).getGeoModelProvider();
+				if (renderer instanceof TyrannomationItemRenderer) {
+					return (ITyrannomatableModel<Object>) ((TyrannomationItemRenderer<?>) renderer).getTyrannoModelProvider();
 				}
 			}
 			return null;
@@ -48,33 +45,27 @@ public abstract class TyrannomationItemRenderer<T extends Item & ITyrannomatable
 	protected TyrannomatedTyrannomationModel<T> modelProvider;
 	protected ItemStack currentItemStack;
 
-	public TyrannomationItemRenderer(TyrannomatedTyrannomationModel<T> modelProvider) 
-	{
-		this(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels(), modelProvider);	
+	public TyrannomationItemRenderer(TyrannomatedTyrannomationModel<T> modelProvider) {
+		this(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels(), modelProvider);
 	}
-	
-	public TyrannomationItemRenderer(BlockEntityRenderDispatcher dispatcher, EntityModelSet modelSet, TyrannomatedTyrannomationModel<T> modelProvider) 
-	{
+
+	public TyrannomationItemRenderer(BlockEntityRenderDispatcher dispatcher, EntityModelSet modelSet, TyrannomatedTyrannomationModel<T> modelProvider) {
 		super(dispatcher, modelSet);
 		this.modelProvider = modelProvider;
 	}
 
-	public void setModel(TyrannomatedTyrannomationModel<T> model) 
-	{
+	public void setModel(TyrannomatedTyrannomationModel<T> model) {
 		this.modelProvider = model;
 	}
-
+	
 	@Override
-	public TyrannomatedTyrannomationModel<T> getGeoModelProvider() 
-	{
-		return modelProvider;
+	public TyrannomationModelProvider getTyrannoModelProvider() {
+		return this.modelProvider;
 	}
 
 	@Override
-	public void renderByItem(ItemStack itemStack, ItemTransforms.TransformType p_239207_2_, PoseStack matrixStack, MultiBufferSource bufferIn, int combinedLightIn, int p_239207_6_) 
-	{
-		if(p_239207_2_ == ItemTransforms.TransformType.GUI) 
-		{
+	public void renderByItem(ItemStack itemStack, ItemTransforms.TransformType p_239207_2_, PoseStack matrixStack, MultiBufferSource bufferIn, int combinedLightIn, int p_239207_6_) {
+		if (p_239207_2_ == ItemTransforms.TransformType.GUI) {
 			matrixStack.pushPose();
 			MultiBufferSource.BufferSource irendertypebuffer$impl = Minecraft.getInstance().renderBuffers().bufferSource();
 			Lighting.setupForFlatItems();
@@ -83,15 +74,12 @@ public abstract class TyrannomationItemRenderer<T extends Item & ITyrannomatable
 			RenderSystem.enableDepthTest();
 			Lighting.setupFor3DItems();
 			matrixStack.popPose();
-		} 
-		else 
-		{
+		} else {
 			this.render((T) itemStack.getItem(), matrixStack, bufferIn, combinedLightIn, itemStack);
 		}
 	}
 
-	public void render(T animatable, PoseStack stack, MultiBufferSource bufferIn, int packedLightIn, ItemStack itemStack) 
-	{
+	public void render(T animatable, PoseStack stack, MultiBufferSource bufferIn, int packedLightIn, ItemStack itemStack) {
 		this.currentItemStack = itemStack;
 		TyrannomationModel model = modelProvider.getModel(modelProvider.getModelLocation(animatable));
 		TyrannomationEvent itemEvent = new TyrannomationEvent(animatable, 0, 0, Minecraft.getInstance().getFrameTime(), false, Collections.singletonList(itemStack));
@@ -107,25 +95,13 @@ public abstract class TyrannomationItemRenderer<T extends Item & ITyrannomatable
 		stack.popPose();
 	}
 
-	protected RenderType getRenderType(T tile, PoseStack stack, MultiBufferSource bufferIn, int packedLightIn, ResourceLocation textureLocation) 
-	{
-		return RenderType.entityCutoutNoCull(textureLocation);
-	}
-
-	protected Color getRenderColor(T tile, PoseStack stack, MultiBufferSource bufferIn, int packedLightIn) 
-	{
-		return new Color(255, 255, 255, 255);
-	}
-
 	@Override
-	public ResourceLocation getTextureLocation(T instance)
-	{
+	public ResourceLocation getTextureLocation(T instance) {
 		return this.modelProvider.getTextureLocation(instance);
 	}
 
 	@Override
-	public Integer getUniqueID(T animatable) 
-	{
+	public Integer getUniqueID(T animatable) {
 		return TyrannomationUtil.getIDFromStack(currentItemStack);
 	}
 }

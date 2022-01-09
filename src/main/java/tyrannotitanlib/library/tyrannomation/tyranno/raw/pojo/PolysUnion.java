@@ -14,26 +14,21 @@ import java.io.IOException;
 
 @JsonDeserialize(using = PolysUnion.Deserializer.class)
 @JsonSerialize(using = PolysUnion.Serializer.class)
-public class PolysUnion 
-{
+public class PolysUnion {
 	public double[][][] doubleArrayArrayArrayValue;
 	public PolysEnum enumValue;
 
-	static class Deserializer extends JsonDeserializer<PolysUnion> 
-	{
+	static class Deserializer extends JsonDeserializer<PolysUnion> {
 		@Override
-		public PolysUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException 
-		{
+		public PolysUnion deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
 			PolysUnion value = new PolysUnion();
-			switch (jsonParser.currentToken()) 
-			{
+			switch (jsonParser.currentToken()) {
 			case VALUE_STRING:
 				String string = jsonParser.readValueAs(String.class);
-				try 
-				{
+				try {
 					value.enumValue = PolysEnum.forValue(string);
-				} 
-				catch(Exception ex) { }
+				} catch (Exception ex) {
+				}
 				break;
 			case START_ARRAY:
 				value.doubleArrayArrayArrayValue = jsonParser.readValueAs(double[][][].class);
@@ -45,18 +40,14 @@ public class PolysUnion
 		}
 	}
 
-	static class Serializer extends JsonSerializer<PolysUnion> 
-	{
+	static class Serializer extends JsonSerializer<PolysUnion> {
 		@Override
-		public void serialize(PolysUnion obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException 
-		{
-			if(obj.doubleArrayArrayArrayValue != null) 
-			{
+		public void serialize(PolysUnion obj, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+			if (obj.doubleArrayArrayArrayValue != null) {
 				jsonGenerator.writeObject(obj.doubleArrayArrayArrayValue);
 				return;
 			}
-			if(obj.enumValue != null) 
-			{
+			if (obj.enumValue != null) {
 				jsonGenerator.writeObject(obj.enumValue);
 				return;
 			}

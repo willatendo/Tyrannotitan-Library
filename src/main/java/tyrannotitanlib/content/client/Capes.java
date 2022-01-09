@@ -19,28 +19,23 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import tyrannotitanlib.library.utils.TyrannoUtils;
 
 @OnlyIn(Dist.CLIENT)
-public class Capes 
-{
+public class Capes {
 	private final Minecraft minecraft = Minecraft.getInstance();
 	private List<String> players = new ArrayList<>();
 
 	@SubscribeEvent
-	public final void renderPlayer(final RenderPlayerEvent.Pre event) 
-	{
+	public final void renderPlayer(final RenderPlayerEvent.Pre event) {
 		Player player = event.getPlayer();
 		AbstractClientPlayer acp = (AbstractClientPlayer) player;
 		String username = player.getName().getString();
 
-		if(TyrannoUtils.TYRANNOTITANS.contains(username)) 
-		{
-			if(acp.isCapeLoaded() && acp.getCloakTextureLocation() == null && !players.contains(username)) 
-			{
+		if (TyrannoUtils.TYRANNOTITANS.contains(username)) {
+			if (acp.isCapeLoaded() && acp.getCloakTextureLocation() == null && !players.contains(username)) {
 				this.players.add(username);
 
 				PlayerInfo playerInfo = acp.getPlayerInfo();
 
-				Util.backgroundExecutor().execute(() -> 
-				{
+				Util.backgroundExecutor().execute(() -> {
 					ResourceLocation resourceLocation = TyrannoUtils.rL("textures/entities/capes/tyrannotitan_cape.png");
 
 					playerInfo.textureLocations.put(Type.CAPE, resourceLocation);
@@ -51,10 +46,8 @@ public class Capes
 	}
 
 	@SubscribeEvent
-	public final void clientTick(final ClientTickEvent event) 
-	{
-		if(minecraft.player == null && !this.players.isEmpty()) 
-		{
+	public final void clientTick(final ClientTickEvent event) {
+		if (minecraft.player == null && !this.players.isEmpty()) {
 			this.players.clear();
 		}
 	}

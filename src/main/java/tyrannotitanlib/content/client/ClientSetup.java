@@ -15,20 +15,17 @@ import tyrannotitanlib.library.base.client.TyrannoBoatRenderer;
 import tyrannotitanlib.library.utils.TyrannoUtils;
 
 @EventBusSubscriber(modid = TyrannoUtils.TYRANNO_ID, bus = Bus.MOD, value = Dist.CLIENT)
-public class ClientSetup 
-{
+public class ClientSetup {
 	@SubscribeEvent
-	public static void clientSetup(FMLClientSetupEvent event)
-	{	
+	public static void clientSetup(FMLClientSetupEvent event) {
 		IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 		bus.addListener(ClientSetup::rendererSetup);
 	}
-	
-	public static void rendererSetup(EntityRenderersEvent.RegisterRenderers event) 
-	{
+
+	public static void rendererSetup(EntityRenderersEvent.RegisterRenderers event) {
 		event.registerBlockEntityRenderer(TyrannoBlockEntities.CHEST_BLOCK_ENTITY, TyrannoChestBlockEntityRender::new);
 		event.registerBlockEntityRenderer(TyrannoBlockEntities.CHEST_BLOCK_ENTITY, TyrannoChestBlockEntityRender::new);
-		
+
 		event.registerEntityRenderer(TyrannoEntities.BOAT, manager -> new TyrannoBoatRenderer(manager));
 	}
 }

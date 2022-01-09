@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import org.apache.commons.lang3.StringUtils;
 
-import lombok.Getter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
@@ -13,8 +12,8 @@ import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraftforge.common.crafting.IShapedRecipe;
-import tyrannotitanlib.library.tyrannobook.data.TyrannobookData;
 import tyrannotitanlib.library.tyrannobook.data.BookLoadException;
+import tyrannotitanlib.library.tyrannobook.data.TyrannobookData;
 import tyrannotitanlib.library.tyrannobook.data.element.ImageData;
 import tyrannotitanlib.library.tyrannobook.data.element.IngredientData;
 import tyrannotitanlib.library.tyrannobook.data.element.TextData;
@@ -42,7 +41,6 @@ public class CraftingContent extends PageContent {
 	public static final transient int SLOT_MARGIN = 5;
 	public static final transient int SLOT_PADDING = 4;
 
-	@Getter
 	public String title = "Crafting";
 	public String grid_size = "auto";
 	public IngredientData[][] grid;
@@ -65,7 +63,6 @@ public class CraftingContent extends PageContent {
 			y = getTitleHeight();
 		}
 
-		// Fallback for if grid size is not specified in a manual recipe
 		String size = this.grid_size.equalsIgnoreCase("auto") ? "large" : this.grid_size;
 
 		if (size.equalsIgnoreCase("small")) {

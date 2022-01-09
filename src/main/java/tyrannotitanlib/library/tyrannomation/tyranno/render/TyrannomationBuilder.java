@@ -16,37 +16,31 @@ import tyrannotitanlib.library.tyrannomation.tyranno.render.built.TyrannomationC
 import tyrannotitanlib.library.tyrannomation.tyranno.render.built.TyrannomationModel;
 import tyrannotitanlib.library.tyrannomation.util.VectorUtils;
 
-public class TyrannomationBuilder implements ITyrannomationBuilder 
-{
+public class TyrannomationBuilder implements ITyrannomationBuilder {
 	private static Map<String, ITyrannomationBuilder> moddedGeoBuilders = new HashMap<>();
 	private static ITyrannomationBuilder defaultBuilder = new TyrannomationBuilder();
 
-	public static void registerGeoBuilder(String modID, ITyrannomationBuilder builder) 
-	{
+	public static void registerGeoBuilder(String modID, ITyrannomationBuilder builder) {
 		moddedGeoBuilders.put(modID, builder);
 	}
 
-	public static ITyrannomationBuilder getGeoBuilder(String modID) 
-	{
+	public static ITyrannomationBuilder getGeoBuilder(String modID) {
 		ITyrannomationBuilder builder = moddedGeoBuilders.get(modID);
 		return builder == null ? defaultBuilder : builder;
 	}
 
 	@Override
-	public TyrannomationModel constructGeoModel(RawGeometryTree geometryTree) 
-	{
+	public TyrannomationModel constructGeoModel(RawGeometryTree geometryTree) {
 		TyrannomationModel model = new TyrannomationModel();
 		model.properties = geometryTree.properties;
-		for(RawBoneGroup rawBone : geometryTree.topLevelBones.values()) 
-		{
+		for (RawBoneGroup rawBone : geometryTree.topLevelBones.values()) {
 			model.topLevelBones.add(this.constructBone(rawBone, geometryTree.properties, null));
 		}
 		return model;
 	}
 
 	@Override
-	public TyrannomationBone constructBone(RawBoneGroup bone, ModelProperties properties, TyrannomationBone parent) 
-	{
+	public TyrannomationBone constructBone(RawBoneGroup bone, ModelProperties properties, TyrannomationBone parent) {
 		TyrannomationBone geoBone = new TyrannomationBone();
 
 		Bone rawBone = bone.selfBone;
@@ -69,16 +63,13 @@ public class TyrannomationBuilder implements ITyrannomationBuilder
 		geoBone.rotationPointY = pivot.y();
 		geoBone.rotationPointZ = pivot.z();
 
-		if(!ArrayUtils.isEmpty(rawBone.getCubes())) 
-		{
-			for(Cube cube : rawBone.getCubes()) 
-			{
+		if (!ArrayUtils.isEmpty(rawBone.getCubes())) {
+			for (Cube cube : rawBone.getCubes()) {
 				geoBone.childCubes.add(TyrannomationCube.createFromPojoCube(cube, properties, geoBone.inflate == null ? null : geoBone.inflate / 16, geoBone.mirror));
 			}
 		}
 
-		for(RawBoneGroup child : bone.children.values()) 
-		{
+		for (RawBoneGroup child : bone.children.values()) {
 			geoBone.childBones.add(constructBone(child, properties, geoBone));
 		}
 

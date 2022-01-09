@@ -7,8 +7,7 @@ import tyrannotitanlib.library.tyrannomation.core.keyframe.BoneTyrannomation;
 import tyrannotitanlib.library.tyrannomation.core.keyframe.EventKeyFrame;
 import tyrannotitanlib.library.tyrannomation.core.keyframe.ParticleEventKeyFrame;
 
-public class Tyrannomation
-{
+public class Tyrannomation {
 	public String animationName;
 	public Double animationLength;
 	public boolean loop = true;

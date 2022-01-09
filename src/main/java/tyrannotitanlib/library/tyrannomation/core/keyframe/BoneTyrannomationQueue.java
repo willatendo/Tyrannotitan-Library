@@ -2,8 +2,7 @@ package tyrannotitanlib.library.tyrannomation.core.keyframe;
 
 import tyrannotitanlib.library.tyrannomation.core.processor.IBone;
 
-public class BoneTyrannomationQueue
-{
+public class BoneTyrannomationQueue {
 	public final IBone bone;
 	public TyrannomationPointQueue rotationXQueue = new TyrannomationPointQueue();
 	public TyrannomationPointQueue rotationYQueue = new TyrannomationPointQueue();
@@ -15,8 +14,7 @@ public class BoneTyrannomationQueue
 	public TyrannomationPointQueue scaleYQueue = new TyrannomationPointQueue();
 	public TyrannomationPointQueue scaleZQueue = new TyrannomationPointQueue();
 
-	public BoneTyrannomationQueue(IBone bone)
-	{
+	public BoneTyrannomationQueue(IBone bone) {
 		this.bone = bone;
 	}
 }

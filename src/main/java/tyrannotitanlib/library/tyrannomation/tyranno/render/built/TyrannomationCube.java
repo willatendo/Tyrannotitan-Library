@@ -10,8 +10,7 @@ import tyrannotitanlib.library.tyrannomation.tyranno.raw.pojo.UvFaces;
 import tyrannotitanlib.library.tyrannomation.tyranno.raw.pojo.UvUnion;
 import tyrannotitanlib.library.tyrannomation.util.VectorUtils;
 
-public class TyrannomationCube 
-{
+public class TyrannomationCube {
 	public TyrannomationQuad[] quads = new TyrannomationQuad[6];
 	public Vector3f pivot;
 	public Vector3f rotation;
@@ -19,16 +18,13 @@ public class TyrannomationCube
 	public double inflate;
 	public Boolean mirror;
 
-	private TyrannomationCube(double[] size) 
-	{
-		if(size.length >= 3) 
-		{
+	private TyrannomationCube(double[] size) {
+		if (size.length >= 3) {
 			this.size.set((float) size[0], (float) size[1], (float) size[2]);
 		}
 	}
 
-	public static TyrannomationCube createFromPojoCube(Cube cubeIn, ModelProperties properties, Double boneInflate, Boolean mirror) 
-	{
+	public static TyrannomationCube createFromPojoCube(Cube cubeIn, ModelProperties properties, Double boneInflate, Boolean mirror) {
 		TyrannomationCube cube = new TyrannomationCube(cubeIn.getSize());
 
 		UvUnion uvUnion = cubeIn.getUv();
@@ -75,15 +71,14 @@ public class TyrannomationCube
 		TyrannomationQuad quadUp;
 		TyrannomationQuad quadDown;
 
-		if(!isBoxUV) 
-		{
+		if (!isBoxUV) {
 			FaceUv west = faces.getWest();
 			FaceUv east = faces.getEast();
 			FaceUv north = faces.getNorth();
 			FaceUv south = faces.getSouth();
 			FaceUv up = faces.getUp();
 			FaceUv down = faces.getDown();
-			
+
 			quadWest = west == null ? null : new TyrannomationQuad(new TyrannomationVertex[] { P4, P3, P1, P2 }, west.getUv(), west.getUvSize(), textureWidth, textureHeight, cubeIn.getMirror(), Direction.WEST);
 			quadEast = east == null ? null : new TyrannomationQuad(new TyrannomationVertex[] { P7, P8, P6, P5 }, east.getUv(), east.getUvSize(), textureWidth, textureHeight, cubeIn.getMirror(), Direction.EAST);
 			quadNorth = north == null ? null : new TyrannomationQuad(new TyrannomationVertex[] { P3, P7, P5, P1 }, north.getUv(), north.getUvSize(), textureWidth, textureHeight, cubeIn.getMirror(), Direction.NORTH);
@@ -91,14 +86,11 @@ public class TyrannomationCube
 			quadUp = up == null ? null : new TyrannomationQuad(new TyrannomationVertex[] { P4, P8, P7, P3 }, up.getUv(), up.getUvSize(), textureWidth, textureHeight, cubeIn.getMirror(), Direction.UP);
 			quadDown = down == null ? null : new TyrannomationQuad(new TyrannomationVertex[] { P1, P5, P6, P2 }, down.getUv(), down.getUvSize(), textureWidth, textureHeight, cubeIn.getMirror(), Direction.DOWN);
 
-			if(cubeIn.getMirror() == Boolean.TRUE || mirror == Boolean.TRUE) 
-			{
+			if (cubeIn.getMirror() == Boolean.TRUE || mirror == Boolean.TRUE) {
 				quadWest = west == null ? null : new TyrannomationQuad(new TyrannomationVertex[] { P7, P8, P6, P5 }, west.getUv(), west.getUvSize(), textureWidth, textureHeight, cubeIn.getMirror(), Direction.WEST);
 				quadEast = east == null ? null : new TyrannomationQuad(new TyrannomationVertex[] { P4, P3, P1, P2 }, east.getUv(), east.getUvSize(), textureWidth, textureHeight, cubeIn.getMirror(), Direction.EAST);
 			}
-		} 
-		else 
-		{
+		} else {
 			double[] UV = cubeIn.getUv().boxUVCoords;
 			Vec3 UVSize = VectorUtils.fromArray(cubeIn.getSize());
 			UVSize = new Vec3(Math.floor(UVSize.x), Math.floor(UVSize.y), Math.floor(UVSize.z));
@@ -110,8 +102,7 @@ public class TyrannomationCube
 			quadUp = new TyrannomationQuad(new TyrannomationVertex[] { P4, P8, P7, P3 }, new double[] { UV[0] + UVSize.z, UV[1] }, new double[] { UVSize.x, UVSize.z }, textureWidth, textureHeight, cubeIn.getMirror(), Direction.UP);
 			quadDown = new TyrannomationQuad(new TyrannomationVertex[] { P1, P5, P6, P2 }, new double[] { UV[0] + UVSize.z + UVSize.x, UV[1] + UVSize.z }, new double[] { UVSize.x, -UVSize.z }, textureWidth, textureHeight, cubeIn.getMirror(), Direction.DOWN);
 
-			if(cubeIn.getMirror() == Boolean.TRUE || mirror == Boolean.TRUE) 
-			{
+			if (cubeIn.getMirror() == Boolean.TRUE || mirror == Boolean.TRUE) {
 				quadWest = new TyrannomationQuad(new TyrannomationVertex[] { P7, P8, P6, P5 }, new double[] { UV[0] + UVSize.z + UVSize.x, UV[1] + UVSize.z }, new double[] { UVSize.z, UVSize.y }, textureWidth, textureHeight, cubeIn.getMirror(), Direction.WEST);
 				quadEast = new TyrannomationQuad(new TyrannomationVertex[] { P4, P3, P1, P2 }, new double[] { UV[0], UV[1] + UVSize.z }, new double[] { UVSize.z, UVSize.y }, textureWidth, textureHeight, cubeIn.getMirror(), Direction.EAST);
 			}
