@@ -16,8 +16,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.ChainedJsonException;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.GsonHelper;
-import tyrannotitanlib.library.tyrannomation.core.builder.Tyrannomation;
 import tyrannotitanlib.library.tyrannomation.util.json.JsonTyrannomationUtils;
+import tyrannotitanlib.library.tyrannomationcore.builder.Tyrannomation;
 import tyrannotitanlib.library.utils.TyrannoUtils;
 
 public class TyrannomationFileLoader {

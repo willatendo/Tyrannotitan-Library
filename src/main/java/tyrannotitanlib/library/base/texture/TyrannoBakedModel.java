@@ -76,11 +76,11 @@ public class TyrannoBakedModel implements IDynamicBakedModel {
 	}
 
 	protected TextureAtlasSprite getTexture() {
-		return TextureManager.TEXTURES.get(this.block);
+		return TyrannoTextureManager.TEXTURES.get(this.block);
 	}
 
 	protected TextureAtlasSprite getParticle() {
-		return TextureManager.PARTICLES.get(this.block);
+		return TyrannoTextureManager.PARTICLES.get(this.block);
 	}
 
 	protected BakedQuad createQuads(Direction side, IModelData modelData) {

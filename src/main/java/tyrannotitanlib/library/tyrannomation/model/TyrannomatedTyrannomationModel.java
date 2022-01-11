@@ -13,13 +13,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
-import tyrannotitanlib.library.tyrannomation.core.ITyrannomatable;
-import tyrannotitanlib.library.tyrannomation.core.ITyrannomatableModel;
-import tyrannotitanlib.library.tyrannomation.core.builder.Tyrannomation;
-import tyrannotitanlib.library.tyrannomation.core.event.predicate.TyrannomationEvent;
-import tyrannotitanlib.library.tyrannomation.core.manager.TyrannomationData;
-import tyrannotitanlib.library.tyrannomation.core.processor.IBone;
-import tyrannotitanlib.library.tyrannomation.core.processor.TyrannomationProcessor;
 import tyrannotitanlib.library.tyrannomation.file.TyrannomationFile;
 import tyrannotitanlib.library.tyrannomation.model.provider.ITyrannomatableModelProvider;
 import tyrannotitanlib.library.tyrannomation.model.provider.TyrannomationModelProvider;
@@ -28,6 +21,13 @@ import tyrannotitanlib.library.tyrannomation.tyranno.exception.TyrannotitanLibEx
 import tyrannotitanlib.library.tyrannomation.tyranno.render.built.TyrannomationBone;
 import tyrannotitanlib.library.tyrannomation.tyranno.render.built.TyrannomationModel;
 import tyrannotitanlib.library.tyrannomation.util.MolangUtils;
+import tyrannotitanlib.library.tyrannomationcore.ITyrannomatable;
+import tyrannotitanlib.library.tyrannomationcore.ITyrannomatableModel;
+import tyrannotitanlib.library.tyrannomationcore.builder.Tyrannomation;
+import tyrannotitanlib.library.tyrannomationcore.event.predicate.TyrannomationEvent;
+import tyrannotitanlib.library.tyrannomationcore.manager.TyrannomationData;
+import tyrannotitanlib.library.tyrannomationcore.processor.IBone;
+import tyrannotitanlib.library.tyrannomationcore.processor.TyrannomationProcessor;
 
 public abstract class TyrannomatedTyrannomationModel<T extends ITyrannomatable> extends TyrannomationModelProvider<T> implements ITyrannomatableModel<T>, ITyrannomatableModelProvider<T> {
 	private final TyrannomationProcessor animationProcessor;

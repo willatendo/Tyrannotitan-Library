@@ -46,7 +46,6 @@ import net.minecraftforge.registries.GameData;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import tyrannotitanlib.library.base.recipe.TyrannoRecipeType;
-import tyrannotitanlib.library.utils.TyrannoUtils;
 
 public class TyrannoRegister {
 	private static final Map<String, ModData> modData = new HashMap<>();
@@ -194,7 +193,6 @@ public class TyrannoRegister {
 				for (Supplier<IForgeRegistryEntry<?>> supplier : ourEntries) {
 					IForgeRegistryEntry<?> entry = supplier.get();
 					registry.register(entry);
-					TyrannoUtils.LOGGER.debug("Registering to " + registry.getRegistryName() + " - " + entry.getRegistryName());
 				}
 
 				defers.removeAll(type);

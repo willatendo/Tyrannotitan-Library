@@ -9,7 +9,6 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public record TyrannoArmourMaterial(ResourceLocation name, int maxDamage, int[] damageReductionArray, int enchantability, Supplier<SoundEvent> equipSound, float toughness, float knockbackResistance, Supplier<Ingredient> repairItem) implements ArmorMaterial {
-
 	private static final int[] MAX_SLOT_DAMAGE = new int[] { 13, 15, 16, 11 };
 
 	@Override
@@ -51,5 +50,4 @@ public record TyrannoArmourMaterial(ResourceLocation name, int maxDamage, int[] 
 	public float getKnockbackResistance() {
 		return this.knockbackResistance;
 	}
-
 }

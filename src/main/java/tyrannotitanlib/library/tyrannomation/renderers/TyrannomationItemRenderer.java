@@ -19,14 +19,14 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.client.RenderProperties;
-import tyrannotitanlib.library.tyrannomation.core.ITyrannomatable;
-import tyrannotitanlib.library.tyrannomation.core.ITyrannomatableModel;
-import tyrannotitanlib.library.tyrannomation.core.controller.TyrannomationController;
-import tyrannotitanlib.library.tyrannomation.core.event.predicate.TyrannomationEvent;
 import tyrannotitanlib.library.tyrannomation.model.TyrannomatedTyrannomationModel;
 import tyrannotitanlib.library.tyrannomation.model.provider.TyrannomationModelProvider;
 import tyrannotitanlib.library.tyrannomation.tyranno.render.built.TyrannomationModel;
 import tyrannotitanlib.library.tyrannomation.util.TyrannomationUtil;
+import tyrannotitanlib.library.tyrannomationcore.ITyrannomatable;
+import tyrannotitanlib.library.tyrannomationcore.ITyrannomatableModel;
+import tyrannotitanlib.library.tyrannomationcore.controller.TyrannomationController;
+import tyrannotitanlib.library.tyrannomationcore.event.predicate.TyrannomationEvent;
 
 public abstract class TyrannomationItemRenderer<T extends Item & ITyrannomatable> extends BlockEntityWithoutLevelRenderer implements ITyrannomationRenderer<T> {
 	static {

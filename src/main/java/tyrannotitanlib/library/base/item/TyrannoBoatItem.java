@@ -29,7 +29,7 @@ public class TyrannoBoatItem extends Item {
 	private static final Predicate<Entity> COLLISION_PREDICATE = EntitySelector.NO_SPECTATORS.and(Entity::isPickable);
 	private final String type;
 
-	public TyrannoBoatItem(String type, Item.Properties properties) {
+	public TyrannoBoatItem(String type, Properties properties) {
 		super(properties);
 		this.type = type;
 		DispenserBlock.registerBehavior(this, new DispenserBoatBehavior(type));

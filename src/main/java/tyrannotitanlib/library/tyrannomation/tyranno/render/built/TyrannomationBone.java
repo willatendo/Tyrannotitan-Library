@@ -3,8 +3,8 @@ package tyrannotitanlib.library.tyrannomation.tyranno.render.built;
 import java.util.ArrayList;
 import java.util.List;
 
-import tyrannotitanlib.library.tyrannomation.core.processor.IBone;
-import tyrannotitanlib.library.tyrannomation.core.snapshot.BoneSnapshot;
+import tyrannotitanlib.library.tyrannomationcore.processor.IBone;
+import tyrannotitanlib.library.tyrannomationcore.snapshot.BoneSnapshot;
 
 public class TyrannomationBone implements IBone 
 {

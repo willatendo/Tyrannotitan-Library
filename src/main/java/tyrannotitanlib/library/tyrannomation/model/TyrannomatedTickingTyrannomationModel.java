@@ -5,11 +5,11 @@ import java.util.Collections;
 import javax.annotation.Nullable;
 
 import net.minecraft.client.Minecraft;
-import tyrannotitanlib.library.tyrannomation.core.ITyrannomatable;
-import tyrannotitanlib.library.tyrannomation.core.ITyrannomationTickable;
-import tyrannotitanlib.library.tyrannomation.core.event.predicate.TyrannomationEvent;
-import tyrannotitanlib.library.tyrannomation.core.manager.TyrannomationData;
 import tyrannotitanlib.library.tyrannomation.resource.TyrannomationCache;
+import tyrannotitanlib.library.tyrannomationcore.ITyrannomatable;
+import tyrannotitanlib.library.tyrannomationcore.ITyrannomationTickable;
+import tyrannotitanlib.library.tyrannomationcore.event.predicate.TyrannomationEvent;
+import tyrannotitanlib.library.tyrannomationcore.manager.TyrannomationData;
 
 public abstract class TyrannomatedTickingTyrannomationModel<T extends ITyrannomatable & ITyrannomationTickable> extends TyrannomatedTyrannomationModel<T> {
 	public TyrannomatedTickingTyrannomationModel() {

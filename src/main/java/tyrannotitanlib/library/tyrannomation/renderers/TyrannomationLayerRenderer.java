@@ -9,10 +9,10 @@ import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.resources.ResourceLocation;
-import tyrannotitanlib.library.tyrannomation.core.ITyrannomatable;
 import tyrannotitanlib.library.tyrannomation.model.provider.TyrannomationModelProvider;
 import tyrannotitanlib.library.tyrannomation.tyranno.render.built.TyrannomationModel;
 import tyrannotitanlib.library.tyrannomation.util.TyrannomationUtils;
+import tyrannotitanlib.library.tyrannomationcore.ITyrannomatable;
 
 public abstract class TyrannomationLayerRenderer<T extends Entity & ITyrannomatable> {
 	private final ITyrannomationRenderer<T> entityRenderer;

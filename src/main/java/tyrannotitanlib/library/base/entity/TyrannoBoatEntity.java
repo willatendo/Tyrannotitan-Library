@@ -20,7 +20,6 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.network.NetworkHooks;
 import net.minecraftforge.network.PlayMessages;
 import tyrannotitanlib.content.server.init.TyrannoEntities;
-import tyrannotitanlib.library.utils.TyrannoBoatRegistry;
 
 public class TyrannoBoatEntity extends Boat {
 	private static final EntityDataAccessor<String> BOAT_TYPE = SynchedEntityData.defineId(TyrannoBoatEntity.class, EntityDataSerializers.STRING);

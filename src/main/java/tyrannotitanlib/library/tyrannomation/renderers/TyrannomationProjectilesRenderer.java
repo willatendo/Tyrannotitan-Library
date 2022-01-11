@@ -15,15 +15,15 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
-import tyrannotitanlib.library.tyrannomation.core.ITyrannomatable;
-import tyrannotitanlib.library.tyrannomation.core.ITyrannomatableModel;
-import tyrannotitanlib.library.tyrannomation.core.controller.TyrannomationController;
-import tyrannotitanlib.library.tyrannomation.core.event.predicate.TyrannomationEvent;
 import tyrannotitanlib.library.tyrannomation.model.TyrannomatedTyrannomationModel;
 import tyrannotitanlib.library.tyrannomation.model.provider.TyrannomationModelProvider;
 import tyrannotitanlib.library.tyrannomation.model.provider.data.EntityModelData;
 import tyrannotitanlib.library.tyrannomation.tyranno.render.built.TyrannomationModel;
 import tyrannotitanlib.library.tyrannomation.util.TyrannomationUtils;
+import tyrannotitanlib.library.tyrannomationcore.ITyrannomatable;
+import tyrannotitanlib.library.tyrannomationcore.ITyrannomatableModel;
+import tyrannotitanlib.library.tyrannomationcore.controller.TyrannomationController;
+import tyrannotitanlib.library.tyrannomationcore.event.predicate.TyrannomationEvent;
 
 public class TyrannomationProjectilesRenderer<T extends Entity & ITyrannomatable> extends EntityRenderer<T> implements ITyrannomationRenderer<T> {
 	static {

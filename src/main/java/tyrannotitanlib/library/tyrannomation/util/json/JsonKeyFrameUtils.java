@@ -13,11 +13,11 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import tyrannotitanlib.library.tyrannomation.core.ConstantValue;
-import tyrannotitanlib.library.tyrannomation.core.easing.EasingType;
-import tyrannotitanlib.library.tyrannomation.core.keyframe.KeyFrame;
-import tyrannotitanlib.library.tyrannomation.core.keyframe.VectorKeyFrameList;
 import tyrannotitanlib.library.tyrannomation.util.TyrannomationUtils;
+import tyrannotitanlib.library.tyrannomationcore.ConstantValue;
+import tyrannotitanlib.library.tyrannomationcore.easing.EasingType;
+import tyrannotitanlib.library.tyrannomationcore.keyframe.KeyFrame;
+import tyrannotitanlib.library.tyrannomationcore.keyframe.VectorKeyFrameList;
 import tyrannotitanlib.library.utils.TyrannoUtils;
 
 public class JsonKeyFrameUtils {

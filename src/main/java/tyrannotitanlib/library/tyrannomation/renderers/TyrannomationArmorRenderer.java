@@ -21,13 +21,13 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
-import tyrannotitanlib.library.tyrannomation.core.ITyrannomatable;
-import tyrannotitanlib.library.tyrannomation.core.controller.TyrannomationController;
-import tyrannotitanlib.library.tyrannomation.core.event.predicate.TyrannomationEvent;
-import tyrannotitanlib.library.tyrannomation.core.processor.IBone;
 import tyrannotitanlib.library.tyrannomation.model.TyrannomatedTyrannomationModel;
 import tyrannotitanlib.library.tyrannomation.tyranno.render.built.TyrannomationModel;
 import tyrannotitanlib.library.tyrannomation.util.TyrannomationUtils;
+import tyrannotitanlib.library.tyrannomationcore.ITyrannomatable;
+import tyrannotitanlib.library.tyrannomationcore.controller.TyrannomationController;
+import tyrannotitanlib.library.tyrannomationcore.event.predicate.TyrannomationEvent;
+import tyrannotitanlib.library.tyrannomationcore.processor.IBone;
 
 public abstract class TyrannomationArmorRenderer<T extends ArmorItem & ITyrannomatable> extends HumanoidModel implements ITyrannomationRenderer<T> {
 	private static Map<Class<? extends ArmorItem>, TyrannomationArmorRenderer> renderers = new ConcurrentHashMap<>();

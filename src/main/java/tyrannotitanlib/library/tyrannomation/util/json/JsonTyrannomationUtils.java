@@ -17,12 +17,12 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 
 import net.minecraft.server.ChainedJsonException;
-import tyrannotitanlib.library.tyrannomation.core.builder.Tyrannomation;
-import tyrannotitanlib.library.tyrannomation.core.keyframe.BoneTyrannomation;
-import tyrannotitanlib.library.tyrannomation.core.keyframe.EventKeyFrame;
-import tyrannotitanlib.library.tyrannomation.core.keyframe.ParticleEventKeyFrame;
-import tyrannotitanlib.library.tyrannomation.core.keyframe.VectorKeyFrameList;
 import tyrannotitanlib.library.tyrannomation.util.TyrannomationUtils;
+import tyrannotitanlib.library.tyrannomationcore.builder.Tyrannomation;
+import tyrannotitanlib.library.tyrannomationcore.keyframe.BoneTyrannomation;
+import tyrannotitanlib.library.tyrannomationcore.keyframe.EventKeyFrame;
+import tyrannotitanlib.library.tyrannomationcore.keyframe.ParticleEventKeyFrame;
+import tyrannotitanlib.library.tyrannomationcore.keyframe.VectorKeyFrameList;
 
 public class JsonTyrannomationUtils {
 	public static Set<Map.Entry<String, JsonElement>> getAnimations(JsonObject json) {

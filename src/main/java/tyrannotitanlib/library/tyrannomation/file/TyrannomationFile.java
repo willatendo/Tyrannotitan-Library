@@ -3,7 +3,7 @@ package tyrannotitanlib.library.tyrannomation.file;
 import java.util.Collection;
 import java.util.HashMap;
 
-import tyrannotitanlib.library.tyrannomation.core.builder.Tyrannomation;
+import tyrannotitanlib.library.tyrannomationcore.builder.Tyrannomation;
 
 public class TyrannomationFile {
 	private HashMap<String, Tyrannomation> animations = new HashMap<>();

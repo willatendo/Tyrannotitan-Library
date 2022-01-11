@@ -18,10 +18,10 @@ import net.minecraft.world.level.block.DirectionalBlock;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import tyrannotitanlib.library.tyrannomation.core.ITyrannomatable;
-import tyrannotitanlib.library.tyrannomation.core.controller.TyrannomationController;
 import tyrannotitanlib.library.tyrannomation.model.TyrannomatedTyrannomationModel;
 import tyrannotitanlib.library.tyrannomation.tyranno.render.built.TyrannomationModel;
+import tyrannotitanlib.library.tyrannomationcore.ITyrannomatable;
+import tyrannotitanlib.library.tyrannomationcore.controller.TyrannomationController;
 
 public abstract class TyrannomationBlockRenderer<T extends BlockEntity & ITyrannomatable> implements BlockEntityRenderer, ITyrannomationRenderer<T> {
 	static {

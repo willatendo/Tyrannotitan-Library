@@ -5,10 +5,10 @@ import java.util.Objects;
 import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.ItemStack;
-import tyrannotitanlib.library.tyrannomation.core.controller.TyrannomationController;
-import tyrannotitanlib.library.tyrannomation.core.manager.TyrannomationFactory;
 import tyrannotitanlib.library.tyrannomation.world.storage.TyrannoLibIdTracker;
 import tyrannotitanlib.library.tyrannomation.world.storage.TyrannoLibIdTracker.Type;
+import tyrannotitanlib.library.tyrannomationcore.controller.TyrannomationController;
+import tyrannotitanlib.library.tyrannomationcore.manager.TyrannomationFactory;
 
 public class TyrannomationUtil {
 	private static final String TYRANNOMATION_NBT = "TyrannomationId";

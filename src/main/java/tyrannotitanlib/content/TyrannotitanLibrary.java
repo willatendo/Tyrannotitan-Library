@@ -28,11 +28,11 @@ import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 import tyrannotitanlib.content.client.Capes;
 import tyrannotitanlib.content.server.init.TyrannoBlockEntities;
 import tyrannotitanlib.content.server.init.TyrannoRegistries;
+import tyrannotitanlib.library.base.biome.TestBiome;
 import tyrannotitanlib.library.base.block.TyrannoBeehiveBlock;
 import tyrannotitanlib.library.base.block.TyrannoLogBlock;
 import tyrannotitanlib.library.base.block.TyrannoSignManager;
 import tyrannotitanlib.library.tyrannobook.TyrannobookLoader;
-import tyrannotitanlib.library.tyrannomation.network.TyrannomationNetwork;
 import tyrannotitanlib.library.tyrannomation.resource.ResourceListener;
 import tyrannotitanlib.library.tyrannonetwork.Tyrannonetwork;
 import tyrannotitanlib.library.tyrannoregister.TyrannoRegister;
@@ -52,6 +52,8 @@ public class TyrannotitanLibrary {
 
 		TyrannoRegistries.register();
 		initTyrannomation();
+		
+		TyrannoRegister.registerBiome("test", new TestBiome().getBiome());
 		
 		forgeBus.register(new TyrannoRegister());
 	}
@@ -103,7 +105,7 @@ public class TyrannotitanLibrary {
 	private static void initTyrannomation() {
 		if (!hasInitialized) {
 			DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> ResourceListener::registerReloadListener);
-			TyrannomationNetwork.initialize();
+			Tyrannonetwork.initialize();
 		}
 		hasInitialized = true;
 	}
