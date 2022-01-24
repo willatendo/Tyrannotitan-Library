@@ -3,15 +3,15 @@ package tyrannotitanlib.content.server.init;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.registries.ForgeRegistries;
-import tyrannotitanlib.library.base.block.TyrannoBarrelBlock;
-import tyrannotitanlib.library.base.block.TyrannoBeehiveBlock;
-import tyrannotitanlib.library.base.block.TyrannoChestBlock;
-import tyrannotitanlib.library.base.block.TyrannoTrappedChestBlock;
-import tyrannotitanlib.library.base.block.entity.TyrannoBarrelBlockEntity;
-import tyrannotitanlib.library.base.block.entity.TyrannoBeehiveBlockEntity;
-import tyrannotitanlib.library.base.block.entity.TyrannoChestBlockEntity;
-import tyrannotitanlib.library.base.block.entity.TyrannoTrappedChestBlockEntity;
-import tyrannotitanlib.library.utils.TyrannoUtils;
+import tyrannotitanlib.content.TyrannoUtils;
+import tyrannotitanlib.library.tyrannotitanlib.block.TyrannoBarrelBlock;
+import tyrannotitanlib.library.tyrannotitanlib.block.TyrannoBeehiveBlock;
+import tyrannotitanlib.library.tyrannotitanlib.block.TyrannoChestBlock;
+import tyrannotitanlib.library.tyrannotitanlib.block.TyrannoTrappedChestBlock;
+import tyrannotitanlib.library.tyrannotitanlib.block.entity.TyrannoBarrelBlockEntity;
+import tyrannotitanlib.library.tyrannotitanlib.block.entity.TyrannoBeehiveBlockEntity;
+import tyrannotitanlib.library.tyrannotitanlib.block.entity.TyrannoChestBlockEntity;
+import tyrannotitanlib.library.tyrannotitanlib.block.entity.TyrannoTrappedChestBlockEntity;
 
 public class TyrannoBlockEntities {
 	public static final BlockEntityType<TyrannoChestBlockEntity> CHEST_BLOCK_ENTITY = TyrannoRegistries.create("chest_block_entity", BlockEntityType.Builder.of(TyrannoChestBlockEntity::new, collectBlocks(TyrannoChestBlock.class)).build(null));

@@ -1,7 +1,7 @@
 package tyrannotitanlib.content.server.init;
 
 import net.minecraft.world.level.block.entity.BannerPattern;
-import tyrannotitanlib.library.utils.TyrannoUtils;
+import tyrannotitanlib.content.TyrannoUtils;
 
 public class TyrannoBanners {
 	public static final BannerPattern TYRANNOTITAN = TyrannoRegistries.create("tyrannotitan");

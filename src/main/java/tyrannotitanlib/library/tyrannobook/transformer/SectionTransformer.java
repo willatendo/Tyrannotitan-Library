@@ -2,9 +2,9 @@ package tyrannotitanlib.library.tyrannobook.transformer;
 
 import lombok.RequiredArgsConstructor;
 import net.minecraft.resources.ResourceLocation;
-import tyrannotitanlib.library.tyrannobook.data.TyrannobookData;
 import tyrannotitanlib.library.tyrannobook.data.PageData;
 import tyrannotitanlib.library.tyrannobook.data.SectionData;
+import tyrannotitanlib.library.tyrannobook.data.TyrannobookData;
 import tyrannotitanlib.library.tyrannobook.data.content.PageContent;
 
 @RequiredArgsConstructor

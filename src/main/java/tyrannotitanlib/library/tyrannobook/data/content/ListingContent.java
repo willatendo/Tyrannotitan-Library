@@ -7,14 +7,14 @@ import javax.annotation.Nullable;
 
 import lombok.Getter;
 import net.minecraft.Util;
-import tyrannotitanlib.library.tyrannobook.data.TyrannobookData;
+import tyrannotitanlib.content.TyrannoUtils;
 import tyrannotitanlib.library.tyrannobook.data.PageData;
 import tyrannotitanlib.library.tyrannobook.data.SectionData;
+import tyrannotitanlib.library.tyrannobook.data.TyrannobookData;
 import tyrannotitanlib.library.tyrannobook.data.element.TextData;
 import tyrannotitanlib.library.tyrannobook.screen.book.BookScreen;
 import tyrannotitanlib.library.tyrannobook.screen.book.element.BookElement;
 import tyrannotitanlib.library.tyrannobook.screen.book.element.ListingLeftElement;
-import tyrannotitanlib.library.utils.TyrannoUtils;
 
 public class ListingContent extends PageContent {
 	public static final int LINE_HEIGHT = 10;

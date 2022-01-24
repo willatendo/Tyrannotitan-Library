@@ -1,8 +1,8 @@
 package tyrannotitanlib.library.tyrannomation.tyranno.raw.pojo;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.Map;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Bone {
 	private double[] bindPoseRotation;

@@ -1,7 +1,8 @@
 package tyrannotitanlib.library.tyrannomation.tyranno.render.built;
 
-import net.minecraft.core.Direction;
 import com.mojang.math.Vector3f;
+
+import net.minecraft.core.Direction;
 
 public class TyrannomationQuad {
 	public TyrannomationVertex[] vertices;

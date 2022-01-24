@@ -7,10 +7,10 @@ import java.util.Set;
 import com.google.common.collect.ImmutableSet;
 
 import net.minecraft.resources.ResourceLocation;
+import tyrannotitanlib.content.TyrannoUtils;
 import tyrannotitanlib.library.tyrannobook.data.TyrannobookData;
 import tyrannotitanlib.library.tyrannobook.screen.book.element.BookElement;
 import tyrannotitanlib.library.tyrannobook.transformer.IndexTransformer;
-import tyrannotitanlib.library.utils.TyrannoUtils;
 
 public class IndexContent extends ListingContent {
 	public static final transient ResourceLocation ID = TyrannoUtils.rL("index");

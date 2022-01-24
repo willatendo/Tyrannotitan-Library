@@ -12,13 +12,13 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import net.minecraft.resources.ResourceLocation;
+import tyrannotitanlib.content.TyrannoUtils;
 import tyrannotitanlib.library.tyrannobook.data.PageData;
 import tyrannotitanlib.library.tyrannobook.data.SectionData;
 import tyrannotitanlib.library.tyrannobook.data.TyrannobookData;
 import tyrannotitanlib.library.tyrannobook.data.content.BlankContent;
 import tyrannotitanlib.library.tyrannobook.data.content.SectionListContent;
 import tyrannotitanlib.library.tyrannobook.screen.book.BookScreen;
-import tyrannotitanlib.library.utils.TyrannoUtils;
 
 public class IndexTransformer extends TyrannobookTransformer {
 	public static final IndexTransformer INSTANCE = new IndexTransformer();

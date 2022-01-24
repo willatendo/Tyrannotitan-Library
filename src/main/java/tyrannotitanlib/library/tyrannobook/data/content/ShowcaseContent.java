@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import lombok.Getter;
 import net.minecraft.resources.ResourceLocation;
+import tyrannotitanlib.content.TyrannoUtils;
 import tyrannotitanlib.library.tyrannobook.data.TyrannobookData;
 import tyrannotitanlib.library.tyrannobook.data.element.IngredientData;
 import tyrannotitanlib.library.tyrannobook.data.element.TextData;
@@ -11,7 +12,6 @@ import tyrannotitanlib.library.tyrannobook.screen.book.BookScreen;
 import tyrannotitanlib.library.tyrannobook.screen.book.element.BookElement;
 import tyrannotitanlib.library.tyrannobook.screen.book.element.ItemElement;
 import tyrannotitanlib.library.tyrannobook.screen.book.element.TextElement;
-import tyrannotitanlib.library.utils.TyrannoUtils;
 
 public class ShowcaseContent extends PageContent {
 	public static final transient ResourceLocation ID = TyrannoUtils.rL("showcase");

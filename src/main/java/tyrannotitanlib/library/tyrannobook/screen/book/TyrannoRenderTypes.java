@@ -17,8 +17,8 @@ import com.mojang.blaze3d.vertex.VertexFormatElement;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.inventory.InventoryMenu;
+import tyrannotitanlib.content.TyrannoUtils;
 import tyrannotitanlib.library.tyrannobook.TyrannoShaders;
-import tyrannotitanlib.library.utils.TyrannoUtils;
 
 public class TyrannoRenderTypes extends RenderType {
 	private TyrannoRenderTypes(String name, VertexFormat format, Mode mode, int bufferSize, boolean useDelegate, boolean needsSorting, Runnable setupTaskIn, Runnable clearTaskIn) {

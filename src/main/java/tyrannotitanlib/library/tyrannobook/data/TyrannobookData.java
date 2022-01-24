@@ -20,6 +20,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
+import tyrannotitanlib.content.TyrannoUtils;
 import tyrannotitanlib.library.tyrannobook.TyrannobookHelper;
 import tyrannotitanlib.library.tyrannobook.TyrannobookLoader;
 import tyrannotitanlib.library.tyrannobook.data.content.ContentError;
@@ -28,7 +29,6 @@ import tyrannotitanlib.library.tyrannobook.screen.book.BookScreen;
 import tyrannotitanlib.library.tyrannobook.transformer.TyrannobookTransformer;
 import tyrannotitanlib.library.tyrannonetwork.Tyrannonetwork;
 import tyrannotitanlib.library.tyrannonetwork.packets.DropLecternBookPacket;
-import tyrannotitanlib.library.utils.TyrannoUtils;
 
 public class TyrannobookData implements IDataItem {
 	public final Minecraft minecraft = Minecraft.getInstance();

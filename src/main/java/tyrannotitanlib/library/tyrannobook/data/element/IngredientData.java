@@ -22,8 +22,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.registries.ForgeRegistries;
-import tyrannotitanlib.library.base.recipe.SizedIngredient;
 import tyrannotitanlib.library.tyrannobook.repository.BookRepository;
+import tyrannotitanlib.library.tyrannotitanlib.recipe.SizedIngredient;
 
 public class IngredientData implements IDataElement {
 	public SizedIngredient[] ingredients = new SizedIngredient[0];

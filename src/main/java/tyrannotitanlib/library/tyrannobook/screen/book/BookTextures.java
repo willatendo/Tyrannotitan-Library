@@ -1,7 +1,7 @@
 package tyrannotitanlib.library.tyrannobook.screen.book;
 
 import net.minecraft.resources.ResourceLocation;
-import tyrannotitanlib.library.utils.TyrannoUtils;
+import tyrannotitanlib.content.TyrannoUtils;
 
 public class BookTextures {
 	public static final ResourceLocation BOOK_TEXTURE = TyrannoUtils.rL("textures/gui/book/book.png");

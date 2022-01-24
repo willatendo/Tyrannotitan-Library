@@ -6,8 +6,8 @@ import javax.annotation.Nullable;
 
 import lombok.Getter;
 import lombok.Setter;
-import tyrannotitanlib.library.tyrannobook.data.TyrannobookData;
 import tyrannotitanlib.library.tyrannobook.data.PageData;
+import tyrannotitanlib.library.tyrannobook.data.TyrannobookData;
 import tyrannotitanlib.library.tyrannobook.data.element.TextData;
 import tyrannotitanlib.library.tyrannobook.repository.BookRepository;
 import tyrannotitanlib.library.tyrannobook.screen.book.BookScreen;

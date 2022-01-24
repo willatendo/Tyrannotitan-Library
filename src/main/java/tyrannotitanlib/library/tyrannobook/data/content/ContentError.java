@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import javax.annotation.Nullable;
 
-import tyrannotitanlib.library.tyrannobook.data.TyrannobookData;
 import tyrannotitanlib.library.tyrannobook.data.BookLoadException;
+import tyrannotitanlib.library.tyrannobook.data.TyrannobookData;
 import tyrannotitanlib.library.tyrannobook.data.element.TextData;
 import tyrannotitanlib.library.tyrannobook.screen.book.BookScreen;
 import tyrannotitanlib.library.tyrannobook.screen.book.element.BookElement;

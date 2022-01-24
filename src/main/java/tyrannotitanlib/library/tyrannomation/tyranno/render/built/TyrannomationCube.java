@@ -1,8 +1,9 @@
 package tyrannotitanlib.library.tyrannomation.tyranno.render.built;
 
+import com.mojang.math.Vector3f;
+
 import net.minecraft.core.Direction;
 import net.minecraft.world.phys.Vec3;
-import com.mojang.math.Vector3f;
 import tyrannotitanlib.library.tyrannomation.tyranno.raw.pojo.Cube;
 import tyrannotitanlib.library.tyrannomation.tyranno.raw.pojo.FaceUv;
 import tyrannotitanlib.library.tyrannomation.tyranno.raw.pojo.ModelProperties;

@@ -4,7 +4,7 @@ import javax.annotation.Nullable;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
-import tyrannotitanlib.library.utils.TyrannoUtils;
+import tyrannotitanlib.content.TyrannoUtils;
 
 public class TyrannobookHelper {
 	public static final String BOOK_COMPOUND = TyrannoUtils.TYRANNO_ID;

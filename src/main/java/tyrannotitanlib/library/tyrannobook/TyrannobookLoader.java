@@ -16,6 +16,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.crafting.conditions.ICondition;
+import tyrannotitanlib.content.TyrannoUtils;
 import tyrannotitanlib.library.tyrannobook.action.StringActionProcessor;
 import tyrannotitanlib.library.tyrannobook.action.protocol.ProtocolGoToPage;
 import tyrannotitanlib.library.tyrannobook.data.TyrannobookData;
@@ -39,12 +40,11 @@ import tyrannotitanlib.library.tyrannobook.data.deserializer.ConditionDeserializ
 import tyrannotitanlib.library.tyrannobook.data.deserializer.HexStringDeserializer;
 import tyrannotitanlib.library.tyrannobook.data.element.IngredientData;
 import tyrannotitanlib.library.tyrannobook.repository.BookRepository;
-import tyrannotitanlib.library.tyrannobook.transformer.TyrannobookTransformer;
 import tyrannotitanlib.library.tyrannobook.transformer.IndexTransformer;
+import tyrannotitanlib.library.tyrannobook.transformer.TyrannobookTransformer;
 import tyrannotitanlib.library.tyrannonetwork.Tyrannonetwork;
 import tyrannotitanlib.library.tyrannonetwork.packets.UpdateHeldPagePacket;
 import tyrannotitanlib.library.tyrannonetwork.packets.UpdateLecternPagePacket;
-import tyrannotitanlib.library.utils.TyrannoUtils;
 
 public class TyrannobookLoader implements ResourceManagerReloadListener {
 	private static Gson gson;

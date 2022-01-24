@@ -1,9 +1,9 @@
 package tyrannotitanlib.library.tyrannomation.util;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.entity.EntityRenderer;
-import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.world.entity.Entity;
 import tyrannotitanlib.library.tyrannomation.model.provider.TyrannomationModelProvider;
 import tyrannotitanlib.library.tyrannomation.renderers.ITyrannomationRenderer;

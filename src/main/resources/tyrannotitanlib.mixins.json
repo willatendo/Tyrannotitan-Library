@@ -1,13 +1,10 @@
 {
 	"required": true,
 	"package": "tyrannotitanlib.mixin",
-	"minVersion": "0.8",
 	"compatibilityLevel": "JAVA_17",
-	"mixins": [
-		"SurfaceRuleDataMixin"
-	],
+	"refmap": "lostworlds.refmap.json",
 	"injectors": {
 		"defaultRequire": 1
 	},
-	"refmap": "tyrannotitanlib.mixins.refmap.json"
+	"minVersion": "0.8.4"
 }

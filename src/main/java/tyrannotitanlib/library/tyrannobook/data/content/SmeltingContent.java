@@ -16,6 +16,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.block.Blocks;
+import tyrannotitanlib.content.TyrannoUtils;
 import tyrannotitanlib.library.tyrannobook.data.TyrannobookData;
 import tyrannotitanlib.library.tyrannobook.data.element.ImageData;
 import tyrannotitanlib.library.tyrannobook.data.element.IngredientData;
@@ -27,7 +28,6 @@ import tyrannotitanlib.library.tyrannobook.screen.book.element.ImageElement;
 import tyrannotitanlib.library.tyrannobook.screen.book.element.ItemElement;
 import tyrannotitanlib.library.tyrannobook.screen.book.element.TextElement;
 import tyrannotitanlib.library.tyrannobook.screen.book.element.TooltipElement;
-import tyrannotitanlib.library.utils.TyrannoUtils;
 
 public class SmeltingContent extends PageContent {
 	public static final ResourceLocation ID = TyrannoUtils.rL("smelting");

@@ -8,8 +8,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
 import net.minecraftforge.network.NetworkEvent.Context;
-import tyrannotitanlib.library.base.block.entity.BlockEntityHelper;
 import tyrannotitanlib.library.tyrannobook.TyrannobookHelper;
+import tyrannotitanlib.library.tyrannotitanlib.block.entity.BlockEntityHelper;
 
 @AllArgsConstructor
 public class UpdateLecternPagePacket implements IThreadsafePacket {

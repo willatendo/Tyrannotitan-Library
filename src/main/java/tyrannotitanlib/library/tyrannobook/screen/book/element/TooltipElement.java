@@ -1,11 +1,12 @@
 package tyrannotitanlib.library.tyrannobook.screen.book.element;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.gui.Font;
-import net.minecraft.network.chat.Component;
-
 import java.util.List;
 import java.util.Optional;
+
+import com.mojang.blaze3d.vertex.PoseStack;
+
+import net.minecraft.client.gui.Font;
+import net.minecraft.network.chat.Component;
 
 public class TooltipElement extends SizedBookElement {
 	private final List<Component> tooltips;

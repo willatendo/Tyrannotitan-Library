@@ -12,6 +12,7 @@ import net.minecraft.world.item.crafting.CraftingRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraftforge.common.crafting.IShapedRecipe;
+import tyrannotitanlib.content.TyrannoUtils;
 import tyrannotitanlib.library.tyrannobook.data.BookLoadException;
 import tyrannotitanlib.library.tyrannobook.data.TyrannobookData;
 import tyrannotitanlib.library.tyrannobook.data.element.ImageData;
@@ -23,7 +24,6 @@ import tyrannotitanlib.library.tyrannobook.screen.book.element.BookElement;
 import tyrannotitanlib.library.tyrannobook.screen.book.element.ImageElement;
 import tyrannotitanlib.library.tyrannobook.screen.book.element.ItemElement;
 import tyrannotitanlib.library.tyrannobook.screen.book.element.TextElement;
-import tyrannotitanlib.library.utils.TyrannoUtils;
 
 public class CraftingContent extends PageContent {
 	public static final ResourceLocation ID = TyrannoUtils.rL("crafting");

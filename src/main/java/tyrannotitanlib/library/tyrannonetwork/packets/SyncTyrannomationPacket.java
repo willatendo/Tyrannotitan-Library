@@ -7,8 +7,8 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.simple.SimpleChannel;
+import tyrannotitanlib.content.TyrannoUtils;
 import tyrannotitanlib.library.tyrannonetwork.Tyrannonetwork;
-import tyrannotitanlib.library.utils.TyrannoUtils;
 
 public class SyncTyrannomationPacket {
 	private final String key;

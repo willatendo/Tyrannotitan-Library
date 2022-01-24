@@ -2,8 +2,8 @@ package tyrannotitanlib.library.tyrannobook.data.content;
 
 import java.util.ArrayList;
 
-import tyrannotitanlib.library.tyrannobook.data.TyrannobookData;
 import tyrannotitanlib.library.tyrannobook.data.SectionData;
+import tyrannotitanlib.library.tyrannobook.data.TyrannobookData;
 import tyrannotitanlib.library.tyrannobook.screen.book.BookScreen;
 import tyrannotitanlib.library.tyrannobook.screen.book.element.BookElement;
 import tyrannotitanlib.library.tyrannobook.screen.book.element.SelectionElement;

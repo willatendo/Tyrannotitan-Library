@@ -4,11 +4,11 @@ import java.util.Iterator;
 
 import lombok.Getter;
 import net.minecraft.resources.ResourceLocation;
-import tyrannotitanlib.library.tyrannobook.data.TyrannobookData;
+import tyrannotitanlib.content.TyrannoUtils;
 import tyrannotitanlib.library.tyrannobook.data.PageData;
 import tyrannotitanlib.library.tyrannobook.data.SectionData;
+import tyrannotitanlib.library.tyrannobook.data.TyrannobookData;
 import tyrannotitanlib.library.tyrannobook.transformer.TyrannobookTransformer;
-import tyrannotitanlib.library.utils.TyrannoUtils;
 
 @Getter
 public abstract class ContentPadding extends BlankContent {

@@ -4,11 +4,11 @@ import java.util.Optional;
 
 import javax.annotation.Nullable;
 
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelReader;
-import tyrannotitanlib.library.utils.TyrannoUtils;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import tyrannotitanlib.content.TyrannoUtils;
 
 public class TileEntityHelper {
 	public static <T> Optional<T> getTile(Class<T> clazz, @Nullable BlockGetter world, BlockPos pos) {

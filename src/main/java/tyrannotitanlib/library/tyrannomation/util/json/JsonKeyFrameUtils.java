@@ -13,12 +13,12 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import tyrannotitanlib.content.TyrannoUtils;
 import tyrannotitanlib.library.tyrannomation.util.TyrannomationUtils;
 import tyrannotitanlib.library.tyrannomationcore.ConstantValue;
 import tyrannotitanlib.library.tyrannomationcore.easing.EasingType;
 import tyrannotitanlib.library.tyrannomationcore.keyframe.KeyFrame;
 import tyrannotitanlib.library.tyrannomationcore.keyframe.VectorKeyFrameList;
-import tyrannotitanlib.library.utils.TyrannoUtils;
 
 public class JsonKeyFrameUtils {
 	private static VectorKeyFrameList<KeyFrame<IValue>> convertJson(List<Map.Entry<String, JsonElement>> element, boolean isRotation, MolangParser parser) throws NumberFormatException, MolangException {

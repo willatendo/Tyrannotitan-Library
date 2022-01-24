@@ -1,6 +1,6 @@
 package tyrannotitanlib.content;
 
-import static tyrannotitanlib.library.utils.TyrannoUtils.TYRANNO_ID;
+import static tyrannotitanlib.content.TyrannoUtils.TYRANNO_ID;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,8 +19,10 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -28,15 +30,14 @@ import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 import tyrannotitanlib.content.client.Capes;
 import tyrannotitanlib.content.server.init.TyrannoBlockEntities;
 import tyrannotitanlib.content.server.init.TyrannoRegistries;
-import tyrannotitanlib.library.base.biome.TestBiome;
-import tyrannotitanlib.library.base.block.TyrannoBeehiveBlock;
-import tyrannotitanlib.library.base.block.TyrannoLogBlock;
-import tyrannotitanlib.library.base.block.TyrannoSignManager;
+import tyrannotitanlib.library.compatibility.CompatibilityRegistries;
 import tyrannotitanlib.library.tyrannobook.TyrannobookLoader;
 import tyrannotitanlib.library.tyrannomation.resource.ResourceListener;
 import tyrannotitanlib.library.tyrannonetwork.Tyrannonetwork;
 import tyrannotitanlib.library.tyrannoregister.TyrannoRegister;
-import tyrannotitanlib.library.utils.TyrannoUtils;
+import tyrannotitanlib.library.tyrannotitanlib.block.TyrannoBeehiveBlock;
+import tyrannotitanlib.library.tyrannotitanlib.block.TyrannoLogBlock;
+import tyrannotitanlib.library.tyrannotitanlib.block.TyrannoSignManager;
 
 @Mod(TYRANNO_ID)
 @Mod.EventBusSubscriber(bus = Bus.MOD, modid = TYRANNO_ID)
@@ -51,11 +52,12 @@ public class TyrannotitanLibrary {
 		bus.addListener(this::clientSetup);
 
 		TyrannoRegistries.register();
+		CompatibilityRegistries.init();
 		initTyrannomation();
-		
-		TyrannoRegister.registerBiome("test", new TestBiome().getBiome());
-		
+
 		forgeBus.register(new TyrannoRegister());
+
+		ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, TyrannoUtils.serverSpec);
 	}
 
 	private void commonSetup(final FMLCommonSetupEvent event) {
@@ -87,9 +89,7 @@ public class TyrannotitanLibrary {
 					});
 				}
 			}
-		});
 
-		event.enqueueWork(() -> {
 			ImmutableSet.Builder<Block> builder = ImmutableSet.builder();
 			builder.addAll(BlockEntityType.SIGN.validBlocks);
 			TyrannoSignManager.forEachSignBlock(builder::add);

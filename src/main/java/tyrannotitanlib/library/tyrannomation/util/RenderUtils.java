@@ -1,9 +1,9 @@
 package tyrannotitanlib.library.tyrannomation.util;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-
 import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
+
 import tyrannotitanlib.library.tyrannomation.tyranno.render.built.TyrannomationBone;
 import tyrannotitanlib.library.tyrannomation.tyranno.render.built.TyrannomationCube;
 

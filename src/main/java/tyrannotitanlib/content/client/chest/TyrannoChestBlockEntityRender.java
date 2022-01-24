@@ -28,7 +28,7 @@ import net.minecraft.world.level.block.entity.LidBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import tyrannotitanlib.content.client.chest.TyrannoChestManager.ChestInfo;
-import tyrannotitanlib.library.base.block.ITyrannoChestBlock;
+import tyrannotitanlib.library.tyrannotitanlib.block.ITyrannoChestBlock;
 
 public class TyrannoChestBlockEntityRender<T extends BlockEntity & LidBlockEntity> implements BlockEntityRenderer<T> {
 	public static Block itemBlock = null;

@@ -14,6 +14,7 @@ import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 import net.minecraftforge.registries.IRegistryDelegate;
+import tyrannotitanlib.content.TyrannoUtils;
 import tyrannotitanlib.library.tyrannonetwork.packets.DropLecternBookPacket;
 import tyrannotitanlib.library.tyrannonetwork.packets.ISyncable;
 import tyrannotitanlib.library.tyrannonetwork.packets.OpenLecternBookPacket;
@@ -21,7 +22,6 @@ import tyrannotitanlib.library.tyrannonetwork.packets.OpenNamedBookPacket;
 import tyrannotitanlib.library.tyrannonetwork.packets.SyncTyrannomationPacket;
 import tyrannotitanlib.library.tyrannonetwork.packets.UpdateHeldPagePacket;
 import tyrannotitanlib.library.tyrannonetwork.packets.UpdateLecternPagePacket;
-import tyrannotitanlib.library.utils.TyrannoUtils;
 
 public class Tyrannonetwork {
 	public static final NetworkWrapper INSTANCE = new NetworkWrapper(TyrannoUtils.rL("network"));

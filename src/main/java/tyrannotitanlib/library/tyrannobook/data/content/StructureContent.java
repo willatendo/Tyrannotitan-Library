@@ -12,6 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
+import tyrannotitanlib.content.TyrannoUtils;
 import tyrannotitanlib.library.tyrannobook.data.TyrannobookData;
 import tyrannotitanlib.library.tyrannobook.data.element.TextData;
 import tyrannotitanlib.library.tyrannobook.repository.BookRepository;
@@ -21,7 +22,6 @@ import tyrannotitanlib.library.tyrannobook.screen.book.element.AnimationToggleEl
 import tyrannotitanlib.library.tyrannobook.screen.book.element.BookElement;
 import tyrannotitanlib.library.tyrannobook.screen.book.element.StructureElement;
 import tyrannotitanlib.library.tyrannobook.screen.book.element.TextElement;
-import tyrannotitanlib.library.utils.TyrannoUtils;
 
 public class StructureContent extends PageContent {
 	public static final transient ResourceLocation ID = TyrannoUtils.rL("structure");

@@ -1,9 +1,9 @@
 package tyrannotitanlib.library.tyrannomation.tyranno.raw.pojo;
 
+import java.io.IOException;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-
-import java.io.IOException;
 
 public enum PolysEnum {
 	QUAD_LIST,

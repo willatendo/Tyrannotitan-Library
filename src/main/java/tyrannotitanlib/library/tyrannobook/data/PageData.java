@@ -15,12 +15,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.common.crafting.conditions.TrueCondition;
+import tyrannotitanlib.content.TyrannoUtils;
 import tyrannotitanlib.library.tyrannobook.TyrannobookLoader;
 import tyrannotitanlib.library.tyrannobook.data.content.ContentError;
 import tyrannotitanlib.library.tyrannobook.data.content.PageContent;
 import tyrannotitanlib.library.tyrannobook.data.element.IDataElement;
 import tyrannotitanlib.library.tyrannobook.repository.BookRepository;
-import tyrannotitanlib.library.utils.TyrannoUtils;
 
 public class PageData implements IDataItem, IConditional {
 	public String name = null;

@@ -45,7 +45,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.GameData;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
-import tyrannotitanlib.library.base.recipe.TyrannoRecipeType;
+import tyrannotitanlib.library.tyrannotitanlib.recipe.TyrannoRecipeType;
 
 public class TyrannoRegister {
 	private static final Map<String, ModData> modData = new HashMap<>();

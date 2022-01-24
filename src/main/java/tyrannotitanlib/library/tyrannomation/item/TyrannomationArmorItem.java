@@ -27,8 +27,8 @@ public abstract class TyrannomationArmorItem extends ArmorItem {
 		super.initializeClient(consumer);
 		consumer.accept(new IItemRenderProperties() {
 			@Override
-			public <A extends HumanoidModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, A _default) {
-				return (A) TyrannomationArmorRenderer.getRenderer(TyrannomationArmorItem.this.getClass()).applyEntityStats(_default).applySlot(armorSlot).setCurrentItem(entityLiving, itemStack, armorSlot);
+			public HumanoidModel<?> getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel<?> _default) {
+				return TyrannomationArmorRenderer.getRenderer(TyrannomationArmorItem.this.getClass()).applyEntityStats(_default).applySlot(armorSlot).setCurrentItem(entityLiving, itemStack, armorSlot);
 			}
 		});
 	}

@@ -2,9 +2,9 @@ package tyrannotitanlib.library.tyrannobook.transformer;
 
 import java.util.List;
 
-import tyrannotitanlib.library.tyrannobook.data.TyrannobookData;
 import tyrannotitanlib.library.tyrannobook.data.PageData;
 import tyrannotitanlib.library.tyrannobook.data.SectionData;
+import tyrannotitanlib.library.tyrannobook.data.TyrannobookData;
 import tyrannotitanlib.library.tyrannobook.data.content.ContentPadding.PaddingBookTransformer;
 import tyrannotitanlib.library.tyrannobook.data.content.TableOfContentsContent;
 import tyrannotitanlib.library.tyrannobook.data.element.TextData;
