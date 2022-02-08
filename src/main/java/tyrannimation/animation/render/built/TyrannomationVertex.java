@@ -1,0 +1,35 @@
+package tyrannimation.animation.render.built;
+
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.Validate;
+
+import com.mojang.math.Vector3f;
+
+public class TyrannomationVertex {
+	public final Vector3f position;
+	public float textureU;
+	public float textureV;
+
+	public TyrannomationVertex(float x, float y, float z) {
+		this.position = new Vector3f(x, y, z);
+	}
+
+	public TyrannomationVertex(double x, double y, double z) {
+		this.position = new Vector3f((float) x, (float) y, (float) z);
+	}
+
+	public TyrannomationVertex setTextureUV(float texU, float texV) {
+		return new TyrannomationVertex(this.position, texU, texV);
+	}
+
+	public TyrannomationVertex setTextureUV(double[] array) {
+		Validate.validIndex(ArrayUtils.toObject(array), 1);
+		return new TyrannomationVertex(this.position, (float) array[0], (float) array[1]);
+	}
+
+	public TyrannomationVertex(Vector3f posIn, float texU, float texV) {
+		this.position = posIn;
+		this.textureU = texU;
+		this.textureV = texV;
+	}
+}
