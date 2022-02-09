@@ -5,12 +5,12 @@ issueTrackerURL="https://github.com/willatendo/Tyrannotitan-Library/issues"
 
 [[mods]]
 modId="tyrannotitanlib"
-version="3.1.0"
+version="4.0.0"
 displayName="Tyrannotitan Library"
 updateJSONURL="https://github.com/willatendo/Tyrannotitan-Library/raw/main/updates.json"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/tyrannotitan-library-forge"
 logoFile="tyrannotitanlib.png"
-credit="Gecko, Eliot, AzureDoom (GeckoLib : Tyrannomation) || Team Abnormals (Abnormals Core : Base) || Slime Knights (Mantle & Tinker's Construct : Tyrannobook) || Vazkii (AutoRegLib : Tyrannoregister)"
+credit="Gecko, Eliot, AzureDoom (GeckoLib : Tyrannimation) || Team Abnormals (Blueprint : Core) || Slime Knights (Mantle & Tinker's Construct : Tyrannibook) || Vazkii (AutoRegLib : Tyranniregister)"
 authors="Willatendo, Santispik3" 
 
 description='''

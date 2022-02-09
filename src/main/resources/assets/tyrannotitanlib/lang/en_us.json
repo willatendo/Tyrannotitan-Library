@@ -3,6 +3,7 @@
 	"event.tyrannotitanlib.load_snapshot_build": "You are running an %s snapshot. Do not redistribute and report any and all bugs.",
 	"event.tyrannotitanlib.load_youtube_build": "Thank you for playing with the mod! I greatly appreciate the distrabution of the mod. You are running Youtube Version %s.",
 	"event.tyrannotitanlib.load": "Thank you for downloading the mod! You are running Public %s.",
+	"item.tyrannotitanlib.copper_nugget": "Copper Nugget",
 	"item.tyrannotitanlib.tyrannotitan_banner_pattern": "Banner Pattern",
 	"item.tyrannotitanlib.tyrannotitan_banner_pattern.desc": "Tyrannotitan",
 	"block.minecraft.banner.tyrannotitan.white": "White Tyrannotitan",

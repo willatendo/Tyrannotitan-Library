@@ -1,0 +1,17 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"group": "roses:chairs",
+	"pattern": [
+		"###",
+		"###",
+		"###"
+	],
+	"key": {
+		"#": {
+			"item": "tyrannotitanlib:copper_nugget"
+		}
+	},
+	"result": {
+		"item": "minecraft:copper_ingot"
+	}
+}
