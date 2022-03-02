@@ -2,9 +2,9 @@ package tyrannotitanlib.library.compatibility.quark;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
@@ -18,7 +18,7 @@ import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.PlantType;
 
 public class QuarkHedgeBlock extends FenceBlock {
-	public static final Tag<Block> HEDGES = BlockTags.createOptional(new ResourceLocation("quark", "hedges"));
+	public static final TagKey<Block> HEDGES = TagKey.create(Registry.BLOCK_REGISTRY, new ResourceLocation("quark", "hedges"));
 	private static final BooleanProperty EXTEND = BooleanProperty.create("extend");
 
 	public QuarkHedgeBlock(Properties properties) {

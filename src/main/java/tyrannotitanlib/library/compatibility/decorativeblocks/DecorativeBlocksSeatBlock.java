@@ -36,7 +36,7 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import tyrannotitanlib.library.compatibility.CompatibilityRegistries;
 
-public class DecorativeBlocksSeatBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock, IDecorativeBlocksWoodenBlock {
+public class DecorativeBlocksSeatBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock, WoodenBlock {
 	protected static final VoxelShape POST_SHAPE = Block.box(6.0D, 0.0D, 6.0D, 10.0D, 4.0D, 10.0D);
 	protected static final VoxelShape TOP_POST = Block.box(6.0D, 7.0D, 6.0D, 10.0D, 16.0D, 10.0D);
 	protected static final VoxelShape JOIST_NS = Block.box(0, 4.0D, 4D, 16D, 7D, 12D);
@@ -53,16 +53,16 @@ public class DecorativeBlocksSeatBlock extends HorizontalDirectionalBlock implem
 	public static final BooleanProperty ATTACHED = BlockStateProperties.ATTACHED;
 	public static final BooleanProperty POST = BooleanProperty.create("post");
 
-	private IDecorativeBlocksWoodType woodType;
+	private WoodType woodType;
 
-	public DecorativeBlocksSeatBlock(Properties properties, IDecorativeBlocksWoodType woodType) {
+	public DecorativeBlocksSeatBlock(Properties properties, WoodType woodType) {
 		super(properties);
 		this.woodType = woodType;
 		this.registerDefaultState(this.getStateDefinition().any().setValue(WATERLOGGED, false).setValue(OCCUPIED, false).setValue(ATTACHED, false).setValue(POST, false));
 	}
 
 	@Override
-	public IDecorativeBlocksWoodType getWoodType() {
+	public WoodType getWoodType() {
 		return woodType;
 	}
 

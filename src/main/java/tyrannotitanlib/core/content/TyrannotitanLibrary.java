@@ -46,7 +46,7 @@ import tyrannotitanlib.tyranniregister.TyrannoRegister;
 public class TyrannotitanLibrary {
 	public static List<String> TYRANNOTITANS = new ArrayList<>();
 	public static volatile boolean hasInitializedTyrannimation;
-	
+
 	public TyrannotitanLibrary() {
 		var serverModBus = FMLJavaModLoadingContext.get().getModEventBus();
 		var serverForgeBus = MinecraftForge.EVENT_BUS;
@@ -59,7 +59,7 @@ public class TyrannotitanLibrary {
 		TyrannoBlockEntities.init();
 		TyrannoEntities.init();
 		TyrannoItems.init();
-		
+
 		CompatibilityRegistries.init();
 		initTyrannimation();
 
@@ -130,6 +130,5 @@ public class TyrannotitanLibrary {
 		}
 		hasInitializedTyrannimation = true;
 	}
-	
-	
+
 }

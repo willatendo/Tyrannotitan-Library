@@ -39,17 +39,13 @@ public class TemplateChunkSource extends ChunkSource {
 			byChunk.computeIfAbsent(new ChunkPos(info.pos), $ -> new ArrayList<>()).add(info);
 		}
 
-		this.chunks = byChunk.entrySet().stream().map(e -> Pair.of(e.getKey(), new TemplateChunk(level, e.getKey(), e.getValue(), shouldShow))).collect(Collectors.toMap(Pair::getFirst, Pair::getSecond));
+		this.chunks = byChunk.entrySet().stream().map(e -> Pair.of(e.getKey(), new TemplateChunk(level, e.getKey(), null, e.getValue(), shouldShow))).collect(Collectors.toMap(Pair::getFirst, Pair::getSecond));
 	}
 
 	@Nullable
 	@Override
 	public ChunkAccess getChunk(int chunkX, int chunkZ, @Nonnull ChunkStatus requiredStatus, boolean load) {
-		return this.chunks.computeIfAbsent(new ChunkPos(chunkX, chunkZ), p -> new EmptyLevelChunk(this.level, p));
-	}
-
-	@Override
-	public void tick(BooleanSupplier pHasTimeLeft) {
+		return this.chunks.computeIfAbsent(new ChunkPos(chunkX, chunkZ), p -> new EmptyLevelChunk(this.level, p, null));
 	}
 
 	@Override
@@ -71,5 +67,9 @@ public class TemplateChunkSource extends ChunkSource {
 	@Override
 	public BlockGetter getLevel() {
 		return this.level;
+	}
+
+	@Override
+	public void tick(BooleanSupplier hasTime, boolean p_202163_) {
 	}
 }

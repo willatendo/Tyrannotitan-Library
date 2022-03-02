@@ -10,7 +10,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -26,7 +26,7 @@ public class SizedIngredient implements Predicate<ItemStack> {
 
 	private WeakReference<ItemStack[]> lastIngredientMatch;
 	private List<ItemStack> matchingStacks;
-	
+
 	private SizedIngredient(Ingredient ingredient, int amount) {
 		this.ingredient = ingredient;
 		this.amount = amount;
@@ -35,7 +35,7 @@ public class SizedIngredient implements Predicate<ItemStack> {
 	public static SizedIngredient of(Ingredient ingredient, int amount) {
 		return new SizedIngredient(ingredient, amount);
 	}
-	
+
 	public static SizedIngredient of(Ingredient ingredient) {
 		return of(ingredient, 1);
 	}
@@ -48,11 +48,11 @@ public class SizedIngredient implements Predicate<ItemStack> {
 		return fromItems(1, items);
 	}
 
-	public static SizedIngredient fromTag(Tag<Item> tag, int amount) {
+	public static SizedIngredient fromTag(TagKey<Item> tag, int amount) {
 		return of(Ingredient.of(tag), amount);
 	}
 
-	public static SizedIngredient fromTag(Tag<Item> tag) {
+	public static SizedIngredient fromTag(TagKey<Item> tag) {
 		return fromTag(tag, 1);
 	}
 
@@ -64,7 +64,7 @@ public class SizedIngredient implements Predicate<ItemStack> {
 	public boolean hasNoMatchingStacks() {
 		return this.ingredient.isEmpty();
 	}
-	
+
 	public List<ItemStack> getMatchingStacks() {
 		ItemStack[] ingredientMatch = this.ingredient.getItems();
 		if (this.matchingStacks == null || this.lastIngredientMatch.get() != ingredientMatch) {
@@ -103,7 +103,7 @@ public class SizedIngredient implements Predicate<ItemStack> {
 		}
 		return json;
 	}
-	
+
 	public static SizedIngredient read(FriendlyByteBuf buffer) {
 		int amount = buffer.readVarInt();
 		Ingredient ingredient = Ingredient.fromNetwork(buffer);

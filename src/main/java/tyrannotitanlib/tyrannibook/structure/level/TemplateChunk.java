@@ -8,8 +8,10 @@ import java.util.function.Predicate;
 import javax.annotation.Nullable;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -23,8 +25,8 @@ public class TemplateChunk extends EmptyLevelChunk {
 	private final Map<BlockPos, BlockEntity> tiles;
 	private final Predicate<BlockPos> shouldShow;
 
-	public TemplateChunk(Level level, ChunkPos chunkPos, List<StructureBlockInfo> blocksInChunk, Predicate<BlockPos> shouldShow) {
-		super(level, chunkPos);
+	public TemplateChunk(Level level, ChunkPos chunkPos, Holder<Biome> biome, List<StructureBlockInfo> blocksInChunk, Predicate<BlockPos> shouldShow) {
+		super(level, chunkPos, biome);
 		this.shouldShow = shouldShow;
 		this.blocksInChunk = new HashMap<>();
 		this.tiles = new HashMap<>();

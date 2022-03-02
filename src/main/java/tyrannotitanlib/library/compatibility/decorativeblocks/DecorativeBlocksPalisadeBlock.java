@@ -15,15 +15,15 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 
 public class DecorativeBlocksPalisadeBlock extends CrossCollisionBlock {
-	private IDecorativeBlocksWoodType woodType;
+	private WoodType woodType;
 
-	public DecorativeBlocksPalisadeBlock(Block.Properties properties, IDecorativeBlocksWoodType woodType) {
+	public DecorativeBlocksPalisadeBlock(Block.Properties properties, WoodType woodType) {
 		super(3.0F, 3.0F, 16.0F, 16.0F, 24.0F, properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(NORTH, Boolean.FALSE).setValue(EAST, Boolean.FALSE).setValue(SOUTH, Boolean.FALSE).setValue(WEST, Boolean.FALSE).setValue(WATERLOGGED, Boolean.FALSE));
 		this.woodType = woodType;
 	}
 
-	public IDecorativeBlocksWoodType getWoodType() {
+	public WoodType getWoodType() {
 		return woodType;
 	}
 

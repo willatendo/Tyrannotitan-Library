@@ -28,7 +28,7 @@ import net.minecraft.world.level.block.entity.LidBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import tyrannotitanlib.core.client.chest.TyrannoChestManager.ChestInfo;
-import tyrannotitanlib.library.block.ITyrannoChestBlock;
+import tyrannotitanlib.library.block.TyrannoChest;
 
 public class TyrannoChestBlockEntityRender<T extends BlockEntity & LidBlockEntity> implements BlockEntityRenderer<T> {
 	public static Block itemBlock = null;
@@ -117,7 +117,7 @@ public class TyrannoChestBlockEntityRender<T extends BlockEntity & LidBlockEntit
 			if (inventoryBlock == null) {
 				inventoryBlock = t.getBlockState().getBlock();
 			}
-			ChestInfo chestInfo = TyrannoChestManager.getInfoForChest(((ITyrannoChestBlock) inventoryBlock).getChestType());
+			ChestInfo chestInfo = TyrannoChestManager.getInfoForChest(((TyrannoChest) inventoryBlock).getChestType());
 			return switch (type) {
 			case SINGLE -> chestInfo != null ? chestInfo.getSingleMaterial() : Sheets.CHEST_LOCATION;
 			case LEFT -> chestInfo != null ? chestInfo.getLeftMaterial() : Sheets.CHEST_LOCATION_LEFT;

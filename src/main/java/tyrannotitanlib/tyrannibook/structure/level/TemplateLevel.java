@@ -12,11 +12,11 @@ import com.google.common.collect.ImmutableList;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.TagContainer;
 import net.minecraft.util.profiling.InactiveProfiler;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -42,10 +42,10 @@ public class TemplateLevel extends Level {
 	private final Scoreboard scoreboard = new Scoreboard();
 	private final RecipeManager recipeManager = new RecipeManager();
 	private final TemplateChunkSource chunkSource;
-	private final RegistryAccess registries = RegistryAccess.builtin();
+	private final RegistryAccess registries = RegistryAccess.builtinCopy();
 
 	public TemplateLevel(List<StructureBlockInfo> blocks, Predicate<BlockPos> shouldShow) {
-		super(new FakeLevelData(), Level.OVERWORLD, DimensionType.DEFAULT_OVERWORLD, () -> InactiveProfiler.INSTANCE, true, false, 0);
+		super(new FakeLevelData(), Level.OVERWORLD, Holder.direct(DimensionType.DEFAULT_OVERWORLD), () -> InactiveProfiler.INSTANCE, true, false, 0);
 
 		this.chunkSource = new TemplateChunkSource(blocks, this, shouldShow);
 	}
@@ -105,12 +105,6 @@ public class TemplateLevel extends Level {
 		return this.recipeManager;
 	}
 
-	@Nonnull
-	@Override
-	public TagContainer getTagManager() {
-		return TagContainer.EMPTY;
-	}
-
 	@Override
 	protected LevelEntityGetter<Entity> getEntities() {
 		return FakeEntityGetter.INSTANCE;
@@ -149,8 +143,8 @@ public class TemplateLevel extends Level {
 
 	@Nonnull
 	@Override
-	public Biome getUncachedNoiseBiome(int x, int y, int z) {
-		return this.registryAccess().registryOrThrow(Registry.BIOME_REGISTRY).getOrThrow(Biomes.PLAINS);
+	public Holder<Biome> getUncachedNoiseBiome(int x, int y, int z) {
+		return Holder.direct(this.registryAccess().registryOrThrow(Registry.BIOME_REGISTRY).getOrThrow(Biomes.PLAINS));
 	}
 
 	@Override

@@ -14,7 +14,7 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 
-public interface ILavaLoggable extends BucketPickup, LiquidBlockContainer {
+public interface SimpleLavaloddedBlock extends BucketPickup, LiquidBlockContainer {
 	@Override
 	default boolean canPlaceLiquid(BlockGetter reader, BlockPos pos, BlockState state, Fluid fluid) {
 		return !state.getValue(BooleanProperty.create("lavalogged")) && fluid == Fluids.LAVA;

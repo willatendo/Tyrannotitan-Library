@@ -8,14 +8,14 @@ import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class DecorativeBlocksBeamBlock extends RotatedPillarBlock {
-	private IDecorativeBlocksWoodType woodType;
+	private WoodType woodType;
 
-	public DecorativeBlocksBeamBlock(Block.Properties properties, IDecorativeBlocksWoodType woodType) {
+	public DecorativeBlocksBeamBlock(Block.Properties properties, WoodType woodType) {
 		super(properties);
 		this.woodType = woodType;
 	}
 
-	public IDecorativeBlocksWoodType getWoodType() {
+	public WoodType getWoodType() {
 		return woodType;
 	}
 

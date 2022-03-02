@@ -5,7 +5,7 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 
-public interface IDecorativeBlocksWoodType {
+public interface WoodType {
 	String toString();
 
 	Block getLog();

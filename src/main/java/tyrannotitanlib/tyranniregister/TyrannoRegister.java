@@ -33,7 +33,10 @@ import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.entity.schedule.Schedule;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Item.Properties;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -46,12 +49,10 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.chunk.ChunkStatus;
 import net.minecraft.world.level.levelgen.SurfaceRules.RuleSource;
 import net.minecraft.world.level.levelgen.carver.CarverConfiguration;
-import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
 import net.minecraft.world.level.levelgen.carver.WorldCarver;
 import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
-import net.minecraft.world.level.levelgen.feature.StructurePieceType;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacerType;
@@ -59,6 +60,7 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvi
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProviderType;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
+import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceType;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.common.loot.IGlobalLootModifier;
@@ -72,6 +74,7 @@ import net.minecraftforge.registries.GameData;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import tyrannotitanlib.library.recipe.TyrannoRecipeType;
+import tyrannotitanlib.tyranniworld.TyrannoBiome;
 
 public class TyrannoRegister {
 	private static final Map<String, ModData> modData = new HashMap<>();
@@ -114,10 +117,6 @@ public class TyrannoRegister {
 		return Registry.register(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, new ResourceLocation(modId, id), structureFeature);
 	}
 
-	public static <WC extends CarverConfiguration> ConfiguredWorldCarver<WC> registerConfiguredCarver(String modId, String id, ConfiguredWorldCarver<WC> configuredCarver) {
-		return BuiltinRegistries.register(BuiltinRegistries.CONFIGURED_CARVER, new ResourceLocation(modId, id), configuredCarver);
-	}
-
 	public static Codec<RuleSource> registerSurfaceRule(String modId, String id, Codec<RuleSource> codec) {
 		return Registry.register(Registry.RULE, new ResourceLocation(modId, id), codec);
 	}
@@ -125,6 +124,12 @@ public class TyrannoRegister {
 	// Forge
 	public static Block registerBlock(String id, Block block) {
 		register(id, block);
+		return block;
+	}
+
+	public static Block registerBlock(String id, Block block, CreativeModeTab tab) {
+		register(id, block);
+		registerItem(id, new BlockItem(block, new Properties().tab(tab)));
 		return block;
 	}
 
@@ -275,6 +280,12 @@ public class TyrannoRegister {
 	public static Biome registerBiome(String id, Biome biome) {
 		register(id, biome);
 		return biome;
+	}
+
+	public static Biome registerBiome(TyrannoBiome biome) {
+		var realBiome = biome.getBiome();
+		register(biome.name().getPath(), realBiome);
+		return realBiome;
 	}
 
 	public static DataSerializerEntry registerDataSerializerEntry(String id, DataSerializerEntry dataSerializerEntry) {

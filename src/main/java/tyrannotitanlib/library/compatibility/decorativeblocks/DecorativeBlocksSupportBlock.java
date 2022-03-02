@@ -42,15 +42,15 @@ public class DecorativeBlocksSupportBlock extends HorizontalDirectionalBlock imp
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 	public static final BooleanProperty UP = BlockStateProperties.UP;
 
-	private IDecorativeBlocksWoodType woodType;
+	private WoodType woodType;
 
-	public DecorativeBlocksSupportBlock(Block.Properties properties, IDecorativeBlocksWoodType woodType) {
+	public DecorativeBlocksSupportBlock(Block.Properties properties, WoodType woodType) {
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, Boolean.FALSE).setValue(UP, Boolean.TRUE));
 		this.woodType = woodType;
 	}
 
-	public IDecorativeBlocksWoodType getWoodType() {
+	public WoodType getWoodType() {
 		return woodType;
 	}
 

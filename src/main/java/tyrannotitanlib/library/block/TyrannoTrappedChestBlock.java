@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import tyrannotitanlib.library.block.entity.TyrannoTrappedChestBlockEntity;
 
-public class TyrannoTrappedChestBlock extends ChestBlock implements ITyrannoChestBlock {
+public class TyrannoTrappedChestBlock extends ChestBlock implements TyrannoChest {
 	public final String type;
 
 	public TyrannoTrappedChestBlock(String type, Properties properties) {

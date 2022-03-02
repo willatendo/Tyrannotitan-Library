@@ -35,7 +35,7 @@ public class BlockEntityHelper {
 		if (clazz.isInstance(tile)) {
 			return Optional.of(clazz.cast(tile));
 		} else if (logWrongType) {
-			LOG.warn("Unexpected TileEntity class at {}, expected {}, but found: {}", pos, clazz, tile.getClass());
+			LOG.warn("Unexpected BlockEntity class at {}, expected {}, but found: {}", pos, clazz, tile.getClass());
 		}
 
 		return Optional.empty();
