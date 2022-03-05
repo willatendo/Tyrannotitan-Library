@@ -13,7 +13,7 @@ public class TyrannoChestBlockEntity extends ChestBlockEntity {
 	}
 
 	public TyrannoChestBlockEntity(BlockPos pos, BlockState state) {
-		super(TyrannoBlockEntities.CHEST_BLOCK_ENTITY, pos, state);
+		super(TyrannoBlockEntities.TYRANNO_CHEST.get(), pos, state);
 	}
 
 	@Override

@@ -13,6 +13,6 @@ public class TyrannoBarrelBlockEntity extends BarrelBlockEntity {
 
 	@Override
 	public BlockEntityType<?> getType() {
-		return TyrannoBlockEntities.BARREL_BLOCK_ENTITY;
+		return TyrannoBlockEntities.TYRANNO_BARREL.get();
 	}
 }

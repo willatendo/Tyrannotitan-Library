@@ -24,9 +24,9 @@ public class ClientSetup {
 	}
 
 	public static void rendererSetup(EntityRenderersEvent.RegisterRenderers event) {
-		event.registerBlockEntityRenderer(TyrannoBlockEntities.CHEST_BLOCK_ENTITY, TyrannoChestBlockEntityRender::new);
-		event.registerBlockEntityRenderer(TyrannoBlockEntities.CHEST_BLOCK_ENTITY, TyrannoChestBlockEntityRender::new);
+		event.registerBlockEntityRenderer(TyrannoBlockEntities.TYRANNO_CHEST.get(), TyrannoChestBlockEntityRender::new);
+		event.registerBlockEntityRenderer(TyrannoBlockEntities.TYRANNO_CHEST.get(), TyrannoChestBlockEntityRender::new);
 
-		event.registerEntityRenderer(TyrannoEntities.BOAT, manager -> new TyrannoBoatRenderer(manager));
+		event.registerEntityRenderer(TyrannoEntities.TYRANNO_BOAT.get(), manager -> new TyrannoBoatRenderer(manager));
 	}
 }

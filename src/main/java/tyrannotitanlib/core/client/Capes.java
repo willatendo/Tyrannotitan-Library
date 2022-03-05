@@ -1,6 +1,6 @@
 package tyrannotitanlib.core.client;
 
-import static tyrannotitanlib.core.content.TyrannotitanLibrary.TYRANNOTITANS;
+import static tyrannotitanlib.TyrannotitanLibrary.TYRANNOTITANS;
 import static tyrannotitanlib.core.content.Util.TYRANNO_UTILS;
 
 import java.util.ArrayList;

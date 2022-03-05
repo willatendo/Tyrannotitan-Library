@@ -11,7 +11,7 @@ public class TyrannoChestBlock extends ChestBlock implements TyrannoChest {
 	private final String type;
 
 	public TyrannoChestBlock(String type, Properties properties) {
-		super(properties, () -> TyrannoBlockEntities.CHEST_BLOCK_ENTITY);
+		super(properties, () -> TyrannoBlockEntities.TYRANNO_CHEST.get());
 		this.type = type;
 	}
 

@@ -30,7 +30,7 @@ public class TyrannoBoatEntity extends Boat {
 	}
 
 	public TyrannoBoatEntity(Level world, double x, double y, double z) {
-		this(TyrannoEntities.BOAT, world);
+		this(TyrannoEntities.TYRANNO_BOAT.get(), world);
 		this.setPos(x, y, z);
 		this.setDeltaMovement(Vec3.ZERO);
 		this.xo = x;
@@ -39,7 +39,7 @@ public class TyrannoBoatEntity extends Boat {
 	}
 
 	public TyrannoBoatEntity(PlayMessages.SpawnEntity spawnEntity, Level world) {
-		this(TyrannoEntities.BOAT, world);
+		this(TyrannoEntities.TYRANNO_BOAT.get(), world);
 	}
 
 	@Override

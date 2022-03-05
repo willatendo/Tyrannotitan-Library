@@ -13,6 +13,6 @@ public class TyrannoBeehiveBlockEntity extends BeehiveBlockEntity {
 
 	@Override
 	public BlockEntityType<?> getType() {
-		return TyrannoBlockEntities.BEEHIVE_BLOCK_ENTITY;
+		return TyrannoBlockEntities.TYRANNO_BEEHIVE.get();
 	}
 }

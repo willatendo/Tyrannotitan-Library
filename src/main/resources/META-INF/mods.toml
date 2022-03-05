@@ -5,18 +5,16 @@ issueTrackerURL="https://github.com/willatendo/Tyrannotitan-Library/issues"
 
 [[mods]]
 modId="tyrannotitanlib"
-version="4.0.0"
+version="4.1.2"
 displayName="Tyrannotitan Library"
 updateJSONURL="https://github.com/willatendo/Tyrannotitan-Library/raw/main/updates.json"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/tyrannotitan-library-forge"
 logoFile="tyrannotitanlib.png"
-credit="Gecko, Eliot, AzureDoom (GeckoLib : Tyrannimation) || Team Abnormals (Blueprint : Core) || Slime Knights (Mantle & Tinker's Construct : Tyrannibook) || Vazkii (AutoRegLib : Tyranniregister)"
-authors="Willatendo, Santispik3" 
+credit="Gecko, Eliot, AzureDoom, Team Abnormals, Slime Knights"
+authors="Willatendo, Logo By: Santispik3" 
 
 description='''
-A library for Willatendo's mods with tonnes of useful code including setup registers, base classes, compatablilty classes, mod books, and easy-to-use animations.
-
-PLEASE NOTE: A LOT OF THE CODE IS FROM OTHER'S MODS. I IN NO WAY CLAM THIS CODE AS MY OWN!
+A library for Willatendo's mods with tonnes of useful code. PLEASE NOTE: A LOT OF THE CODE IS FROM OTHER'S MODS. I IN NO WAY CLAM THIS CODE AS MY OWN!
 '''
 
 [[dependencies.tyrannotitanlib]]
@@ -29,7 +27,7 @@ PLEASE NOTE: A LOT OF THE CODE IS FROM OTHER'S MODS. I IN NO WAY CLAM THIS CODE 
 [[dependencies.tyrannotitanlib]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.18.1,1.19)"
+    versionRange="[1.18.2,1.19)"
     ordering="NONE"
     side="BOTH"
 	

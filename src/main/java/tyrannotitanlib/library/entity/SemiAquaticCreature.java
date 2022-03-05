@@ -1,6 +1,6 @@
 package tyrannotitanlib.library.entity;
 
-public interface ISemiAquatic {
+public interface SemiAquaticCreature {
 	boolean shouldEnterWater();
 
 	boolean shouldLeaveWater();

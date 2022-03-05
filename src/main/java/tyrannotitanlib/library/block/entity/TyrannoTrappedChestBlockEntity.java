@@ -8,7 +8,7 @@ import tyrannotitanlib.core.content.init.TyrannoBlockEntities;
 
 public class TyrannoTrappedChestBlockEntity extends TyrannoChestBlockEntity {
 	public TyrannoTrappedChestBlockEntity(BlockPos pos, BlockState state) {
-		super(TyrannoBlockEntities.TRAPPED_CHEST_BLOCK_ENTITY, pos, state);
+		super(TyrannoBlockEntities.TYRANNO_TRAPPED_CHEST.get(), pos, state);
 	}
 
 	@Override

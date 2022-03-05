@@ -1,4 +1,4 @@
-package tyrannotitanlib.core.content;
+package tyrannotitanlib;
 
 import static tyrannotitanlib.core.content.Util.LOG;
 import static tyrannotitanlib.core.content.Util.TYRANNO_ID;
@@ -28,6 +28,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 import tyrannotitanlib.core.client.Capes;
+import tyrannotitanlib.core.content.Util;
 import tyrannotitanlib.core.content.init.TyrannoBanners;
 import tyrannotitanlib.core.content.init.TyrannoBlockEntities;
 import tyrannotitanlib.core.content.init.TyrannoEntities;
@@ -35,7 +36,6 @@ import tyrannotitanlib.core.content.init.TyrannoItems;
 import tyrannotitanlib.library.block.TyrannoBeehiveBlock;
 import tyrannotitanlib.library.block.TyrannoLogBlock;
 import tyrannotitanlib.library.block.TyrannoSignManager;
-import tyrannotitanlib.library.compatibility.CompatibilityRegistries;
 import tyrannotitanlib.tyrannibook.TyrannobookLoader;
 import tyrannotitanlib.tyrannimation.resource.ResourceListener;
 import tyrannotitanlib.tyranninetwork.Tyrannonetwork;
@@ -49,21 +49,19 @@ public class TyrannotitanLibrary {
 
 	public TyrannotitanLibrary() {
 		var serverModBus = FMLJavaModLoadingContext.get().getModEventBus();
-		var serverForgeBus = MinecraftForge.EVENT_BUS;
 
 		serverModBus.addListener(this::commonSetup);
 		serverModBus.addListener(this::clientSetup);
 		serverModBus.addListener(this::listenersSetup);
+
+		TyrannoRegister.init(serverModBus);
 
 		TyrannoBanners.init();
 		TyrannoBlockEntities.init();
 		TyrannoEntities.init();
 		TyrannoItems.init();
 
-		CompatibilityRegistries.init();
 		initTyrannimation();
-
-		serverForgeBus.register(new TyrannoRegister());
 	}
 
 	private void commonSetup(final FMLCommonSetupEvent event) {

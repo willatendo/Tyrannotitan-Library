@@ -5,13 +5,13 @@ import static tyrannotitanlib.core.content.Util.TYRANNO_UTILS;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.MutableComponent;
 
-public enum Version {
+public enum VersionHelper {
 	DEV,
 	SNAPSHOT,
 	YOUTUBE,
 	PUBLIC;
 
-	public static MutableComponent getMessage(Version version, String versionString) {
+	public static MutableComponent getMessage(VersionHelper version, String versionString) {
 		if (version == DEV) {
 			return TYRANNO_UTILS.idBoundArgsFormatedText("event", "load_dev_build", versionString, ChatFormatting.DARK_RED, ChatFormatting.BOLD);
 		} else if (version == SNAPSHOT) {
@@ -23,7 +23,7 @@ public enum Version {
 		}
 	}
 
-	public static Version getVersion(String version) {
+	public static VersionHelper getVersion(String version) {
 		if (version.contains("dev")) {
 			return DEV;
 		} else if (version.contains("snapshot")) {

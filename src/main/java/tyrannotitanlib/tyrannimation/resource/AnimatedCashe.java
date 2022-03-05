@@ -15,7 +15,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.PreparableReloadListener.PreparationBarrier;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.profiling.ProfilerFiller;
-import tyrannotitanlib.core.content.TyrannotitanLibrary;
+import tyrannotitanlib.TyrannotitanLibrary;
 import tyrannotitanlib.tyrannimation.animation.render.built.AnimationModel;
 import tyrannotitanlib.tyrannimation.file.AnimatedFile;
 import tyrannotitanlib.tyrannimation.file.AnimatedFileLoader;
