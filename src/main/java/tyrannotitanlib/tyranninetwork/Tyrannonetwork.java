@@ -1,7 +1,7 @@
 package tyrannotitanlib.tyranninetwork;
 
-import static tyrannotitanlib.core.content.Util.LOG;
-import static tyrannotitanlib.core.content.Util.TYRANNO_UTILS;
+import static tyrannotitanlib.core.content.ModUtilities.LOG;
+import static tyrannotitanlib.core.content.ModUtilities.TYRANNO_UTILS;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -26,7 +26,7 @@ import tyrannotitanlib.tyranninetwork.packets.UpdateHeldPagePacket;
 import tyrannotitanlib.tyranninetwork.packets.UpdateLecternPagePacket;
 
 public class Tyrannonetwork {
-	public static final NetworkWrapper INSTANCE = new NetworkWrapper(TYRANNO_UTILS.resource("network"));
+	public static final NetworkWrapper INSTANCE = new NetworkWrapper(TYRANNO_UTILS.mod("network"));
 	private static final Map<String, Supplier<ISyncable>> SYNCABLES = new HashMap<>();
 
 	private static final String PROTOCOL_VERSION = "0";
@@ -34,7 +34,7 @@ public class Tyrannonetwork {
 
 	private static SimpleChannel fetchGeckoLibChannel(String name) {
 		try {
-			final ResourceLocation key = TYRANNO_UTILS.resource(name);
+			final ResourceLocation key = TYRANNO_UTILS.mod(name);
 			final Method findTarget = NetworkRegistry.class.getDeclaredMethod("findTarget", ResourceLocation.class);
 			findTarget.setAccessible(true);
 			return ((Optional<NetworkInstance>) findTarget.invoke(null, key)).map(SimpleChannel::new).orElseGet(() -> NetworkRegistry.newSimpleChannel(key, () -> PROTOCOL_VERSION, PROTOCOL_VERSION::equals, PROTOCOL_VERSION::equals));

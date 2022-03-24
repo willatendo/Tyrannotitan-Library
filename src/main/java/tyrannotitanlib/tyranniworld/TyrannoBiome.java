@@ -14,7 +14,6 @@ import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 
-@Deprecated // More streamlined version coming soon
 public abstract class TyrannoBiome {
 	// Water Colour
 	public static final int BASE_WATER_COLOUR = 0x3f76e4;
@@ -39,12 +38,9 @@ public abstract class TyrannoBiome {
 
 	public TyrannoBiome(BiomeBuilder builder) {
 		this.biome = builder.build();
-		this.setupSettings();
 	}
 
 	public abstract ResourceLocation name();
-
-	public abstract void setupSettings();
 
 	public static Biome.BiomeBuilder builder(Precipitation rain, BiomeCategory category, float downfall, float temperature, BiomeGenerationSettings settings, BiomeSpecialEffects ambience, MobSpawnSettings spawningInfo) {
 		return new Biome.BiomeBuilder().precipitation(rain).biomeCategory(category).downfall(downfall).temperature(temperature).generationSettings(settings).specialEffects(ambience).mobSpawnSettings(spawningInfo);
@@ -73,53 +69,5 @@ public abstract class TyrannoBiome {
 		BiomeDefaultFeatures.addDefaultMonsterRoom(builder);
 		BiomeDefaultFeatures.addDefaultUndergroundVariety(builder);
 		BiomeDefaultFeatures.addSurfaceFreezing(builder);
-	}
-
-	@Deprecated(forRemoval = true) // Use TyrannoBiome
-	public static final class BaseBiomeInfo {
-		// Water Colour
-		@Deprecated
-		public static final int BASE_WATER_COLOUR = 0x3f76e4;
-		@Deprecated
-		public static final int BASE_WATER_FOG_COLOUR = 0x50533;
-
-		@Deprecated
-		public static final int LUKE_WARM_OCEAN_WATER_COLOUR = 0x45adf2;
-		@Deprecated
-		public static final int LUKE_WARM_OCEAN_WATER_FOG_COLOUR = 0x41633;
-
-		@Deprecated
-		public static final int WARM_OCEAN_WATER_COLOUR = 0x43d5ee;
-		@Deprecated
-		public static final int WARM_OCEAN_WATER_FOG_COLOUR = 0x41f33;
-
-		@Deprecated
-		public static final int COLD_OCEAN_WATER_COLOUR = 0x3d57d6;
-		@Deprecated
-		public static final int COLD_OCEAN_WATER_FOG_COLOUR = 0x50533;
-
-		// Fog Colour
-		@Deprecated
-		public static final int BASE_FOG_COLOUR = 0xc0d8ff;
-
-		@Deprecated
-		public static int calculateSkyColor(float temperature) {
-			float colour = temperature / 3.0F;
-			colour = Mth.clamp(colour, -1.0F, 1.0F);
-			return Mth.hsvToRgb(0.62222224F - colour * 0.05F, 0.5F + colour * 0.1F, 1.0F);
-		}
-
-		@Deprecated
-		public static MobSpawnSettings.Builder defaultOverworldSpawns() {
-			MobSpawnSettings.Builder mobspawninfo$builder = new MobSpawnSettings.Builder();
-			BiomeDefaultFeatures.farmAnimals(mobspawninfo$builder);
-			BiomeDefaultFeatures.commonSpawns(mobspawninfo$builder);
-			return mobspawninfo$builder;
-		}
-
-		@Deprecated
-		public static Biome.BiomeBuilder builder(Precipitation rain, BiomeCategory category, float downfall, float temperature, BiomeGenerationSettings settings, BiomeSpecialEffects ambience, MobSpawnSettings spawningInfo) {
-			return new Biome.BiomeBuilder().precipitation(rain).biomeCategory(category).downfall(downfall).temperature(temperature).generationSettings(settings).specialEffects(ambience).mobSpawnSettings(spawningInfo);
-		}
 	}
 }

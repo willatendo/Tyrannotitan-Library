@@ -10,6 +10,10 @@ public class TyrannoBeehiveBlockEntity extends BeehiveBlockEntity {
 	public TyrannoBeehiveBlockEntity(BlockPos pos, BlockState state) {
 		super(pos, state);
 	}
+	
+	public TyrannoBeehiveBlockEntity(BlockEntityType<? extends TyrannoBeehiveBlockEntity> entity, BlockPos pos, BlockState state) {
+		super(pos, state);
+	}
 
 	@Override
 	public BlockEntityType<?> getType() {

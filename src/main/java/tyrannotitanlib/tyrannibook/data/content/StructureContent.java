@@ -1,7 +1,7 @@
 package tyrannotitanlib.tyrannibook.data.content;
 
-import static tyrannotitanlib.core.content.Util.LOG;
-import static tyrannotitanlib.core.content.Util.TYRANNO_UTILS;
+import static tyrannotitanlib.core.content.ModUtilities.LOG;
+import static tyrannotitanlib.core.content.ModUtilities.TYRANNO_UTILS;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ import tyrannotitanlib.tyrannibook.screen.book.element.StructureElement;
 import tyrannotitanlib.tyrannibook.screen.book.element.TextElement;
 
 public class StructureContent extends PageContent {
-	public static final transient ResourceLocation ID = TYRANNO_UTILS.resource("structure");
+	public static final transient ResourceLocation ID = TYRANNO_UTILS.mod("structure");
 
 	@Getter
 	public String title;

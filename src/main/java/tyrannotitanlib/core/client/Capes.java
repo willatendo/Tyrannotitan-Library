@@ -1,7 +1,7 @@
 package tyrannotitanlib.core.client;
 
 import static tyrannotitanlib.TyrannotitanLibrary.TYRANNOTITANS;
-import static tyrannotitanlib.core.content.Util.TYRANNO_UTILS;
+import static tyrannotitanlib.core.content.ModUtilities.TYRANNO_UTILS;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +38,7 @@ public class Capes {
 				PlayerInfo playerInfo = acp.getPlayerInfo();
 
 				Util.backgroundExecutor().execute(() -> {
-					ResourceLocation resourceLocation = TYRANNO_UTILS.resource("textures/entities/capes/tyrannotitan_cape.png");
+					ResourceLocation resourceLocation = TYRANNO_UTILS.mod("textures/entities/capes/tyrannotitan_cape.png");
 
 					playerInfo.textureLocations.put(Type.CAPE, resourceLocation);
 					playerInfo.textureLocations.put(Type.ELYTRA, resourceLocation);

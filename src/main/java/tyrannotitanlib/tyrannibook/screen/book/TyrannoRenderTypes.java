@@ -7,7 +7,7 @@ import static com.mojang.blaze3d.vertex.DefaultVertexFormat.ELEMENT_POSITION;
 import static com.mojang.blaze3d.vertex.DefaultVertexFormat.ELEMENT_UV0;
 import static com.mojang.blaze3d.vertex.DefaultVertexFormat.ELEMENT_UV1;
 import static com.mojang.blaze3d.vertex.DefaultVertexFormat.ELEMENT_UV2;
-import static tyrannotitanlib.core.content.Util.TYRANNO_ID;
+import static tyrannotitanlib.core.content.ModUtilities.TYRANNO_ID;
 
 import com.google.common.collect.ImmutableMap;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;

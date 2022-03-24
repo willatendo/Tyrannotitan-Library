@@ -1,6 +1,6 @@
 package tyrannotitanlib.library.block.entity;
 
-import static tyrannotitanlib.core.content.Util.LOG;
+import static tyrannotitanlib.core.content.ModUtilities.LOG;
 
 import java.util.Optional;
 

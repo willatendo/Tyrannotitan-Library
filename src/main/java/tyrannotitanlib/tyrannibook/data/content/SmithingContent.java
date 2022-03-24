@@ -1,6 +1,6 @@
 package tyrannotitanlib.tyrannibook.data.content;
 
-import static tyrannotitanlib.core.content.Util.TYRANNO_UTILS;
+import static tyrannotitanlib.core.content.ModUtilities.TYRANNO_UTILS;
 
 import java.util.ArrayList;
 
@@ -18,7 +18,7 @@ import tyrannotitanlib.tyrannibook.screen.book.element.ItemElement;
 import tyrannotitanlib.tyrannibook.screen.book.element.TextElement;
 
 public class SmithingContent extends PageContent {
-	public static final ResourceLocation ID = TYRANNO_UTILS.resource("smithing");
+	public static final ResourceLocation ID = TYRANNO_UTILS.mod("smithing");
 
 	public static final transient int TEX_SIZE = 512;
 	public static final transient ImageData IMG_SMITHING = new ImageData(BookTextures.MISC_TEXTURE, 88, 0, 210, 42, TEX_SIZE, TEX_SIZE);

@@ -1,6 +1,6 @@
 package tyrannotitanlib.tyrannibook.data.content;
 
-import static tyrannotitanlib.core.content.Util.TYRANNO_UTILS;
+import static tyrannotitanlib.core.content.ModUtilities.TYRANNO_UTILS;
 
 import java.util.ArrayList;
 
@@ -18,7 +18,7 @@ import tyrannotitanlib.tyrannibook.screen.book.element.ItemElement;
 import tyrannotitanlib.tyrannibook.screen.book.element.TextElement;
 
 public class BlockInteractionContent extends PageContent {
-	public static final ResourceLocation ID = TYRANNO_UTILS.resource("block_interaction");
+	public static final ResourceLocation ID = TYRANNO_UTILS.mod("block_interaction");
 
 	public static final transient int TEX_SIZE = 512;
 	public static final transient ImageData IMG_SMITHING = new ImageData(BookTextures.BOOK_TEXTURE, 0, 0, 88, 55, TEX_SIZE, TEX_SIZE);

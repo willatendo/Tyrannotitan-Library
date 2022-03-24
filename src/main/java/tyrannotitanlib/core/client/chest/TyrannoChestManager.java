@@ -1,6 +1,6 @@
 package tyrannotitanlib.core.client.chest;
 
-import static tyrannotitanlib.core.content.Util.TYRANNO_ID;
+import static tyrannotitanlib.core.content.ModUtilities.TYRANNO_ID;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,6 +1,6 @@
 package tyrannotitanlib.tyrannibook.data;
 
-import static tyrannotitanlib.core.content.Util.TYRANNO_UTILS;
+import static tyrannotitanlib.core.content.ModUtilities.TYRANNO_UTILS;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
@@ -25,7 +25,7 @@ import tyrannotitanlib.tyrannibook.repository.BookRepository;
 
 public class PageData implements IDataItem, IConditional {
 	public String name = null;
-	public ResourceLocation type = TYRANNO_UTILS.resource("blank");
+	public ResourceLocation type = TYRANNO_UTILS.mod("blank");
 	public String data = "";
 	public float scale = 1.0F;
 	public ICondition condition = TrueCondition.INSTANCE;

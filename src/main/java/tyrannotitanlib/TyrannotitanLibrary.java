@@ -1,8 +1,8 @@
 package tyrannotitanlib;
 
-import static tyrannotitanlib.core.content.Util.LOG;
-import static tyrannotitanlib.core.content.Util.TYRANNO_ID;
-import static tyrannotitanlib.core.content.Util.collectBlocks;
+import static tyrannotitanlib.core.content.ModUtilities.LOG;
+import static tyrannotitanlib.core.content.ModUtilities.TYRANNO_ID;
+import static tyrannotitanlib.core.content.ModUtilities.collectBlocks;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,15 +11,14 @@ import java.util.Map;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
+import com.tterrag.registrate.util.nullness.NonNullSupplier;
 
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
@@ -27,25 +26,25 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
+import software.bernie.geckolib3.GeckoLib;
 import tyrannotitanlib.core.client.Capes;
-import tyrannotitanlib.core.content.Util;
+import tyrannotitanlib.core.content.ModUtilities;
 import tyrannotitanlib.core.content.init.TyrannoBanners;
 import tyrannotitanlib.core.content.init.TyrannoBlockEntities;
 import tyrannotitanlib.core.content.init.TyrannoEntities;
 import tyrannotitanlib.core.content.init.TyrannoItems;
+import tyrannotitanlib.library.TyrannoRegistrate;
 import tyrannotitanlib.library.block.TyrannoBeehiveBlock;
 import tyrannotitanlib.library.block.TyrannoLogBlock;
 import tyrannotitanlib.library.block.TyrannoSignManager;
 import tyrannotitanlib.tyrannibook.TyrannobookLoader;
-import tyrannotitanlib.tyrannimation.resource.ResourceListener;
 import tyrannotitanlib.tyranninetwork.Tyrannonetwork;
-import tyrannotitanlib.tyranniregister.TyrannoRegister;
 
 @Mod(TYRANNO_ID)
 @EventBusSubscriber(bus = Bus.MOD, modid = TYRANNO_ID)
 public class TyrannotitanLibrary {
+	public static final NonNullSupplier<TyrannoRegistrate> CENTRAL_REGISTRATE = TyrannoRegistrate.lazy(TYRANNO_ID);
 	public static List<String> TYRANNOTITANS = new ArrayList<>();
-	public static volatile boolean hasInitializedTyrannimation;
 
 	public TyrannotitanLibrary() {
 		var serverModBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -54,19 +53,17 @@ public class TyrannotitanLibrary {
 		serverModBus.addListener(this::clientSetup);
 		serverModBus.addListener(this::listenersSetup);
 
-		TyrannoRegister.init(serverModBus);
-
 		TyrannoBanners.init();
 		TyrannoBlockEntities.init();
 		TyrannoEntities.init();
 		TyrannoItems.init();
 
-		initTyrannimation();
+		Tyrannonetwork.initialize();
+		GeckoLib.initialize();
 	}
 
 	private void commonSetup(final FMLCommonSetupEvent event) {
-		// Gets all the usernames of Tyrannotitan Members and gives them a cape.
-		var urlContents = Util.getURLContents("https://raw.githubusercontent.com/Willatendo/Tyrannotitan-Library/master/src/main/resources/assets/tyrannotitanlib/tyrannotitan.txt", "assets/tyrannotitanlib/tyrannotitan.txt");
+		var urlContents = ModUtilities.getURLContents("https://raw.githubusercontent.com/Willatendo/Tyrannotitan-Library/master/src/main/resources/assets/tyrannotitanlib/tyrannotitan.txt", "assets/tyrannotitanlib/tyrannotitan.txt");
 		if (urlContents != null) {
 			try {
 				String line;
@@ -80,15 +77,11 @@ public class TyrannotitanLibrary {
 			LOG.warn("Failed to load tyrannotitan member's capes");
 		}
 
-		// Registers the packets used for Server-to-Client and Client-to-Server
-		// communication.
 		Tyrannonetwork.registerPackets();
 
 		event.enqueueWork(() -> {
-			// Adds to the Stripping Map
 			TyrannoLogBlock.addStripping();
 
-			// Adds new Bee Hives to the BE's valid blocks
 			PoiType.BEEHIVE.matchingStates = Sets.newHashSet(PoiType.BEEHIVE.matchingStates);
 			Map<BlockState, PoiType> statePointOfInterestMap = ObfuscationReflectionHelper.getPrivateValue(PoiType.class, null, "f_27323_");
 			if (statePointOfInterestMap != null) {
@@ -100,7 +93,6 @@ public class TyrannotitanLibrary {
 				}
 			}
 
-			// Adds new Signs to the BE's valid blocks
 			ImmutableSet.Builder<Block> signBlocks = ImmutableSet.builder();
 			signBlocks.addAll(BlockEntityType.SIGN.validBlocks);
 			TyrannoSignManager.forEachSignBlock(signBlocks::add);
@@ -108,25 +100,12 @@ public class TyrannotitanLibrary {
 		});
 	}
 
-	// Sets up things on the client
 	private void clientSetup(FMLClientSetupEvent event) {
-		// Loads the code for giving Tyrannotitan Members a cape
 		var clientForgeBus = MinecraftForge.EVENT_BUS;
 		clientForgeBus.register(new Capes());
 	}
 
-	// Adds TyrannobookLoader to the resource loader
 	private void listenersSetup(RegisterClientReloadListenersEvent event) {
 		event.registerReloadListener(new TyrannobookLoader());
 	}
-
-	// Initialises Tyrannimation
-	private static void initTyrannimation() {
-		if (!hasInitializedTyrannimation) {
-			DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> ResourceListener::registerReloadListener);
-			Tyrannonetwork.initialize();
-		}
-		hasInitializedTyrannimation = true;
-	}
-
 }

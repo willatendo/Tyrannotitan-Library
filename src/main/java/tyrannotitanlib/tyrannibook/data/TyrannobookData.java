@@ -1,6 +1,6 @@
 package tyrannotitanlib.tyrannibook.data;
 
-import static tyrannotitanlib.core.content.Util.LOG;
+import static tyrannotitanlib.core.content.ModUtilities.LOG;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

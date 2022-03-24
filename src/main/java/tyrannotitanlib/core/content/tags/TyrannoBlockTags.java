@@ -1,6 +1,6 @@
 package tyrannotitanlib.core.content.tags;
 
-import static tyrannotitanlib.core.content.Util.TYRANNO_UTILS;
+import static tyrannotitanlib.core.content.ModUtilities.TYRANNO_UTILS;
 
 import net.minecraft.core.Registry;
 import net.minecraft.tags.TagKey;
@@ -10,6 +10,6 @@ public final class TyrannoBlockTags {
 	public static final TagKey<Block> PLANT_PLACEABLE = tag("plant_placeables");
 
 	private static TagKey<Block> tag(String id) {
-		return TagKey.create(Registry.BLOCK_REGISTRY, TYRANNO_UTILS.resource(id));
+		return TagKey.create(Registry.BLOCK_REGISTRY, TYRANNO_UTILS.mod(id));
 	}
 }

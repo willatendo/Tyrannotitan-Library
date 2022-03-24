@@ -1,7 +1,7 @@
 package tyrannotitanlib.tyrannibook;
 
-import static tyrannotitanlib.core.content.Util.TYRANNO_ID;
-import static tyrannotitanlib.core.content.Util.TYRANNO_UTILS;
+import static tyrannotitanlib.core.content.ModUtilities.TYRANNO_ID;
+import static tyrannotitanlib.core.content.ModUtilities.TYRANNO_UTILS;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -75,8 +75,8 @@ public class TyrannobookLoader implements ResourceManagerReloadListener {
 		registerPageType(IndexContent.ID, IndexContent.class);
 		registerPageType(ShowcaseContent.ID, ShowcaseContent.class);
 
-		StringActionProcessor.registerProtocol(TYRANNO_UTILS.resource("go-to-page"), new ProtocolGoToPage(false));
-		StringActionProcessor.registerProtocol(TYRANNO_UTILS.resource("go-to-page-rtn"), new ProtocolGoToPage(true));
+		StringActionProcessor.registerProtocol(TYRANNO_UTILS.mod("go-to-page"), new ProtocolGoToPage(false));
+		StringActionProcessor.registerProtocol(TYRANNO_UTILS.mod("go-to-page-rtn"), new ProtocolGoToPage(true));
 
 		registerGsonTypeAdapter(ResourceLocation.class, ResourceLocationSerializer.resourceLocation(TYRANNO_ID));
 		registerGsonTypeAdapter(int.class, new HexStringDeserializer());

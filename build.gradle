@@ -1,5 +1,3 @@
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-
 buildscript {
 	repositories {
 		maven { url = 'https://maven.minecraftforge.net' }
@@ -9,31 +7,29 @@ buildscript {
 	}
 	dependencies {
 		classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
-		classpath "gradle.plugin.com.github.jengelman.gradle.plugins:shadow:7.0.0"
-		classpath "gradle.plugin.com.github.jengelman.gradle.plugins:shadow:7.0.0"
-        classpath 'gradle.plugin.com.matthewprenger:CurseGradle:1.4.0'
 		classpath "io.freefair.gradle:lombok-plugin:6.3.0"
 	}
 }
 
+plugins {
+    id 'eclipse'
+    id 'maven-publish'
+    id 'com.github.johnrengelman.shadow' version '5.2.0'
+}
+
 apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'eclipse'
-apply plugin: 'maven-publish'
 apply plugin: 'com.github.johnrengelman.shadow'
 apply plugin: "io.freefair.lombok"
 
-version = '4.1.2'
+configurations {
+    shade
+}
+
+version = '4.2.0'
 group = 'tyrannotitanlib'
 archivesBaseName = 'tyrannotitanlib'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
-
-configurations {
-    library
-    shade
-    implementation.extendsFrom library
-    shade.extendsFrom library
-}
 
 minecraft {
 	mappings channel: 'official', version: '1.18.2'
@@ -59,56 +55,37 @@ minecraft {
 				}
 			}
 		}
+		data {
+            workingDirectory project.file('run')
+            args '--mod', 'tyrannotitanlib', '--all', '--existing', file('src/main/resources').toString(), '--existing', file('src/generated/resources').toString(), '--output', file('src/generated/resources/')
+                    
+            mods {
+                tyrannotitanlib {
+                    source sourceSets.main
+                }
+            }
+        }
 	}
 }
 
-minecraft.runs.all {
-	lazyToken('minecraft_classpath') {
-		configurations.library.copyRecursive().resolve().collect { it.absolutePath }.join(File.pathSeparator)
-	}
+sourceSets.main.resources {
+    srcDir 'src/generated/resources'
 }
+
 repositories {
-	maven { url "https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/" }
-    maven { url "https://maven.enginehub.org/repo/" }
-    maven { url "https://maven.blamejared.com" }
-    maven { url "https://minecraft.curseforge.com/api/maven/" }
-    maven { url "https://maven.cloudsmith.io/geckolib3/geckolib/" }
-	maven { url "https://cfa2.cursemaven.com" }
-    maven { url "https://plugins.gradle.org/m2/" }
-    mavenCentral()
+	maven { url "https://maven.tterrag.com/" }
+	maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.18.2-40.0.1'
-	
-	library 'com.eliotlash.molang:molang:18'
-	library 'com.eliotlash.mclib:mclib:18'
-	library group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.0'
-	library group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.9.0'
-	
-	shade 'com.eliotlash.molang:molang:18'
-	shade 'com.eliotlash.mclib:mclib:18'
-	shade group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.0'
-	shade group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.9.0'
+    minecraft 'net.minecraftforge:forge:1.18.2-40.0.19'
+    
+    def registrate = "com.tterrag.registrate:Registrate:MC1.18.2-1.0.24"
+    implementation fg.deobf(registrate)
+    shade registrate
+    
+    implementation fg.deobf('software.bernie.geckolib:geckolib-1.18-forge:3.0.12')
 }
-
-shadowJar {
-	configurations = [project.configurations.shade]
-	from sourceSets.main.allSource
-	relocate 'com.eliotlash', 'shadowed.com.eliotlash'
-	relocate 'com.fasterxml', 'shadowed.com.fasterxml'
-	classifier ''
-}
-
-
-reobf {
-	shadowJar {}
-}
-
-tasks.build.dependsOn reobfShadowJar
-publish.dependsOn('reobfJar')
-shadowJar.dependsOn('classes')
-jar.finalizedBy('reobfJar')
 
 jar {
 	manifest {
@@ -117,34 +94,22 @@ jar {
 				"Specification-Vendor" : "Willatendo",
 				"Specification-Version" : "1",
 				"Implementation-Title" : project.name,
-				"Implementation-Version" : "4.1.2",
+				"Implementation-Version" : "4.2.0",
 				"Implementation-Vendor" : "tyrannotitanlib",
 				"Implementation-Timestamp" : new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
 		])
 	}
 }
 
-task packageSources(type: ShadowJar, dependsOn: 'classes') {
-	configurations = [project.configurations.shade]
-	from sourceSets.main.allSource
-	exclude('META-INF/**')
-	relocate 'com.eliotlash', 'shadowed.com.eliotlash'
-	relocate 'com.fasterxml', 'shadowed.com.fasterxml'
-	classifier = 'sources'
+shadowJar {
+    configurations = [project.configurations.shade]
+    relocate 'com.tterrag.registrate', 'tyrannotitanlib.registrate'
 }
 
-artifacts {
-	archives shadowJar
-	archives packageSources
+reobf {
+    shadowJar {}
 }
 
-afterEvaluate {
-	publish.dependsOn('reobfShadowJar')
-	publish.dependsOn('reobfJar')
-	publish.dependsOn('packageSources')
-	shadowJar.dependsOn(packageSources)
-	shadowJar.dependsOn('classes')
-}
-
-shadowJar.finalizedBy(reobfShadowJar)
-jar.finalizedBy(packageSources)
+build.dependsOn shadowJar
+build.dependsOn reobfShadowJar
+jar.finalizedBy('reobfJar')

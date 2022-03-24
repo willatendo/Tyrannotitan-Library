@@ -1,6 +1,6 @@
 package tyrannotitanlib.tyrannibook.data.content;
 
-import static tyrannotitanlib.core.content.Util.TYRANNO_UTILS;
+import static tyrannotitanlib.core.content.ModUtilities.TYRANNO_UTILS;
 
 import java.util.ArrayList;
 
@@ -15,7 +15,7 @@ import tyrannotitanlib.tyrannibook.screen.book.element.ImageElement;
 import tyrannotitanlib.tyrannibook.screen.book.element.TextElement;
 
 public class TextLeftImageContent extends PageContent {
-	public static final ResourceLocation ID = TYRANNO_UTILS.resource("text_left_image");
+	public static final ResourceLocation ID = TYRANNO_UTILS.mod("text_left_image");
 
 	@Getter
 	public String title = null;

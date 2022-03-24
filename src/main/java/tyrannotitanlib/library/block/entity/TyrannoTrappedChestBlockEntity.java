@@ -3,10 +3,15 @@ package tyrannotitanlib.library.block.entity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import tyrannotitanlib.core.content.init.TyrannoBlockEntities;
 
 public class TyrannoTrappedChestBlockEntity extends TyrannoChestBlockEntity {
+	public TyrannoTrappedChestBlockEntity(BlockEntityType<? extends TyrannoTrappedChestBlockEntity> entity, BlockPos pos, BlockState state) {
+		super(entity, pos, state);
+	}
+
 	public TyrannoTrappedChestBlockEntity(BlockPos pos, BlockState state) {
 		super(TyrannoBlockEntities.TYRANNO_TRAPPED_CHEST.get(), pos, state);
 	}

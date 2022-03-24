@@ -12,39 +12,39 @@ public record UtilitiesRegistry(String id) {
 		return LogManager.getLogger(id);
 	}
 
-	public ResourceLocation resource(String location) {
+	public ResourceLocation mod(String location) {
 		return new ResourceLocation(id, location);
 	}
 
-	public ResourceLocation minecraftResource(String location) {
+	public ResourceLocation mc(String location) {
 		return new ResourceLocation("minecraft", location);
 	}
 
-	public TranslatableComponent translationText(String key) {
+	public TranslatableComponent trans(String key) {
 		return new TranslatableComponent(key);
 	}
 
-	public TranslatableComponent idBoundTranslationText(String type, String key) {
-		return translationText(type + "." + id + "." + key);
+	public TranslatableComponent boundTrans(String type, String key) {
+		return trans(type + "." + id + "." + key);
 	}
 
-	public TranslatableComponent idBoundArgsTranslationText(String type, String key, String args) {
+	public TranslatableComponent boundArgsTrans(String type, String key, String args) {
 		return new TranslatableComponent(type + "." + id + "." + key, args);
 	}
 
-	public TranslatableComponent idBoundFormatedText(String type, String key, ChatFormatting... colour) {
-		TranslatableComponent text = idBoundTranslationText(type, key);
+	public TranslatableComponent formatedBoundTrans(String type, String key, ChatFormatting... colour) {
+		TranslatableComponent text = boundTrans(type, key);
 		text.withStyle(colour);
 		return text;
 	}
 
-	public TranslatableComponent idBoundArgsFormatedText(String type, String key, String args, ChatFormatting... colour) {
-		TranslatableComponent text = idBoundArgsTranslationText(type, key, args);
+	public TranslatableComponent formatedBoundArgsTrans(String type, String key, String args, ChatFormatting... colour) {
+		TranslatableComponent text = boundArgsTrans(type, key, args);
 		text.withStyle(colour);
 		return text;
 	}
 
-	public TranslatableComponent idBoundGreyText(String type, String key) {
-		return idBoundFormatedText(type, key, ChatFormatting.GRAY);
+	public TranslatableComponent greyBoundText(String type, String key) {
+		return formatedBoundTrans(type, key, ChatFormatting.GRAY);
 	}
 }

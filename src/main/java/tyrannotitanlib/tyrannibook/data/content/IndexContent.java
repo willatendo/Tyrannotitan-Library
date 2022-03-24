@@ -1,7 +1,7 @@
 package tyrannotitanlib.tyrannibook.data.content;
 
-import static tyrannotitanlib.core.content.Util.LOG;
-import static tyrannotitanlib.core.content.Util.TYRANNO_UTILS;
+import static tyrannotitanlib.core.content.ModUtilities.LOG;
+import static tyrannotitanlib.core.content.ModUtilities.TYRANNO_UTILS;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -15,7 +15,7 @@ import tyrannotitanlib.tyrannibook.screen.book.element.BookElement;
 import tyrannotitanlib.tyrannibook.transformer.IndexTransformer;
 
 public class IndexContent extends ListingContent {
-	public static final transient ResourceLocation ID = TYRANNO_UTILS.resource("index");
+	public static final transient ResourceLocation ID = TYRANNO_UTILS.mod("index");
 
 	private transient boolean loaded = false;
 	private String[] hidden;

@@ -1,6 +1,6 @@
 package tyrannotitanlib.tyrannibook.data.content;
 
-import static tyrannotitanlib.core.content.Util.TYRANNO_UTILS;
+import static tyrannotitanlib.core.content.ModUtilities.TYRANNO_UTILS;
 
 import java.util.Iterator;
 
@@ -13,8 +13,8 @@ import tyrannotitanlib.tyrannibook.transformer.TyrannobookTransformer;
 
 @Getter
 public abstract class PaddingContent extends BlankContent {
-	public static final ResourceLocation LEFT_ID = TYRANNO_UTILS.resource("left_padding");
-	public static final ResourceLocation RIGHT_ID = TYRANNO_UTILS.resource("right_padding");
+	public static final ResourceLocation LEFT_ID = TYRANNO_UTILS.mod("left_padding");
+	public static final ResourceLocation RIGHT_ID = TYRANNO_UTILS.mod("right_padding");
 
 	/** If true, this page is padding the left side, false pads the right side */
 	public abstract boolean isLeft();

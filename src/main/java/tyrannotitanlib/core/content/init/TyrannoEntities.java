@@ -1,15 +1,20 @@
 package tyrannotitanlib.core.content.init;
 
-import static tyrannotitanlib.core.content.Util.LOG;
+import static tyrannotitanlib.core.content.ModUtilities.LOG;
 
-import net.minecraft.world.entity.EntityType;
+import com.tterrag.registrate.util.entry.EntityEntry;
+
 import net.minecraft.world.entity.MobCategory;
-import net.minecraftforge.registries.RegistryObject;
+import tyrannotitanlib.TyrannotitanLibrary;
+import tyrannotitanlib.library.TyrannoRegistrate;
+import tyrannotitanlib.library.client.TyrannoBoatRenderer;
 import tyrannotitanlib.library.entity.TyrannoBoatEntity;
-import tyrannotitanlib.tyranniregister.TyrannoRegister;
 
 public class TyrannoEntities {
-	public static final RegistryObject<EntityType<TyrannoBoatEntity>> TYRANNO_BOAT = TyrannoRegister.ENTITIES.register("tyranno_boat", () -> EntityType.Builder.<TyrannoBoatEntity>of(TyrannoBoatEntity::new, MobCategory.MISC).sized(1.375F, 0.5625F).build("tyranno_boat"));
+	public static final TyrannoRegistrate REGISTRATE = TyrannotitanLibrary.CENTRAL_REGISTRATE.get();
+
+	public static final EntityEntry<TyrannoBoatEntity> TYRANNO_BOAT = REGISTRATE.<TyrannoBoatEntity>entity("tyranno_boat", TyrannoBoatEntity::new, MobCategory.MISC).renderer(() -> TyrannoBoatRenderer::new).lang("Boat").register();
+			//, MobCategory.MISC, 1.375F, 0.5625F).s;
 
 	public static void init() {
 		LOG.debug("Registering Tyranno Entities");

@@ -1,6 +1,6 @@
 package tyrannotitanlib.tyrannibook.data.content;
 
-import static tyrannotitanlib.core.content.Util.TYRANNO_UTILS;
+import static tyrannotitanlib.core.content.ModUtilities.TYRANNO_UTILS;
 
 import java.util.ArrayList;
 
@@ -27,7 +27,7 @@ import tyrannotitanlib.tyrannibook.screen.book.element.ItemElement;
 import tyrannotitanlib.tyrannibook.screen.book.element.TextElement;
 
 public class CraftingContent extends PageContent {
-	public static final ResourceLocation ID = TYRANNO_UTILS.resource("crafting");
+	public static final ResourceLocation ID = TYRANNO_UTILS.mod("crafting");
 
 	public static final transient int TEX_SIZE = 256;
 	public static final transient ImageData IMG_CRAFTING_LARGE = new ImageData(BookTextures.CRAFTING_TEXTURE, 0, 0, 183, 114, TEX_SIZE, TEX_SIZE);

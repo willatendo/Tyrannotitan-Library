@@ -1,6 +1,6 @@
 package tyrannotitanlib.tyrannibook.transformer;
 
-import static tyrannotitanlib.core.content.Util.TYRANNO_UTILS;
+import static tyrannotitanlib.core.content.ModUtilities.TYRANNO_UTILS;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -23,7 +23,7 @@ import tyrannotitanlib.tyrannibook.screen.book.BookScreen;
 
 public class IndexTransformer extends TyrannobookTransformer {
 	public static final IndexTransformer INSTANCE = new IndexTransformer();
-	public static final ResourceLocation INDEX_EXTRA_DATA = TYRANNO_UTILS.resource("index");
+	public static final ResourceLocation INDEX_EXTRA_DATA = TYRANNO_UTILS.mod("index");
 
 	private static final Set<ResourceLocation> hiddenPageTypes = new HashSet<>();
 

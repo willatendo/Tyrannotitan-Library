@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "tyrannotitanlib:item/tyrannotitan_banner_pattern"
+  }
+}

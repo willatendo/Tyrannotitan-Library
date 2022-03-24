@@ -1,0 +1,21 @@
+{
+  "block.minecraft.banner.tyrannotitan.black": "u\u0250\u0287\u0131\u0287ouu\u0250\u0279\u028E\u27D8 \u029E\u0254\u0250\u05DF\u15FA",
+  "block.minecraft.banner.tyrannotitan.blue": "u\u0250\u0287\u0131\u0287ouu\u0250\u0279\u028E\u27D8 \u01DDn\u05DF\u15FA",
+  "block.minecraft.banner.tyrannotitan.brown": "u\u0250\u0287\u0131\u0287ouu\u0250\u0279\u028E\u27D8 u\u028Do\u0279\u15FA",
+  "block.minecraft.banner.tyrannotitan.cyan": "u\u0250\u0287\u0131\u0287ouu\u0250\u0279\u028E\u27D8 u\u0250\u028E\u0186",
+  "block.minecraft.banner.tyrannotitan.gray": "u\u0250\u0287\u0131\u0287ouu\u0250\u0279\u028E\u27D8 \u028E\u0250\u0279\u2141",
+  "block.minecraft.banner.tyrannotitan.green": "u\u0250\u0287\u0131\u0287ouu\u0250\u0279\u028E\u27D8 u\u01DD\u01DD\u0279\u2141",
+  "block.minecraft.banner.tyrannotitan.light_blue": "u\u0250\u0287\u0131\u0287ouu\u0250\u0279\u028E\u27D8 \u01DDn\u05DF\u15FA \u0287\u0265b\u0131\uA780",
+  "block.minecraft.banner.tyrannotitan.light_gray": "u\u0250\u0287\u0131\u0287ouu\u0250\u0279\u028E\u27D8 \u028E\u0250\u0279\u2141 \u0287\u0265b\u0131\uA780",
+  "block.minecraft.banner.tyrannotitan.lime": "u\u0250\u0287\u0131\u0287ouu\u0250\u0279\u028E\u27D8 \u01DD\u026F\u0131\uA780",
+  "block.minecraft.banner.tyrannotitan.magenta": "u\u0250\u0287\u0131\u0287ouu\u0250\u0279\u028E\u27D8 \u0250\u0287u\u01DDb\u0250W",
+  "block.minecraft.banner.tyrannotitan.orange": "u\u0250\u0287\u0131\u0287ouu\u0250\u0279\u028E\u27D8 \u01DDbu\u0250\u0279O",
+  "block.minecraft.banner.tyrannotitan.pink": "u\u0250\u0287\u0131\u0287ouu\u0250\u0279\u028E\u27D8 \u029Eu\u0131\u0500",
+  "block.minecraft.banner.tyrannotitan.purple": "u\u0250\u0287\u0131\u0287ouu\u0250\u0279\u028E\u27D8 \u01DD\u05DFd\u0279n\u0500",
+  "block.minecraft.banner.tyrannotitan.red": "u\u0250\u0287\u0131\u0287ouu\u0250\u0279\u028E\u27D8 p\u01DD\u1D1A",
+  "block.minecraft.banner.tyrannotitan.white": "u\u0250\u0287\u0131\u0287ouu\u0250\u0279\u028E\u27D8 \u01DD\u0287\u0131\u0265M",
+  "block.minecraft.banner.tyrannotitan.yellow": "u\u0250\u0287\u0131\u0287ouu\u0250\u0279\u028E\u27D8 \u028Do\u05DF\u05DF\u01DD\u028E",
+  "item.tyrannotitanlib.copper_nugget": "\u0287\u01DDbbnN \u0279\u01DDddo\u0186",
+  "item.tyrannotitanlib.tyrannotitan_banner_pattern": "u\u0279\u01DD\u0287\u0287\u0250\u0500 \u0279\u01DDuu\u0250\u15FA u\u0250\u0287\u0131\u0287ouu\u0250\u0279\u028E\u27D8",
+  "item.tyrannotitanlib.tyrannotitan_banner_pattern.desc": "u\u0250\u0287\u0131\u0287ouu\u0250\u0279\u028E\u27D8"
+}

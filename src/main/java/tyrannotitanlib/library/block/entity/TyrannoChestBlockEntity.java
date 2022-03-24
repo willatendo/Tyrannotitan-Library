@@ -8,10 +8,10 @@ import net.minecraft.world.phys.AABB;
 import tyrannotitanlib.core.content.init.TyrannoBlockEntities;
 
 public class TyrannoChestBlockEntity extends ChestBlockEntity {
-	protected TyrannoChestBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+	public TyrannoChestBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
 	}
-
+	
 	public TyrannoChestBlockEntity(BlockPos pos, BlockState state) {
 		super(TyrannoBlockEntities.TYRANNO_CHEST.get(), pos, state);
 	}

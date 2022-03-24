@@ -1,8 +1,8 @@
 package tyrannotitanlib.core.content;
 
-import static tyrannotitanlib.core.content.Util.LOG;
-import static tyrannotitanlib.core.content.Util.TYRANNO_ID;
-import static tyrannotitanlib.core.content.Util.TYRANNO_UTILS;
+import static tyrannotitanlib.core.content.ModUtilities.LOG;
+import static tyrannotitanlib.core.content.ModUtilities.TYRANNO_ID;
+import static tyrannotitanlib.core.content.ModUtilities.TYRANNO_UTILS;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,19 +18,19 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
-@EventBusSubscriber(modid = Util.TYRANNO_ID, bus = Bus.MOD)
+@EventBusSubscriber(modid = ModUtilities.TYRANNO_ID, bus = Bus.MOD)
 public class CopperFix {
 	private static final Map<ResourceLocation, Block> blockRemappings = new HashMap<ResourceLocation, Block>() {
 		private static final long serialVersionUID = 2729764913431843323L;
 		{
-			put(TYRANNO_UTILS.resource("copper_ore"), Blocks.COPPER_ORE);
+			put(TYRANNO_UTILS.mod("copper_ore"), Blocks.COPPER_ORE);
 		}
 	};
 
 	private static final Map<ResourceLocation, Item> itemRemappings = new HashMap<ResourceLocation, Item>() {
 		private static final long serialVersionUID = 2729764913431843323L;
 		{
-			put(TYRANNO_UTILS.resource("copper_ingot"), Items.COPPER_INGOT);
+			put(TYRANNO_UTILS.mod("copper_ingot"), Items.COPPER_INGOT);
 		}
 	};
 

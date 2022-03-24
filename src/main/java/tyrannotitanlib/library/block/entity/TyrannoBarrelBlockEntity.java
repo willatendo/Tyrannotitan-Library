@@ -10,6 +10,9 @@ public class TyrannoBarrelBlockEntity extends BarrelBlockEntity {
 	public TyrannoBarrelBlockEntity(BlockPos pos, BlockState state) {
 		super(pos, state);
 	}
+	public TyrannoBarrelBlockEntity(BlockEntityType<? extends TyrannoBarrelBlockEntity> entity, BlockPos pos, BlockState state) {
+		super(pos, state);
+	}
 
 	@Override
 	public BlockEntityType<?> getType() {
