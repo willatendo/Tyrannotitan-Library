@@ -1,6 +1,6 @@
 package tyrannotitanlib.tyrannibook;
 
-import static tyrannotitanlib.core.content.ModUtilities.TYRANNO_ID;
+import static tyrannotitanlib.tyrannibook.ModUtilities.TYRANNO_ID;
 
 import javax.annotation.Nullable;
 

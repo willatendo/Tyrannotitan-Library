@@ -11,7 +11,6 @@ import net.minecraft.world.level.block.LecternBlock;
 import net.minecraft.world.level.block.entity.LecternBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import tyrannotitanlib.library.block.entity.BlockEntityHelper;
 
 public abstract class LecternBookItem extends Item implements ILecternBookItem {
 	public LecternBookItem(Properties properties) {

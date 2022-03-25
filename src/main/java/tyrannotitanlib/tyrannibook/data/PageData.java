@@ -1,6 +1,6 @@
 package tyrannotitanlib.tyrannibook.data;
 
-import static tyrannotitanlib.core.content.ModUtilities.TYRANNO_UTILS;
+import static tyrannotitanlib.tyrannibook.ModUtilities.TYRANNO_UTILS;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;

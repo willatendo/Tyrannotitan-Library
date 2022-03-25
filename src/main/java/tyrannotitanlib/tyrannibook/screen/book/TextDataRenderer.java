@@ -1,6 +1,6 @@
 package tyrannotitanlib.tyrannibook.screen.book;
 
-import static tyrannotitanlib.core.content.ModUtilities.LOG;
+import static tyrannotitanlib.tyrannibook.ModUtilities.LOG;
 
 import java.util.ArrayList;
 import java.util.Arrays;

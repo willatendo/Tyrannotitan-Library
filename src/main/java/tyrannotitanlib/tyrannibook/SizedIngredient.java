@@ -1,4 +1,4 @@
-package tyrannotitanlib.library.recipe;
+package tyrannotitanlib.tyrannibook;
 
 import java.lang.ref.WeakReference;
 import java.util.Arrays;
@@ -16,7 +16,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
-import tyrannotitanlib.tyrannibook.JsonHelper;
 
 public class SizedIngredient implements Predicate<ItemStack> {
 	public static final SizedIngredient EMPTY = of(Ingredient.EMPTY, 0);

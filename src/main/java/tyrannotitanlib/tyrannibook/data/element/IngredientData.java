@@ -22,7 +22,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.registries.ForgeRegistries;
-import tyrannotitanlib.library.recipe.SizedIngredient;
+import tyrannotitanlib.tyrannibook.SizedIngredient;
 import tyrannotitanlib.tyrannibook.repository.BookRepository;
 
 public class IngredientData implements IDataElement {

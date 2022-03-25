@@ -1,7 +1,7 @@
 package tyrannotitanlib.tyrannibook.data.content;
 
-import static tyrannotitanlib.core.content.ModUtilities.LOG;
-import static tyrannotitanlib.core.content.ModUtilities.TYRANNO_UTILS;
+import static tyrannotitanlib.tyrannibook.ModUtilities.LOG;
+import static tyrannotitanlib.tyrannibook.ModUtilities.TYRANNO_UTILS;
 
 import java.util.ArrayList;
 import java.util.Objects;

@@ -1,6 +1,6 @@
 package tyrannotitanlib.tyrannibook.data.content;
 
-import static tyrannotitanlib.core.content.ModUtilities.TYRANNO_UTILS;
+import static tyrannotitanlib.tyrannibook.ModUtilities.TYRANNO_UTILS;
 
 import java.util.Iterator;
 

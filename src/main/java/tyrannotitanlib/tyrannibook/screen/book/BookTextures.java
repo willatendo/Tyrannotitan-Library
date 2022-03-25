@@ -1,6 +1,6 @@
 package tyrannotitanlib.tyrannibook.screen.book;
 
-import static tyrannotitanlib.core.content.ModUtilities.TYRANNO_UTILS;
+import static tyrannotitanlib.tyrannibook.ModUtilities.TYRANNO_UTILS;
 
 import net.minecraft.resources.ResourceLocation;
 

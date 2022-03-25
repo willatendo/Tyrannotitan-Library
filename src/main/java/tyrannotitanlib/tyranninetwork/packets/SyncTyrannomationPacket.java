@@ -1,6 +1,6 @@
 package tyrannotitanlib.tyranninetwork.packets;
 
-import static tyrannotitanlib.core.content.ModUtilities.LOG;
+import static tyrannotitanlib.tyrannibook.ModUtilities.LOG;
 
 import java.util.Optional;
 import java.util.function.Supplier;

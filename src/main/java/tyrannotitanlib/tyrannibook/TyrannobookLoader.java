@@ -1,7 +1,7 @@
 package tyrannotitanlib.tyrannibook;
 
-import static tyrannotitanlib.core.content.ModUtilities.TYRANNO_ID;
-import static tyrannotitanlib.core.content.ModUtilities.TYRANNO_UTILS;
+import static tyrannotitanlib.tyrannibook.ModUtilities.TYRANNO_ID;
+import static tyrannotitanlib.tyrannibook.ModUtilities.TYRANNO_UTILS;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
