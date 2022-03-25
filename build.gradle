@@ -1,35 +1,21 @@
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-
 buildscript {
     repositories {
         maven { url = 'https://maven.minecraftforge.net' }
-        maven { url = 'https://plugins.gradle.org/m2/' }
-        jcenter()
-        mavenCentral()
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
-        classpath "gradle.plugin.com.github.jengelman.gradle.plugins:shadow:7.0.0"
 	}
 }
 
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
-apply plugin: 'com.github.johnrengelman.shadow'
 
 version = '1.4.1'
 group = 'tyrannotitanlib'
 archivesBaseName = 'tyrannotitanlib'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(8)
-
-configurations {
-    library
-    shade
-    implementation.extendsFrom library
-    shade.extendsFrom library
-}
 
 minecraft {
     mappings channel: 'official', version: '1.16.5'
@@ -66,56 +52,9 @@ minecraft {
     }
 }
 
-repositories {
-    maven { url 'https://repo.repsy.io/mvn/fadookie/particleman' }
-    maven { url 'https://maven.enginehub.org/repo/' }
-    maven { url 'https://repo.repsy.io/mvn/gandiber/geckolib' }
-    maven { url 'https://maven.blamejared.com' }
-    maven {
-        name = "CurseForge"
-        url = "https://minecraft.curseforge.com/api/maven/"
-    }
-    jcenter()
-	maven {
-        name = "jitpack"
-        url "https://jitpack.io"
-    }
-    maven {
-    	url "https://maven.cloudsmith.io/geckolib3/geckolib/"
-    }
-    mavenCentral()
-}
-
 dependencies {
     minecraft 'net.minecraftforge:forge:1.16.5-36.2.9'
-    
-    library 'com.eliotlash.molang:molang:SNAPSHOT.12'
-    library 'com.eliotlash.mclib:mclib:SNAPSHOT.12'
-    library group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.0'
-    library group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.9.0'
-    	
-    shade 'com.eliotlash.molang:molang:SNAPSHOT.12'
-    shade 'com.eliotlash.mclib:mclib:SNAPSHOT.12'
-    shade group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.0'
-    shade group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.9.0'
 }
-
-shadowJar {
-    configurations = [project.configurations.shade]
-    from sourceSets.main.allSource
-    relocate 'com.eliotlash', 'shadowed.eliotlash'
-    relocate 'com.fasterxml', 'shadowed.fasterxml'
-    classifier ''
-}
-
-
-reobf {
-    shadowJar {}
-}
-tasks.build.dependsOn reobfShadowJar
-publish.dependsOn('reobfJar')
-shadowJar.dependsOn('classes')
-jar.finalizedBy('reobfJar')
 
 jar {
     manifest {
@@ -131,37 +70,4 @@ jar {
     }
 }
 
-task packageSources(type: ShadowJar, dependsOn: 'classes') {
-    configurations = [project.configurations.shade]
-    from sourceSets.main.allSource
-    exclude('META-INF/**')
-    relocate 'com.eliotlash', 'shadowed.eliotlash'
-    relocate 'com.fasterxml', 'shadowed.fasterxml'
-    classifier = 'sources'
-}
-
-artifacts {
-    archives shadowJar
-    archives packageSources
-}
-
-afterEvaluate {
-    publish.dependsOn('reobfShadowJar')
-    publish.dependsOn('reobfJar')
-    publish.dependsOn('packageSources')
-    shadowJar.dependsOn(packageSources)
-    shadowJar.dependsOn('classes')
-}
-
-shadowJar.finalizedBy(reobfShadowJar)
-jar.finalizedBy(packageSources)
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifact shadowJar
-            artifact packageSources
-            artifactId = 'tyrannotitanlib'
-        }
-    }
-}
+jar.finalizedBy('reobfJar')
