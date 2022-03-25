@@ -26,8 +26,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
-import software.bernie.geckolib3.GeckoLib;
-import tyrannotitanlib.core.client.Capes;
+import tyrannotitanlib.core.client.TyrannotitanCapeHandler;
 import tyrannotitanlib.core.content.ModUtilities;
 import tyrannotitanlib.core.content.init.TyrannoBanners;
 import tyrannotitanlib.core.content.init.TyrannoBlockEntities;
@@ -59,7 +58,6 @@ public class TyrannotitanLibrary {
 		TyrannoItems.init();
 
 		Tyrannonetwork.initialize();
-		GeckoLib.initialize();
 	}
 
 	private void commonSetup(final FMLCommonSetupEvent event) {
@@ -102,7 +100,7 @@ public class TyrannotitanLibrary {
 
 	private void clientSetup(FMLClientSetupEvent event) {
 		var clientForgeBus = MinecraftForge.EVENT_BUS;
-		clientForgeBus.register(new Capes());
+		clientForgeBus.register(new TyrannotitanCapeHandler());
 	}
 
 	private void listenersSetup(RegisterClientReloadListenersEvent event) {

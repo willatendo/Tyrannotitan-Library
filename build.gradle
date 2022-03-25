@@ -7,14 +7,14 @@ buildscript {
 	}
 	dependencies {
 		classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
-		classpath "io.freefair.gradle:lombok-plugin:6.3.0"
+        classpath "io.freefair.gradle:lombok-plugin:6.3.0"
 	}
 }
 
 plugins {
-    id 'eclipse'
-    id 'maven-publish'
-    id 'com.github.johnrengelman.shadow' version '5.2.0'
+	id 'eclipse'
+	id 'maven-publish'
+	id 'com.github.johnrengelman.shadow' version '7.1.0'
 }
 
 apply plugin: 'net.minecraftforge.gradle'
@@ -22,7 +22,7 @@ apply plugin: 'com.github.johnrengelman.shadow'
 apply plugin: "io.freefair.lombok"
 
 configurations {
-    shade
+	shade
 }
 
 version = '4.2.0'
@@ -56,35 +56,38 @@ minecraft {
 			}
 		}
 		data {
-            workingDirectory project.file('run')
-            args '--mod', 'tyrannotitanlib', '--all', '--existing', file('src/main/resources').toString(), '--existing', file('src/generated/resources').toString(), '--output', file('src/generated/resources/')
-                    
-            mods {
-                tyrannotitanlib {
-                    source sourceSets.main
-                }
-            }
-        }
+			workingDirectory project.file('run')
+			args '--mod', 'tyrannotitanlib', '--all', '--existing', file('src/main/resources').toString(), '--existing', file('src/generated/resources').toString(), '--output', file('src/generated/resources/')
+					
+			mods {
+				tyrannotitanlib {
+					source sourceSets.main
+				}
+			}
+		}
 	}
 }
 
+shadowJar {
+	classifier = ''
+	configurations = [project.configurations.shade]
+	relocate 'com.tterrag.registrate', 'tyrannotitanlib.repack.registrate'
+}
+
 sourceSets.main.resources {
-    srcDir 'src/generated/resources'
+	srcDir 'src/generated/resources'
 }
 
 repositories {
 	maven { url "https://maven.tterrag.com/" }
-	maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.18.2-40.0.19'
-    
-    def registrate = "com.tterrag.registrate:Registrate:MC1.18.2-1.0.24"
-    implementation fg.deobf(registrate)
-    shade registrate
-    
-    implementation fg.deobf('software.bernie.geckolib:geckolib-1.18-forge:3.0.12')
+	minecraft 'net.minecraftforge:forge:1.18.2-40.0.19'
+	
+	def registrate = "com.tterrag.registrate:Registrate:MC1.18.2-1.0.24"
+	implementation fg.deobf(registrate)
+	shade registrate
 }
 
 jar {
@@ -101,15 +104,11 @@ jar {
 	}
 }
 
-shadowJar {
-    configurations = [project.configurations.shade]
-    relocate 'com.tterrag.registrate', 'tyrannotitanlib.registrate'
-}
-
 reobf {
-    shadowJar {}
+	shadowJar {}
 }
 
 build.dependsOn shadowJar
 build.dependsOn reobfShadowJar
+
 jar.finalizedBy('reobfJar')

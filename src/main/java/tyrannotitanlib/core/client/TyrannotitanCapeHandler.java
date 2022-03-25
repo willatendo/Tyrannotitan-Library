@@ -14,14 +14,11 @@ import net.minecraft.client.multiplayer.PlayerInfo;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.event.TickEvent.ClientTickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
-@OnlyIn(Dist.CLIENT)
-public class Capes {
+public final class TyrannotitanCapeHandler {
 	private final Minecraft minecraft = Minecraft.getInstance();
 	private List<String> players = new ArrayList<>();
 
